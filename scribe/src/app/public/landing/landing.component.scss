@@ -1,9 +1,13 @@
 #landing_container {
+  position: relative;
   height: 100vh;
   padding: 2.5em 4em;
+  background-color: var(--landing-bg);
+  z-index: 0;
+  transition: background-color 0.75s ease, color 0.75s ease;
 }
 
-#landing_container::before {
+body.dark-mode #landing_container::before {
   content: "";
   position: absolute;
   top: 0;
@@ -20,6 +24,7 @@
   pointer-events: none;
   z-index: -1;
 }
+
 
 /* LANDING HEADER */
 header {
@@ -61,6 +66,9 @@ nav a {
 
 #scribe_hero {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 7vh;
 }
 
 #scribe_hero h1 {
@@ -77,7 +85,6 @@ nav a {
 }
 
 #scribe_desc {
-  margin-top: 1em;
   font-size: 3.3vh;
   line-height: 1.6;
   padding: 0 8vw;
@@ -89,7 +96,6 @@ nav a {
 /* LANDING BUTTONS */
 #landing_buttons {
   border: 0px solid red;
-  margin-top: 5vh;
   display: flex;
   justify-content: center;
   gap: 1.5vw;
@@ -105,7 +111,7 @@ nav a {
   height: auto;
   padding: 2vh 0;
   font-weight: 600;
-  color: #366957;
+  color: #006c53;
   transition: box-shadow 0.5s ease-in-out;
 }
 
@@ -122,7 +128,7 @@ nav a {
   height: auto;
   padding: 2vh 0;
   border-radius: 50px;
-  background: linear-gradient(120deg, #4da383, #204739, #245040, #4da383);
+  background: linear-gradient(130deg, #4da383, #204739, #245040, #4da383);
   background-size: 400%;
   color: #fff;
   font-size: 3.25vh;
