@@ -7,6 +7,8 @@
   --secondary: #97c9b8;
   --accent: #4da383;
 
+  --landing-bg: #eff5f3;
+
   --toggle-theme-bg: #9dc0b2;
   --toggle-theme-ball: #366957;
 
@@ -18,13 +20,15 @@
 }
 
 body.dark-mode {
-  --background-color: #151817;
+  --background-color: #14181a;
 
   --text: #eff4f2;
   --background: #0a100e;
   --primary: #009371;
   --secondary: #366957;
   --accent: #5ab292;
+  
+  --landing-bg: #0a100e;
 
   --toggle-theme-bg: #366957;
   --toggle-theme-ball: #a4cbbd;
