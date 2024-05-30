@@ -1,50 +1,42 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@use '@angular/material' as mat;
-// Plus imports for other components in your app.
+@use "@angular/material" as mat;
+@import "../m3-theme.scss";
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
 @include mat.core();
 
 // Define the theme object.
-$scribe-theme: mat.define-theme((
-  color: (
-    theme-type: light,
-    primary: mat.$azure-palette,
-    tertiary: mat.$blue-palette,
-  ),
-  density: (
-    scale: 0,
+$scribe-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: $_primary,
+      tertiary: $_tertiary,
+    ),
+    density: (
+      scale: 0,
+    ),
   )
-));
+);
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
 :root {
   @include mat.all-component-themes($scribe-theme);
+
+  /* --font-hero: 
+  --font-heading */
+  --font-title: 3vw;
+  --font-icon: 1.75vw;
+  --font-body: 1.5vw;
+  --font-form: 1.3vw;
+  --font-misc: 1.2vw;
+  --letter-spacing: 0.03vw;
 }
 
-// Comment out the line below if you want to use the pre-defined typography utility classes.
-// For more information: https://material.angular.io/guide/typography#using-typography-styles-in-your-application.
-// @include mat.typography-hierarchy($theme);
-
-// Comment out the line below if you want to use the deprecated `color` inputs.
-// @include mat.color-variants-backwards-compatibility($theme);
-/* You can add global styles to this file, and also import other style files */
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* -------------------------------------------------------- */
+/* ------------------CUSTOM STYLING ----------------------- */
+/* -------------------------------------------------------- */
 
 @import "./css/theme.css";
-
-body {
-  background-color: var(--background-color);
-  color: var(--text-color);
-}
 
 @font-face {
   font-family: "SF Pro Display";
@@ -80,14 +72,6 @@ body {
 
 @font-face {
   font-family: "SF Pro Display";
-  src: url("assets/fonts/SF-Pro-Display/SF-Pro-Display-Semibold.ttf")
-    format("truetype");
-  font-weight: 600; /* Semi-bold */
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "SF Pro Display";
   src: url("assets/fonts/SF-Pro-Display/SF-Pro-Display-Bold.ttf")
     format("truetype");
   font-weight: 700; /* Bold */
@@ -106,15 +90,36 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "SF Pro Display";
+  font-family: "SF Pro Display", "Helvetica Neue", sans-serif;
 }
 
 html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
-  font-family: "SF Pro Display", "Helvetica Neue", sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
   transition: background-color 0.75s ease, color 0.75s ease;
 }
+
+body.dark-mode #landing_container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at top center,
+    rgba(46, 99, 88, 0.5),
+    rgba(105, 60, 105, 0),
+    rgba(255, 20, 147, 0)
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+

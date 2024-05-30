@@ -7,6 +7,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { LandingComponent } from './public/landing/landing.component';
 import { BrandComponent } from './layout/brand/brand.component';
 import { ThemeSwitchComponent } from './layout/theme-switch/theme-switch.component';
+import { LoginComponent } from './auth/login/login.component';
+import {MatButtonModule} from '@angular/material/button'
 
 @NgModule({
   declarations: [
@@ -14,14 +16,14 @@ import { ThemeSwitchComponent } from './layout/theme-switch/theme-switch.compone
     LandingComponent,
     BrandComponent,
     ThemeSwitchComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatButtonModule
   ],
-  providers: [
-    provideAnimationsAsync()
-  ],
-  bootstrap: [AppComponent]
+  providers: [provideAnimationsAsync()],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
