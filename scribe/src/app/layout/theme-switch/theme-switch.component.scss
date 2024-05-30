@@ -2,7 +2,7 @@
   cursor: pointer;
   position: relative;
   display: inline-block;
-  width: 4.5vw;
+  width: 4.25vw;
   height: 4vh;
   background-color: var(--toggle-theme-bg);
   border-radius: 10vw;
@@ -37,14 +37,14 @@ input[type="checkbox"]:checked + .theme-toggle {
 }
 
 input[type="checkbox"]:checked + .theme-toggle:before {
-  transform: translateX(2.25vw);
+  transform: translateX(2.05vw);
 }
 
 .theme-toggle {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.3vw;
+  gap: 1.2vw;
   font-size: 1.2vw;
   color: var(--toggle-theme-ball);
 }
