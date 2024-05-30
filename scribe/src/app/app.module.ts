@@ -8,11 +8,7 @@ import { LandingComponent } from './public/landing/landing.component';
 import { BrandComponent } from './layout/brand/brand.component';
 import { ThemeSwitchComponent } from './layout/theme-switch/theme-switch.component';
 import { LoginComponent } from './auth/login/login.component';
-
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-
+import {MatButtonModule} from '@angular/material/button'
 
 @NgModule({
   declarations: [
@@ -25,13 +21,9 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule
+    MatButtonModule
   ],
-  providers: [
-    provideAnimationsAsync()
-  ],
-  bootstrap: [AppComponent]
+  providers: [provideAnimationsAsync()],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
