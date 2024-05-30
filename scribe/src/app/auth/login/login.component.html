@@ -9,17 +9,33 @@
         </div>
         <div id="login_form">
             <h1>Log In</h1>
-            <h4>Welcome back! Enter your username and password to use Scribe.</h4>
+            <h4>Welcome back! Enter your email and password to use Scribe.</h4>
 
-            <div id="material_forms">
-                <mat-form-field appearance="outline" class="custom-form-field">
-                    <mat-label>Scribe Username</mat-label>
-                    <input matInput placeholder="Enter your username">
-                    <mat-icon matPrefix>person</mat-icon>
-                    <mat-hint>Hint</mat-hint>
-                </mat-form-field>
-            </div>
+            <form id="login_fields">
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <div id="field_content">
+                        <i class="material-icons">account_circle</i>
+                        <input type="text" id="email" name="email" placeholder="example@gmail.com">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <div id="field_content">
+                        <i class="material-icons">lock</i>
+                        <input type="password" id="password" name="password" placeholder="•••••••••••••">
+                    </div>
+                    <div id="forgot_password">
+                        <!--TODO: Use routerLink for this page-->
+                        <span>Forgot Password?</span>
+                    </div>
+                </div>
+
+                <button class="custom-btn" mat-flat-button>Log In</button>
+            </form>
         </div>
+        <p id="goto_signup">No account yet? Sign up now!</p>
     </div>
     <div id="login_graphics">
         <img src="../../../assets/images/mesh_login.png">
