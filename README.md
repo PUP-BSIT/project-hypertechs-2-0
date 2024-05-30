@@ -6,6 +6,13 @@ Welcome to HyperTechs 2.0's Angular App project repository! 🚀
 ## Project Overview
 This repository is dedicated to our upcoming Angular application project for this semester as part of the completion of *App Development and Emerging Technologies* course. We're thrilled to set out on this journey together and create something amazing.
 
+## Scribenote Application
+
+Introducing Scribenote, your new go-to note-taking app designed for busy students and professionals. 
+Capture ideas, organize your thoughts, and boost your productivity with ease.
+
+https://scribenote.tech/
+
 ## Project Structure
 -  **`/docs:`** Here, you'll find the official project proposal and other future documentation.
 
