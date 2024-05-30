@@ -7,7 +7,6 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { LandingComponent } from './public/landing/landing.component';
 import { BrandComponent } from './layout/brand/brand.component';
 import { ThemeSwitchComponent } from './layout/theme-switch/theme-switch.component';
-import { LoginComponent } from './auth/login/login.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +14,6 @@ import { LoginComponent } from './auth/login/login.component';
     LandingComponent,
     BrandComponent,
     ThemeSwitchComponent,
-    LoginComponent
   ],
   imports: [
     BrowserModule,
