@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class ThemeService {
-  private darkTheme = new BehaviorSubject<boolean>(this.getInitialTheme());
+  private darkTheme = new BehaviorSubject<boolean>(this.getInitialTheme()); 
   currentTheme = this.darkTheme.asObservable();
 
   toggleTheme() {
@@ -16,7 +16,8 @@ export class ThemeService {
 
   private getInitialTheme(): boolean {
     const savedTheme = localStorage.getItem('isDarkMode');
-    return savedTheme === 'true' ? true : false;
+    return savedTheme === null ? true : savedTheme === 'true';
+    // return savedTheme === 'true' ? true : false; to default to light mode
   }
 
   getCurrentTheme(): boolean {
