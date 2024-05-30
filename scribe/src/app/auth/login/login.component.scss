@@ -1,0 +1,62 @@
+#login_container {
+  height: 100vh;
+  display: flex;
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  box-sizing: 0;
+  overflow: hidden;
+}
+
+#login_main {
+  flex: 1;
+  padding: 6vh 4.5vw;
+}
+
+#login_graphics {
+  flex: 1;
+}
+
+/* LOGIN HEADER */
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 4vw;
+}
+
+img {
+  width: 120%;
+  height: auto;
+  object-fit: fill;
+}
+
+/* LOGIN MAIN */
+#login_form {
+  border: 0px solid green;
+  margin-top: 4vh;
+}
+
+#login_form h1 {
+  font-size: 3vw;
+  color: var(--text);
+}
+
+#login_form h4 {
+  margin-top: 1vh;
+  font-size: 1.5vw;
+  color: var(--text);
+  font-weight: 400;
+  letter-spacing: 0.025vw;
+}
+
+/* MATERIAL FORM FIELD */
+#material_forms {
+  margin-top: 4vh;
+}

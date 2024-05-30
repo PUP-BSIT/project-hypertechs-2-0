@@ -7,6 +7,12 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { LandingComponent } from './public/landing/landing.component';
 import { BrandComponent } from './layout/brand/brand.component';
 import { ThemeSwitchComponent } from './layout/theme-switch/theme-switch.component';
+import { LoginComponent } from './auth/login/login.component';
+
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+
 
 @NgModule({
   declarations: [
@@ -14,10 +20,14 @@ import { ThemeSwitchComponent } from './layout/theme-switch/theme-switch.compone
     LandingComponent,
     BrandComponent,
     ThemeSwitchComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule
   ],
   providers: [
     provideAnimationsAsync()
