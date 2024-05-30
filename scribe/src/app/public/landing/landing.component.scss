@@ -78,7 +78,7 @@ nav a {
 }
 
 #highlight {
-  background: -webkit-linear-gradient(50deg, var(--primary), var(--accent));
+  background: -webkit-linear-gradient(180deg, var(--primary), var(--accent));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -112,11 +112,6 @@ nav a {
   padding: 2vh 0;
   font-weight: 600;
   color: #006c53;
-  transition: box-shadow 0.5s ease-in-out;
-}
-
-#scribe_login:hover {
-  box-shadow: 0 0 15px rgba(215, 246, 236, 0.8);
 }
 
 #scribe_signup {
