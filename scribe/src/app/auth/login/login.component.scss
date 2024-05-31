@@ -10,7 +10,7 @@
 
 #login_main {
   flex: 1;
-  padding: 10vh 5vw;
+  padding: 9vh 5vw;
 }
 
 #login_graphics {
@@ -62,13 +62,14 @@ form {
   flex-direction: column;
   gap: 4vh;
   margin-top: 4vh;
+  letter-spacing: var(--letter-spacing);
 }
 
 #login_form input[type="text"],
 #login_form input[type="password"] {
   border: none;
   border-radius: 10vw;
-  padding: 1vh 4vw;
+  padding: 1vh 4.5vw;  // padding increased
   height: 8vh;
   background-color: var(--tonal-form);
   color: var(--text);
@@ -114,6 +115,10 @@ form {
   align-items: center;
 }
 
+#email, #password {
+  letter-spacing: var(--letter-spacing);
+}
+
 .material-icons {
   margin-top: 2.25vh;
   position: absolute;
@@ -138,10 +143,6 @@ form {
   font-size: var(--font-body);
   font-weight: 600;
   transition: transform 0.4s ease-in-out;
-}
-
-.custom-btn:hover {
-  transform: scale(0.97); 
 }
 
 #goto_signup {
@@ -293,4 +294,6 @@ form {
   #goto_signup {
   font-size: calc(var(--font-misc) - 1px);
   }
+  
+  letter-spacing: var(--letter-spacing);  // add letter spacing
 }

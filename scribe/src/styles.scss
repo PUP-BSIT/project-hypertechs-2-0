@@ -29,14 +29,14 @@ $scribe-theme: mat.define-theme(
   --font-body: 1.5vw;
   --font-form: 1.3vw;
   --font-misc: 1.2vw;
-  --letter-spacing: 0.03vw;
+  --letter-spacing: 0.05vw;
 }
 
 /* -------------------------------------------------------- */
 /* ------------------CUSTOM STYLING ----------------------- */
 /* -------------------------------------------------------- */
 
-@import "./css/theme.css";
+@import "./scss/theme.scss";
 
 @font-face {
   font-family: "SF Pro Display";
@@ -105,6 +105,7 @@ body {
   transition: background-color 0.75s ease, color 0.75s ease;
 }
 
+// Enables spotlight effect when dark mode only
 body.dark-mode #landing_container::before {
   content: "";
   position: absolute;
