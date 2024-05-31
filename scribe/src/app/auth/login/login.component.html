@@ -1,50 +1,4 @@
 <div id="login_container">
-<<<<<<< HEAD
-    <div id="login_main">
-        <div id="login_header">
-            <header>
-                <app-brand></app-brand>
-                <nav>
-                </nav>
-            </header>
-        </div>
-        <div id="login_form">
-            <h1>Log In</h1>
-            <h4>Welcome back! Enter your email and password to use Scribe.</h4>
-
-            <form id="login_fields">
-                <div class="input-group">
-                    <label for="email">Email</label>
-                    <div id="field_content">
-                        <i class="material-icons">account_circle</i>
-                        <input type="text" id="email" name="email" 
-                            placeholder="example@gmail.com">
-                    </div>
-                </div>
-
-                <div class="input-group">
-                    <label for="password">Password</label>
-                    <div id="field_content">
-                        <i class="material-icons">lock</i>
-                        <input type="password" id="password" name="password" 
-                            placeholder="•••••••••••••">
-                    </div>
-                    <div id="forgot_password">
-                        <!--TODO: Use routerLink for this page-->
-                        <span>Forgot Password?</span>
-                    </div>
-                </div>
-
-                <button class="custom-btn" mat-flat-button>Log In</button>
-            </form>
-        </div>
-        <a id="goto_signup" routerLink="/signup">
-            No account yet? Sign up now.
-        </a>
-    </div>
-    <div id="login_graphics">
-        <img src="../../../assets/images/mesh_auth.png">
-=======
   <div id="login_main">
     <div id="login_header">
       <header>
@@ -110,11 +64,12 @@
           <div>{{ errorMessage }}</div>
           } -->
       </form>
->>>>>>> d602c0afd7fbe836d13e622701b333b76a7197e9
     </div>
-    <p id="goto_signup">No account yet? Sign up now!</p>
+    <a id="goto_signup" routerLink="/signup">
+      No account yet? Sign up now.
+  </a>
   </div>
   <div id="login_graphics">
-    <img src="../../../assets/images/mesh_login.png" />
+    <img src="../../../assets/images/mesh_auth.png" />
   </div>
 </div>
