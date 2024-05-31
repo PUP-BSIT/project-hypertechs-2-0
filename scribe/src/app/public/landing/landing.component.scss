@@ -7,25 +7,6 @@
   transition: background-color 0.75s ease, color 0.75s ease;
 }
 
-body.dark-mode #landing_container::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(
-    circle at top center,
-    rgba(46, 99, 88, 0.5),
-    rgba(105, 60, 105, 0),
-    rgba(255, 20, 147, 0)
-  );
-  pointer-events: none;
-  z-index: -1;
-}
-
-
 /* LANDING HEADER */
 header {
   display: flex;
@@ -65,7 +46,10 @@ nav a {
 }
 
 #highlight {
-  background: -webkit-linear-gradient(0deg, var(--highlight-prime), var(--highlight-sec));
+  background: -webkit-linear-gradient(
+    0deg, 
+    var(--highlight-prime), 
+    var(--highlight-sec));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -110,13 +94,11 @@ nav a {
   height: auto;
   padding: 2vh 0;
   border-radius: 50px;
-  background: linear-gradient
-    (130deg, 
-      #4da383, 
-      #204739, 
-      #245040, 
-      #4da383
-    );
+  background: linear-gradient(120deg, 
+    #4da383, 
+    #204739, 
+    #245040, 
+    #4da383);
   background-size: 400%;
   color: #fff;
   font-size: 3.25vh;
@@ -131,35 +113,20 @@ nav a {
   right: 0;
   bottom: 0;
   z-index: -1;
-  background: linear-gradient
-    (120deg, 
-      #4da383, 
-      #204739, 
-      #245040, 
-      #4da383
-    );
+  background: linear-gradient(120deg, 
+    #4da383, 
+    #204739, 
+    #245040, 
+    #4da383);
   background-size: 400%;
   border-radius: 50px;
   opacity: 0;
   transition: 0.5s;
 }
 
-#scribe_signup:hover {
-  animation: animate 10s linear infinite;
-}
-
 #scribe_signup:hover::before {
-  filter: blur(13px);
-  opacity: 0.7;
-  animation: animate 10s linear infinite;
-}
-@keyframes animate {
-  0% {
-    background-position: 0%;
-  }
-  100% {
-    background-position: 400%;
-  }
+  filter: blur(11px);
+  opacity: 0.5;
 }
 
 /* LANDING GRAPHICS */
