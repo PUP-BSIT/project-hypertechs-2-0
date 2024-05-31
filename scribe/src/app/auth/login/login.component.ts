@@ -10,7 +10,7 @@ import { LoginService } from '../../../services/login.service';
 })
 export class LoginComponent implements OnInit{
   
-  loginForm: FormGroup;
+  loginForm!: FormGroup
 
   constructor(private formBuilder: FormBuilder, private loginService: LoginService){}
   ngOnInit(): void {

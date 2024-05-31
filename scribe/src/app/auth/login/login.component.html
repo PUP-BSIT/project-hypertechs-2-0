@@ -10,7 +10,7 @@
       <h1>Log In</h1>
       <h4>Welcome back! Enter your email and password to use Scribe.</h4>
 
-      <form id="login_fields" [formGroup]="loginForm">
+      <form id="login_fields" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="input-group">
           <label for="email">Email</label>
           <div id="field_content">
