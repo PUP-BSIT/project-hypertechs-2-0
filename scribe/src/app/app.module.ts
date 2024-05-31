@@ -8,7 +8,9 @@ import { LandingComponent } from './public/landing/landing.component';
 import { BrandComponent } from './layout/brand/brand.component';
 import { ThemeSwitchComponent } from './layout/theme-switch/theme-switch.component';
 import { LoginComponent } from './auth/login/login.component';
-import {MatButtonModule} from '@angular/material/button'
+import { MatButtonModule } from '@angular/material/button'
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { LoginService } from '../services/login.service';
 
 @NgModule({
   declarations: [
@@ -21,9 +23,10 @@ import {MatButtonModule} from '@angular/material/button'
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTooltipModule
   ],
-  providers: [provideAnimationsAsync()],
+  providers: [provideAnimationsAsync(), LoginService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
