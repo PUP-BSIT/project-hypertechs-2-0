@@ -200,3 +200,100 @@ form {
 #signup_form select option {
   text-align: left;
 }
+
+/* Media Queries */
+@media (max-width: 320px) {
+  #signup_container {
+    flex-direction: column;
+    height: auto;
+  }
+  #signup_graphics {
+    display: none;
+  }
+  header {
+    flex-direction: column;
+  }
+  form {
+    gap: 2vh;
+  }
+}
+
+@media (min-width: 321px) and (max-width: 375px) {
+  #signup_container {
+    flex-direction: column;
+    height: auto;
+  }
+  #signup_graphics {
+    display: none;
+  }
+  header {
+    flex-direction: column;
+  }
+  form {
+    gap: 3vh;
+  }
+}
+
+@media (min-width: 376px) and (max-width: 425px) {
+  #signup_container {
+    flex-direction: column;
+    height: auto;
+  }
+  #signup_graphics {
+    display: none;
+  }
+  header {
+    flex-direction: column;
+  }
+  form {
+    gap: 3vh;
+  }
+}
+
+@media (min-width: 426px) and (max-width: 768px) {
+  #signup_container {
+    flex-direction: column;
+    height: auto;
+  }
+  #signup_graphics {
+    display: none;
+  }
+  header {
+    flex-direction: row;
+  }
+  form {
+    gap: 3vh;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  #signup_container {
+    flex-direction: row;
+    height: 142vh;
+  }
+  #signup_graphics {
+    display: block;
+  }
+  header {
+    flex-direction: row;
+  }
+  form {
+    gap: 4vh;
+  }
+}
+
+@media (min-width: 1025px) {
+  #signup_container {
+    flex-direction: row;
+    height: 142vh;
+  }
+  #signup_graphics {
+    display: block;
+  }
+  header {
+    flex-direction: row;
+  }
+  form {
+    gap: 4vh;
+  }
+}
