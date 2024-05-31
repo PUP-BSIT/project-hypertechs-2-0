@@ -51,9 +51,36 @@ export class LoginComponent implements OnInit{
     .subscribe({
       next: (response)=>{
         console.log("Response from server: ", response);
+        //I disabled routing after successful log in
+        // for the meantime I used alert 
         //this.router.navigate(['dashboard'], { queryParams: { username: response.username} });
         alert(`Log In Successful! Hi ${response.username}`);
       },
+      error:(error: any)=>{
+        console.error("Error Object", error);
+        this.errorMessage = 'Login failed.'; 
+
+        if (error.error) {
+          this.errorMessage = error.error.error; 
+        }
+
+        if (error.status){
+          switch (error.status) {
+            case 400:
+              this.errorMessage = 'Bad request. Please check your data.';
+              break;
+            case 401:
+              this.errorMessage = 'Invalid email or password.';
+              break;
+            case 500:
+              this.errorMessage = 'Internal server error. Please try again later.';
+              break;
+            default:
+              this.errorMessage = `Error: ${error.status}. Please try again later.`;
+          }
+
+        }
+      }
       
     });   
 
