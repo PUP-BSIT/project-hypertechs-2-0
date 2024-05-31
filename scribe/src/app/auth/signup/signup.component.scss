@@ -1,43 +1,49 @@
 #signup_container {
-  height: 142vh;
+  height: 100vh;
   display: flex;
   color: var(--text);
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: 0;
   overflow: hidden;
 }
 
 #signup_main {
   flex: 1;
-  padding: 3vh 5vw;
+  padding: 9vh 5vw;
+  overflow-y: auto;
 }
 
 #signup_graphics {
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* signup HEADER */
 header {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  padding: 4vh 0vw;
+  justify-content: space-between;
 }
 
 nav {
   display: flex;
   align-items: center;
-  gap: 1vw;
+  gap: 4vw;
 }
 
 img {
-  width: 150%;
+  max-width: 100%;
   height: auto;
-  object-fit: cover;
+  display: block;
 }
 
+/* signup MAIN */
 #signup_form {
-  margin-top: 0vh;
+  border: 0px solid green;
+  margin-top: 5vh;
 }
 
 #signup_form h1 {
@@ -46,12 +52,14 @@ img {
 }
 
 #signup_form h4 {
-  margin-top: 1vh;
+  margin-top: 2vh;
   font-size: var(--font-body);
   color: var(--text);
   font-weight: 400;
   letter-spacing: var(--letter-spacing);
 }
+
+/* MATERIAL FORM FIELD */
 
 form {
   display: flex;
@@ -61,12 +69,22 @@ form {
   letter-spacing: var(--letter-spacing);
 }
 
+.input-group.same-row-one {
+  display: flex;
+  flex-direction: row;
+  gap: 2vw;
+}
+
+.lfname label {
+  display: block;
+  margin-bottom: 2vh; /* Adjust the value as needed */
+}
+
 #signup_form input[type="text"],
-#signup_form input[type="password"],
-#signup_form input[type="email"] {
+#signup_form input[type="password"] {
   border: none;
   border-radius: 10vw;
-  padding: 1vh 4.5vw 1vh 6vw;
+  padding: 1vh 4.5vw; // padding increased
   height: 8vh;
   background-color: var(--tonal-form);
   color: var(--text);
@@ -79,15 +97,13 @@ form {
 }
 
 #signup_form input[type="text"]:focus,
-#signup_form input[type="password"]:focus,
-#signup_form input[type="email"]:focus {
+#signup_form input[type="password"]:focus {
   outline: none;
   border: 2px solid var(--primary);
 }
 
 #signup_form input[type="text"]::placeholder,
-#signup_form input[type="password"]::placeholder,
-#signup_form input[type="email"]::placeholder {
+#signup_form input[type="password"]::placeholder {
   opacity: 0.6;
   color: var(--tonal-form-text);
   font-size: var(--font-form);
@@ -112,15 +128,25 @@ form {
   display: flex;
   flex-direction: row;
   align-items: center;
-  position: relative;
+  margin-bottom: 2vh;
+}
+
+#email,
+#password {
+  letter-spacing: var(--letter-spacing);
 }
 
 .material-icons {
+  margin-top: 2.25vh;
   position: absolute;
   left: 1.5vw;
   color: var(--tonal-form-text);
   pointer-events: none;
   font-size: var(--font-icon);
+}
+
+.material-icons.row {
+  left: 25vw;
 }
 
 #forgot_password {
@@ -133,70 +159,45 @@ form {
 }
 
 .custom-btn {
-  margin-top: 0vh;
+  margin-top: 2vh;
   height: 8vh;
   font-size: var(--font-body);
   font-weight: 600;
   transition: transform 0.4s ease-in-out;
+  letter-spacing: var(--letter-spacing);
+}
+
+#user_agreement {
+  margin-top: 2vh;
+  text-align: center;
+  letter-spacing: var(--letter-spacing);
 }
 
 #goto_login {
-  margin-top: 2vh;
+  display: flex;
+  justify-content: center;
+  margin-top: 4vh;
   color: var(--primary);
   font-size: var(--font-misc);
+  font-weight: 500;
   text-align: center;
   cursor: pointer;
   letter-spacing: var(--letter-spacing);
+  text-decoration: none;
 }
 
-.flex-row {
-  display: flex;
-  flex-direction: row;
-  gap: 2vw;
+/* Hide scrollbar for WebKit browsers (Chrome, Safari) */
+#signup_main::-webkit-scrollbar {
+  display: none;
 }
 
-.flex-row .input-group {
-  flex: 1;
+/* Hide scrollbar for IE, Edge, and Firefox */
+#signup_main {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
-#signup_form input[type="date"],
-#signup_form select {
-  border: none;
-  border-radius: 10vw;
-  padding: 1vh 4.5vw 1vh 6vw;
-  height: 8vh;
-  background-color: var(--tonal-form);
-  color: var(--text);
-  font-size: var(--font-form);
-  width: 100%;
-  text-align: left;
-}
-
-#signup_form input[type="date"]:focus,
-#signup_form select:focus {
-  outline: none;
-  border: 2px solid var(--primary);
-}
-
-#signup_form input[type="date"]::placeholder,
-#signup_form select::placeholder {
-  opacity: 0.6;
-  color: var(--tonal-form-text);
-  font-size: var(--font-form);
-  letter-spacing: var(--letter-spacing);
-}
-
-#signup_form input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1);
-}
-
-.date-group .material-icons,
-.gender-group .material-icons {
-  left: 1.5vw;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-#signup_form select option {
-  text-align: left;
+/* Ensure the content is still scrollable */
+#signup_main {
+  overflow-y: scroll;
 }
