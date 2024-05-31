@@ -8,6 +8,10 @@ export class LoginService {
 
   private baseUrl = 'http://localhost/backend/login.php';
   constructor( private http: HttpClient) { }
-
-  
+  loginUser(loginData: LoginData): Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    }
+    return this.http.post(this.baseUrl, loginData, httpOptions);
+  } 
 }
