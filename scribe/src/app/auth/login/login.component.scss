@@ -1,0 +1,151 @@
+#login_container {
+  height: 100vh;
+  display: flex;
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  box-sizing: 0;
+  overflow: hidden;
+}
+
+#login_main {
+  flex: 1;
+  padding: 9vh 5vw;
+}
+
+#login_graphics {
+  flex: 1;
+}
+
+/* LOGIN HEADER */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 4vw;
+}
+
+img {
+  width: 130%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* LOGIN MAIN */
+#login_form {
+  border: 0px solid green;
+  margin-top: 5vh;
+}
+
+#login_form h1 {
+  font-size: var(--font-title);
+  color: var(--text);
+}
+
+#login_form h4 {
+  margin-top: 2vh;
+  font-size: var(--font-body);
+  color: var(--text);
+  font-weight: 400;
+  letter-spacing: var(--letter-spacing);
+}
+
+/* MATERIAL FORM FIELD */
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 4vh;
+  margin-top: 4vh;
+  letter-spacing: var(--letter-spacing);
+}
+
+#login_form input[type="text"],
+#login_form input[type="password"] {
+  border: none;
+  border-radius: 10vw;
+  padding: 1vh 4.5vw;  // padding increased
+  height: 8vh;
+  background-color: var(--tonal-form);
+  color: var(--text);
+  font-size: var(--font-form);
+  width: 100%;
+}
+
+#login_form input[type="password"] {
+  padding-right: 1.5vw;
+}
+
+#login_form input[type="text"]:focus,
+#login_form input[type="password"]:focus {
+  outline: none;
+  border: 2px solid var(--primary);
+}
+
+#login_form input[type="text"]::placeholder,
+#login_form input[type="password"]::placeholder {
+  opacity: 0.6;
+  color: var(--tonal-form-text);
+  font-size: var(--font-form);
+  letter-spacing: var(--letter-spacing);
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.input-group label {
+  margin-bottom: 2vh;
+  margin-left: 0vw;
+  font-size: var(--font-body);
+  font-weight: 500;
+  color: var(--label);
+}
+
+.field-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.material-icons {
+  margin-top: 2.25vh;
+  position: absolute;
+  left: 1.5vw;
+  color: var(--tonal-form-text);
+  pointer-events: none;
+  font-size: var(--font-icon);
+}
+
+#forgot_password {
+  margin-top: 1.5vh;
+  margin-right: 1vw;
+  text-align: end;
+  font-size: var(--font-misc);
+  color: var(--label);
+  cursor: pointer;
+}
+
+.custom-btn {
+  margin-top: 0vh;
+  height: 8vh;
+  font-size: var(--font-body);
+  font-weight: 600;
+  transition: transform 0.4s ease-in-out;
+}
+
+#goto_signup {
+  margin-top: 2vh;
+  color: var(--primary);
+  font-size: var(--font-misc);
+  text-align: center;
+  cursor: pointer;
+  letter-spacing: var(--letter-spacing);  // add letter spacing
+}

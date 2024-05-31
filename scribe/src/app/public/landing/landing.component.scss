@@ -1,0 +1,136 @@
+#landing_container {
+  position: relative;
+  height: 100vh;
+  padding: 2.5em 4em;
+  background-color: var(--landing-bg);
+  z-index: 0;
+  transition: background-color 0.75s ease, color 0.75s ease;
+}
+
+/* LANDING HEADER */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 4vw;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--text);
+  font-size: 1.5vw;
+}
+
+/* LANDING MAIN CONTENT */
+#landing_content {
+  color: var(--text);
+  border: 0px solid red;
+}
+
+#scribe_hero {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 7vh;
+}
+
+#scribe_hero h1 {
+  font-size: 4.75vw;
+  margin-top: 14vh;
+  border: 0px solid red;
+}
+
+#highlight {
+  background: -webkit-linear-gradient(
+    0deg, 
+    var(--highlight-prime), 
+    var(--highlight-sec));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#scribe_desc {
+  font-size: 3.3vh;
+  line-height: 1.6;
+  padding: 0 8vw;
+  border: 0px solid red;
+  text-align: center;
+  letter-spacing: 0.04vw;
+}
+
+/* LANDING BUTTONS */
+#landing_buttons {
+  border: 0px solid red;
+  display: flex;
+  justify-content: center;
+  gap: 1.5vw;
+}
+
+#scribe_login {
+  cursor: pointer;
+  background-color: var(--tonal-button);
+  border: none;
+  border-radius: 50px;
+  font-size: 3.25vh;
+  width: 12vw;
+  height: auto;
+  padding: 2vh 0;
+  font-weight: 600;
+  color: #005441;
+}
+
+#scribe_signup {
+  font-weight: 600;
+  position: relative;
+  cursor: pointer;
+  border: none;
+  width: 12vw;
+  height: auto;
+  padding: 2vh 0;
+  border-radius: 50px;
+  background: linear-gradient(120deg, 
+    #4da383, 
+    #204739, 
+    #245040, 
+    #4da383);
+  background-size: 400%;
+  color: #fff;
+  font-size: 3.25vh;
+  letter-spacing: 0.05vw;
+}
+
+#scribe_signup::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background: linear-gradient(120deg, 
+    #4da383, 
+    #204739, 
+    #245040, 
+    #4da383);
+  background-size: 400%;
+  border-radius: 50px;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+#scribe_signup:hover::before {
+  filter: blur(11px);
+  opacity: 0.5;
+}
+
+/* LANDING GRAPHICS */
+svg {
+  width: 39.5vw;
+  height: auto;
+}

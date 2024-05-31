@@ -1,0 +1,45 @@
+:root {
+  --background-color: #eff5f3;
+
+  --text: #0a0f0d;
+  --background: #eff5f3;
+  --primary: #006c53;
+  --secondary: #97c9b8;
+  --accent: #4da383;
+
+  --landing-bg: #eff5f3;
+
+  --toggle-theme-bg: #9dc0b2;
+  --toggle-theme-ball: #366957;
+
+  --tonal-button: #cae3da;
+  --tonal-form: #d4dfdc;
+  --tonal-form-text: #204e3d;
+  --label: #006c53;
+
+  --highlight-prime: #009371;
+  --highlight-sec: #006c53;
+}
+
+body.dark-mode {
+  --background-color: #0c1014;
+
+  --text: #eff4f2;
+  --background: #0a100e;
+  --primary: #009371;
+  --secondary: #366957;
+  --accent: #5ab292;
+  
+  --landing-bg: #050908;
+
+  --toggle-theme-bg: #366957;
+  --toggle-theme-ball: #a4cbbd;
+
+  --tonal-button: #95b7aa;
+  --tonal-form: #292f2f;
+  --tonal-form-text: #adc0b8;
+  --label: #009371;
+
+  --highlight-prime: #009371;
+  --highlight-sec: #005843;
+}
