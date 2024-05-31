@@ -1,85 +1,78 @@
 <div id="signup_container">
   <div id="signup_main">
-    <div id="signup_header">
-      <header>
-        <app-brand></app-brand>
-        <nav></nav>
-      </header>
-    </div>
-    <div id="signup_form">
-      <h1>Sign Up</h1>
-      <h4>Create your account to start using Scribe!</h4>
+      <div id="signup_header">
+          <header>
+              <app-brand></app-brand>
+              <nav></nav>
+          </header>
+      </div>
+      <div id="signup_form">
+          <h1>Sign Up</h1>
+          <h4>Capture your thoughts quickly. Sign Up to Scribe today. </h4>
 
-      <form id="signup_fields">
-        <div class="input-group">
-          <label for="name">Full Name</label>
-          <div class="field-content">
-            <i class="material-icons">account_circle</i>
-            <input type="text" id="name" 
-              name="name" placeholder="Enter your full name" required>
-          </div>
-        </div>
+          <form id="signup_fields">
 
-        <div class="input-group">
-          <label for="email">Email Address</label>
-          <div class="field-content">
-            <i class="material-icons">email</i>
-            <input type="email" id="email" 
-              name="email" placeholder="example@gmail.com" required>
-          </div>
-        </div>
+              <div class="input-group same-row-one">
+                  <div class="lfname">
+                      <label for="lastname">Last Name</label>
+                      <div id="field_content">
+                          <i class="material-icons">person</i>
+                          <input type="text" id="lastname" name="lastname" 
+                              placeholder="Dela Cruz">
+                      </div>
+                  </div>
 
-        <div class="input-group">
-          <label for="password">Password</label>
-          <div class="field-content">
-            <i class="material-icons">lock</i>
-            <input type="password" id="password" 
-              name="password" 
-                placeholder="Create a strong password" required>
-          </div>
-        </div>
+                  <div class="lfname">
+                      <label for="firstname">First Name</label>
+                      <div id="field_content">
+                          <i class="material-icons row">person</i>
+                          <input type="text" id="firstname" name="firstname" 
+                              placeholder="Juan">
+                      </div>
+                  </div>
+              </div>
 
-        <div class="input-group">
-          <label for="confirm_password">Confirm Password</label>
-          <div class="field-content">
-            <i class="material-icons">lock</i>
-            <input type="password" id="confirm_password" 
-              name="confirm_password" 
-                placeholder="Retype your password" required>
-          </div>
-        </div>
+              <div class="input-group">
+                  <label for="email">Email</label>
+                  <div id="field_content">
+                      <i class="material-icons">account_circle</i>
+                      <input type="text" id="email" name="email" 
+                          placeholder="example@gmail.com">
+                  </div>
+              </div>
 
-        <div class="flex-row">
-          <div class="input-group date-group">
-            <label for="birthdate">Birthdate</label>
-            <div class="field-content">
-              <i class="material-icons">cake</i>
-              <input type="date" id="birthdate" 
-                name="birthdate" placeholder="Birthdate">
-            </div>
-          </div>
-          <div class="input-group gender-group">
-            <label for="gender">Gender</label>
-            <div class="field-content">
-              <i class="material-icons">people</i>
-              <select id="gender" name="gender">
-                <option value="" disabled selected>Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="nonbinary">Non-binary</option>
-                <option value="prefernottosay">Prefer not to say</option>
-              </select>
-            </div>
-          </div>
-        </div>
+              <div class="input-group">
+                  <label for="password">Create Password</label>
+                  <div id="field_content">
+                      <i class="material-icons">lock</i>
+                      <input type="password" id="password" name="password" 
+                          placeholder="•••••••••••••">
+                  </div>
+              </div>
 
-        <button class="custom-btn" mat-flat-button>Sign Up</button>
-      </form>
-    </div>
-    <p id="goto_login">Already have an account?
-      <a href="../login">Log in here!</a></p>
+              <div class="input-group">
+                  <label for="password">Confirm Password</label>
+                  <div id="field_content">
+                      <i class="material-icons">lock</i>
+                      <input type="password" id="password" name="password"
+                          placeholder="•••••••••••••">
+                  </div>
+              </div>
+
+              <button class="custom-btn" mat-flat-button>
+                  Create account
+              </button>
+          </form>
+      </div>
+
+      <p id="user_agreement">By clicking the button, 
+          you agree to Scribe's Terms of Use and Privacy Policy.</p>
+
+      <a id="goto_login" routerLink="/login">
+          Already have a Scribe account? Log in.
+      </a>
   </div>
   <div id="signup_graphics">
-    <img src="../../../assets/images/mesh_login.png">
+      <img src="../../../assets/images/mesh_auth.png">
   </div>
 </div>

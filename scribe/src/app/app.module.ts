@@ -10,8 +10,10 @@ import { ThemeSwitchComponent } from './layout/theme-switch/theme-switch.compone
 import { LoginComponent } from './auth/login/login.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { LoginService } from '../services/login.service';
-import {MatButtonModule} from '@angular/material/button';
-import { SignupComponent } from './auth/signup/signup.component'
+import { MatButtonModule } from '@angular/material/button';
+import { SignupComponent } from './auth/signup/signup.component';
+import { provideHttpClient, withJsonpSupport } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,9 +28,14 @@ import { SignupComponent } from './auth/signup/signup.component'
     BrowserModule,
     AppRoutingModule,
     MatButtonModule,
-    MatTooltipModule
+    MatTooltipModule,
+    ReactiveFormsModule
   ],
-  providers: [provideAnimationsAsync(), LoginService],
+  providers: [
+    provideAnimationsAsync(),
+    LoginService, 
+    provideHttpClient(withJsonpSupport())
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
