@@ -13,7 +13,8 @@ export class LoginComponent implements OnInit{
   //loginForm!: FormGroup;
   errorMessage = '';
 
-  constructor(private formBuilder: FormBuilder, private loginService: LoginService
+  constructor(private formBuilder: FormBuilder, private loginService: LoginService, 
+    private router: Router
   ){}
 
   loginForm: FormGroup = this.formBuilder.group({});
@@ -34,7 +35,14 @@ export class LoginComponent implements OnInit{
   }
 
   onSubmit(){
+    //return if user inputs are invalidd
+    if (!this.loginForm.valid) return; 
     
+    //if valid, service will get the data
+    const loginData: LoginData = {
+        email: this.loginForm.value.email,
+        password: this.loginForm.value.password
+      };
   } 
   
 
