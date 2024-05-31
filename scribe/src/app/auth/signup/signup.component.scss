@@ -1,0 +1,202 @@
+#signup_container {
+  height: 142vh;
+  display: flex;
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+#signup_main {
+  flex: 1;
+  padding: 3vh 5vw;
+}
+
+#signup_graphics {
+  flex: 1;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 4vh 0vw;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 1vw;
+}
+
+img {
+  width: 150%;
+  height: auto;
+  object-fit: cover;
+}
+
+#signup_form {
+  margin-top: 0vh;
+}
+
+#signup_form h1 {
+  font-size: var(--font-title);
+  color: var(--text);
+}
+
+#signup_form h4 {
+  margin-top: 1vh;
+  font-size: var(--font-body);
+  color: var(--text);
+  font-weight: 400;
+  letter-spacing: var(--letter-spacing);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 4vh;
+  margin-top: 4vh;
+  letter-spacing: var(--letter-spacing);
+}
+
+#signup_form input[type="text"],
+#signup_form input[type="password"],
+#signup_form input[type="email"] {
+  border: none;
+  border-radius: 10vw;
+  padding: 1vh 4.5vw 1vh 6vw;
+  height: 8vh;
+  background-color: var(--tonal-form);
+  color: var(--text);
+  font-size: var(--font-form);
+  width: 100%;
+}
+
+#signup_form input[type="password"] {
+  padding-right: 1.5vw;
+}
+
+#signup_form input[type="text"]:focus,
+#signup_form input[type="password"]:focus,
+#signup_form input[type="email"]:focus {
+  outline: none;
+  border: 2px solid var(--primary);
+}
+
+#signup_form input[type="text"]::placeholder,
+#signup_form input[type="password"]::placeholder,
+#signup_form input[type="email"]::placeholder {
+  opacity: 0.6;
+  color: var(--tonal-form-text);
+  font-size: var(--font-form);
+  letter-spacing: var(--letter-spacing);
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.input-group label {
+  margin-bottom: 2vh;
+  margin-left: 0vw;
+  font-size: var(--font-body);
+  font-weight: 500;
+  color: var(--label);
+}
+
+.field-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+}
+
+.material-icons {
+  position: absolute;
+  left: 1.5vw;
+  color: var(--tonal-form-text);
+  pointer-events: none;
+  font-size: var(--font-icon);
+}
+
+#forgot_password {
+  margin-top: 1.5vh;
+  margin-right: 1vw;
+  text-align: end;
+  font-size: var(--font-misc);
+  color: var(--label);
+  cursor: pointer;
+}
+
+.custom-btn {
+  margin-top: 0vh;
+  height: 8vh;
+  font-size: var(--font-body);
+  font-weight: 600;
+  transition: transform 0.4s ease-in-out;
+}
+
+#goto_login {
+  margin-top: 2vh;
+  color: var(--primary);
+  font-size: var(--font-misc);
+  text-align: center;
+  cursor: pointer;
+  letter-spacing: var(--letter-spacing);
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  gap: 2vw;
+}
+
+.flex-row .input-group {
+  flex: 1;
+}
+
+#signup_form input[type="date"],
+#signup_form select {
+  border: none;
+  border-radius: 10vw;
+  padding: 1vh 4.5vw 1vh 6vw;
+  height: 8vh;
+  background-color: var(--tonal-form);
+  color: var(--text);
+  font-size: var(--font-form);
+  width: 100%;
+  text-align: left;
+}
+
+#signup_form input[type="date"]:focus,
+#signup_form select:focus {
+  outline: none;
+  border: 2px solid var(--primary);
+}
+
+#signup_form input[type="date"]::placeholder,
+#signup_form select::placeholder {
+  opacity: 0.6;
+  color: var(--tonal-form-text);
+  font-size: var(--font-form);
+  letter-spacing: var(--letter-spacing);
+}
+
+#signup_form input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+.date-group .material-icons,
+.gender-group .material-icons {
+  left: 1.5vw;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#signup_form select option {
+  text-align: left;
+}
