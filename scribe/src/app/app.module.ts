@@ -8,13 +8,8 @@ import { LandingComponent } from './public/landing/landing.component';
 import { BrandComponent } from './layout/brand/brand.component';
 import { ThemeSwitchComponent } from './layout/theme-switch/theme-switch.component';
 import { LoginComponent } from './auth/login/login.component';
-import { MatButtonModule } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button'
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { HomeComponent } from './core/home/home.component';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -23,17 +18,12 @@ import { MatListModule } from '@angular/material/list';
     BrandComponent,
     ThemeSwitchComponent,
     LoginComponent,
-    HomeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatButtonModule,
-    MatTooltipModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
+    MatTooltipModule
   ],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],
