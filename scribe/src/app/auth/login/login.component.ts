@@ -51,6 +51,8 @@ export class LoginComponent implements OnInit{
     .subscribe({
       next: (response)=>{
         console.log("Response from server: ", response);
+        //I disabled routing after successful log in
+        // for the meantime I used alert 
         //this.router.navigate(['dashboard'], { queryParams: { username: response.username} });
         alert(`Log In Successful! Hi ${response.username}`);
       },
