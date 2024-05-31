@@ -438,54 +438,7 @@ form {
   #goto_signup {
   font-size: calc(var(--font-misc) - 1px);
   }
-}
 
-/* Desktop Devices (769px and up) */
-@media (min-width: 769px) {
-  #login_container {
-  flex-direction: row;
-  }
-  
-  #login_graphics {
-  display: flex;
-  }
-  
-  header {
-  flex-direction: row;
-  align-items: center;
-  gap: 4vw;
-  }
-  
-  nav {
-  gap: 4vw;
-  }
-  
-  #login_form input[type="text"],
-  #login_form input[type="password"] {
-  padding: 1vh 4vw;
-  height: 8vh;
-  font-size: var(--font-form);
-  }
-  
-  #login_form input[type="text"]::placeholder,
-  #login_form input[type="password"]::placeholder {
-  font-size: var(--font-form);
-  }
-  
-  .material-icons {
-  font-size: var(--font-icon);
-  }
-  
-  #forgot_password {
-  font-size: var(--font-misc);
-  }
-  
-  button.custom-btn {
-  height: 8vh;
-  font-size: var(--font-body);
-  }
-  
-  #goto_signup {
-  font-size: var(--font-misc);
+  letter-spacing: var(--letter-spacing);  // add letter spacing
   }
 }
