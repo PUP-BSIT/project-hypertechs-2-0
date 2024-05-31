@@ -4,5 +4,11 @@
     header('Access-Control-Allow-Headers: Content-Type');
     header('Content-Type: application/json; charset=utf-8'); 
 
+    // Database connection details 
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "scribe_db";
+
     
 ?>
