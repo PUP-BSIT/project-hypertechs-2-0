@@ -4,10 +4,19 @@
 
 .sidenav {
   width: 200px;
+  border: 1px solid blue;
 }
 
 .sidenav .mat-toolbar {
   background: inherit;
+}
+
+.mat-toolbar {
+  border: 1px solid green;
+}
+
+.mat-primary {
+  border: 1px solid rgb(161, 0, 153);
 }
 
 .mat-toolbar.mat-primary {
