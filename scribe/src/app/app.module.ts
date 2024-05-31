@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { LoginService } from '../services/login.service';
 import { provideHttpClient, withJsonpSupport } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { provideHttpClient, withJsonpSupport } from '@angular/common/http';
     AppRoutingModule,
     MatButtonModule,
     MatTooltipModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideAnimationsAsync(),
