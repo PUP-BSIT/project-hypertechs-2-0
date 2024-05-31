@@ -25,7 +25,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { LoginService } from '../services/login.service';
+import { MatButtonModule } from '@angular/material/button';
+import { SignupComponent } from './auth/signup/signup.component';
+import { provideHttpClient, withJsonpSupport } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -40,6 +45,7 @@ import { MatListModule } from '@angular/material/list';
     TasksComponent,
     FoldersComponent,
     TrashComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,8 +56,13 @@ import { MatListModule } from '@angular/material/list';
     MatSidenavModule,
     MatIconModule,
     MatListModule
+    ReactiveFormsModule
   ],
-  providers: [provideAnimationsAsync()],
+  providers: [
+    provideAnimationsAsync(),
+    LoginService, 
+    provideHttpClient(withJsonpSupport())
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
