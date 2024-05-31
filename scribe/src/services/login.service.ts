@@ -6,5 +6,7 @@ import { LoginData } from '../models/model';
 @Injectable()
 export class LoginService {
 
-  constructor() { }
+  private baseUrl = 'http://localhost/backend/login.php';
+
+  
 }
