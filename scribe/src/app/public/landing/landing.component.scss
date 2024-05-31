@@ -45,19 +45,6 @@ nav a {
   font-size: 1.5vw;
 }
 
-/* Gradient animation */
-@keyframes gradientAnimation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
 /* LANDING MAIN CONTENT */
 #landing_content {
   color: var(--text);
@@ -78,7 +65,7 @@ nav a {
 }
 
 #highlight {
-  background: -webkit-linear-gradient(180deg, var(--primary), var(--accent));
+  background: -webkit-linear-gradient(0deg, var(--highlight-prime), var(--highlight-sec));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
