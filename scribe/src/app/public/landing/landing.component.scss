@@ -110,7 +110,13 @@ nav a {
   height: auto;
   padding: 2vh 0;
   border-radius: 50px;
-  background: linear-gradient(130deg, #4da383, #204739, #245040, #4da383);
+  background: linear-gradient
+    (130deg, 
+      #4da383, 
+      #204739, 
+      #245040, 
+      #4da383
+    );
   background-size: 400%;
   color: #fff;
   font-size: 3.25vh;
@@ -125,7 +131,13 @@ nav a {
   right: 0;
   bottom: 0;
   z-index: -1;
-  background: linear-gradient(120deg, #4da383, #204739, #245040, #4da383);
+  background: linear-gradient
+    (120deg, 
+      #4da383, 
+      #204739, 
+      #245040, 
+      #4da383
+    );
   background-size: 400%;
   border-radius: 50px;
   opacity: 0;
