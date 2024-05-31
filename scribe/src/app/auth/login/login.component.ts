@@ -8,8 +8,16 @@ import { LoginService } from '../../../services/login.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   
+  loginForm: FormGroup;
 
+  constructor(private formBuilder: FormBuilder, private loginService: LoginService){}
+  ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({
+      email:['', [Validators.required, Validators.email]],
+      password:['', Validators.required]
+    })
+  }
   
 }
