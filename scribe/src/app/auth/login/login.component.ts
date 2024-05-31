@@ -20,6 +20,10 @@ export class LoginComponent implements OnInit{
     })
   }
 
+  get emailControl(){
+    return this.loginForm.get('email');
+  }
+
   onSubmit(){
     
   }
