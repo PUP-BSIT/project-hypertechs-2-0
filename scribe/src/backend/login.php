@@ -29,6 +29,10 @@
     if (isset($data['email']) && isset($data['password'])) {
         $email = $data['email'];
         $password = $data['password'];
+        
+        // SQL SELECT statement
+        $stmt = $conn->prepare("SELECT username, password FROM users WHERE email = ?");
+        
     } 
 
     $conn->close();
