@@ -115,6 +115,10 @@ form {
   align-items: center;
 }
 
+#email, #password {
+  letter-spacing: var(--letter-spacing);
+}
+
 .material-icons {
   margin-top: 2.25vh;
   position: absolute;
