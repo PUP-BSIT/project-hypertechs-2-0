@@ -7,6 +7,7 @@ import { LoginData } from '../models/model';
 export class LoginService {
 
   private baseUrl = 'http://localhost/backend/login.php';
+  constructor( private http: HttpClient) { }
 
   
 }
