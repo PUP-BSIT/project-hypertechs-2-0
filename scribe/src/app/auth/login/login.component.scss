@@ -115,6 +115,10 @@ form {
   align-items: center;
 }
 
+#email, #password {
+  letter-spacing: var(--letter-spacing);
+}
+
 .material-icons {
   margin-top: 2.25vh;
   position: absolute;
@@ -434,4 +438,6 @@ form {
   #goto_signup {
   font-size: calc(var(--font-misc) - 1px);
   }
+  
+  letter-spacing: var(--letter-spacing);  // add letter spacing
 }
