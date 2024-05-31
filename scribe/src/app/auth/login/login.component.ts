@@ -43,6 +43,10 @@ export class LoginComponent implements OnInit{
         email: this.loginForm.value.email,
         password: this.loginForm.value.password
       };
+
+      console.log("Data sent to service: ", loginData);
+    
+      
   } 
   
 
