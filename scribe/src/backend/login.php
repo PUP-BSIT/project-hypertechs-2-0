@@ -23,8 +23,14 @@
         exit();
     }
 
-    
-    
+    $input = file_get_contents("php://input");
+    $data = json_decode($input, true);
+
+    if (isset($data['email']) && isset($data['password'])) {
+        $email = $data['email'];
+        $password = $data['password'];
+    } 
+
     $conn->close();
     
 ?>
