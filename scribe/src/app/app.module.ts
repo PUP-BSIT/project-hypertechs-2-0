@@ -11,7 +11,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { MatButtonModule } from '@angular/material/button'
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { LoginService } from '../services/login.service';
-import { HttpClient } from '@angular/common/http';
+import { provideHttpClient, withJsonpSupport } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,9 +26,12 @@ import { HttpClient } from '@angular/common/http';
     AppRoutingModule,
     MatButtonModule,
     MatTooltipModule,
-    HttpClient
   ],
-  providers: [provideAnimationsAsync(), LoginService],
+  providers: [
+    provideAnimationsAsync(),
+    LoginService, 
+    provideHttpClient(withJsonpSupport())
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
