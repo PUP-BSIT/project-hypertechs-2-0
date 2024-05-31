@@ -24,6 +24,10 @@ export class LoginComponent implements OnInit{
     return this.loginForm.get('email');
   }
 
+  get passwordControl(){
+    return this.loginForm.get('password');
+  }
+
   onSubmit(){
     
   }
