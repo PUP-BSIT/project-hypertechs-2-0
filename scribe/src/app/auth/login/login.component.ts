@@ -44,8 +44,19 @@ export class LoginComponent implements OnInit{
         password: this.loginForm.value.password
       };
 
-      console.log("Data sent to service: ", loginData);
+    console.log("Data sent to service: ", loginData);
     
+    //service will process the data 
+    this.loginService.loginUser(loginData)
+    .subscribe({
+      next: (response)=>{
+        console.log("Response from server: ", response);
+        //this.router.navigate(['dashboard'], { queryParams: { username: response.username} });
+        alert(`Log In Successful! Hi ${response.username}`);
+      },
+      
+    });   
+
       
   } 
   
