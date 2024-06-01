@@ -24,6 +24,9 @@ export class LoginComponent implements OnInit{
       email:['', [Validators.required, Validators.email]],
       password:['', Validators.required]
     })
+
+    const storedUser = sessionStorage.getItem('loggedInUser');
+
   }
 
   get emailControl(){
