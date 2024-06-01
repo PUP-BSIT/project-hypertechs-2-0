@@ -1,0 +1,198 @@
+#signup_container {
+  height: 100vh;
+  display: flex;
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  box-sizing: 0;
+  overflow: hidden;
+}
+
+#signup_main {
+  flex: 1;
+  padding: 9vh 5vw;
+  overflow-y: auto;
+}
+
+#signup_graphics {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* signup HEADER */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 4vw;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* signup MAIN */
+#signup_form {
+  border: 0px solid green;
+  margin-top: 5vh;
+}
+
+#signup_form h1 {
+  font-size: var(--font-title);
+  color: var(--text);
+}
+
+#signup_form h4 {
+  margin-top: 2vh;
+  font-size: var(--font-body);
+  color: var(--text);
+  font-weight: 400;
+  letter-spacing: var(--letter-spacing);
+}
+
+/* MATERIAL FORM FIELD */
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 4vh;
+  margin-top: 4vh;
+  letter-spacing: var(--letter-spacing);
+}
+
+.input-group.same-row-one {
+  display: flex;
+  flex-direction: row;
+  gap: 2vw;
+}
+
+.lfname label {
+  display: block;
+  margin-bottom: 2vh; /* Adjust the value as needed */
+}
+
+#signup_form input[type="text"],
+#signup_form input[type="password"] {
+  border: none;
+  border-radius: 10vw;
+  padding: 1vh 4.5vw; // padding increased
+  height: 8vh;
+  background-color: var(--tonal-form);
+  color: var(--text);
+  font-size: var(--font-form);
+  width: 100%;
+}
+
+#signup_form input[type="password"] {
+  padding-right: 1.5vw;
+}
+
+#signup_form input[type="text"]:focus,
+#signup_form input[type="password"]:focus {
+  outline: none;
+  border: 2px solid var(--primary);
+}
+
+#signup_form input[type="text"]::placeholder,
+#signup_form input[type="password"]::placeholder {
+  opacity: 0.6;
+  color: var(--tonal-form-text);
+  font-size: var(--font-form);
+  letter-spacing: var(--letter-spacing);
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.input-group label {
+  margin-bottom: 2vh;
+  margin-left: 0vw;
+  font-size: var(--font-body);
+  font-weight: 500;
+  color: var(--label);
+}
+
+.field-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 2vh;
+}
+
+#email,
+#password {
+  letter-spacing: var(--letter-spacing);
+}
+
+.material-icons {
+  margin-top: 2.25vh;
+  position: absolute;
+  left: 1.5vw;
+  color: var(--tonal-form-text);
+  pointer-events: none;
+  font-size: var(--font-icon);
+}
+
+.material-icons.row {
+  left: 25vw;
+}
+
+#forgot_password {
+  margin-top: 1.5vh;
+  margin-right: 1vw;
+  text-align: end;
+  font-size: var(--font-misc);
+  color: var(--label);
+  cursor: pointer;
+}
+
+.custom-btn {
+  margin-top: 2vh;
+  height: 8vh;
+  font-size: var(--font-body);
+  font-weight: 600;
+  transition: transform 0.4s ease-in-out;
+  letter-spacing: var(--letter-spacing);
+}
+
+#user_agreement {
+  margin-top: 2vh;
+  text-align: center;
+  letter-spacing: var(--letter-spacing);
+}
+
+#goto_login {
+  display: flex;
+  justify-content: center;
+  margin-top: 4vh;
+  color: var(--primary);
+  font-size: var(--font-misc);
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  letter-spacing: var(--letter-spacing);
+  text-decoration: none;
+}
+
+/* Hide scrollbar for WebKit browsers (Chrome, Safari) */
+#signup_main::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge, and Firefox */
+#signup_main {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

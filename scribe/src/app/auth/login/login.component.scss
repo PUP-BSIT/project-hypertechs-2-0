@@ -15,6 +15,9 @@
 
 #login_graphics {
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* LOGIN HEADER */
@@ -31,9 +34,9 @@ nav {
 }
 
 img {
-  width: 130%;
+  max-width: 100%;
   height: auto;
-  object-fit: cover;
+  display: block;
 }
 
 /* LOGIN MAIN */
@@ -115,6 +118,10 @@ form {
   align-items: center;
 }
 
+#email, #password {
+  letter-spacing: var(--letter-spacing);
+}
+
 .material-icons {
   margin-top: 2.25vh;
   position: absolute;
@@ -142,10 +149,301 @@ form {
 }
 
 #goto_signup {
+  display: flex;
+  justify-content: center;
   margin-top: 2vh;
   color: var(--primary);
   font-size: var(--font-misc);
+  font-weight: 500;
   text-align: center;
   cursor: pointer;
+  letter-spacing: var(--letter-spacing);
+  text-decoration: none;
+}
+
+/* MEDIA QUERIES */
+
+/* Mobile Devices (up to 480px) */
+@media (max-width: 480px) {
+  #login_container {
+  flex-direction: column;
+  }
+  
+  #login_graphics {
+  display: none;
+  }
+  
+  header {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2vh;
+  }
+  
+  nav {
+  gap: 2vw;
+  }
+  
+  #login_form h1 {
+  font-size: var(--font-title);
+  color: var(--text);
+  font-size: 20px;
+  }
+  
+  #login_form h4 {
+  margin-top: 2vh;
+  font-size: var(--font-body);
+  color: var(--text);
+  font-weight: 400;
+  letter-spacing: var(--letter-spacing);
+  font-size: 10px;
+  }
+  
+  .input-group label {
+  margin-bottom: 2vh;
+  margin-left: 0vw;
+  font-size: var(--font-body);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--label);
+  }
+  
+  #login_form input[type="text"],
+  #login_form input[type="password"] {
+  padding: 1.5vh 4vw;
+  height: 6vh;
+  font-size: calc(var(--font-form) - 2px);
+  font-size: 10px;
+  }
+  
+  #login_form input[type="text"]::placeholder,
+  #login_form input[type="password"]::placeholder {
+  margin-top: 1.35vh;
+  opacity: 10;
+  color: var(--tonal-form-text);
+  font-size: var(--font-form);
+  letter-spacing: var(--letter-spacing);
+  font-size: 9px;
+  padding: 3vw;
+  //margin-top: 45vh;
+  }
+  
+  .material-icons {
+  margin-top: 1.75vh;
+  position: absolute;
+  left: 1.5vw;
+  color: var(--tonal-form-text);
+  pointer-events: none;
+  font-size: var(--font-icon);
+  font-size: 13px;
+  }
+  
+  #forgot_password {
+  font-size: calc(var(--font-misc) - 2px);
+  font-size: 10px;
+  }
+  
+  button.custom-btn {
+  height: 6vh;
+  font-size: calc(var(--font-body) - 2px);
+  font-size: 10px;
+  }
+  
+  #goto_signup {
+  font-size: calc(var(--font-misc) - 2px);
+  font-size: 10px;
+  }
+}
+
+/* Tablet Devices (481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  #login_container {
+  flex-direction: column;
+  }
+  
+  #login_graphics {
+  display: none;
+  }
+  
+  header {
+  flex-direction: row;
+  align-items: center;
+  gap: 4vh;
+  }
+  
+  nav {
+  gap: 2vw;
+  }
+  
+  #login_form input[type="text"],
+  #login_form input[type="password"] {
+  padding: 1.5vh 4vw;
+  height: 7vh;
+  font-size: calc(var(--font-form) - 1px);
+  }
+  
+  #login_form input[type="text"]::placeholder,
+  #login_form input[type="password"]::placeholder {
+  font-size: calc(var(--font-form) - 1px);
+  }
+  
+  .material-icons {
+  font-size: calc(var(--font-icon) - 2px);
+  }
+  
+  #forgot_password {
+  font-size: calc(var(--font-misc) - 1px);
+  }
+  
+  button.custom-btn {
+  height: 7vh;
+  font-size: calc(var(--font-body) - 1px);
+  }
+  
+  #goto_signup {
+  font-size: calc(var(--font-misc) - 1px);
+  }
+}
+
+/* MEDIA QUERIES */
+
+/* Mobile Devices (up to 480px) */
+@media (max-width: 480px) {
+  #login_container {
+  flex-direction: column;
+  }
+  
+  #login_graphics {
+  display: none;
+  }
+  
+  header {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2vh;
+  }
+  
+  nav {
+  gap: 2vw;
+  }
+  
+  #login_form h1 {
+  font-size: var(--font-title);
+  color: var(--text);
+  font-size: 20px;
+  }
+  
+  #login_form h4 {
+  margin-top: 2vh;
+  font-size: var(--font-body);
+  color: var(--text);
+  font-weight: 400;
+  letter-spacing: var(--letter-spacing);
+  font-size: 10px;
+  }
+  
+  .input-group label {
+  margin-bottom: 2vh;
+  margin-left: 0vw;
+  font-size: var(--font-body);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--label);
+  }
+  
+  #login_form input[type="text"],
+  #login_form input[type="password"] {
+  padding: 1.5vh 4vw;
+  height: 6vh;
+  font-size: calc(var(--font-form) - 2px);
+  font-size: 10px;
+  }
+  
+  #login_form input[type="text"]::placeholder,
+  #login_form input[type="password"]::placeholder {
+  margin-top: 1.35vh;
+  opacity: 10;
+  color: var(--tonal-form-text);
+  font-size: var(--font-form);
+  letter-spacing: var(--letter-spacing);
+  font-size: 9px;
+  padding: 3vw;
+  //margin-top: 45vh;
+  }
+  
+  .material-icons {
+  margin-top: 1.75vh;
+  position: absolute;
+  left: 1.5vw;
+  color: var(--tonal-form-text);
+  pointer-events: none;
+  font-size: var(--font-icon);
+  font-size: 13px;
+  }
+  
+  #forgot_password {
+  font-size: calc(var(--font-misc) - 2px);
+  font-size: 10px;
+  }
+  
+  button.custom-btn {
+  height: 6vh;
+  font-size: calc(var(--font-body) - 2px);
+  font-size: 10px;
+  }
+  
+  #goto_signup {
+  font-size: calc(var(--font-misc) - 2px);
+  font-size: 10px;
+  }
+}
+
+/* Tablet Devices (481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  #login_container {
+  flex-direction: column;
+  }
+  
+  #login_graphics {
+  display: none;
+  }
+  
+  header {
+  flex-direction: row;
+  align-items: center;
+  gap: 4vh;
+  }
+  
+  nav {
+  gap: 2vw;
+  }
+  
+  #login_form input[type="text"],
+  #login_form input[type="password"] {
+  padding: 1.5vh 4vw;
+  height: 7vh;
+  font-size: calc(var(--font-form) - 1px);
+  }
+  
+  #login_form input[type="text"]::placeholder,
+  #login_form input[type="password"]::placeholder {
+  font-size: calc(var(--font-form) - 1px);
+  }
+  
+  .material-icons {
+  font-size: calc(var(--font-icon) - 2px);
+  }
+  
+  #forgot_password {
+  font-size: calc(var(--font-misc) - 1px);
+  }
+  
+  button.custom-btn {
+  height: 7vh;
+  font-size: calc(var(--font-body) - 1px);
+  }
+  
+  #goto_signup {
+  font-size: calc(var(--font-misc) - 1px);
   letter-spacing: var(--letter-spacing);  // add letter spacing
+  }
 }
