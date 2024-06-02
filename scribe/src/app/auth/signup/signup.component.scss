@@ -196,8 +196,3 @@ form {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
-
-/* Ensure the content is still scrollable */
-#signup_main {
-  overflow-y: scroll;
-}
