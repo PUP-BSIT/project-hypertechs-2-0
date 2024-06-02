@@ -74,7 +74,6 @@ nav a {
 
 #scribe_login {
   cursor: pointer;
-  background-color: var(--tonal-button);
   border: none;
   border-radius: 50px;
   font-size: 3.25vh;
@@ -82,7 +81,12 @@ nav a {
   height: auto;
   padding: 2vh 0;
   font-weight: 600;
-  color: #005441;
+  color: var(--primary);
+  background: linear-gradient(var(--landing-bg), var(--landing-bg)) padding-box, 
+    linear-gradient(60deg, var(--tonal-border), var(--accent)) border-box;
+  border: 0.25vw solid transparent;
+  border-radius: 3vw;
+  display: inline-block;
 }
 
 #scribe_signup {
