@@ -24,6 +24,19 @@ export class LoginComponent implements OnInit{
       email:['', [Validators.required, Validators.email]],
       password:['', Validators.required]
     })
+
+    const storedUser = sessionStorage.getItem('loggedInUser');
+    if (storedUser) {
+      try {
+        const userData = JSON.parse(storedUser); // Parse stored JSON data
+        //this.router.navigate(['dashboard'], { queryParams: { username: userData.username } });
+        alert(`Log In Successful! Hi ${userData.username}`);
+      } catch (error) {
+        console.error('Error parsing stored user data:', error);
+        // Clear invalid data and proceed normally
+        sessionStorage.removeItem('loggedInUser');
+      }
+    }
   }
 
   get emailControl(){
@@ -54,6 +67,7 @@ export class LoginComponent implements OnInit{
         //I disabled routing after successful log in
         // for the meantime I used alert 
         //this.router.navigate(['dashboard'], { queryParams: { username: response.username} });
+        sessionStorage.setItem('loggedInUser', JSON.stringify(response));
         alert(`Log In Successful! Hi ${response.username}`);
       },
       error:(error: any)=>{
@@ -70,22 +84,21 @@ export class LoginComponent implements OnInit{
               this.errorMessage = 'Bad request. Please check your data.';
               break;
             case 401:
-              this.errorMessage = 'Invalid email or password.';
+              this.errorMessage = 
+                'You have entered an invalid email or password.';
               break;
             case 500:
-              this.errorMessage = 'Internal server error. Please try again later.';
+              this.errorMessage = 
+                'Internal server error. Please try again later.';
               break;
             default:
-              this.errorMessage = `Error: ${error.status}. Please try again later.`;
+              this.errorMessage = 
+              `Error: ${error.status}. Please try again later.`;
           }
 
         }
       }
       
-    });   
-
-      
+    });      
   } 
-  
-
 }
