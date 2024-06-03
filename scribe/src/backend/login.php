@@ -1,4 +1,5 @@
 <?php
+    session_start();
     header('Access-Control-Allow-Origin: *');
     header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
     header('Access-Control-Allow-Headers: Content-Type');
@@ -42,6 +43,7 @@
             $stmt->fetch();
 
             if (password_verify($password, $hashed_password)) {
+                $_SESSION['username'] = $username;
                 // Password is correct, return a success message with the username
                 echo json_encode(['message' => 'Login successful.', 'username' => $username]);
                 
@@ -55,11 +57,7 @@
             http_response_code(401);
             echo json_encode(['error' => 'Invalid email or password.']);
         }
-
-        $stmt->close();
-        
+        $stmt->close(); 
     } 
-
-    $conn->close();
-    
+    $conn->close(); 
 ?>
