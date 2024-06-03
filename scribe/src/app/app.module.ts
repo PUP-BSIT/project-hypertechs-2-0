@@ -62,12 +62,12 @@ import { LoginService } from '../services/login.service';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     provideAnimationsAsync(),
-    LoginService, 
-    provideHttpClient(withJsonpSupport())
+    LoginService,
+    provideHttpClient(withJsonpSupport()),
   ],
   bootstrap: [AppComponent],
 })

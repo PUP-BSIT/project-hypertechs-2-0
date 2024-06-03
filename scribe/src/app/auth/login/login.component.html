@@ -28,6 +28,7 @@
               name="email"
               placeholder="example@gmail.com"
               maxlength="320"
+              maxlength="320"
               formControlName="email"
               [ngClass]="{
                 error: emailControl?.invalid && emailControl?.touched
@@ -49,6 +50,9 @@
         </div>
 
         <!--Password input field group-->
+        <div class="input-group"
+          [ngClass]="{'error': passwordControl?.invalid 
+            && passwordControl?.touched}">
         <div
           class="input-group"
           [ngClass]="{
@@ -66,7 +70,10 @@
               name="password"
               placeholder="•••••••••••••"
               maxlength="40"
+              maxlength="40"
               formControlName="password"
+              [ngClass]="{'error': passwordControl?.invalid 
+                && passwordControl?.touched}" />
               [ngClass]="{
                 error: passwordControl?.invalid && passwordControl?.touched
               }"
@@ -78,6 +85,8 @@
               <div class="error-message password">
                 @if (passwordControl?.errors?.['required'] &&
                 passwordControl?.touched) {
+                @if (passwordControl?.errors?.['required'] 
+                  && passwordControl?.touched) {
                 <div class="error-item">
                   <span class="material-symbols-outlined">error</span>
                   <span>Password is required. Kindly fill out the field.</span>
