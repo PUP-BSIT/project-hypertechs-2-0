@@ -10,64 +10,83 @@
       <h1>Log In</h1>
       <h4>Welcome back! Enter your email and password to use Scribe.</h4>
 
+      <!--Login form-->
       <form id="login_fields" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <div class="input-group">
+        <!--Email input field group-->
+        <div class="input-group"
+          [ngClass]="{'error': emailControl?.invalid && emailControl?.touched}">
           <label for="email">Email</label>
+
+          <!--Actual email input-->
           <div id="field_content">
             <i class="material-icons">account_circle</i>
-            <input
-              type="text"
+            <input type="text"
               id="email"
               name="email"
               placeholder="example@gmail.com"
               formControlName="email"
-            />
-            @if(emailControl?.invalid && emailControl?.touched){
-            <div>
-              @if(emailControl?.errors?.['required']){
-              <div>Email is required. Kindly fill out the field.</div>
-              } @if(emailControl?.errors?.['email']){
+              [ngClass]="{'error': 
+                emailControl?.invalid && emailControl?.touched}" />
+
+              <!--Email error message-->
+            <div class="error-message">
+              @if (emailControl?.errors?.['required'] && emailControl?.touched){
+              <div class="error-item">
+                <span class="material-symbols-outlined">error</span>
+                <span>Email is required. Kindly fill out the field.</span>
+              </div>
+              }
+              @if (emailControl?.errors?.['email'] && emailControl?.touched){
               <div>Email is invalid format. Please try again.</div>
               }
             </div>
-            }
           </div>
         </div>
 
-        <div class="input-group">
+        <!--Password input field group-->
+        <div class="input-group"
+          [ngClass]="{'error': passwordControl?.invalid && passwordControl?.touched}">
           <label for="password">Password</label>
+
+          <!--Actual password input-->
           <div id="field_content">
             <i class="material-icons">lock</i>
-            <input
-              type="password"
+            <input type="password" 
               id="password"
               name="password"
               placeholder="•••••••••••••"
               formControlName="password"
-            />
-            @if(passwordControl?.touched){
-            <div>
-              @if(passwordControl?.errors?.['required']){
-              <div>Password is required. Kindly fill out the field.</div>
-              }
+              [ngClass]="{'error': passwordControl?.invalid && passwordControl?.touched}" />
+
+              <!--Below the password, we wrap forgot password and error msg-->
+            <div id="below_pass_row">
+              <!--Error Message-->
+              <div class="error-message password">
+                @if (passwordControl?.errors?.['required'] && passwordControl?.touched) {
+                <div class="error-item">
+                  <span class="material-symbols-outlined">error</span>
+                  <span>Password is required. Kindly fill out the field.</span>
+                </div>
+                }
+              </div>
+              <!--Forgot Password-->
+              <div id="forgot_password">
+                <span>Forgot Password?</span>
+              </div>
             </div>
-            }
-          </div>
-          <div id="forgot_password">
-            <!--TODO: Use routerLink for this page-->
-            <span>Forgot Password?</span>
           </div>
         </div>
-
+        
+        <!--Login submit form-->
+        <div class="error-message login-btn">
+          @if (errorMessage) {
+          <div>{{ errorMessage }}</div>
+          }
+        </div>
         <button class="custom-btn" mat-flat-button>Log In</button>
-        @if(errorMessage){
-        <div>{{ errorMessage }}</div>
-        }
       </form>
     </div>
-    <a id="goto_signup" routerLink="/signup">
-      No account yet? Sign up now.
-  </a>
+    <a id="goto_signup" routerLink="/signup">No account yet? Sign up now.</a>
   </div>
   <div id="login_graphics">
     <img src="../../../assets/images/mesh_auth.png" />
