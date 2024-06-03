@@ -33,7 +33,7 @@
 }
 
 input[type="checkbox"]:checked + .theme-toggle {
-  background-color: var(--secondary);
+  background-color: var(--toggle-theme-bg);
 }
 
 input[type="checkbox"]:checked + .theme-toggle:before {
@@ -44,7 +44,7 @@ input[type="checkbox"]:checked + .theme-toggle:before {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.1vw;
+  gap: 1vw;
   font-size: 1.2vw;
   color: var(--toggle-theme-ball);
 }

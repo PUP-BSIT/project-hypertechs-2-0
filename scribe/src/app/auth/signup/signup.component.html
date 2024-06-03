@@ -1,0 +1,78 @@
+<div id="signup_container">
+  <div id="signup_main">
+      <div id="signup_header">
+          <header>
+              <app-brand></app-brand>
+              <nav></nav>
+          </header>
+      </div>
+      <div id="signup_form">
+          <h1>Sign Up</h1>
+          <h4>Capture your thoughts quickly. Sign Up to Scribe today. </h4>
+
+          <form id="signup_fields">
+
+              <div class="input-group same-row-one">
+                  <div class="lfname">
+                      <label for="lastname">Last Name</label>
+                      <div id="field_content">
+                          <i class="material-icons">person</i>
+                          <input type="text" id="lastname" name="lastname" 
+                              placeholder="Dela Cruz">
+                      </div>
+                  </div>
+
+                  <div class="lfname">
+                      <label for="firstname">First Name</label>
+                      <div id="field_content">
+                          <i class="material-icons row">person</i>
+                          <input type="text" id="firstname" name="firstname" 
+                              placeholder="Juan">
+                      </div>
+                  </div>
+              </div>
+
+              <div class="input-group">
+                  <label for="email">Email</label>
+                  <div id="field_content">
+                      <i class="material-icons">account_circle</i>
+                      <input type="text" id="email" name="email" 
+                          placeholder="example@gmail.com">
+                  </div>
+              </div>
+
+              <div class="input-group">
+                  <label for="password">Create Password</label>
+                  <div id="field_content">
+                      <i class="material-icons">lock</i>
+                      <input type="password" id="password" name="password" 
+                          placeholder="•••••••••••••">
+                  </div>
+              </div>
+
+              <div class="input-group">
+                  <label for="password">Confirm Password</label>
+                  <div id="field_content">
+                      <i class="material-icons">lock</i>
+                      <input type="password" id="password" name="password"
+                          placeholder="•••••••••••••">
+                  </div>
+              </div>
+
+              <button class="custom-btn" mat-flat-button>
+                  Create account
+              </button>
+          </form>
+      </div>
+
+      <p id="user_agreement">By clicking the button, 
+          you agree to Scribe's Terms of Use and Privacy Policy.</p>
+
+      <a id="goto_login" routerLink="/login">
+          Already have a Scribe account? Log in.
+      </a>
+  </div>
+  <div id="signup_graphics">
+      <img src="../../../assets/images/mesh_auth.png">
+  </div>
+</div>

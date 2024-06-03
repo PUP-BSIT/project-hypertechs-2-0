@@ -10,10 +10,12 @@ import { NotesComponent } from './core/notes/notes.component';
 import { TasksComponent } from './core/tasks/tasks.component';
 import { FoldersComponent } from './core/folders/folders.component';
 import { TrashComponent } from './core/trash/trash.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent},
   {
     path: 'main', component: MainComponent, children: [
       { path: 'home', component: HomeComponent },
@@ -25,10 +27,21 @@ const routes: Routes = [
     ]
   },
   { path: '**', redirectTo: '' }
+  
+// //  import { SignupComponent } from './auth/signup/signup.component';
+
+
+// const routes: Routes = [
+//   { path: '', component: LandingComponent }, // default path: landing
+//   { path: 'login', component: LoginComponent },
+//   { path: 'signup', component: SignupComponent },
+
+  // { path: '**', redirectTo: '' },
+
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

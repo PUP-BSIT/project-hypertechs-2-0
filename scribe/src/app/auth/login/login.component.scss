@@ -4,7 +4,7 @@
   color: var(--text);
   margin: 0;
   padding: 0;
-  box-sizing: 0;
+  box-sizing: border-box;
   overflow: hidden;
 }
 
@@ -15,9 +15,11 @@
 
 #login_graphics {
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* LOGIN HEADER */
 header {
   display: flex;
   align-items: center;
@@ -31,36 +33,32 @@ nav {
 }
 
 img {
-  width: 130%;
+  max-width: 100%;
   height: auto;
-  object-fit: cover;
+  display: block;
 }
 
-/* LOGIN MAIN */
 #login_form {
-  border: 0px solid green;
   margin-top: 5vh;
-}
 
-#login_form h1 {
-  font-size: var(--font-title);
-  color: var(--text);
-}
+  h1 {
+    font-size: var(--font-title);
+    color: var(--text);
+  }
 
-#login_form h4 {
-  margin-top: 2vh;
-  font-size: var(--font-body);
-  color: var(--text);
-  font-weight: 400;
-  letter-spacing: var(--letter-spacing);
+  h4 {
+    margin-top: 1vh;
+    font-size: var(--font-body);
+    color: var(--text);
+    font-weight: 400;
+    letter-spacing: var(--letter-spacing);
+  }
 }
-
-/* MATERIAL FORM FIELD */
 
 form {
   display: flex;
   flex-direction: column;
-  gap: 4vh;
+  gap: 1vh;
   margin-top: 4vh;
   letter-spacing: var(--letter-spacing);
 }
@@ -69,44 +67,38 @@ form {
 #login_form input[type="password"] {
   border: none;
   border-radius: 10vw;
-  padding: 1vh 4.5vw;  // padding increased
+  padding: 1vh 4.5vw;
   height: 8vh;
   background-color: var(--tonal-form);
   color: var(--text);
   font-size: var(--font-form);
   width: 100%;
-}
 
-#login_form input[type="password"] {
-  padding-right: 1.5vw;
-}
+  &:focus {
+    outline: none;
+    border: 2px solid var(--primary);
+  }
 
-#login_form input[type="text"]:focus,
-#login_form input[type="password"]:focus {
-  outline: none;
-  border: 2px solid var(--primary);
-}
-
-#login_form input[type="text"]::placeholder,
-#login_form input[type="password"]::placeholder {
-  opacity: 0.6;
-  color: var(--tonal-form-text);
-  font-size: var(--font-form);
-  letter-spacing: var(--letter-spacing);
+  &::placeholder {
+    opacity: 0.6;
+    color: var(--tonal-form-text);
+    font-size: var(--font-form);
+    letter-spacing: var(--letter-spacing);
+  }
 }
 
 .input-group {
   display: flex;
   flex-direction: column;
   position: relative;
-}
 
-.input-group label {
-  margin-bottom: 2vh;
-  margin-left: 0vw;
-  font-size: var(--font-body);
-  font-weight: 500;
-  color: var(--label);
+  label {
+    margin-bottom: 2vh;
+    margin-left: 0vw;
+    font-size: var(--font-body);
+    font-weight: 500;
+    color: var(--label);
+  }
 }
 
 .field-content {
@@ -115,7 +107,8 @@ form {
   align-items: center;
 }
 
-#email, #password {
+#email,
+#password {
   letter-spacing: var(--letter-spacing);
 }
 
@@ -128,17 +121,21 @@ form {
   font-size: var(--font-icon);
 }
 
+#below_pass_row {
+  display: flex;
+  justify-content: space-between;
+}
+
 #forgot_password {
-  margin-top: 1.5vh;
-  margin-right: 1vw;
+  margin-top: 1vh;
   text-align: end;
   font-size: var(--font-misc);
   color: var(--label);
   cursor: pointer;
+
 }
 
 .custom-btn {
-  margin-top: 0vh;
   height: 8vh;
   font-size: var(--font-body);
   font-weight: 600;
@@ -147,9 +144,200 @@ form {
 
 #goto_signup {
   margin-top: 2vh;
+  display: flex;
+  justify-content: center;
   color: var(--primary);
   font-size: var(--font-misc);
   text-align: center;
   cursor: pointer;
-  letter-spacing: var(--letter-spacing);  // add letter spacing
+  text-decoration: none;
+}
+
+/* Error styles */
+
+/* Red border for input error */
+#login_form input[type="text"].error,
+#login_form input[type="password"].error {
+  border: 2px solid var(--error-message);
+}
+
+.input-group.error .error-message div {
+  color: var(--error-message);
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  min-height: 1.5em;
+  margin-top: 0.5em;
+  visibility: hidden;
+  font-size: var(--font-error);
+  border: 2px solid red;
+
+  .error-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    margin-left: 1vw;
+  }
+
+  .error-item .material-symbols-outlined {
+    font-size: 1.2vw;
+  }
+
+  div {
+    visibility: visible;
+  }
+}
+
+.error-message.login-btn {
+  display: flex;
+  justify-content: center;
+  margin: 0em;
+  color: var(--error-message);
+  border: 2px solid red;
+}
+
+/* MEDIA QUERIES */
+
+/* Mobile Devices (up to 480px) */
+@media (max-width: 480px) {
+  #login_container {
+    flex-direction: column;
+  }
+
+  #login_graphics {
+    display: none;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2vh;
+  }
+
+  nav {
+    gap: 2vw;
+  }
+
+  #login_form h1 {
+    font-size: var(--font-title);
+    color: var(--text);
+    font-size: 20px;
+  }
+
+  #login_form h4 {
+    margin-top: 2vh;
+    font-size: var(--font-body);
+    color: var(--text);
+    font-weight: 400;
+    letter-spacing: var(--letter-spacing);
+    font-size: 10px;
+  }
+
+  .input-group label {
+    margin-bottom: 2vh;
+    margin-left: 0vw;
+    font-size: var(--font-body);
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--label);
+  }
+
+  #login_form input[type="text"],
+  #login_form input[type="password"] {
+    padding: 1.5vh 4vw;
+    height: 6vh;
+    font-size: calc(var(--font-form) - 2px);
+    font-size: 10px;
+  }
+
+  #login_form input[type="text"]::placeholder,
+  #login_form input[type="password"]::placeholder {
+    margin-top: 1.35vh;
+    opacity: 10;
+    color: var(--tonal-form-text);
+    font-size: var(--font-form);
+    letter-spacing: var(--letter-spacing);
+    font-size: 9px;
+    padding: 3vw;
+    //margin-top: 45vh;
+  }
+
+  .material-icons {
+    margin-top: 1.75vh;
+    position: absolute;
+    left: 1.5vw;
+    color: var(--tonal-form-text);
+    pointer-events: none;
+    font-size: var(--font-icon);
+    font-size: 13px;
+  }
+
+  #forgot_password {
+    font-size: calc(var(--font-misc) - 2px);
+    font-size: 10px;
+  }
+
+  button.custom-btn {
+    height: 6vh;
+    font-size: calc(var(--font-body) - 2px);
+    font-size: 10px;
+  }
+
+  #goto_signup {
+    font-size: calc(var(--font-misc) - 2px);
+    font-size: 10px;
+  }
+}
+
+/* Tablet Devices (481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  #login_container {
+    flex-direction: column;
+  }
+
+  #login_graphics {
+    display: none;
+  }
+
+  header {
+    flex-direction: row;
+    align-items: center;
+    gap: 4vh;
+  }
+
+  nav {
+    gap: 2vw;
+  }
+
+  #login_form input[type="text"],
+  #login_form input[type="password"] {
+    padding: 1.5vh 4vw;
+    height: 7vh;
+    font-size: calc(var(--font-form) - 1px);
+  }
+
+  #login_form input[type="text"]::placeholder,
+  #login_form input[type="password"]::placeholder {
+    font-size: calc(var(--font-form) - 1px);
+  }
+
+  .material-icons {
+    font-size: calc(var(--font-icon) - 2px);
+  }
+
+  #forgot_password {
+    font-size: calc(var(--font-misc) - 1px);
+  }
+
+  button.custom-btn {
+    height: 7vh;
+    font-size: calc(var(--font-body) - 1px);
+  }
+
+  #goto_signup {
+    font-size: calc(var(--font-misc) - 1px);
+    letter-spacing: var(--letter-spacing); // add letter spacing
+  }
 }
