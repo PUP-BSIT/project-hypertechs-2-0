@@ -206,6 +206,11 @@ form {
     flex-direction: column;
   }
 
+  #login_main {
+    flex: 1;
+    padding: 5vh 15vw;
+  }
+
   #login_graphics {
     display: none;
   }
