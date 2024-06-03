@@ -29,7 +29,8 @@ $scribe-theme: mat.define-theme(
   --font-body: 1.5vw;
   --font-form: 1.3vw;
   --font-misc: 1.2vw;
-  --letter-spacing: 0.05vw;
+  --font-error: 1.1vw;
+  --letter-spacing: 0.03vw;
 }
 
 /* -------------------------------------------------------- */
@@ -103,6 +104,14 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
   transition: background-color 0.75s ease, color 0.75s ease;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 600,
+  'GRAD' 0,
+  'opsz' 24
 }
 
 // Enables spotlight effect when dark mode only
