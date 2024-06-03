@@ -1,16 +1,25 @@
-/* Default Angular Components*/
+/* Angular Components*/
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideHttpClient, withJsonpSupport } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
-/* Scribe App Components*/
+/* Public Components*/
 import { AppComponent } from './app.component';
 import { LandingComponent } from './public/landing/landing.component';
+
+/* Auth Components */
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
+
+/*Layout Components */
 import { BrandComponent } from './layout/brand/brand.component';
 import { ThemeSwitchComponent } from './layout/theme-switch/theme-switch.component';
-import { LoginComponent } from './auth/login/login.component';
+
+/* Core Components */
 import { MainComponent } from './core/main/main.component';
 import { HomeComponent } from './core/home/home.component';
 import { NotesComponent } from './core/notes/notes.component';
@@ -25,12 +34,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { MatTooltipModule } from '@angular/material/tooltip';
+
+/* Services */
 import { LoginService } from '../services/login.service';
-import { MatButtonModule } from '@angular/material/button';
-import { SignupComponent } from './auth/signup/signup.component';
-import { provideHttpClient, withJsonpSupport } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
