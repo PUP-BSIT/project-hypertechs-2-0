@@ -1,0 +1,80 @@
+#not_found_container {
+  position: relative;
+  height: 100vh;
+  padding: 2.5em 4em;
+  background-color: var(--landing-bg);
+  z-index: 0;
+  transition: background-color 0.75s ease, color 0.75s ease;
+}
+
+/* LANDING HEADER */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 4vw;
+}
+
+#goto_home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-misc);
+  font-weight: 400;
+}
+
+.button-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5vw;
+}
+
+.button-content span {
+  transition: transform 0.5s ease;
+}
+
+.button-content:hover {
+  span {
+    transform: translateX(0.5vw);
+  }
+}
+
+.material-symbols-outlined {
+  font-size: var(--font-misc);
+}
+
+#not_found_message {
+  font-size: 1.5vw;
+  padding-top: 8vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  background: -webkit-linear-gradient(
+    0deg,
+    var(--highlight-prime),
+    var(--highlight-sec)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#not_found_graphics {
+  padding-top: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+svg {
+  width: 40vw;
+}
