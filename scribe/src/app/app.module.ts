@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 /* Public Components*/
 import { AppComponent } from './app.component';
 import { LandingComponent } from './public/landing/landing.component';
+import { NotFoundComponent } from './public/not-found/not-found.component';
 
 /* Auth Components */
 import { LoginComponent } from './auth/login/login.component';
@@ -38,6 +39,7 @@ import { MatListModule } from '@angular/material/list';
 /* Services */
 import { LoginService } from '../services/login.service';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +54,7 @@ import { LoginService } from '../services/login.service';
     FoldersComponent,
     TrashComponent,
     SignupComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
