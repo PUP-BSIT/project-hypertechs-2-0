@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 /* Scribe App Components*/
 import { LandingComponent } from './public/landing/landing.component';
+import { NotFoundComponent } from './public/not-found/not-found.component';
 import { LoginComponent } from './auth/login/login.component';
 import { MainComponent } from './core/main/main.component';
 import { HomeComponent } from './core/home/home.component';
@@ -15,29 +16,20 @@ import { SignupComponent } from './auth/signup/signup.component';
 const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent},
+  { path: 'signup', component: SignupComponent },
   {
-    path: 'main', component: MainComponent, children: [
+    path: 'main',
+    component: MainComponent,
+    children: [
       { path: 'home', component: HomeComponent },
       { path: 'notes', component: NotesComponent },
       { path: 'tasks', component: TasksComponent },
       { path: 'folders', component: FoldersComponent },
       { path: 'trash', component: TrashComponent },
-      { path: '', redirectTo: 'home', pathMatch: 'full' }
-    ]
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+    ],
   },
-  { path: '**', redirectTo: '' }
-  
-// //  import { SignupComponent } from './auth/signup/signup.component';
-
-
-// const routes: Routes = [
-//   { path: '', component: LandingComponent }, // default path: landing
-//   { path: 'login', component: LoginComponent },
-//   { path: 'signup', component: SignupComponent },
-
-  // { path: '**', redirectTo: '' },
-
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
