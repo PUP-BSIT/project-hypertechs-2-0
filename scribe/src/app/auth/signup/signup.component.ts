@@ -24,7 +24,7 @@ export class SignupComponent implements OnInit{
   }
 
   get lastnameControl(){
-    return;
+    return this.signupForm.get('lastname');
   }
 
   get firstnameControl(){
