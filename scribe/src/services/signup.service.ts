@@ -7,5 +7,12 @@ import { SignupData } from '../models/model';
 export class SignupService {
   private baseUrl = 'http://localhost/backend/signup.php';
 
-  constructor() { }
+  constructor( private http: HttpClient) { }
+  
+  loginUser(signupData: SignupData): Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    }
+    return this.http.post(this.baseUrl, signupData, httpOptions);
+  } 
 }
