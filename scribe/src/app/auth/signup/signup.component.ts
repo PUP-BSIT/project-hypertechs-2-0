@@ -23,6 +23,26 @@ export class SignupComponent implements OnInit{
     })
   }
 
+  get lastnameControl(){
+    return;
+  }
+
+  get firstnameControl(){
+    return;
+  }
+
+  get emailControl(){
+    return;
+  }
+
+  get passwordControl(){
+    return;
+  }
+
+  get confirmPasswordControl(){
+    return;
+  }
+
   onSubmit(){
     //return if potential user inputs are invalidd
     if (!this.signupForm.valid) return; 
