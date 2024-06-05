@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit{
-  //loginForm!: FormGroup;
+  //loginForm: FormGroup;
   errorMessage = '';
 
   constructor(private formBuilder: FormBuilder, private loginService: LoginService, 
@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit{
     if (storedUser) {
       try {
         const userData = JSON.parse(storedUser); // Parse stored JSON data
-        //this.router.navigate(['dashboard'], { queryParams: { username: userData.username } });
-        alert(`Log In Successful! Hi ${userData.username}`);
+        this.router.navigate(['main/home'], { queryParams: { username: userData.username } });
+        //alert(`Log In Successful! Hi ${userData.username}`);
       } catch (error) {
         console.error('Error parsing stored user data:', error);
         // Clear invalid data and proceed normally
@@ -66,9 +66,10 @@ export class LoginComponent implements OnInit{
         console.log("Response from server: ", response);
         //I disabled routing after successful log in
         // for the meantime I used alert 
-        //this.router.navigate(['dashboard'], { queryParams: { username: response.username} });
         sessionStorage.setItem('loggedInUser', JSON.stringify(response));
-        alert(`Log In Successful! Hi ${response.username}`);
+        this.router.navigate(['main/home'], { queryParams: { username: response.username} });
+        
+        //alert(`Log In Successful! Hi ${response.username}`);
       },
       error:(error: any)=>{
         console.error("Error Object", error);
