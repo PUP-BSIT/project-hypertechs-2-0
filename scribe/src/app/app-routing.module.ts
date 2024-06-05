@@ -12,10 +12,12 @@ import { TasksComponent } from './core/tasks/tasks.component';
 import { FoldersComponent } from './core/folders/folders.component';
 import { TrashComponent } from './core/trash/trash.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { RecoveryComponent } from './auth/recovery/recovery.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'recovery', component: RecoveryComponent},
   { path: 'signup', component: SignupComponent },
   {
     path: 'main',
