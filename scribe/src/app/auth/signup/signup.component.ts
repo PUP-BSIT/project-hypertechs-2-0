@@ -24,6 +24,7 @@ export class SignupComponent implements OnInit{
   }
 
   onSubmit(){
-    
+    //return if potential user inputs are invalidd
+    if (!this.signupForm.valid) return; 
   }
 }
