@@ -193,3 +193,48 @@ form {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+/* Error styles */
+
+/* Red border for input error */
+#login_form input[type="text"].error,
+#login_form input[type="password"].error {
+  border: 2px solid var(--error-message);
+}
+
+.input-group.error .error-message div {
+  color: var(--error-message);
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  min-height: 1.5em;
+  margin-top: 0.5em;
+  visibility: hidden;
+  font-size: var(--font-error);
+  border: 2px solid red;
+
+  .error-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    margin-left: 1vw;
+  }
+
+  .error-item .material-symbols-outlined {
+    font-size: 1.2vw;
+  }
+
+  div {
+    visibility: visible;
+  }
+}
+
+.error-message.login-btn {
+  display: flex;
+  justify-content: center;
+  margin: 0em;
+  color: var(--error-message);
+  border: 2px solid red;
+}
