@@ -6,6 +6,12 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit{
+
+  constructor(private formBuilder: FormBuilder){}
+
+  ngOnInit(): void {
+    
+  }
 
 }
