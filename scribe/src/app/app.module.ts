@@ -43,6 +43,7 @@ import { MatListModule } from '@angular/material/list';
 
 /* Services */
 import { LoginService } from '../services/login.service';
+import { SignupService } from '../services/signup.service';
 
 
 @NgModule({
@@ -81,6 +82,7 @@ import { LoginService } from '../services/login.service';
     provideAnimationsAsync(),
     LoginService,
     provideHttpClient(withJsonpSupport()),
+    SignupService,
   ],
   bootstrap: [AppComponent],
 })
