@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit{
       try {
         const userData = JSON.parse(storedUser); // Parse stored JSON data
         this.router.navigate(['main/home'], { queryParams: { username: userData.username } });
-        alert(`Log In Successful! Hi ${userData.username}`);
+        //alert(`Log In Successful! Hi ${userData.username}`);
       } catch (error) {
         console.error('Error parsing stored user data:', error);
         // Clear invalid data and proceed normally
