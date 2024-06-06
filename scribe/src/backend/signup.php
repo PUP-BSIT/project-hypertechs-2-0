@@ -30,6 +30,8 @@
         $firstname = $data['firstname'];
         $email = $data['email'];
         $password = $data['password'];
+
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
     }
 
     
