@@ -35,6 +35,7 @@
 
         // Prepare the SQL INSERT statement
         $stmt = $conn->prepare("INSERT INTO users (lastname, firstname, email, password) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $lastname, $firstname, $email, $hashed_password);
 
     }
 
