@@ -15,6 +15,7 @@
       <a mat-list-item [routerLink]="['/main/folders']">Folders</a>
       <a mat-list-item [routerLink]="['/main/trash']">Trash</a>
       <a mat-list-item [routerLink]="['/login']">Log In</a>
+      <button class="logout-btn" (click)="logout()">Logout</button>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -31,6 +32,13 @@
       }
       <span>scribe</span>
     </mat-toolbar>
+    <span>
+      <div class="main-container">
+        <div class="user-info">
+          <p class="greeting">Hi,{{ firstname }}</p>
+        </div>
+      </div>
+    </span>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

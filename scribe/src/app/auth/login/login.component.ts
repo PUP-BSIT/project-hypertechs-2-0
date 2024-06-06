@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit{
     if (storedUser) {
       try {
         const userData = JSON.parse(storedUser); // Parse stored JSON data
-        this.router.navigate(['main/home'], { queryParams: { firstname: userData.firstname } });
+        this.router.navigate(['main'], { queryParams: { firstname: userData.firstname } });
         //alert(`Log In Successful! Hi ${userData.username}`);
       } catch (error) {
         console.error('Error parsing stored user data:', error);
@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit{
         //I disabled routing after successful log in
         // for the meantime I used alert 
         sessionStorage.setItem('loggedInUser', JSON.stringify(response));
-        this.router.navigate(['main/home'], { queryParams: { firstname: response.firstname} });
+        this.router.navigate(['main'], { queryParams: { firstname: response.firstname} });
         //alert(`Log In Successful! Hi ${response.username}`);
       },
       error:(error: HttpErrorResponse)=>{
