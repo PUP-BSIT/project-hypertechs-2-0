@@ -119,7 +119,12 @@
           </div>
         </div>
 
-        <div class="input-group">
+        <div
+          class="input-group"
+          [ngClass]="{
+            error: passwordControl?.invalid && passwordControl?.touched
+          }"
+        >
           <label for="password">Create Password</label>
 
           <!-- Actual password input field -->
@@ -131,7 +136,21 @@
               name="password"
               formControlName="password"
               placeholder="•••••••••••••"
+              [ngClass]="{
+                error: passwordControl?.invalid && passwordControl?.touched
+              }"
             />
+
+            <!--Error Message-->
+            <div class="error-message password">
+              @if (passwordControl?.errors?.['required'] &&
+              passwordControl?.touched) {
+              <div class="error-item">
+                <span class="material-symbols-outlined">error</span>
+                <span>Password is required. Kindly fill out the field.</span>
+              </div>
+              }
+            </div>
           </div>
         </div>
 
