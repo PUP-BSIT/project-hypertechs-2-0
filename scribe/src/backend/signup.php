@@ -8,7 +8,7 @@
     $servername = "localhost";
     $firstname = "root";
     $password = "";
-    $dbname = "skibidi";
+    $dbname = "scribe_db";
 
     // Create connection
     $conn = new mysqli($servername, $firstname, $password, $dbname);
