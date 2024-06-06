@@ -1,8 +1,10 @@
 <mat-sidenav-container class="sidenav-container">
 
   <!--Side Navigation Bar-->
-  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+  <mat-sidenav #drawer class="sidenav" 
+    fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" 
+    [opened]="(isHandset$ | async) === false">
     <div class="custom-toolbar">
       <div class="core-brand" [routerLink]="['/']">
         <img src="../../../assets/images/quill-pen.png">
@@ -13,40 +15,41 @@
     <div id="mat_nav_container">
       <mat-nav-list class="custom-navbar" id="upper_nav">
         <a matRipple [matRippleCentered]="true" matRippleColor="rgba(0,0,0,0.1)"
-          [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }" [routerLink]="['/main/home']"
-          routerLinkActive="active-link">
+          [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }" 
+          [routerLink]="['/main/home']" routerLinkActive="active-link">
           <span class="material-symbols-outlined">home</span>Home
         </a>
         <a matRipple [matRippleCentered]="true" matRippleColor="rgba(0,0,0,0.1)"
-          [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }" [routerLink]="['/main/notes']"
-          routerLinkActive="active-link">
+          [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }" 
+          [routerLink]="['/main/notes']" routerLinkActive="active-link">
           <span class="material-symbols-outlined">note_stack</span>Notes
         </a>
         <a matRipple [matRippleCentered]="true" matRippleColor="rgba(0,0,0,0.1)"
-          [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }" [routerLink]="['/main/tasks']"
-          routerLinkActive="active-link">
+          [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
+          [routerLink]="['/main/tasks']" routerLinkActive="active-link">
           <span class="material-symbols-outlined">task_alt</span>Tasks
         </a>
         <a matRipple [matRippleCentered]="true" matRippleColor="rgba(0,0,0,0.1)"
-          [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }" [routerLink]="['/main/folders']"
-          routerLinkActive="active-link">
+          [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }" 
+          [routerLink]="['/main/folders']" routerLinkActive="active-link">
           <span class="material-symbols-outlined">folder</span>Folders
         </a>
         <a matRipple [matRippleCentered]="true" matRippleColor="rgba(0,0,0,0.1)"
-          [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }" [routerLink]="['/main/trash']"
-          routerLinkActive="active-link">
+          [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }" 
+          [routerLink]="['/main/trash']" routerLinkActive="active-link">
           <span class="material-symbols-outlined">delete</span>Trash
         </a>
       </mat-nav-list>
 
       <mat-nav-list class="custom-navbar" id="upper_nav">
         <a matRipple [matRippleCentered]="true" matRippleColor="rgba(0,0,0,0.1)"
-          [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }" (click)="toggleTheme()">
+          [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
+          (click)="toggleTheme()">
           <span class="material-symbols-outlined">{{ themeIcon }}</span>Theme
         </a>
         <a matRipple [matRippleCentered]="true" matRippleColor="rgba(0,0,0,0.1)"
-          [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }" [routerLink]="['/main/settings']"
-          routerLinkActive="active-link">
+          [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }" 
+          [routerLink]="['/main/settings']" routerLinkActive="active-link">
           <span class="material-symbols-outlined">settings</span>Settings
         </a>
         <a matRipple [matRippleCentered]="true" matRippleColor="rgba(0,0,0,0.1)"
@@ -65,7 +68,8 @@
     <!--Page Toolbar -->
     <mat-toolbar color="primary">
       @if (isHandset$ | async) {
-      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+      <button type="button" aria-label="Toggle sidenav" 
+        mat-icon-button (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       }

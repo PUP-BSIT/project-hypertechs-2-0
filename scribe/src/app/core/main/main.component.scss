@@ -3,7 +3,11 @@
 }
 
 .material-symbols-outlined {
-  font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 24;
+  font-variation-settings: 
+  "FILL" 0, 
+  "wght" 500, 
+  "GRAD" 0, 
+  "opsz" 24;
 }
 
 .sidenav-container {
@@ -78,7 +82,9 @@
     font-size: 1.1em;
     letter-spacing: var(--letter-spacing);
     border-radius: 2em;
-    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out,
+    transition: 
+      color 0.3s ease-in-out,
+      background-color 0.3s ease-in-out,
       transform 0.3s ease-in-out;
   }
 
@@ -97,25 +103,24 @@
   color: var(--primary);
   background-color: var(--core-nav-hover);
   font-weight: 500;
-}
 
-.custom-navbar a.active-link .material-symbols-outlined {
-  color: var(--primary);
-  font-variation-settings: "FILL" 1;
+  .material-symbols-outlined {
+    color: var(--primary);
+    font-variation-settings: "FILL" 1;
+  }
 }
 
 /* Specific styles for the logout link */
 .custom-navbar a.logout-link:hover {
-  background-color: var(--destructive-bg); /* Light red background on hover */
-  color: var(--destructive-text); /* Text color turns red on hover */
-}
+  background-color: var(--destructive-bg);
+  color: var(--destructive-text);
 
-.custom-navbar a.logout-link:hover .material-symbols-outlined {
-  color: var(--destructive-text); /* Icon color turns red on hover */
+  .material-symbols-outlined {
+    color: var(--destructive-text);
+  }
 }
 
 .mat-primary {
-  // border: 1px solid green;
   padding: 2vw;
 }
 
