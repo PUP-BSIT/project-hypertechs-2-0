@@ -9,12 +9,12 @@ import { Router } from '@angular/router';
 })
 
 export class HomeComponent implements OnInit{
-  username: string = '';
+  firstname: string = '';
 
   constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.username = this.route.snapshot.queryParams['firstname'];
+    this.firstname = this.route.snapshot.queryParams['firstname'];
   }
   
   logout() {
