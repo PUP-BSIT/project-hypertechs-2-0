@@ -1,4 +1,5 @@
 <?php
+    session_start();
     header('Access-Control-Allow-Origin: *');
     header('Access-Control-Allow-Methods: POST, GET, OPTIONS'); 
     header('Access-Control-Allow-Headers: Content-Type');
@@ -38,6 +39,9 @@
         $stmt->bind_param("ssss", $lastname, $firstname, $email, $hashed_password);
 
         if ($stmt->execute()) {
+            
+            $_SESSION['firstname'] = $firstname;
+
             // insert was successful, return a success message
             echo json_encode(['message' => 'User registered successfully.',
              'firstname' => $firstname]);
