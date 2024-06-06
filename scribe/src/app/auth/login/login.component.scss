@@ -110,6 +110,7 @@ form {
 #email,
 #password {
   letter-spacing: var(--letter-spacing);
+  letter-spacing: normal;
 }
 
 .material-icons {
@@ -172,6 +173,7 @@ form {
   margin-top: 0.5em;
   visibility: hidden;
   font-size: var(--font-error);
+  font-size: 10px;
   border: 2px solid red;
 
   .error-item {
@@ -204,6 +206,17 @@ form {
 @media (max-width: 480px) {
   #login_container {
     flex-direction: column;
+  }
+
+  #login_main {
+    flex: 1;
+    padding: 5vh 15vw;
+  }
+
+  .field-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
   }
 
   #login_graphics {
@@ -250,6 +263,7 @@ form {
     height: 6vh;
     font-size: calc(var(--font-form) - 2px);
     font-size: 10px;
+    
   }
 
   #login_form input[type="text"]::placeholder,
@@ -259,9 +273,9 @@ form {
     color: var(--tonal-form-text);
     font-size: var(--font-form);
     letter-spacing: var(--letter-spacing);
-    font-size: 9px;
+    font-size: 10px;
     padding: 3vw;
-    //margin-top: 45vh;
+    margin-right: 10vh;
   }
 
   .material-icons {
