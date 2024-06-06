@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit{
   constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.username = this.route.snapshot.queryParams['username'];
+    this.username = this.route.snapshot.queryParams['firstname'];
   }
   
   logout() {
