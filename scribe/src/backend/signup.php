@@ -32,6 +32,10 @@
         $password = $data['password'];
 
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+        // Prepare the SQL INSERT statement
+        $stmt = $conn->prepare("INSERT INTO users (lastname, firstname, email, password) VALUES (?, ?, ?, ?)");
+
     }
 
     
