@@ -42,7 +42,11 @@
             echo json_encode(['message' => 'User registered successfully.',
              'firstname' => $firstname]);
         } 
-
+        else {
+            // error with the insert, return an error message
+            http_response_code(500);
+            echo json_encode(['error' => 'Failed to register user.']);
+        }    
     }
 
     
