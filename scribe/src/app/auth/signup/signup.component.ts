@@ -56,5 +56,14 @@ export class SignupComponent implements OnInit {
     };
 
     console.log("Data sent to service: ", signupData);
+
+    this.signupService.signupUser(signupData)
+        .subscribe({
+          next: (response) => {
+            console.log("Response from server:", response);
+            //this.router.navigate(['main/home'], { queryParams: { firstname: signupData.firstname } });
+            alert(`Log In Successful! Hi ${response.firstname}`);
+          },
+        });
   }
 }
