@@ -12,7 +12,12 @@
 
       <form id="signup_fields" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
         <div class="input-group same-row-one">
-          <div class="lfname">
+          <div
+            class="lfname"
+            [ngClass]="{
+              error: lastnameControl?.invalid && lastnameControl?.touched
+            }"
+          >
             <label for="lastname">Last Name</label>
 
             <!-- Actual lastname input field -->
@@ -24,6 +29,9 @@
                 name="lastname"
                 formControlName="lastname"
                 placeholder="Dela Cruz"
+                [ngClass]="{
+                  error: lastnameControl?.invalid && lastnameControl?.touched
+                }"
               />
             </div>
           </div>
