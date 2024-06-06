@@ -21,6 +21,10 @@
         http_response_code(200);
         exit();
     }
+
+    $input = file_get_contents("php://input");
+    $data = json_decode($input, true);
+
     
     
 ?>
