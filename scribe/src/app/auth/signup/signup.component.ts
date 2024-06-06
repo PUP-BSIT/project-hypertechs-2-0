@@ -98,7 +98,7 @@ export class SignupComponent implements OnInit {
           next: (response) => {
             console.log("Response from server:", response);
             sessionStorage.setItem('loggedInUser', JSON.stringify(response));
-            this.router.navigate(['main/home'], { queryParams: { firstname: signupData.firstname } });
+            this.router.navigate(['main'], { queryParams: { firstname: signupData.firstname } });
             //alert(`Log In Successful! Hi ${response.firstname}`);
           },
           error:(error: HttpErrorResponse)=>{
