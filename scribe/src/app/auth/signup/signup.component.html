@@ -47,7 +47,12 @@
             </div>
           </div>
 
-          <div class="lfname">
+          <div
+            class="lfname"
+            [ngClass]="{
+              error: firstnameControl?.invalid && firstnameControl?.touched
+            }"
+          >
             <label for="firstname">First Name</label>
 
             <!-- Actual firstname input field -->
@@ -59,7 +64,21 @@
                 name="firstname"
                 formControlName="firstname"
                 placeholder="Juan"
+                [ngClass]="{
+                  error: firstnameControl?.invalid && firstnameControl?.touched
+                }"
               />
+
+              <!--Error Message-->
+              <div class="error-message password">
+                @if (firstnameControl?.errors?.['required'] &&
+                firstnameControl?.touched) {
+                <div class="error-item">
+                  <span class="material-symbols-outlined">error</span>
+                  <span>Firstname is required. Kindly fill out the field.</span>
+                </div>
+                }
+              </div>
             </div>
           </div>
         </div>
