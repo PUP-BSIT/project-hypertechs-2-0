@@ -9,7 +9,7 @@ export class SignupService {
 
   constructor( private http: HttpClient) { }
   
-  loginUser(signupData: SignupData): Observable<any>{
+  signupUser(signupData: SignupData): Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     }
