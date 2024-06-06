@@ -76,6 +76,7 @@ export class SignupComponent implements OnInit {
         .subscribe({
           next: (response) => {
             console.log("Response from server:", response);
+            sessionStorage.setItem('loggedInUser', JSON.stringify(response));
             this.router.navigate(['main/home'], { queryParams: { firstname: signupData.firstname } });
             //alert(`Log In Successful! Hi ${response.firstname}`);
           },
