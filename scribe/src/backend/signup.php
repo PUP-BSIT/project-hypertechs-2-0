@@ -25,6 +25,13 @@
     $input = file_get_contents("php://input");
     $data = json_decode($input, true);
 
+    if (isset($data['lastname']) && isset($data['firstname']) && isset($data['email']) && isset($data['password'])) {
+        $lastname = $data['lastname'];
+        $firstname = $data['firstname'];
+        $email = $data['email'];
+        $password = $data['password'];
+    }
+
     
     
 ?>
