@@ -242,6 +242,12 @@
             </div>
           </div>
         </div>
+        <!--Error message-->
+        <div class="error-message login-btn">
+          @if (errorMessage) {
+          <div>{{ errorMessage }}</div>
+          }
+        </div>
 
         <button class="custom-btn" mat-flat-button>Create account</button>
       </form>

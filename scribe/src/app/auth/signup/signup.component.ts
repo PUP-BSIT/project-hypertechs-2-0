@@ -117,7 +117,7 @@ export class SignupComponent implements OnInit {
     if (error?.status){
       switch (error.status) {
         case 400:
-          this.errorMessage = 'Bad request. Please check your data.';
+          this.errorMessage = 'Email already exists.';
           break;
         case 500:
           this.errorMessage = 

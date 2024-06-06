@@ -34,6 +34,18 @@
 
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
+        //Check if email exist
+        $checkEmailStmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+        $checkEmailStmt->bind_param("s", $email);
+        $checkEmailStmt->execute();
+        $checkEmailStmt->store_result();
+
+        if ($checkEmailStmt->num_rows > 0) {
+            // Email already exists
+            http_response_code(400);
+            echo json_encode(['error' => 'User already exists.']);
+        }$checkEmailStmt->close();
+
         // Prepare the SQL INSERT statement
         $stmt = $conn->prepare("INSERT INTO users (lastname, firstname, email, password) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("ssss", $lastname, $firstname, $email, $hashed_password);
