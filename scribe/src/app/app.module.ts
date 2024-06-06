@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withJsonpSupport } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 /* Public Components*/
 import { AppComponent } from './app.component';
@@ -15,6 +16,10 @@ import { NotFoundComponent } from './public/not-found/not-found.component';
 /* Auth Components */
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { RecoveryComponent } from './auth/recovery/recovery.component';
+import { EnterEmailComponent } from './auth/recovery/enter-email/enter-email.component';
+import { EnterOtpComponent } from './auth/recovery/enter-otp/enter-otp.component';
+import { EnterNewPasswordComponent } from './auth/recovery/enter-new-password/enter-new-password.component';
 
 /*Layout Components */
 import { BrandComponent } from './layout/brand/brand.component';
@@ -57,6 +62,10 @@ import { LoginService } from '../services/login.service';
     TrashComponent,
     SignupComponent,
     NotFoundComponent,
+    RecoveryComponent,
+    EnterEmailComponent,
+    EnterOtpComponent,
+    EnterNewPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,9 +77,11 @@ import { LoginService } from '../services/login.service';
     MatIconModule,
     MatListModule,
     ReactiveFormsModule,
+    FormsModule,
     MatRippleModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+
   ],
   providers: [
     provideAnimationsAsync(),
