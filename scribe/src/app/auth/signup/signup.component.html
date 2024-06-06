@@ -154,7 +154,13 @@
           </div>
         </div>
 
-        <div class="input-group">
+        <div
+          class="input-group"
+          [ngClass]="{
+            error:
+              confirmPasswordControl?.invalid && confirmPasswordControl?.touched
+          }"
+        >
           <label for="confirm_password">Confirm Password</label>
 
           <!-- Actual confirm password input field -->
@@ -166,7 +172,23 @@
               name="confirm_password"
               formControlName="confirm_password"
               placeholder="•••••••••••••"
+              [ngClass]="{
+                error:
+                  confirmPasswordControl?.invalid &&
+                  confirmPasswordControl?.touched
+              }"
             />
+
+            <!--Error Message-->
+            <div class="error-message password">
+              @if (confirmPasswordControl?.errors?.['required'] &&
+              confirmPasswordControl?.touched) {
+              <div class="error-item">
+                <span class="material-symbols-outlined">error</span>
+                <span>Password is required. Kindly fill out the field.</span>
+              </div>
+              }
+            </div>
           </div>
         </div>
 
