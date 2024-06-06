@@ -24,6 +24,7 @@
               id="email"
               name="email"
               placeholder="example@gmail.com"
+              maxlength="320"
               formControlName="email"
               [ngClass]="{'error': 
                 emailControl?.invalid && emailControl?.touched}" />
@@ -45,7 +46,8 @@
 
         <!--Password input field group-->
         <div class="input-group"
-          [ngClass]="{'error': passwordControl?.invalid && passwordControl?.touched}">
+          [ngClass]="{'error': passwordControl?.invalid 
+            && passwordControl?.touched}">
           <label for="password">Password</label>
 
           <!--Actual password input-->
@@ -55,14 +57,17 @@
               id="password"
               name="password"
               placeholder="•••••••••••••"
+              maxlength="40"
               formControlName="password"
-              [ngClass]="{'error': passwordControl?.invalid && passwordControl?.touched}" />
+              [ngClass]="{'error': passwordControl?.invalid 
+                && passwordControl?.touched}" />
 
               <!--Below the password, we wrap forgot password and error msg-->
             <div id="below_pass_row">
               <!--Error Message-->
               <div class="error-message password">
-                @if (passwordControl?.errors?.['required'] && passwordControl?.touched) {
+                @if (passwordControl?.errors?.['required'] 
+                  && passwordControl?.touched) {
                 <div class="error-item">
                   <span class="material-symbols-outlined">error</span>
                   <span>Password is required. Kindly fill out the field.</span>
@@ -71,7 +76,7 @@
               </div>
               <!--Forgot Password-->
               <div id="forgot_password">
-                <span>Forgot Password?</span>
+                <span routerLink="/recovery">Forgot Password?</span>
               </div>
             </div>
           </div>
