@@ -138,3 +138,52 @@ svg {
   width: 39.5vw;
   height: auto;
 }
+
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+  /* Styles for smaller screens */
+  #landing_container {
+  padding: 2em; /* Adjust padding for smaller screens */
+  }
+  
+  nav {
+  display: flex;
+  align-items: center;
+  gap: 3.5vw;
+  }
+  
+  nav a {
+  text-decoration: none;
+  color: var(--text);
+  font-size: 1.8vw;
+  }
+  
+  #scribe_hero h1 {
+  font-size: 5vw;
+  margin-top: 8vh;
+  border: 0px solid red;
+  }
+  
+  #scribe_desc {
+  font-size: 2.5vh;
+  line-height: 1.6;
+  padding: 0 8vw;
+  border: 0px solid red;
+  text-align: center;
+  letter-spacing: 0.04vw;
+  }
+  
+  #scribe_login, #scribe_signup {
+  width: 10vw;
+  font-size: 3vh; 
+  width: 90px; 
+  height: 20px; 
+  padding: 3.5px 1px; 
+  font-size: 12px; 
+  }
+}
+  
+  CSS
+  #landing_buttons {
+  gap: 20px; /* Adjust gap between buttons as needed */
+  }
