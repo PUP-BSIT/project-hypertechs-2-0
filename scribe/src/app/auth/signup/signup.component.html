@@ -83,7 +83,12 @@
           </div>
         </div>
 
-        <div class="input-group">
+        <div
+          class="input-group"
+          [ngClass]="{
+            error: emailControl?.invalid && emailControl?.touched
+          }"
+        >
           <label for="email">Email</label>
 
           <!-- Actual email input field -->
@@ -95,7 +100,22 @@
               name="email"
               formControlName="email"
               placeholder="example@gmail.com"
+              [ngClass]="{
+                error: emailControl?.invalid && emailControl?.touched
+              }"
             />
+
+            <!--Email Error Message-->
+            <div class="error-message">
+              @if (emailControl?.errors?.['required'] && emailControl?.touched){
+              <div class="error-item">
+                <span class="material-symbols-outlined">error</span>
+                <span>Email is required. Kindly fill out the field.</span>
+              </div>
+              } @if (emailControl?.errors?.['email'] && emailControl?.touched){
+              <div>Email is invalid format. Please try again.</div>
+              }
+            </div>
           </div>
         </div>
 
