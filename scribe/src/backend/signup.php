@@ -37,6 +37,12 @@
         $stmt = $conn->prepare("INSERT INTO users (lastname, firstname, email, password) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("ssss", $lastname, $firstname, $email, $hashed_password);
 
+        if ($stmt->execute()) {
+            // insert was successful, return a success message
+            echo json_encode(['message' => 'User registered successfully.',
+             'firstname' => $firstname]);
+        } 
+
     }
 
     
