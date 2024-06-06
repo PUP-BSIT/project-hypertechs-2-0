@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { SignupData } from '../../../models/model';
 import { SignupService } from '../../../services/signup.service';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-signup',
@@ -12,6 +13,7 @@ import { Router } from '@angular/router';
 export class SignupComponent implements OnInit {
 
   signupForm: FormGroup = this.formBuilder.group({});
+  errorMessage: string = '';
 
   constructor(private formBuilder: FormBuilder, private signupService: SignupService, private router: Router) {}
 
@@ -65,6 +67,35 @@ export class SignupComponent implements OnInit {
             this.router.navigate(['main/home'], { queryParams: { firstname: signupData.firstname } });
             //alert(`Log In Successful! Hi ${response.firstname}`);
           },
+          
         });
   }
+
+  handleError(error: HttpErrorResponse){
+    this.errorMessage = 'Login failed';
+  
+    if (error.error) {
+      this.errorMessage = error.error.error; 
+    }
+
+    if (error?.status){
+      switch (error.status) {
+        case 400:
+          this.errorMessage = 'Bad request. Please check your data.';
+          break;
+        case 401:
+          this.errorMessage = 
+            'You have entered an invalid email or password.';
+          break;
+        case 500:
+          this.errorMessage = 
+            'Internal server error. Please try again later.';
+          break;
+        default:
+          this.errorMessage = 
+          `Error: ${error.status}. Please try again later.`;
+      } 
+    } 
+  }      
+
 }
