@@ -98,10 +98,6 @@ export class SignupComponent implements OnInit {
         case 400:
           this.errorMessage = 'Bad request. Please check your data.';
           break;
-        case 401:
-          this.errorMessage = 
-            'You have entered an invalid email or password.';
-          break;
         case 500:
           this.errorMessage = 
             'Internal server error. Please try again later.';
