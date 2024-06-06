@@ -87,7 +87,7 @@ export class SignupComponent implements OnInit {
   }
 
   handleError(error: HttpErrorResponse){
-    this.errorMessage = 'Login failed';
+    this.errorMessage = 'Signup failed.';
   
     if (error.error) {
       this.errorMessage = error.error.error; 
