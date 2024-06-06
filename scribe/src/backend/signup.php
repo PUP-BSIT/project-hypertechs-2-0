@@ -39,7 +39,7 @@
         $stmt->bind_param("ssss", $lastname, $firstname, $email, $hashed_password);
 
         if ($stmt->execute()) {
-            
+
             $_SESSION['firstname'] = $firstname;
 
             // insert was successful, return a success message
@@ -51,8 +51,7 @@
             http_response_code(500);
             echo json_encode(['error' => 'Failed to register user.']);
         }    
+        $stmt->close(); 
     }
-
-    
-    
+    $conn->close();        
 ?>
