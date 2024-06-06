@@ -28,19 +28,19 @@ export class SignupComponent implements OnInit{
   }
 
   get firstnameControl(){
-    return;
+    return this.signupForm.get('firstname');
   }
 
   get emailControl(){
-    return;
+    return this.signupForm.get('email');
   }
 
   get passwordControl(){
-    return;
+    return this.signupForm.get('password');
   }
 
   get confirmPasswordControl(){
-    return;
+    return this.signupForm.get('confirm_password');
   }
 
   onSubmit(){
