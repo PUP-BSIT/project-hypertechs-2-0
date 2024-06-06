@@ -33,6 +33,17 @@
                   error: lastnameControl?.invalid && lastnameControl?.touched
                 }"
               />
+
+              <!--Error Message-->
+              <div class="error-message password">
+                @if (lastnameControl?.errors?.['required'] &&
+                lastnameControl?.touched) {
+                <div class="error-item">
+                  <span class="material-symbols-outlined">error</span>
+                  <span>Lastname is required. Kindly fill out the field.</span>
+                </div>
+                }
+              </div>
             </div>
           </div>
 
