@@ -40,7 +40,7 @@ nav a {
 }
 
 #scribe_hero h1 {
-  font-size: 4.75vw;
+  font-size: var(--font-hero);
   margin-top: 14vh;
   border: 0px solid red;
 }
@@ -57,11 +57,13 @@ nav a {
 
 #scribe_desc {
   font-size: 3.3vh;
+  font-weight: 400;
+  font-family: var(--font-display);
   line-height: 1.6;
   padding: 0 8vw;
   border: 0px solid red;
   text-align: center;
-  letter-spacing: 0.04vw;
+  letter-spacing: var(--letter-spacing);
 }
 
 /* LANDING BUTTONS */
@@ -76,21 +78,16 @@ nav a {
   cursor: pointer;
   border: none;
   border-radius: 50px;
-  font-size: 3.25vh;
+  font-size: var(--font-icon);
   width: 12vw;
   height: auto;
   padding: 2vh 0;
-  font-weight: 600;
-  color: var(--primary);
-  background: linear-gradient(var(--landing-bg), var(--landing-bg)) padding-box, 
-    linear-gradient(60deg, var(--tonal-border), var(--accent)) border-box;
-  border: 0.2vw solid transparent;
+  color: var(--accent);
   border-radius: 3vw;
-  display: inline-block;
+  background: var(--tonal-button);
 }
 
 #scribe_signup {
-  font-weight: 600;
   position: relative;
   cursor: pointer;
   border: none;
@@ -105,8 +102,7 @@ nav a {
     #4da383);
   background-size: 400%;
   color: #fff;
-  font-size: 3.25vh;
-  letter-spacing: 0.05vw;
+  font-size: var(--font-icon);
 }
 
 #scribe_signup::before {

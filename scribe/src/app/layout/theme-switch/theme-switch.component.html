@@ -1,8 +1,9 @@
 <div id="switch_theme">
-    <input type="checkbox" id="themeToggle" (change)="toggleTheme()" 
+    <input type="checkbox" id="themeToggle" (change)="toggleTheme()"
         [checked]="isDarkMode" class="visually-hidden">
     <label for="themeToggle" class="theme-toggle">
-        <i class="fas fa-moon"></i>
-        <i class="fas fa-sun"></i>
+        <span id="dark_mode" class="material-symbols-outlined"> dark_mode </span>
+        <span id="light_mode" class="material-symbols-outlined"> light_mode </span>
     </label>
 </div>
+

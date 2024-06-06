@@ -1,17 +1,135 @@
+* {
+  color: var(--text);
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 
+  "FILL" 0, 
+  "wght" 500, 
+  "GRAD" 0, 
+  "opsz" 24;
+}
+
 .sidenav-container {
   height: 100%;
+  background: var(--core-bg);
 }
 
 .sidenav {
-  width: 200px;
+  width: 17rem;
+  border-radius: 0 1em 1em 0;
+  background: var(--core-nav);
 }
 
-.sidenav .mat-toolbar {
-  background: inherit;
+.mat-toolbar {
+  color: white;
+  background: var(--core-bg);
+  // border: 1px solid green;
+}
+
+.custom-toolbar,
+.custom-navbar {
+  padding: 0 1vw;
+}
+
+.custom-toolbar {
+  padding: 2rem;
+  font: 700 2em var(--font-display), sans-serif;
+  background: linear-gradient(90deg, var(--accent), var(--primary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  img {
+    width: 1em;
+    margin-right: 1rem;
+  }
+
+  .core-brand {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+}
+
+#mat_nav_container {
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+  overflow: hidden;
+
+  #upper_nav:first-of-type {
+    margin-bottom: 0;
+  }
+
+  #upper_nav:last-of-type {
+    margin-top: auto;
+  }
+}
+
+.custom-navbar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  cursor: pointer;
+
+  a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 2vh;
+    font-size: 1.1em;
+    letter-spacing: var(--letter-spacing);
+    border-radius: 2em;
+    transition: 
+      color 0.3s ease-in-out,
+      background-color 0.3s ease-in-out,
+      transform 0.3s ease-in-out;
+  }
+
+  .material-symbols-outlined {
+    transition: color 0.3s ease-in-out;
+  }
+}
+
+/* Hover and Ripple Effect */
+.custom-navbar a:hover {
+  background-color: var(--core-nav-hover);
+  transform: translateX(3px);
+}
+
+.custom-navbar a.active-link {
+  color: var(--primary);
+  background-color: var(--core-nav-hover);
+  font-weight: 500;
+
+  .material-symbols-outlined {
+    color: var(--primary);
+    font-variation-settings: "FILL" 1;
+  }
+}
+
+/* Specific styles for the logout link */
+.custom-navbar a.logout-link:hover {
+  background-color: var(--destructive-bg);
+  color: var(--destructive-text);
+
+  .material-symbols-outlined {
+    color: var(--destructive-text);
+  }
+}
+
+.mat-primary {
+  padding: 2vw;
 }
 
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;
   z-index: 1;
+}
+
+.scribe-core-content {
+  margin: 2vw;
 }
