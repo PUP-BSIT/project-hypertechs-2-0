@@ -60,6 +60,24 @@
       </mat-nav-list>
     </div>
 
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+               
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item [routerLink]="['/main/home']">Home</a>
+      <a mat-list-item [routerLink]="['/main/notes']">Notes</a>
+      <a mat-list-item [routerLink]="['/main/tasks']">Tasks</a>
+      <a mat-list-item [routerLink]="['/main/folders']">Folders</a>
+      <a mat-list-item [routerLink]="['/main/trash']">Trash</a>
+      <a mat-list-item [routerLink]="['/login']">Log In</a>
+      <button class="logout-btn" (click)="logout()">Logout</button>
+    </mat-nav-list>
   </mat-sidenav>
 
   <!--Main Content-->
@@ -70,14 +88,31 @@
       @if (isHandset$ | async) {
       <button type="button" aria-label="Toggle sidenav" 
         mat-icon-button (click)="drawer.toggle()">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       }
       <span>Toolbar</span>
     </mat-toolbar>
+
     <!--Actual Loaded Page Content-->
     <div class="scribe-core-content">
       <router-outlet></router-outlet>
     </div>
+
+    <span>
+      <div class="main-container">
+        <div class="user-info">
+          <p class="greeting">Hi,{{ firstname }}</p>
+        </div>
+      </div>
+    </span>
+    <router-outlet></router-outlet>
+
   </mat-sidenav-content>
 </mat-sidenav-container>

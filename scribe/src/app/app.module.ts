@@ -46,6 +46,7 @@ import { MatInputModule } from '@angular/material/input';
 
 /* Services */
 import { LoginService } from '../services/login.service';
+import { SignupService } from '../services/signup.service';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { LoginService } from '../services/login.service';
     provideAnimationsAsync(),
     LoginService,
     provideHttpClient(withJsonpSupport()),
+    SignupService,
   ],
   bootstrap: [AppComponent],
 })
