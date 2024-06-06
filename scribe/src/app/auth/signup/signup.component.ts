@@ -54,5 +54,7 @@ export class SignupComponent implements OnInit {
       email: this.emailControl?.value,
       password: this.passwordControl?.value,
     };
+
+    console.log("Data sent to service: ", signupData);
   }
 }
