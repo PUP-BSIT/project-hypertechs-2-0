@@ -143,6 +143,11 @@
               </div>
               } @if (emailControl?.errors?.['email'] && emailControl?.touched){
               <div>Email is invalid format. Please try again.</div>
+              }@if(emailControl?.getError('maxlength')){
+              <div class="error-item">
+                <span class="material-symbols-outlined">error</span>
+                <span>Email should not be greater than 320 characters.</span>
+              </div>
               }
             </div>
           </div>
