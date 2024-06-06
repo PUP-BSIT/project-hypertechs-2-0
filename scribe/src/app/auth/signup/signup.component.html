@@ -11,7 +11,6 @@
       <h4>Capture your thoughts quickly. Sign Up to Scribe today.</h4>
 
       <form id="signup_fields" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-        <!-- actual lastname input -->
         <div class="input-group same-row-one">
           <div class="lfname">
             <label for="lastname">Last Name</label>
@@ -23,16 +22,6 @@
                 name="lastname"
                 placeholder="Dela Cruz"
               />
-              <!--error message for lastname  -->
-              <div class="error-message password">
-                @if (lastnameControl?.errors?.['required'] &&
-                lastnameControl?.touched) {
-                <div class="error-item">
-                  <span class="material-symbols-outlined">error</span>
-                  <span>Lastname is required. Kindly fill out the field.</span>
-                </div>
-                }
-              </div>
             </div>
           </div>
 

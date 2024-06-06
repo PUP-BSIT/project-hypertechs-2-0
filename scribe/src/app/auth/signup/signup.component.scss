@@ -197,12 +197,12 @@ form {
 /* Error styles */
 
 /* Red border for input error */
-#login_form input[type="text"].error,
-#login_form input[type="password"].error {
+#signup_form input[type="text"].error,
+#signup_form input[type="password"].error {
   border: 2px solid var(--error-message);
 }
 
-.input-group.error .error-message div {
+.input-group.same-row-one.error .error-message div {
   color: var(--error-message);
 }
 
@@ -231,7 +231,7 @@ form {
   }
 }
 
-.error-message.login-btn {
+.error-message.custom-btn {
   display: flex;
   justify-content: center;
   margin: 0em;
