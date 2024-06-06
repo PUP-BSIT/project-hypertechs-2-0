@@ -67,6 +67,8 @@ export class SignupComponent implements OnInit {
             this.router.navigate(['main/home'], { queryParams: { firstname: signupData.firstname } });
             //alert(`Log In Successful! Hi ${response.firstname}`);
           },
+          error:(error: HttpErrorResponse)=>{
+            this.handleError(error) },
           
         });
   }
