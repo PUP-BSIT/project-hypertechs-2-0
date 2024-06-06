@@ -233,6 +233,11 @@
                 <span class="material-symbols-outlined">error</span>
                 <span>Password is required. Kindly fill out the field.</span>
               </div>
+              } @if (confirmPasswordControl?.errors?.['confirmedValidator']) {
+              <div class="error-item">
+                <span class="material-symbols-outlined">error</span>
+                <span>Password is did not match.</span>
+              </div>
               }
             </div>
           </div>
