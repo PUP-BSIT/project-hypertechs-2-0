@@ -25,6 +25,18 @@ export class SignupComponent implements OnInit {
       password: ['', Validators.required],
       confirm_password: ['', Validators.required]
     });
+
+    const storedUser = sessionStorage.getItem('loggedInUser');
+    if (storedUser) {
+      try {
+        const userData = JSON.parse(storedUser); // Parse stored JSON data
+        this.router.navigate(['main'], { queryParams: { firstname: userData.firstname } });
+      } catch (error) {
+        console.error('Error parsing stored user data:', error);
+        // Clear invalid data and proceed normally
+        sessionStorage.removeItem('loggedInUser');
+      }
+    }
   }
 
   get lastnameControl() {
