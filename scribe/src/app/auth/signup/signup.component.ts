@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { SignupData } from '../../../models/model';
 import { SignupService } from '../../../services/signup.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -12,7 +13,7 @@ export class SignupComponent implements OnInit {
 
   signupForm: FormGroup = this.formBuilder.group({});
 
-  constructor(private formBuilder: FormBuilder, private signupService: SignupService) {}
+  constructor(private formBuilder: FormBuilder, private signupService: SignupService, private router: Router) {}
 
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group({
@@ -61,8 +62,8 @@ export class SignupComponent implements OnInit {
         .subscribe({
           next: (response) => {
             console.log("Response from server:", response);
-            //this.router.navigate(['main/home'], { queryParams: { firstname: signupData.firstname } });
-            alert(`Log In Successful! Hi ${response.firstname}`);
+            this.router.navigate(['main/home'], { queryParams: { firstname: signupData.firstname } });
+            //alert(`Log In Successful! Hi ${response.firstname}`);
           },
         });
   }
