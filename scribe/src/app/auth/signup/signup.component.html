@@ -29,6 +29,7 @@
                 name="lastname"
                 formControlName="lastname"
                 maxlength="40"
+                minlength="3"
                 placeholder="Dela Cruz"
                 [ngClass]="{
                   error: lastnameControl?.invalid && lastnameControl?.touched
@@ -38,10 +39,22 @@
               <!--Lastname Error Message-->
               <div class="error-message password">
                 @if (lastnameControl?.errors?.['required'] &&
-                lastnameControl?.touched) {
+                lastnameControl?.touched ) {
                 <div class="error-item">
                   <span class="material-symbols-outlined">error</span>
                   <span>Lastname is required. Kindly fill out the field.</span>
+                </div>
+                } @if(lastnameControl?.getError('minlength')){
+                <div class="error-item">
+                  <span class="material-symbols-outlined">error</span>
+                  <span>Lastname must be atleast 3 characters.</span>
+                </div>
+                }@if(lastnameControl?.getError('maxlength')){
+                <div class="error-item">
+                  <span class="material-symbols-outlined">error</span>
+                  <span
+                    >Lastname should not be greater than 40 characters.</span
+                  >
                 </div>
                 }
               </div>
