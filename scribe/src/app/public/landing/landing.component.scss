@@ -1,10 +1,13 @@
+* {
+  transition: background-color 0.75s ease, color 0.1s ease;
+}
+
 #landing_container {
   position: relative;
   height: 100vh;
   padding: 2.5em 4em;
   background-color: var(--landing-bg);
   z-index: 0;
-  transition: background-color 0.75s ease, color 0.75s ease;
 }
 
 /* LANDING HEADER */
