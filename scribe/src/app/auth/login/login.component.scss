@@ -252,7 +252,7 @@ form {
     margin-bottom: 2vh;
     margin-left: 0vw;
     font-size: var(--font-body);
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 500;
     color: var(--label);
   }
@@ -296,12 +296,12 @@ form {
   button.custom-btn {
     height: 6vh;
     font-size: calc(var(--font-body) - 2px);
-    font-size: 10px;
+    font-size: 12px;
   }
 
   #goto_signup {
     font-size: calc(var(--font-misc) - 2px);
-    font-size: 10px;
+    font-size: 12px;
   }
 }
 
