@@ -70,7 +70,7 @@
       </mat-nav-list>
 
       <mat-nav-list class="custom-navbar" id="upper_nav">
-        <a
+        <a id="theme_nav"
           matRipple
           [matRippleCentered]="true"
           matRippleColor="rgba(0,0,0,0.1)"
@@ -107,14 +107,12 @@
   <mat-sidenav-content>
     <!--Page Toolbar -->
     <mat-toolbar color="primary">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-      >
+      @if (isHandset$ | async) {
+      <button type="button" aria-label="Toggle sidenav" 
+        mat-icon-button (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
+      }
       <span>Toolbar</span>
     </mat-toolbar>
 
