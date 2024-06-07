@@ -62,7 +62,8 @@ form {
   letter-spacing: var(--letter-spacing);
 }
 
-.recovery-form input[type="text"] {
+.recovery-form input[type="text"],
+.recovery-form input[type="password"] {
   border: none;
   border-radius: 10vw;
   padding: 1vh 4.5vw;
@@ -229,7 +230,6 @@ form {
     letter-spacing: var(--letter-spacing);
     font-size: 9px;
     padding: 3vw;
-    //margin-top: 45vh;
   }
 
   .material-icons {
