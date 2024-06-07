@@ -67,13 +67,27 @@
 
     <!--Page Toolbar -->
     <mat-toolbar color="primary">
-      @if (isHandset$ | async) {
-      <button type="button" aria-label="Toggle sidenav" 
-        mat-icon-button (click)="drawer.toggle()">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
-      }
-      <span>Toolbar</span>
+
+      <!--Menu Toggle-->
+      <div id="scribe_menu-container">
+        @if (isHandset$ | async) {
+        <button type="button" aria-label="Toggle sidenav" 
+          mat-icon-button (click)="drawer.toggle()">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        }
+      </div>
+
+      <!--Search Bar-->
+      <div id="scribe_search_container">
+        <input type="search" placeholder="Search" id="search_input">
+      </div>
+
+      <!--User Profile-->
+      <div id="scribe_user_container">
+        
+      </div>
+
     </mat-toolbar>
     <!--Actual Loaded Page Content-->
     <div class="scribe-core-content">

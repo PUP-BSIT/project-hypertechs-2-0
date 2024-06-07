@@ -120,8 +120,35 @@
   }
 }
 
+/* Scribe Toolbar */
+
 .mat-primary {
-  padding: 2vw;
+  padding: 7vh 3vw;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  border: 1px solid green;
+
+  #scribe_search_container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+
+    #search_input {
+      width: 100%;
+      padding: 1em 2em;
+      outline: none;
+      border: none;
+      border-radius: 10em;
+      font-size: 1rem;
+      background-color: var(--core-nav);
+
+      &::placeholder {
+        color: var(--text);
+        opacity: 0.6;
+      }
+    }
+  }
 }
 
 .mat-toolbar.mat-primary {
@@ -129,6 +156,8 @@
   top: 0;
   z-index: 1;
 }
+
+/* Scribe Core Content */
 
 .scribe-core-content {
   margin: 2vw;
