@@ -1,70 +1,110 @@
 <mat-sidenav-container class="sidenav-container">
-
   <!--Side Navigation Bar-->
-  <mat-sidenav #drawer class="sidenav" 
-    fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'" 
-    [opened]="(isHandset$ | async) === false">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
     <div class="custom-toolbar">
       <div class="core-brand" [routerLink]="['/']">
-        <img src="../../../assets/images/quill-pen.png">
+        <img src="../../../assets/images/quill-pen.png" />
         Scribe
       </div>
     </div>
 
     <div id="mat_nav_container">
       <mat-nav-list class="custom-navbar" id="upper_nav">
-        <a matRipple [matRippleCentered]="true" matRippleColor="rgba(0,0,0,0.1)"
-          [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }" 
-          [routerLink]="['/main/home']" routerLinkActive="active-link">
+        <a
+          matRipple
+          [matRippleCentered]="true"
+          matRippleColor="rgba(0,0,0,0.1)"
+          [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
+          [routerLink]="['/main/home']"
+          routerLinkActive="active-link"
+        >
           <span class="material-symbols-outlined">home</span>Home
         </a>
-        <a matRipple [matRippleCentered]="true" matRippleColor="rgba(0,0,0,0.1)"
-          [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }" 
-          [routerLink]="['/main/notes']" routerLinkActive="active-link">
+        <a
+          matRipple
+          [matRippleCentered]="true"
+          matRippleColor="rgba(0,0,0,0.1)"
+          [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
+          [routerLink]="['/main/notes']"
+          routerLinkActive="active-link"
+        >
           <span class="material-symbols-outlined">note_stack</span>Notes
         </a>
-        <a matRipple [matRippleCentered]="true" matRippleColor="rgba(0,0,0,0.1)"
+        <a
+          matRipple
+          [matRippleCentered]="true"
+          matRippleColor="rgba(0,0,0,0.1)"
           [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
-          [routerLink]="['/main/tasks']" routerLinkActive="active-link">
+          [routerLink]="['/main/tasks']"
+          routerLinkActive="active-link"
+        >
           <span class="material-symbols-outlined">task_alt</span>Tasks
         </a>
-        <a matRipple [matRippleCentered]="true" matRippleColor="rgba(0,0,0,0.1)"
-          [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }" 
-          [routerLink]="['/main/folders']" routerLinkActive="active-link">
+        <a
+          matRipple
+          [matRippleCentered]="true"
+          matRippleColor="rgba(0,0,0,0.1)"
+          [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
+          [routerLink]="['/main/folders']"
+          routerLinkActive="active-link"
+        >
           <span class="material-symbols-outlined">folder</span>Folders
         </a>
-        <a matRipple [matRippleCentered]="true" matRippleColor="rgba(0,0,0,0.1)"
-          [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }" 
-          [routerLink]="['/main/trash']" routerLinkActive="active-link">
+        <a
+          matRipple
+          [matRippleCentered]="true"
+          matRippleColor="rgba(0,0,0,0.1)"
+          [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
+          [routerLink]="['/main/trash']"
+          routerLinkActive="active-link"
+        >
           <span class="material-symbols-outlined">delete</span>Trash
         </a>
       </mat-nav-list>
 
       <mat-nav-list class="custom-navbar" id="upper_nav">
-        <a matRipple [matRippleCentered]="true" matRippleColor="rgba(0,0,0,0.1)"
+        <a id="theme_nav"
+          matRipple
+          [matRippleCentered]="true"
+          matRippleColor="rgba(0,0,0,0.1)"
           [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
-          (click)="toggleTheme()">
-          <span class="material-symbols-outlined">{{ themeIcon }}</span>Theme
+          (click)="toggleTheme()"
+        >
+          <span class="material-symbols-outlined">{{ themeIcon }}</span
+          >Theme
         </a>
-        <a matRipple [matRippleCentered]="true" matRippleColor="rgba(0,0,0,0.1)"
-          [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }" 
-          [routerLink]="['/main/settings']" routerLinkActive="active-link">
+        <a
+          matRipple
+          [matRippleCentered]="true"
+          matRippleColor="rgba(0,0,0,0.1)"
+          [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
+          [routerLink]="['/main/settings']"
+          routerLinkActive="active-link"
+        >
           <span class="material-symbols-outlined">settings</span>Settings
         </a>
-        <a matRipple [matRippleCentered]="true" matRippleColor="rgba(0,0,0,0.1)"
-          [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }" 
-          class="logout-link">
+        <a
+          matRipple
+          [matRippleCentered]="true"
+          matRippleColor="rgba(0,0,0,0.1)"
+          [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
+          class="logout-link"
+        >
           <span class="material-symbols-outlined">logout</span>Log Out
         </a>
       </mat-nav-list>
     </div>
-
   </mat-sidenav>
 
   <!--Main Content-->
   <mat-sidenav-content>
-
     <!--Page Toolbar -->
     <mat-toolbar color="primary">
 
@@ -89,9 +129,16 @@
       </div>
 
     </mat-toolbar>
+
     <!--Actual Loaded Page Content-->
     <div class="scribe-core-content">
       <router-outlet></router-outlet>
+    </div>
+
+    <div class="main-container">
+      <div class="user-info">
+        <p class="greeting">Hi,{{ firstname }}</p>
+      </div>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

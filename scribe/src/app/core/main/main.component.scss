@@ -1,5 +1,6 @@
 * {
   color: var(--text);
+  transition: background-color 0.75s ease, color 0.75s ease;
 }
 
 .material-symbols-outlined {
@@ -24,16 +25,15 @@
 .mat-toolbar {
   color: white;
   background: var(--core-bg);
-  // border: 1px solid green;
 }
 
 .custom-toolbar,
 .custom-navbar {
-  padding: 0 1vw;
+  padding: 0 1.25vw;
 }
 
 .custom-toolbar {
-  padding: 2rem;
+  padding: 2.25rem;
   font: 700 2em var(--font-display), sans-serif;
   background: linear-gradient(90deg, var(--accent), var(--primary));
   -webkit-background-clip: text;
@@ -79,7 +79,7 @@
     align-items: center;
     gap: 1rem;
     padding: 2vh;
-    font-size: 1.1em;
+    font-size: 1.25em;
     letter-spacing: var(--letter-spacing);
     border-radius: 2em;
     transition: 
@@ -90,6 +90,16 @@
 
   .material-symbols-outlined {
     transition: color 0.3s ease-in-out;
+  }
+
+  #theme_nav {
+    color: var(--primary);
+    font-weight: 500;
+
+    .material-symbols-outlined {
+      color: var(--primary);
+      font-variation-settings: "FILL" 1;
+    }
   }
 }
 
