@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class MainComponent implements OnInit{
   private breakpointObserver = inject(BreakpointObserver);
   email: string | null = null;
+  firstname: string = '';
 
   isHandset$: Observable<boolean> = 
     this.breakpointObserver.observe(Breakpoints.Handset)
@@ -25,33 +26,18 @@ export class MainComponent implements OnInit{
   // Dynamically change icon based on theme
   themeIcon: string = 'dark_mode';
 
-  constructor(private themeService: ThemeService) {}
+  constructor(private themeService: ThemeService, private route: ActivatedRoute, private router: Router) {}
   
   ngOnInit() {
     this.themeService.currentTheme.subscribe(isDark => {
       this.themeIcon = isDark ? 'dark_mode' : 'light_mode';
     });
+
+    this.firstname = this.route.snapshot.queryParams['firstname'];
   }
 
   toggleTheme() {
     this.themeService.toggleTheme();
-  }
-}
-  
-   
-
-    // constructor(private route: ActivatedRoute) { }
-  
-    // ngOnInit() {
-    //   this.email = this.route.snapshot.queryParams['email'];
-    // }
-
-    firstname: string = '';
-
-  constructor(private route: ActivatedRoute, private router: Router) { }
-
-  ngOnInit() {
-    this.firstname = this.route.snapshot.queryParams['firstname'];
   }
   
   logout() {

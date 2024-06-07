@@ -42,7 +42,6 @@ img {
 
 /* signup MAIN */
 #signup_form {
-  border: 0px solid green;
   margin-top: 5vh;
 }
 
@@ -64,7 +63,7 @@ img {
 form {
   display: flex;
   flex-direction: column;
-  gap: 4vh;
+  gap: 1vh;
   margin-top: 4vh;
   letter-spacing: var(--letter-spacing);
 }
@@ -75,10 +74,6 @@ form {
   gap: 2vw;
 }
 
-.lfname label {
-  display: block;
-  margin-bottom: 2vh; /* Adjust the value as needed */
-}
 
 #signup_form input[type="text"],
 #signup_form input[type="password"] {
@@ -118,17 +113,9 @@ form {
 
 .input-group label {
   margin-bottom: 2vh;
-  margin-left: 0vw;
   font-size: var(--font-body);
   font-weight: 500;
   color: var(--label);
-}
-
-.field-content {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 2vh;
 }
 
 #email,
@@ -146,20 +133,10 @@ form {
 }
 
 .material-icons.row {
-  left: 25vw;
-}
-
-#forgot_password {
-  margin-top: 1.5vh;
-  margin-right: 1vw;
-  text-align: end;
-  font-size: var(--font-misc);
-  color: var(--label);
-  cursor: pointer;
+  left: 2vw;
 }
 
 .custom-btn {
-  margin-top: 2vh;
   height: 8vh;
   font-size: var(--font-body);
   font-weight: 600;
@@ -202,7 +179,7 @@ form {
   border: 2px solid var(--error-message);
 }
 
-.input-group.same-row-one.error .error-message div {
+.input-group.error .error-message div {
   color: var(--error-message);
 }
 
@@ -213,7 +190,6 @@ form {
   margin-top: 0.5em;
   visibility: hidden;
   font-size: var(--font-error);
-  border: 2px solid red;
 
   .error-item {
     display: flex;
@@ -234,7 +210,11 @@ form {
 .error-message.custom-btn {
   display: flex;
   justify-content: center;
-  margin: 0em;
   color: var(--error-message);
-  border: 2px solid red;
+  visibility: visible;
+  height: auto;
+}
+
+.error-message.custom-btn:empty {
+  display: none;
 }

@@ -13,7 +13,7 @@
       <form id="signup_fields" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
         <div class="input-group same-row-one">
           <div
-            class="lfname"
+            class="input-group lfname"
             [ngClass]="{
               error: lastnameControl?.invalid && lastnameControl?.touched
             }"
@@ -37,23 +37,23 @@
               />
 
               <!--Lastname Error Message-->
-              <div class="error-message password">
+              <div class="error-message">
                 @if (lastnameControl?.errors?.['required'] &&
                 lastnameControl?.touched ) {
                 <div class="error-item">
                   <span class="material-symbols-outlined">error</span>
-                  <span>Lastname is required. Kindly fill out the field.</span>
+                  <span>Last name is required.</span>
                 </div>
                 } @if(lastnameControl?.getError('minlength')){
                 <div class="error-item">
                   <span class="material-symbols-outlined">error</span>
-                  <span>Lastname must be atleast 3 characters.</span>
+                  <span>Last name must be atleast 3 characters.</span>
                 </div>
                 }@if(lastnameControl?.getError('maxlength')){
                 <div class="error-item">
                   <span class="material-symbols-outlined">error</span>
                   <span
-                    >Lastname should not be greater than 40 characters.</span
+                    >Last name should not be greater than 40 characters.</span
                   >
                 </div>
                 }
@@ -62,7 +62,7 @@
           </div>
 
           <div
-            class="lfname"
+            class="input-group lfname"
             [ngClass]="{
               error: firstnameControl?.invalid && firstnameControl?.touched
             }"
@@ -86,23 +86,23 @@
               />
 
               <!--Firstname Error Message-->
-              <div class="error-message password">
+              <div class="error-message">
                 @if (firstnameControl?.errors?.['required'] &&
                 firstnameControl?.touched) {
                 <div class="error-item">
                   <span class="material-symbols-outlined">error</span>
-                  <span>Firstname is required. Kindly fill out the field.</span>
+                  <span>First name is required.</span>
                 </div>
                 }@if(firstnameControl?.getError('minlength')){
                 <div class="error-item">
                   <span class="material-symbols-outlined">error</span>
-                  <span>Firstname must be atleast 3 characters.</span>
+                  <span>First name must be atleast 3 characters.</span>
                 </div>
                 }@if(firstnameControl?.getError('maxlength')){
                 <div class="error-item">
                   <span class="material-symbols-outlined">error</span>
                   <span
-                    >Firstname should not be greater than 40 characters.</span
+                    >First name should not be greater than 40 characters.</span
                   >
                 </div>
                 }
@@ -178,7 +178,7 @@
             />
 
             <!--Password Error Message-->
-            <div class="error-message password">
+            <div class="error-message">
               @if (passwordControl?.errors?.['required'] &&
               passwordControl?.touched) {
               <div class="error-item">
@@ -226,7 +226,7 @@
             />
 
             <!--Confirm Password Error Message-->
-            <div class="error-message password">
+            <div class="error-message">
               @if (confirmPasswordControl?.errors?.['required'] &&
               confirmPasswordControl?.touched) {
               <div class="error-item">
@@ -243,18 +243,19 @@
           </div>
         </div>
         <!--Error message-->
-        <div class="error-message login-btn">
+        <div class="error-message custom-btn">
           @if (errorMessage) {
           <div>{{ errorMessage }}</div>
           }
         </div>
 
-        <button class="custom-btn" mat-flat-button>Create account</button>
+        <button type="submit" class="custom-btn"
+          mat-flat-button>Create account</button>
       </form>
     </div>
 
     <p id="user_agreement">
-      By clicking the button, you agree to Scribe's Terms of Use and Privacy
+      By clicking the button, you agree to Scribe&reg; Terms of Use and Privacy
       Policy.
     </p>
 

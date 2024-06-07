@@ -5,7 +5,7 @@ import { SignupData } from '../models/model';
 
 @Injectable()
 export class SignupService {
-  private baseUrl = 'http://localhost/backend/signup.php';
+  private baseUrl = 'http://localhost/backend/auth/signup.php';
 
   constructor( private http: HttpClient) { }
   

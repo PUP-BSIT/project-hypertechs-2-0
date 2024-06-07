@@ -173,8 +173,6 @@ form {
   margin-top: 0.5em;
   visibility: hidden;
   font-size: var(--font-error);
-  font-size: 10px;
-  border: 2px solid red;
 
   .error-item {
     display: flex;
@@ -195,9 +193,7 @@ form {
 .error-message.login-btn {
   display: flex;
   justify-content: center;
-  margin: 0em;
   color: var(--error-message);
-  border: 2px solid red;
 }
 
 /* MEDIA QUERIES */
