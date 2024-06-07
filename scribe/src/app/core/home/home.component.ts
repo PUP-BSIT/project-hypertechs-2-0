@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 
 export class HomeComponent{
-  
+
   @Input() firstname: string | null = null;
 
   constructor(private route: ActivatedRoute, private router: Router) { }

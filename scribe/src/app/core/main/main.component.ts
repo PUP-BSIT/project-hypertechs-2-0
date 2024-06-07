@@ -55,9 +55,5 @@ export class MainComponent implements OnInit{
   toggleTheme() {
     this.themeService.toggleTheme();
   }
-  
-  logout() {
-    sessionStorage.removeItem('loggedInUser');
-    this.router.navigate(['/login']); // Redirect to login page
-  }
+
 }
