@@ -4,6 +4,7 @@ import { LoginData } from '../../../models/model';
 import { LoginService } from '../../../services/login.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit{
   errorMessage = '';
 
   constructor(private formBuilder: FormBuilder, private loginService: LoginService, 
-    private router: Router
+    private router: Router, private userService: UserService
   ){}
 
   loginForm: FormGroup = this.formBuilder.group({});
