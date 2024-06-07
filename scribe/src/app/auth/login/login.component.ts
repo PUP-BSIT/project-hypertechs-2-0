@@ -31,7 +31,8 @@ export class LoginComponent implements OnInit{
     if (storedUser) {
       try {
         const userData = JSON.parse(storedUser); // Parse stored JSON data
-        this.userService.setFirstname(userData.firstname); 
+        this.userService.setFirstname(userData.firstname);
+        this.router.navigate(['main']); 
       } catch (error) {
         console.error('Error parsing stored user data:', error);
         // Clear invalid data and proceed normally
