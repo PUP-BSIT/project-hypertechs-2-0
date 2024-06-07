@@ -16,7 +16,7 @@ export class MainComponent implements OnInit{
   private breakpointObserver = inject(BreakpointObserver);
   email: string | null = null;
   firstname: string | null = null;
-  isLoggedIn: boolean = false;
+  //isLoggedIn: boolean = false;
 
   isHandset$: Observable<boolean> = 
     this.breakpointObserver.observe(Breakpoints.Handset)
@@ -35,15 +35,15 @@ export class MainComponent implements OnInit{
       this.themeIcon = isDark ? 'dark_mode' : 'light_mode';
     });
 
-    const storedUser = localStorage.getItem('loggedInUser');
+    const storedUser = sessionStorage.getItem('loggedInUser');
     if (storedUser) {
       try {
         const userData = JSON.parse(storedUser);
         this.userService.setFirstname(userData.firstname); // Store firstname in service (optional)
-        this.isLoggedIn = true; // Set login state
+        //this.isLoggedIn = true; // Set login state
       } catch (error) {
         console.error('Error parsing stored user data:', error);
-        localStorage.removeItem('loggedInUser');
+        sessionStorage.removeItem('loggedInUser');
       }
     }
 
@@ -54,6 +54,11 @@ export class MainComponent implements OnInit{
 
   toggleTheme() {
     this.themeService.toggleTheme();
+  }
+
+  logout() {
+    sessionStorage.removeItem('loggedInUser');
+    this.router.navigate(['/login']); // Redirect to login page
   }
 
 }
