@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { LoginData } from '../../../models/model';
 import { LoginService } from '../../../services/login.service';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit{
-  //loginForm!: FormGroup;
+  //loginForm: FormGroup;
   errorMessage = '';
 
   constructor(private formBuilder: FormBuilder, private loginService: LoginService, 
@@ -29,8 +30,8 @@ export class LoginComponent implements OnInit{
     if (storedUser) {
       try {
         const userData = JSON.parse(storedUser); // Parse stored JSON data
-        //this.router.navigate(['dashboard'], { queryParams: { username: userData.username } });
-        alert(`Log In Successful! Hi ${userData.username}`);
+        this.router.navigate(['main'], { queryParams: { firstname: userData.firstname } });
+        //alert(`Log In Successful! Hi ${userData.username}`);
       } catch (error) {
         console.error('Error parsing stored user data:', error);
         // Clear invalid data and proceed normally
@@ -66,39 +67,39 @@ export class LoginComponent implements OnInit{
         console.log("Response from server: ", response);
         //I disabled routing after successful log in
         // for the meantime I used alert 
-        //this.router.navigate(['dashboard'], { queryParams: { username: response.username} });
         sessionStorage.setItem('loggedInUser', JSON.stringify(response));
-        alert(`Log In Successful! Hi ${response.username}`);
+        this.router.navigate(['main'], { queryParams: { firstname: response.firstname} });
+        //alert(`Log In Successful! Hi ${response.username}`);
       },
-      error:(error: any)=>{
-        console.error("Error Object", error);
-        this.errorMessage = 'Login failed.'; 
-
-        if (error.error) {
-          this.errorMessage = error.error.error; 
-        }
-
-        if (error.status){
-          switch (error.status) {
-            case 400:
-              this.errorMessage = 'Bad request. Please check your data.';
-              break;
-            case 401:
-              this.errorMessage = 
-                'You have entered an invalid email or password.';
-              break;
-            case 500:
-              this.errorMessage = 
-                'Internal server error. Please try again later.';
-              break;
-            default:
-              this.errorMessage = 
-              `Error: ${error.status}. Please try again later.`;
-          }
-
-        }
-      }
-      
-    });      
+      error:(error: HttpErrorResponse)=>{
+        this.handleError(error) },
+      }); 
   } 
+
+  handleError(error: HttpErrorResponse){
+    this.errorMessage = 'Login failed';
+  
+    if (error.error) {
+      this.errorMessage = error.error.error; 
+    }
+
+    if (error?.status){
+      switch (error.status) {
+        case 400:
+          this.errorMessage = 'Bad request. Please check your data.';
+          break;
+        case 401:
+          this.errorMessage = 
+            'You have entered an invalid email or password.';
+          break;
+        case 500:
+          this.errorMessage = 
+            'Internal server error. Please try again later.';
+          break;
+        default:
+          this.errorMessage = 
+          `Error: ${error.status}. Please try again later.`;
+      } 
+    } 
+  }      
 }

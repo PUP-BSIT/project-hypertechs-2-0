@@ -173,8 +173,6 @@ form {
   margin-top: 0.5em;
   visibility: hidden;
   font-size: var(--font-error);
-  font-size: 10px;
-  border: 2px solid red;
 
   .error-item {
     display: flex;
@@ -195,9 +193,7 @@ form {
 .error-message.login-btn {
   display: flex;
   justify-content: center;
-  margin: 0em;
   color: var(--error-message);
-  border: 2px solid red;
 }
 
 /* MEDIA QUERIES */
@@ -252,14 +248,14 @@ form {
     margin-bottom: 2vh;
     margin-left: 0vw;
     font-size: var(--font-body);
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 500;
     color: var(--label);
   }
 
   #login_form input[type="text"],
   #login_form input[type="password"] {
-    padding: 1.5vh 4vw;
+    padding: 1.5vh 7vw;
     height: 6vh;
     font-size: calc(var(--font-form) - 2px);
     font-size: 10px;
@@ -290,18 +286,18 @@ form {
 
   #forgot_password {
     font-size: calc(var(--font-misc) - 2px);
-    font-size: 10px;
+    font-size: 12px;
   }
 
   button.custom-btn {
     height: 6vh;
     font-size: calc(var(--font-body) - 2px);
-    font-size: 10px;
+    font-size: 12px;
   }
 
   #goto_signup {
     font-size: calc(var(--font-misc) - 2px);
-    font-size: 10px;
+    font-size: 12px;
   }
 }
 

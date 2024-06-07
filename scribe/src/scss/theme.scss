@@ -13,7 +13,6 @@
   --toggle-theme-ball: #366957;
 
   --tonal-border: #00513e;
-
   --tonal-button: #cae3da;
   --tonal-form: #d4dfdc;
   --tonal-form-text: #204e3d;
@@ -23,6 +22,13 @@
   --highlight-sec: #006c53;
 
   --error-message: #93000a;
+
+  --core-bg: #fbfffe;
+  --core-nav: #ecf2f0;
+  --core-nav-hover: #006c531e;
+
+  --destructive-bg: rgba(197, 1, 1, 0.2);
+  --destructive-text: rgb(151, 0, 0);
 }
 
 body.dark-mode {
@@ -40,7 +46,7 @@ body.dark-mode {
   --toggle-theme-ball: #a4cbbd;
 
   --tonal-border: #006d54;
-  --tonal-button: #466d5e;
+  --tonal-button: #023a2d;
   --tonal-form: #222a2a;
   --tonal-form-text: #adc0b8;
   --label: #009371;
@@ -49,4 +55,11 @@ body.dark-mode {
   --highlight-sec: #005843;
 
   --error-message: #ff2f2f;
+
+  --core-bg: #17181a;
+  --core-nav: #1c1f1f;
+  --core-nav-hover: #00937113;
+
+  --destructive-bg: rgba(137, 0, 0, 0.2);
+  --destructive-text: red;
 }

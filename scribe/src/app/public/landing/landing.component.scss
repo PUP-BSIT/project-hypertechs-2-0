@@ -1,10 +1,13 @@
+* {
+  transition: background-color 0.75s ease, color 0.1s ease;
+}
+
 #landing_container {
   position: relative;
   height: 100vh;
   padding: 2.5em 4em;
   background-color: var(--landing-bg);
   z-index: 0;
-  transition: background-color 0.75s ease, color 0.75s ease;
 }
 
 /* LANDING HEADER */
@@ -40,7 +43,7 @@ nav a {
 }
 
 #scribe_hero h1 {
-  font-size: 4.75vw;
+  font-size: var(--font-hero);
   margin-top: 14vh;
   border: 0px solid red;
 }
@@ -57,11 +60,13 @@ nav a {
 
 #scribe_desc {
   font-size: 3.3vh;
+  font-weight: 400;
+  font-family: var(--font-display);
   line-height: 1.6;
   padding: 0 8vw;
   border: 0px solid red;
   text-align: center;
-  letter-spacing: 0.04vw;
+  letter-spacing: var(--letter-spacing);
 }
 
 /* LANDING BUTTONS */
@@ -76,21 +81,16 @@ nav a {
   cursor: pointer;
   border: none;
   border-radius: 50px;
-  font-size: 3.25vh;
+  font-size: var(--font-icon);
   width: 12vw;
   height: auto;
   padding: 2vh 0;
-  font-weight: 600;
-  color: var(--primary);
-  background: linear-gradient(var(--landing-bg), var(--landing-bg)) padding-box, 
-    linear-gradient(60deg, var(--tonal-border), var(--accent)) border-box;
-  border: 0.2vw solid transparent;
+  color: var(--accent);
   border-radius: 3vw;
-  display: inline-block;
+  background: var(--tonal-button);
 }
 
 #scribe_signup {
-  font-weight: 600;
   position: relative;
   cursor: pointer;
   border: none;
@@ -105,8 +105,7 @@ nav a {
     #4da383);
   background-size: 400%;
   color: #fff;
-  font-size: 3.25vh;
-  letter-spacing: 0.05vw;
+  font-size: var(--font-icon);
 }
 
 #scribe_signup::before {
@@ -188,48 +187,48 @@ svg {
   gap: 20px; /* Adjust gap between buttons as needed */
   }
 
-//   :root {
-//       --menu-bg-hover: rgba(0, 0, 0, 0.1); 
-// }
+  :root {
+      --menu-bg-hover: rgba(0, 0, 0, 0.1); 
+}
 
-//   .dropdown {
-//     position: relative;
-//     display: inline-block;
-// }
+  .dropdown {
+    position: relative;
+    display: inline-block;
+}
 
-// .dropdown-content {
-//     display: none;
-//     position: absolute;
-//     background-color: transparent;
-//     min-width: 160px;
-//     box-shadow: none;
-//     z-index: 1;
-// }
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: transparent;
+    min-width: 160px;
+    box-shadow: none;
+    z-index: 1;
+}
 
-// .dropdown-content a {
-//     color: var(--text);
-//     padding: 2px 10px;
-//     text-decoration: none;
-//     display: block;
-// }
+.dropdown-content a {
+    color: var(--text);
+    padding: 2px 10px;
+    text-decoration: none;
+    display: block;
+}
 
-// .dropdown-content a:hover {
-//     background-color: var(--menu-bg-hover);
-// }
+.dropdown-content a:hover {
+    background-color: var(--menu-bg-hover);
+}
 
-// .dropdown:hover .dropdown-content {
-//     display: block;
-// }
+.dropdown:hover .dropdown-content {
+    display: block;
+}
 
-// .dropdown .dropbtn {
-//     // background-color: none;
-//     // color: var(--primary);
-//     // padding: 5px;
-//     font-size: 10px;
-//     border: none;
-//     // cursor: pointer;
-// }
+.dropdown .dropbtn {
+    // background-color: none;
+    // color: var(--primary);
+    // padding: 5px;
+    font-size: 10px;
+    border: none;
+    // cursor: pointer;
+}
 
-// .dropdown .dropbtn:hover {
-//     background-color: none;
-// }
+.dropdown .dropbtn:hover {
+    background-color: none;
+}
