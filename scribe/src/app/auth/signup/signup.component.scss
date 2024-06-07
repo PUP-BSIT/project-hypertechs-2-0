@@ -42,6 +42,7 @@ img {
 
 /* signup MAIN */
 #signup_form {
+  border: 0px solid green;
   margin-top: 5vh;
 }
 
@@ -74,7 +75,7 @@ img {
 form {
   display: flex;
   flex-direction: column;
-  gap: 1vh;
+  gap: 4vh;
   margin-top: 4vh;
   letter-spacing: var(--letter-spacing);
 }
@@ -85,6 +86,10 @@ form {
   gap: 2vw;
 }
 
+.lfname label {
+  display: block;
+  margin-bottom: 2vh; /* Adjust the value as needed */
+}
 
 #signup_form input[type="text"],
 #signup_form input[type="password"] {
@@ -124,9 +129,17 @@ form {
 
 .input-group label {
   margin-bottom: 2vh;
+  margin-left: 0vw;
   font-size: var(--font-body);
   font-weight: 500;
   color: var(--label);
+}
+
+.field-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 2vh;
 }
 
 #email,
@@ -144,10 +157,20 @@ form {
 }
 
 .material-icons.row {
-  left: 2vw;
+  left: 25vw;
+}
+
+#forgot_password {
+  margin-top: 1.5vh;
+  margin-right: 1vw;
+  text-align: end;
+  font-size: var(--font-misc);
+  color: var(--label);
+  cursor: pointer;
 }
 
 .custom-btn {
+  margin-top: 2vh;
   height: 8vh;
   font-size: var(--font-body);
   font-weight: 600;
@@ -182,7 +205,6 @@ form {
   scrollbar-width: none; /* Firefox */
 }
 
-
 /* Media Queries */
 @media (max-width: 1024px) {
   #signup_container {
@@ -210,28 +232,18 @@ form {
 
   #signup_form input[type="text"],
   #signup_form input[type="password"] {
-    padding: 1vh 3.5vw; /* Adjust padding for smaller screens */
-  }
-
-  #signup_form input[type="text"],
-  #signup_form input[type="password"] {
     padding: 1.5vh 4vw;
     height: 6vh;
     font-size: calc(var(--font-form) - 2px);
-    font-size: 10px;
-    
   }
 
   #signup_form input[type="text"]::placeholder,
   #signup_form input[type="password"]::placeholder {
     margin-top: 1.35vh;
-    opacity: 10;
+    opacity: 0.6; /* Corrected opacity */
     color: var(--tonal-form-text);
     font-size: var(--font-form);
     letter-spacing: var(--letter-spacing);
-    font-size: 10px;
-    padding: 3vw;
-    margin-right: 10vh;
   }
 
   .material-icons {
@@ -240,31 +252,22 @@ form {
     left: 1.5vw;
     color: var(--tonal-form-text);
     pointer-events: none;
-    font-size: var(--font-icon);
     font-size: 13px;
   }
 
   #forgot_password {
     font-size: calc(var(--font-misc) - 2px);
-    font-size: 10px;
   }
 
   button.custom-btn {
     height: 6vh;
     font-size: calc(var(--font-body) - 2px);
-    font-size: 10px;
   }
 
   #goto_login {
     font-size: calc(var(--font-misc) - 2px);
-    font-size: 10px;
   }
 
-  .custom-btn {
-    height: 6vh;
-    font-size: calc(var(--font-body) - 2px);
-    font-size: 10px;
-  }
   #user_agreement {
     margin-top: 2vh;
     text-align: center;
@@ -324,7 +327,7 @@ form {
     font-weight: 500;
     color: var(--label);
   }
-  
+
   #signup_form input[type="text"],
   #signup_form input[type="password"] {
     padding: 1.5vh 4vw;
@@ -381,54 +384,5 @@ form {
     margin-top: 2vh;
     text-align: center;
     font-size: 10px;
-  }
-}
-  
-  /* Error styles */
-
-  /* Red border for input error */
-  #signup_form input[type="text"].error,
-  #signup_form input[type="password"].error {
-    border: 2px solid var(--error-message);
-  }
-
-  .input-group.error .error-message div {
-    color: var(--error-message);
-  }
-
-  .error-message {
-    display: flex;
-    align-items: center;
-    min-height: 1.5em;
-    margin-top: 0.5em;
-    visibility: hidden;
-    font-size: var(--font-error);
-
-    .error-item {
-      display: flex;
-      align-items: center;
-      gap: 0.5em;
-      margin-left: 1vw;
-    }
-
-    .error-item .material-symbols-outlined {
-      font-size: 1.2vw;
-    }
-
-    div {
-      visibility: visible;
-    }
-  }
-
-  .error-message.custom-btn {
-    display: flex;
-    justify-content: center;
-    color: var(--error-message);
-    visibility: visible;
-    height: auto;
-  }
-
-  .error-message.custom-btn:empty {
-    display: none;
   }
 }
