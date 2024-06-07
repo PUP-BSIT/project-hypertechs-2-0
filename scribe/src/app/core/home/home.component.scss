@@ -1,0 +1,26 @@
+#home_greetings {
+  h1 {
+    font-size: 3.5vw;
+    font-family: "Google Sans", "Inter Tight", sans-serif;
+    font-weight: 500;
+    background: -webkit-linear-gradient(
+      0deg,
+      var(--highlight-prime),
+      var(--highlight-sec)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.025em;
+    transition: color 0.75s ease;
+  }
+
+  h2 {
+    font-family: "Google Sans Text", "Inter Tight", sans-serif;
+    color: var(--text);
+    font-weight: 500;
+    font-size: 1.75em;
+    opacity: 0.5;
+    transition: color 0.75s ease;
+  }
+}
