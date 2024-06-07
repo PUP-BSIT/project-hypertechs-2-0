@@ -224,50 +224,51 @@ form {
     font-size: 14px;
   }
   
-/* Error styles */
+  /* Error styles */
 
-/* Red border for input error */
-#signup_form input[type="text"].error,
-#signup_form input[type="password"].error {
-  border: 2px solid var(--error-message);
-}
+  /* Red border for input error */
+  #signup_form input[type="text"].error,
+  #signup_form input[type="password"].error {
+    border: 2px solid var(--error-message);
+  }
 
-.input-group.error .error-message div {
-  color: var(--error-message);
-}
+  .input-group.error .error-message div {
+    color: var(--error-message);
+  }
 
-.error-message {
-  display: flex;
-  align-items: center;
-  min-height: 1.5em;
-  margin-top: 0.5em;
-  visibility: hidden;
-  font-size: var(--font-error);
-
-  .error-item {
+  .error-message {
     display: flex;
     align-items: center;
-    gap: 0.5em;
-    margin-left: 1vw;
+    min-height: 1.5em;
+    margin-top: 0.5em;
+    visibility: hidden;
+    font-size: var(--font-error);
+
+    .error-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      margin-left: 1vw;
+    }
+
+    .error-item .material-symbols-outlined {
+      font-size: 1.2vw;
+    }
+
+    div {
+      visibility: visible;
+    }
   }
 
-  .error-item .material-symbols-outlined {
-    font-size: 1.2vw;
-  }
-
-  div {
+  .error-message.custom-btn {
+    display: flex;
+    justify-content: center;
+    color: var(--error-message);
     visibility: visible;
+    height: auto;
   }
-}
 
-.error-message.custom-btn {
-  display: flex;
-  justify-content: center;
-  color: var(--error-message);
-  visibility: visible;
-  height: auto;
-}
-
-.error-message.custom-btn:empty {
-  display: none;
+  .error-message.custom-btn:empty {
+    display: none;
+  }
 }
