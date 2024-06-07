@@ -1,10 +1,12 @@
+MOBILE RESPONSIVE
+
 #signup_container {
   height: 100vh;
   display: flex;
   color: var(--text);
   margin: 0;
   padding: 0;
-  box-sizing: 0;
+  box-sizing: border-box;
   overflow: hidden;
 }
 
@@ -21,7 +23,6 @@
   justify-content: center;
 }
 
-/* signup HEADER */
 header {
   display: flex;
   align-items: center;
@@ -40,7 +41,6 @@ img {
   display: block;
 }
 
-/* signup MAIN */
 #signup_form {
   border: 0px solid green;
   margin-top: 5vh;
@@ -58,8 +58,6 @@ img {
   font-weight: 400;
   letter-spacing: var(--letter-spacing);
 }
-
-/* MATERIAL FORM FIELD */
 
 form {
   display: flex;
@@ -84,7 +82,7 @@ form {
 #signup_form input[type="password"] {
   border: none;
   border-radius: 10vw;
-  padding: 1vh 4.5vw; // padding increased
+  padding: 1vh 4.5vw; /* padding increased */
   height: 8vh;
   background-color: var(--tonal-form);
   color: var(--text);
@@ -192,4 +190,58 @@ form {
 #signup_main {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+  #signup_container {
+    flex-direction: column;
+  }
+
+  #signup_main {
+    padding: 5vh 5vw;
+  }
+
+  #signup_graphics {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .input-group.same-row-one {
+    flex-direction: column;
+    gap: 4vh;
+  }
+
+  .material-icons.row {
+    left: 5vw;
+  }
+
+  #signup_form input[type="text"],
+  #signup_form input[type="password"] {
+    padding: 1vh 3.5vw; /* Adjust padding for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  #signup_main {
+    padding: 5vh 2vw;
+  }
+
+  nav {
+    gap: 2vw;
+  }
+
+  #signup_form h1 {
+    font-size: 24px; /* Adjust font size for smaller screens */
+  }
+
+  #signup_form h4 {
+    font-size: 16px; /* Adjust font size for smaller screens */
+  }
+
+  .custom-btn {
+    height: 7vh;
+    font-size: 14px;
+  }
 }
