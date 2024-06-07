@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit{
       next: (response)=>{
         console.log("Response from server: ", response);
         sessionStorage.setItem('loggedInUser', JSON.stringify(response));
-        this.router.navigate(['main'], { queryParams: { firstname: response.firstname} });
+  
       },
       error:(error: HttpErrorResponse)=>{
         this.handleError(error) },
