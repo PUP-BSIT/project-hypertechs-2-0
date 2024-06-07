@@ -66,11 +66,8 @@ export class LoginComponent implements OnInit{
     .subscribe({
       next: (response)=>{
         console.log("Response from server: ", response);
-        //I disabled routing after successful log in
-        // for the meantime I used alert 
         sessionStorage.setItem('loggedInUser', JSON.stringify(response));
         this.router.navigate(['main'], { queryParams: { firstname: response.firstname} });
-        //alert(`Log In Successful! Hi ${response.username}`);
       },
       error:(error: HttpErrorResponse)=>{
         this.handleError(error) },
