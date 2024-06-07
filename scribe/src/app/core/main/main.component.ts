@@ -33,7 +33,7 @@ export class MainComponent implements OnInit{
       this.themeIcon = isDark ? 'dark_mode' : 'light_mode';
     });
 
-    this.firstname = this.route.snapshot.queryParams['firstname'];
+    
   }
 
   toggleTheme() {
