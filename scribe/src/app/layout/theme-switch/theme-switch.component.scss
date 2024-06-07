@@ -2,7 +2,7 @@
   cursor: pointer;
   position: relative;
   display: inline-block;
-  width: 4vw;
+  width: 3.8vw;
   height: 4vh;
   background-color: var(--toggle-theme-bg);
   border-radius: 10vw;
@@ -17,8 +17,8 @@
   border-radius: 50%;
   background-color: var(--toggle-theme-ball);
   top: 0.55vh;
-  left: 0.35vw;
-  transition: 0.3s ease-in-out;
+  left: 0.3vw;
+  transition: 0.3s ease;
 }
 
 .visually-hidden {
@@ -37,7 +37,7 @@ input[type="checkbox"]:checked + .theme-toggle {
 }
 
 input[type="checkbox"]:checked + .theme-toggle:before {
-  transform: translateX(1.95vw);
+  transform: translateX(1.8vw);
 }
 
 .theme-toggle {
@@ -49,12 +49,12 @@ input[type="checkbox"]:checked + .theme-toggle:before {
   color: var(--toggle-theme-ball);
 
   #dark_mode {
-  font-variation-settings: 
-  "FILL" 1, 
-  "wght" 200, 
-  "GRAD" 0, 
-  "opsz" 24;
-  
+    font-variation-settings: 
+    "FILL" 1, 
+    "wght" 200, 
+    "GRAD" 0, 
+    "opsz" 24;
+
   };
 
   #light_mode {
@@ -64,28 +64,11 @@ input[type="checkbox"]:checked + .theme-toggle:before {
     "wght" 400, 
     "GRAD" 0, 
     "opsz" 24;
-    };
+  };
 
-    user-select: none; /* Prevents text selection */
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-  }
-
-/* 
-
-.theme-toggle .fa-moon {
-  font-size: 1em;
-  padding-top: 6px;
-  padding-left: 8px;
-  color: var(--toggle-theme-ball);
+  user-select: none; /* Prevents text selection */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+    
 }
-
-.theme-toggle .fa-sun {
-  font-size: 0.9em;
-  padding-top: 2px;
-  padding-left: 17px;
-  color: var(--toggle-theme-ball);
-}
-
-*/
