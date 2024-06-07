@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <div id="mat_nav_container">
+    <div class="mat-nav-container">
       <mat-nav-list class="custom-navbar" id="upper_nav">
         <a
           matRipple
@@ -24,6 +24,10 @@
           [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
           [routerLink]="['/main/home']"
           routerLinkActive="active-link"
+          matTooltip="Go to Home"
+          matTooltipPosition="after"
+          matTooltipShowDelay="1000"
+          matTooltipHideDelay="100"
         >
           <span class="material-symbols-outlined">home</span>Home
         </a>
@@ -34,6 +38,10 @@
           [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
           [routerLink]="['/main/notes']"
           routerLinkActive="active-link"
+          matTooltip="View your Notes"
+          matTooltipPosition="after"
+          matTooltipShowDelay="1000"
+          matTooltipHideDelay="100"
         >
           <span class="material-symbols-outlined">note_stack</span>Notes
         </a>
@@ -44,6 +52,10 @@
           [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
           [routerLink]="['/main/tasks']"
           routerLinkActive="active-link"
+          matTooltip="Manage your Tasks"
+          matTooltipPosition="after"
+          matTooltipShowDelay="1000"
+          matTooltipHideDelay="100"
         >
           <span class="material-symbols-outlined">task_alt</span>Tasks
         </a>
@@ -54,6 +66,10 @@
           [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
           [routerLink]="['/main/folders']"
           routerLinkActive="active-link"
+          matTooltip="Browse Folders"
+          matTooltipPosition="after"
+          matTooltipShowDelay="1000"
+          matTooltipHideDelay="100"
         >
           <span class="material-symbols-outlined">folder</span>Folders
         </a>
@@ -64,11 +80,15 @@
           [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
           [routerLink]="['/main/trash']"
           routerLinkActive="active-link"
+          matTooltip="View Trash"
+          matTooltipPosition="after"
+          matTooltipShowDelay="1000"
+          matTooltipHideDelay="100"
         >
           <span class="material-symbols-outlined">delete</span>Trash
         </a>
       </mat-nav-list>
-
+    
       <mat-nav-list class="custom-navbar" id="upper_nav">
         <a id="theme_nav"
           matRipple
@@ -76,9 +96,12 @@
           matRippleColor="rgba(0,0,0,0.1)"
           [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
           (click)="toggleTheme()"
+          matTooltip="Switch app theme"
+          matTooltipPosition="after"
+          matTooltipShowDelay="1000"
+          matTooltipHideDelay="100"
         >
-          <span class="material-symbols-outlined">{{ themeIcon }}</span
-          >Theme
+          <span class="material-symbols-outlined">{{ themeIcon }}</span>Theme
         </a>
         <a
           matRipple
@@ -87,6 +110,10 @@
           [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
           [routerLink]="['/main/settings']"
           routerLinkActive="active-link"
+          matTooltip="Open Settings"
+          matTooltipPosition="after"
+          matTooltipShowDelay="1000"
+          matTooltipHideDelay="100"
         >
           <span class="material-symbols-outlined">settings</span>Settings
         </a>
@@ -96,35 +123,67 @@
           matRippleColor="rgba(0,0,0,0.1)"
           [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
           class="logout-link"
+          matTooltip="Log Out"
+          matTooltipPosition="after"
+          matTooltipShowDelay="1000"
+          matTooltipHideDelay="100"
         >
           <span class="material-symbols-outlined">logout</span>Log Out
         </a>
       </mat-nav-list>
     </div>
+    
   </mat-sidenav>
 
   <!--Main Content-->
   <mat-sidenav-content>
     <!--Page Toolbar -->
     <mat-toolbar color="primary">
-      @if (isHandset$ | async) {
-      <button type="button" aria-label="Toggle sidenav" 
-        mat-icon-button (click)="drawer.toggle()">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
-      }
-      <span>Toolbar</span>
+
+      <!--Menu Toggle-->
+      <div id="scribe_menu-container">
+        @if (isHandset$ | async) {
+        <button type="button" aria-label="Toggle sidenav" 
+          mat-icon-button (click)="drawer.toggle()">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        }
+      </div>
+
+      <!--Search Bar-->
+      <div id="scribe_search_container">
+        <span class="material-symbols-outlined search-icon">search</span>
+        <input type="search" placeholder="Search" id="search_input">
+      </div>
+
+      <!--User Profile-->
+      <div id="scribe_user_container">
+        <!--User Icon-->
+        <div id="scribe_user_icon">
+          <img src="../../../assets/images/scribe_user.png">
+        </div>
+        <div id="scribe_user_info">
+          <h1>Scribe User</h1>
+          <p>scribeuser&#64;gmail.com</p>
+        </div>
+        
+      </div>
+
     </mat-toolbar>
 
-    <!--Actual Loaded Page Content-->
+    <!--Actual Loaded Pages Content-->
     <div class="scribe-core-content">
       <router-outlet></router-outlet>
     </div>
+
+    <!--
 
     <div class="main-container">
       <div class="user-info">
         <p class="greeting">Hi,{{ firstname }}</p>
       </div>
     </div>
+
+    -->
   </mat-sidenav-content>
 </mat-sidenav-container>
