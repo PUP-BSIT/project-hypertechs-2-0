@@ -186,3 +186,49 @@ svg {
   #landing_buttons {
   gap: 20px; /* Adjust gap between buttons as needed */
   }
+
+  :root {
+      --menu-bg-hover: rgba(0, 0, 0, 0.1); 
+}
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: transparent;
+    min-width: 160px;
+    box-shadow: none;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: var(--text);
+    padding: 2px 10px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--menu-bg-hover);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown .dropbtn {
+    // background-color: none;
+    // color: var(--primary);
+    // padding: 5px;
+    font-size: 10px;
+    border: none;
+    // cursor: pointer;
+}
+
+.dropdown .dropbtn:hover {
+    background-color: none;
+}
