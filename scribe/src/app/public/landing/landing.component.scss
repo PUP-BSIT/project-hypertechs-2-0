@@ -1,10 +1,13 @@
+* {
+  transition: background-color 0.75s ease, color 0.1s ease;
+}
+
 #landing_container {
   position: relative;
   height: 100vh;
   padding: 2.5em 4em;
   background-color: var(--landing-bg);
   z-index: 0;
-  transition: background-color 0.75s ease, color 0.75s ease;
 }
 
 /* LANDING HEADER */
@@ -40,7 +43,7 @@ nav a {
 }
 
 #scribe_hero h1 {
-  font-size: 4.75vw;
+  font-size: var(--font-hero);
   margin-top: 14vh;
   border: 0px solid red;
 }
@@ -57,11 +60,13 @@ nav a {
 
 #scribe_desc {
   font-size: 3.3vh;
+  font-weight: 400;
+  font-family: var(--font-display);
   line-height: 1.6;
   padding: 0 8vw;
   border: 0px solid red;
   text-align: center;
-  letter-spacing: 0.04vw;
+  letter-spacing: var(--letter-spacing);
 }
 
 /* LANDING BUTTONS */
@@ -74,19 +79,18 @@ nav a {
 
 #scribe_login {
   cursor: pointer;
-  background-color: var(--tonal-button);
   border: none;
   border-radius: 50px;
-  font-size: 3.25vh;
+  font-size: var(--font-icon);
   width: 12vw;
   height: auto;
   padding: 2vh 0;
-  font-weight: 600;
-  color: #005441;
+  color: var(--accent);
+  border-radius: 3vw;
+  background: var(--tonal-button);
 }
 
 #scribe_signup {
-  font-weight: 600;
   position: relative;
   cursor: pointer;
   border: none;
@@ -101,8 +105,7 @@ nav a {
     #4da383);
   background-size: 400%;
   color: #fff;
-  font-size: 3.25vh;
-  letter-spacing: 0.05vw;
+  font-size: var(--font-icon);
 }
 
 #scribe_signup::before {
@@ -133,4 +136,99 @@ nav a {
 svg {
   width: 39.5vw;
   height: auto;
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+  /* Styles for smaller screens */
+  #landing_container {
+  padding: 2em; /* Adjust padding for smaller screens */
+  }
+  
+  nav {
+  display: flex;
+  align-items: center;
+  gap: 3.5vw;
+  }
+  
+  nav a {
+  text-decoration: none;
+  color: var(--text);
+  font-size: 1.8vw;
+  }
+  
+  #scribe_hero h1 {
+  font-size: 5vw;
+  margin-top: 8vh;
+  border: 0px solid red;
+  }
+  
+  #scribe_desc {
+  font-size: 2.5vh;
+  line-height: 1.6;
+  padding: 0 8vw;
+  border: 0px solid red;
+  text-align: center;
+  letter-spacing: 0.04vw;
+  }
+  
+  #scribe_login, #scribe_signup {
+  width: 10vw;
+  font-size: 3vh; 
+  width: 90px; 
+  height: 20px; 
+  padding: 3.5px 1px; 
+  font-size: 12px; 
+  }
+}
+  
+  CSS
+  #landing_buttons {
+  gap: 20px; /* Adjust gap between buttons as needed */
+  }
+
+  :root {
+      --menu-bg-hover: rgba(0, 0, 0, 0.1); 
+}
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: transparent;
+    min-width: 160px;
+    box-shadow: none;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: var(--text);
+    padding: 2px 10px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--menu-bg-hover);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown .dropbtn {
+    // background-color: none;
+    // color: var(--primary);
+    // padding: 5px;
+    font-size: 10px;
+    border: none;
+    // cursor: pointer;
+}
+
+.dropdown .dropbtn:hover {
+    background-color: none;
 }

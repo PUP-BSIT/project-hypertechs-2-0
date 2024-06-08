@@ -42,7 +42,6 @@ img {
 
 /* signup MAIN */
 #signup_form {
-  border: 0px solid green;
   margin-top: 5vh;
 }
 
@@ -52,7 +51,7 @@ img {
 }
 
 #signup_form h4 {
-  margin-top: 2vh;
+  margin-top: 1vh;
   font-size: var(--font-body);
   color: var(--text);
   font-weight: 400;
@@ -64,7 +63,7 @@ img {
 form {
   display: flex;
   flex-direction: column;
-  gap: 4vh;
+  gap: 1vh;
   margin-top: 4vh;
   letter-spacing: var(--letter-spacing);
 }
@@ -75,10 +74,6 @@ form {
   gap: 2vw;
 }
 
-.lfname label {
-  display: block;
-  margin-bottom: 2vh; /* Adjust the value as needed */
-}
 
 #signup_form input[type="text"],
 #signup_form input[type="password"] {
@@ -118,17 +113,9 @@ form {
 
 .input-group label {
   margin-bottom: 2vh;
-  margin-left: 0vw;
   font-size: var(--font-body);
   font-weight: 500;
   color: var(--label);
-}
-
-.field-content {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 2vh;
 }
 
 #email,
@@ -146,20 +133,10 @@ form {
 }
 
 .material-icons.row {
-  left: 25vw;
-}
-
-#forgot_password {
-  margin-top: 1.5vh;
-  margin-right: 1vw;
-  text-align: end;
-  font-size: var(--font-misc);
-  color: var(--label);
-  cursor: pointer;
+  left: 2vw;
 }
 
 .custom-btn {
-  margin-top: 2vh;
   height: 8vh;
   font-size: var(--font-body);
   font-weight: 600;
@@ -170,7 +147,6 @@ form {
 #user_agreement {
   margin-top: 2vh;
   text-align: center;
-  letter-spacing: var(--letter-spacing);
 }
 
 #goto_login {
@@ -179,10 +155,8 @@ form {
   margin-top: 4vh;
   color: var(--primary);
   font-size: var(--font-misc);
-  font-weight: 500;
   text-align: center;
   cursor: pointer;
-  letter-spacing: var(--letter-spacing);
   text-decoration: none;
 }
 
@@ -195,4 +169,235 @@ form {
 #signup_main {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+
+/* Error styles */
+
+/* Red border for input error */
+#signup_form input[type="text"].error,
+#signup_form input[type="password"].error {
+  border: 2px solid var(--error-message);
+}
+
+.input-group.error .error-message div {
+  color: var(--error-message);
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  min-height: 1.5em;
+  margin-top: 0.5em;
+  visibility: hidden;
+  font-size: var(--font-error);
+
+  .error-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    margin-left: 1vw;
+  }
+
+  .error-item .material-symbols-outlined {
+    font-size: 1.2vw;
+  }
+
+  div {
+    visibility: visible;
+  }
+}
+
+.error-message.custom-btn {
+  display: flex;
+  justify-content: center;
+  color: var(--error-message);
+  visibility: visible;
+  height: auto;
+}
+
+.error-message.custom-btn:empty {
+  display: none;
+}
+
+
+/* Media Queries */
+@media (max-width: 1024px) {
+  #signup_container {
+    flex-direction: column;
+  }
+
+  #signup_main {
+    padding: 5vh 5vw;
+  }
+
+  #signup_graphics {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .input-group.same-row-one {
+    flex-direction: column;
+    gap: 4vh;
+  }
+
+  .material-icons.row {
+    left: 5vw;
+  }
+
+  #signup_form input[type="text"],
+  #signup_form input[type="password"] {
+    padding: 1.5vh 4vw;
+    height: 6vh;
+    font-size: calc(var(--font-form) - 2px);
+  }
+
+  #signup_form input[type="text"]::placeholder,
+  #signup_form input[type="password"]::placeholder {
+    margin-top: 1.35vh;
+    opacity: 0.6; /* Corrected opacity */
+    color: var(--tonal-form-text);
+    font-size: var(--font-form);
+    letter-spacing: var(--letter-spacing);
+  }
+
+  .material-icons {
+    margin-top: 1.75vh;
+    position: absolute;
+    left: 1.5vw;
+    color: var(--tonal-form-text);
+    pointer-events: none;
+    font-size: 13px;
+  }
+
+  #forgot_password {
+    font-size: calc(var(--font-misc) - 2px);
+  }
+
+  button.custom-btn {
+    height: 6vh;
+    font-size: calc(var(--font-body) - 2px);
+  }
+
+  #goto_login {
+    font-size: calc(var(--font-misc) - 2px);
+  }
+
+  #user_agreement {
+    margin-top: 2vh;
+    text-align: center;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  #signup_container {
+    flex-direction: column;
+  }
+
+  #signup_main {
+    flex: 1;
+    padding: 5vh 15vw;
+  }
+  .field-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  #signup_graphics {
+    display: none;
+  }
+  
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2vh;
+  }
+
+  nav {
+    gap: 2vw;
+  }
+
+  #signup_form h1 {
+    font-size: var(--font-title);
+    color: var(--text);
+    font-size: 20px;
+  }
+
+  #signup_form h4 {
+    margin-top: 2vh;
+    font-size: var(--font-body);
+    color: var(--text);
+    font-weight: 400;
+    letter-spacing: var(--letter-spacing);
+    font-size: 10px;
+  }
+
+  .input-group label {
+    margin-bottom: 2vh;
+    margin-left: 0vw;
+    font-size: var(--font-body);
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--label);
+  }
+
+  #signup_form input[type="text"],
+  #signup_form input[type="password"] {
+    padding: 1.5vh 4vw;
+    height: 6vh;
+    font-size: calc(var(--font-form) - 2px);
+    font-size: 10px;
+    
+  }
+
+  #signup_form input[type="text"]::placeholder,
+  #signup_form input[type="password"]::placeholder {
+    margin-top: 1.35vh;
+    opacity: 10;
+    color: var(--tonal-form-text);
+    font-size: var(--font-form);
+    letter-spacing: var(--letter-spacing);
+    font-size: 10px;
+    padding: 3vw;
+    margin-right: 10vh;
+  }
+
+  .material-icons {
+    margin-top: 1.75vh;
+    position: absolute;
+    left: 1.5vw;
+    color: var(--tonal-form-text);
+    pointer-events: none;
+    font-size: var(--font-icon);
+    font-size: 13px;
+  }
+
+  #forgot_password {
+    font-size: calc(var(--font-misc) - 2px);
+    font-size: 10px;
+  }
+
+  button.custom-btn {
+    height: 6vh;
+    font-size: calc(var(--font-body) - 2px);
+    font-size: 10px;
+  }
+
+  #goto_login {
+    font-size: calc(var(--font-misc) - 2px);
+    font-size: 10px;
+  }
+
+  .custom-btn {
+    height: 6vh;
+    font-size: calc(var(--font-body) - 2px);
+    font-size: 10px;
+  }
+  #user_agreement {
+    margin-top: 2vh;
+    text-align: center;
+    font-size: 10px;
+  }
 }

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 /* Scribe App Components*/
 import { LandingComponent } from './public/landing/landing.component';
+import { NotFoundComponent } from './public/not-found/not-found.component';
 import { LoginComponent } from './auth/login/login.component';
 import { MainComponent } from './core/main/main.component';
 import { HomeComponent } from './core/home/home.component';
@@ -11,22 +12,30 @@ import { TasksComponent } from './core/tasks/tasks.component';
 import { FoldersComponent } from './core/folders/folders.component';
 import { TrashComponent } from './core/trash/trash.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { RecoveryComponent } from './auth/recovery/recovery.component';
+import { EnterOtpComponent } from './auth/recovery/enter-otp/enter-otp.component';
+import { EnterNewPasswordComponent } from './auth/recovery/enter-new-password/enter-new-password.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent},
+  { path: 'recovery', component: RecoveryComponent},
+  { path: 'signup', component: SignupComponent },
+  { path: 'enter-otp', component: EnterOtpComponent },
+  { path: 'enter-new-password', component: EnterNewPasswordComponent },
   {
-    path: 'main', component: MainComponent, children: [
+    path: 'main',
+    component: MainComponent,
+    children: [
       { path: 'home', component: HomeComponent },
       { path: 'notes', component: NotesComponent },
       { path: 'tasks', component: TasksComponent },
       { path: 'folders', component: FoldersComponent },
       { path: 'trash', component: TrashComponent },
-      { path: '', redirectTo: 'home', pathMatch: 'full' }
-    ]
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+    ],
   },
-  { path: '**', redirectTo: '' },
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({

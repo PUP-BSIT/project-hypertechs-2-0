@@ -1,0 +1,43 @@
+<div class="recovery-form">
+  <h1>Forgot Password</h1>
+  <h4>Kindly enter your email used in Scribe to recover your account.</h4>
+
+  <!--recovery form-->
+  <form id="recovery_fields" [formGroup]="recoveryForm" (ngSubmit)="onSubmit()">
+    <!--Email input field group-->
+    <div class="input-group" [ngClass]="{'error': emailControl?.invalid && 
+      emailControl?.touched}">
+      <label for="email">Email</label>
+
+      <!--Actual email input-->
+      <div id="field_content">
+        <i class="material-icons">account_circle</i>
+        <input type="text" id="email" name="email" 
+          placeholder="your-scribe-email@gmail.com" maxlength="320"
+          formControlName="email" [ngClass]="{'error': 
+            emailControl?.invalid && emailControl?.touched}" />
+
+        <!--Email error message-->
+        <div class="error-message">
+          @if (emailControl?.errors?.['required'] && emailControl?.touched){
+          <div class="error-item">
+            <span class="material-symbols-outlined">error</span>
+            <span>Email is required. Kindly fill out the field.</span>
+          </div>
+          }
+          @if (emailControl?.errors?.['email'] && emailControl?.touched){
+          <div>Email is invalid format. Please try again.</div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!--recovery submit form-->
+    <div class="error-message recovery-btn">
+      @if (errorMessage) {
+      <div>{{ errorMessage }}</div>
+      }
+    </div>
+    <button class="custom-btn" routerLink="/enter-otp" mat-flat-button>Submit</button>
+  </form>
+</div>

@@ -22,14 +22,18 @@ $scribe-theme: mat.define-theme(
 :root {
   @include mat.all-component-themes($scribe-theme);
 
-  /* --font-hero: 
-  --font-heading */
+  --font-display: "Inter Tight", "Google Sans", sans-serif;
+  --font-text: 'Inter', "Google Sans Text", sans-serif;
+
+  --font-hero: 5vw;  
   --font-title: 3vw;
+  --font-brand: 2vw;
   --font-icon: 1.75vw;
   --font-body: 1.5vw;
   --font-form: 1.3vw;
   --font-misc: 1.2vw;
-  --letter-spacing: 0.05vw;
+  --font-error: 1.1vw;
+  --letter-spacing: 0.02vw;
 }
 
 /* -------------------------------------------------------- */
@@ -37,60 +41,13 @@ $scribe-theme: mat.define-theme(
 /* -------------------------------------------------------- */
 
 @import "./scss/theme.scss";
-
-@font-face {
-  font-family: "SF Pro Display";
-  src: url("assets/fonts/SF-Pro-Display/SF-Pro-Display-Thin.ttf")
-    format("truetype");
-  font-weight: 100; /* Thin */
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "SF Pro Display";
-  src: url("assets/fonts/SF-Pro-Display/SF-Pro-Display-Regular.ttf")
-    format("truetype");
-  font-weight: 400; /* Normal */
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "SF Pro Display";
-  src: url("assets/fonts/SF-Pro-Display/SF-Pro-Display-Medium.ttf")
-    format("truetype");
-  font-weight: 500; /* Medium */
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "SF Pro Display";
-  src: url("assets/fonts/SF-Pro-Display/SF-Pro-Display-Semibold.ttf")
-    format("truetype");
-  font-weight: 600; /* Semi-bold */
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "SF Pro Display";
-  src: url("assets/fonts/SF-Pro-Display/SF-Pro-Display-Bold.ttf")
-    format("truetype");
-  font-weight: 700; /* Bold */
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "SF Pro Display";
-  src: url("assets/fonts/SF-Pro-Display/SF-Pro-Display-Heavy.ttf")
-    format("truetype");
-  font-weight: 800; /* Heavy */
-  font-style: normal;
-}
+@import "./scss/fonts.scss";
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "SF Pro Display", "Helvetica Neue", sans-serif;
+  font-family: "Inter Tight", "Google Sans", sans-serif;
 }
 
 html,
@@ -100,13 +57,22 @@ body {
 
 body {
   margin: 0;
-  background-color: var(--background-color);
+  background-color: var(--core-bg);
   color: var(--text-color);
   transition: background-color 0.75s ease, color 0.75s ease;
 }
 
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 500,
+  'GRAD' 0,
+  'opsz' 24
+}
+
 // Enables spotlight effect when dark mode only
-body.dark-mode #landing_container::before {
+body.dark-mode #landing_container::before,
+body.dark-mode #not_found_container::before {
   content: "";
   position: absolute;
   top: 0;

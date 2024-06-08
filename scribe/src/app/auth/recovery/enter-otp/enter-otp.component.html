@@ -1,0 +1,16 @@
+<div id="otp_modal" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <div class="recovery-form">
+      <h1>Check your email</h1>
+      <h4>Please enter the code sent to your email.</h4>
+      <form (ngSubmit)="submitOtp()">
+        <div class="input-group">
+          <label for="otp">6-digit code</label>
+          <input type="text" id="otp" [(ngModel)]="otp" name="otp" required>
+        </div>
+        <button type="submit" routerLink="/enter-new-password" mat-flat-button>Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

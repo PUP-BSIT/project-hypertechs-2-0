@@ -1,78 +1,270 @@
 <div id="signup_container">
-  <div id="signup_main">
+    <div id="signup_main">
       <div id="signup_header">
-          <header>
-              <app-brand></app-brand>
-              <nav></nav>
-          </header>
+        <header>
+          <app-brand></app-brand>
+          <nav></nav>
+        </header>
       </div>
       <div id="signup_form">
-          <h1>Sign Up</h1>
-          <h4>Capture your thoughts quickly. Sign Up to Scribe today. </h4>
-
-          <form id="signup_fields">
-
-              <div class="input-group same-row-one">
-                  <div class="lfname">
-                      <label for="lastname">Last Name</label>
-                      <div id="field_content">
-                          <i class="material-icons">person</i>
-                          <input type="text" id="lastname" name="lastname" 
-                              placeholder="Dela Cruz">
-                      </div>
+        <h1>Sign Up</h1>
+        <h4>Capture your thoughts quickly. Sign Up to Scribe today.</h4>
+  
+        <form id="signup_fields" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+          <div class="input-group same-row-one">
+            <div
+              class="input-group lfname"
+              [ngClass]="{
+                error: lastnameControl?.invalid && lastnameControl?.touched
+              }"
+            >
+              <label for="lastname">Last Name</label>
+  
+              <!-- Actual lastname input field -->
+              <div id="field_content">
+                <i class="material-icons">person</i>
+                <input
+                  type="text"
+                  id="lastname"
+                  name="lastname"
+                  formControlName="lastname"
+                  maxlength="40"
+                  minlength="3"
+                  placeholder="Dela Cruz"
+                  [ngClass]="{
+                    error: lastnameControl?.invalid && lastnameControl?.touched
+                  }"
+                />
+  
+                <!--Lastname Error Message-->
+                <div class="error-message">
+                  @if (lastnameControl?.errors?.['required'] &&
+                  lastnameControl?.touched ) {
+                  <div class="error-item">
+                    <span class="material-symbols-outlined">error</span>
+                    <span>Last name is required.</span>
                   </div>
-
-                  <div class="lfname">
-                      <label for="firstname">First Name</label>
-                      <div id="field_content">
-                          <i class="material-icons row">person</i>
-                          <input type="text" id="firstname" name="firstname" 
-                              placeholder="Juan">
-                      </div>
+                  } @if(lastnameControl?.getError('minlength')){
+                  <div class="error-item">
+                    <span class="material-symbols-outlined">error</span>
+                    <span>Last name must be atleast 3 characters.</span>
                   </div>
+                  }@if(lastnameControl?.getError('maxlength')){
+                  <div class="error-item">
+                    <span class="material-symbols-outlined">error</span>
+                    <span
+                      >Last name should not be greater than 40 characters.</span
+                    >
+                  </div>
+                  }
+                </div>
               </div>
-
-              <div class="input-group">
-                  <label for="email">Email</label>
-                  <div id="field_content">
-                      <i class="material-icons">account_circle</i>
-                      <input type="text" id="email" name="email" 
-                          placeholder="example@gmail.com">
+            </div>
+  
+            <div
+              class="input-group lfname"
+              [ngClass]="{
+                error: firstnameControl?.invalid && firstnameControl?.touched
+              }"
+            >
+              <label for="firstname">First Name</label>
+  
+              <!-- Actual firstname input field -->
+              <div id="field_content">
+                <i class="material-icons row">person</i>
+                <input
+                  type="text"
+                  id="firstname"
+                  name="firstname"
+                  formControlName="firstname"
+                  maxlength="40"
+                  minlength="3"
+                  placeholder="Juan"
+                  [ngClass]="{
+                    error: firstnameControl?.invalid && firstnameControl?.touched
+                  }"
+                />
+  
+                <!--Firstname Error Message-->
+                <div class="error-message">
+                  @if (firstnameControl?.errors?.['required'] &&
+                  firstnameControl?.touched) {
+                  <div class="error-item">
+                    <span class="material-symbols-outlined">error</span>
+                    <span>First name is required.</span>
                   </div>
-              </div>
-
-              <div class="input-group">
-                  <label for="password">Create Password</label>
-                  <div id="field_content">
-                      <i class="material-icons">lock</i>
-                      <input type="password" id="password" name="password" 
-                          placeholder="•••••••••••••">
+                  }@if(firstnameControl?.getError('minlength')){
+                  <div class="error-item">
+                    <span class="material-symbols-outlined">error</span>
+                    <span>First name must be atleast 3 characters.</span>
                   </div>
-              </div>
-
-              <div class="input-group">
-                  <label for="password">Confirm Password</label>
-                  <div id="field_content">
-                      <i class="material-icons">lock</i>
-                      <input type="password" id="password" name="password"
-                          placeholder="•••••••••••••">
+                  }@if(firstnameControl?.getError('maxlength')){
+                  <div class="error-item">
+                    <span class="material-symbols-outlined">error</span>
+                    <span
+                      >First name should not be greater than 40 characters.</span
+                    >
                   </div>
+                  }
+                </div>
               </div>
-
-              <button class="custom-btn" mat-flat-button>
-                  Create account
-              </button>
-          </form>
+            </div>
+          </div>
+  
+          <div
+            class="input-group"
+            [ngClass]="{
+              error: emailControl?.invalid && emailControl?.touched
+            }"
+          >
+            <label for="email">Email</label>
+  
+            <!-- Actual email input field -->
+            <div id="field_content">
+              <i class="material-icons">account_circle</i>
+              <input
+                type="text"
+                id="email"
+                name="email"
+                formControlName="email"
+                maxlength="320"
+                placeholder="example@gmail.com"
+                [ngClass]="{
+                  error: emailControl?.invalid && emailControl?.touched
+                }"
+              />
+  
+              <!--Email Error Message-->
+              <div class="error-message">
+                @if (emailControl?.errors?.['required'] && emailControl?.touched){
+                <div class="error-item">
+                  <span class="material-symbols-outlined">error</span>
+                  <span>Email is required. Kindly fill out the field.</span>
+                </div>
+                } @if (emailControl?.errors?.['email'] && emailControl?.touched){
+                <div>Email is invalid format. Please try again.</div>
+                }@if(emailControl?.getError('maxlength')){
+                <div class="error-item">
+                  <span class="material-symbols-outlined">error</span>
+                  <span>Email should not be greater than 320 characters.</span>
+                </div>
+                }
+              </div>
+            </div>
+          </div>
+  
+          <div
+            class="input-group"
+            [ngClass]="{
+              error: passwordControl?.invalid && passwordControl?.touched
+            }"
+          >
+            <label for="password">Create Password</label>
+  
+            <!-- Actual password input field -->
+            <div id="field_content">
+              <i class="material-icons">lock</i>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                formControlName="password"
+                maxlength="40"
+                minlength="8"
+                placeholder="•••••••••••••"
+                [ngClass]="{
+                  error: passwordControl?.invalid && passwordControl?.touched
+                }"
+              />
+  
+              <!--Password Error Message-->
+              <div class="error-message">
+                @if (passwordControl?.errors?.['required'] &&
+                passwordControl?.touched) {
+                <div class="error-item">
+                  <span class="material-symbols-outlined">error</span>
+                  <span>Password is required. Kindly fill out the field.</span>
+                </div>
+                }@if(passwordControl?.getError('maxlength')){
+                <div class="error-item">
+                  <span class="material-symbols-outlined">error</span>
+                  <span>Password should not be greater than 40 characters.</span>
+                </div>
+                } @if(passwordControl?.getError('minlength')){
+                <div class="error-item">
+                  <span class="material-symbols-outlined">error</span>
+                  <span>Password must atleast 8 characters long.</span>
+                </div>
+                }
+              </div>
+            </div>
+          </div>
+  
+          <div
+            class="input-group"
+            [ngClass]="{
+              error:
+                confirmPasswordControl?.invalid && confirmPasswordControl?.touched
+            }"
+          >
+            <label for="confirm_password">Confirm Password</label>
+  
+            <!-- Actual confirm password input field -->
+            <div id="field_content">
+              <i class="material-icons">lock</i>
+              <input
+                type="password"
+                id="confirm_password"
+                name="confirm_password"
+                formControlName="confirm_password"
+                placeholder="•••••••••••••"
+                [ngClass]="{
+                  error:
+                    confirmPasswordControl?.invalid &&
+                    confirmPasswordControl?.touched
+                }"
+              />
+  
+              <!--Confirm Password Error Message-->
+              <div class="error-message">
+                @if (confirmPasswordControl?.errors?.['required'] &&
+                confirmPasswordControl?.touched) {
+                <div class="error-item">
+                  <span class="material-symbols-outlined">error</span>
+                  <span>Password is required. Kindly fill out the field.</span>
+                </div>
+                } @if (confirmPasswordControl?.errors?.['confirmedValidator']) {
+                <div class="error-item">
+                  <span class="material-symbols-outlined">error</span>
+                  <span>Password is did not match.</span>
+                </div>
+                }
+              </div>
+            </div>
+          </div>
+          <!--Error message-->
+          <div class="error-message custom-btn">
+            @if (errorMessage) {
+            <div>{{ errorMessage }}</div>
+            }
+          </div>
+  
+          <button type="submit" class="custom-btn"
+            mat-flat-button>Create account</button>
+        </form>
       </div>
-
-      <p id="user_agreement">By clicking the button, 
-          you agree to Scribe's Terms of Use and Privacy Policy.</p>
-
+  
+      <p id="user_agreement">
+        By clicking the button, you agree to Scribe&reg; Terms of Use and Privacy
+        Policy.
+      </p>
+  
       <a id="goto_login" routerLink="/login">
-          Already have a Scribe account? Log in.
+        Already have a Scribe account? Log in.
       </a>
+    </div>
+    <div id="signup_graphics">
+      <img src="../../../assets/images/mesh_auth.png" />
+    </div>
   </div>
-  <div id="signup_graphics">
-      <img src="../../../assets/images/mesh_auth.png">
-  </div>
-</div>
+  
