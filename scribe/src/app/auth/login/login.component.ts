@@ -4,6 +4,7 @@ import { LoginData } from '../../../models/model';
 import { LoginService } from '../../../services/login.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit{
   errorMessage = '';
 
   constructor(private formBuilder: FormBuilder, private loginService: LoginService, 
-    private router: Router
+    private router: Router, private userService: UserService
   ){}
 
   loginForm: FormGroup = this.formBuilder.group({});
@@ -30,8 +31,8 @@ export class LoginComponent implements OnInit{
     if (storedUser) {
       try {
         const userData = JSON.parse(storedUser); // Parse stored JSON data
-        this.router.navigate(['main'], { queryParams: { firstname: userData.firstname } });
-        //alert(`Log In Successful! Hi ${userData.username}`);
+        this.userService.setFirstname(userData.firstname);
+        this.router.navigate(['main']); 
       } catch (error) {
         console.error('Error parsing stored user data:', error);
         // Clear invalid data and proceed normally
@@ -65,11 +66,9 @@ export class LoginComponent implements OnInit{
     .subscribe({
       next: (response)=>{
         console.log("Response from server: ", response);
-        //I disabled routing after successful log in
-        // for the meantime I used alert 
         sessionStorage.setItem('loggedInUser', JSON.stringify(response));
-        this.router.navigate(['main'], { queryParams: { firstname: response.firstname} });
-        //alert(`Log In Successful! Hi ${response.username}`);
+        this.userService.setFirstname(response.firstname); 
+        this.router.navigate(['main']);
       },
       error:(error: HttpErrorResponse)=>{
         this.handleError(error) },

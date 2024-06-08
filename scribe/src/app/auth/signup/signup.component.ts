@@ -5,6 +5,7 @@ import { SignupService } from '../../../services/signup.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-signup',
@@ -16,7 +17,7 @@ export class SignupComponent implements OnInit {
   signupForm: FormGroup = this.formBuilder.group({});
   errorMessage: string = '';
 
-  constructor(private formBuilder: FormBuilder, private signupService: SignupService, private router: Router) {}
+  constructor(private formBuilder: FormBuilder, private signupService: SignupService, private router: Router, private userService: UserService) {}
 
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group({
@@ -31,7 +32,8 @@ export class SignupComponent implements OnInit {
     if (storedUser) {
       try {
         const userData = JSON.parse(storedUser); // Parse stored JSON data
-        this.router.navigate(['main'], { queryParams: { firstname: userData.firstname } });
+        this.userService.setFirstname(userData.firstname);
+        this.router.navigate(['main']); 
       } catch (error) {
         console.error('Error parsing stored user data:', error);
         // Clear invalid data and proceed normally
@@ -98,8 +100,8 @@ export class SignupComponent implements OnInit {
           next: (response) => {
             console.log("Response from server:", response);
             sessionStorage.setItem('loggedInUser', JSON.stringify(response));
-            this.router.navigate(['main'], { queryParams: { firstname: signupData.firstname } });
-            //alert(`Log In Successful! Hi ${response.firstname}`);
+            this.userService.setFirstname(signupData.firstname);
+            this.router.navigate(['main']); 
           },
           error:(error: HttpErrorResponse)=>{
             this.handleError(error) },
