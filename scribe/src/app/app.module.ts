@@ -24,6 +24,7 @@ import { EnterNewPasswordComponent } from './auth/recovery/enter-new-password/en
 /*Layout Components */
 import { BrandComponent } from './layout/brand/brand.component';
 import { ThemeSwitchComponent } from './layout/theme-switch/theme-switch.component';
+import { DialogComponent } from './layout/dialog/dialog.component';
 
 /* Core Components */
 import { MainComponent } from './core/main/main.component';
@@ -43,6 +44,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
 
 /* Services */
 import { LoginService } from '../services/login.service';
@@ -67,6 +69,7 @@ import { SignupService } from '../services/signup.service';
     EnterEmailComponent,
     EnterOtpComponent,
     EnterNewPasswordComponent,
+    DialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,7 +85,7 @@ import { SignupService } from '../services/signup.service';
     MatRippleModule,
     MatFormFieldModule,
     MatInputModule,
-
+    MatDialogModule,
   ],
   providers: [
     provideAnimationsAsync(),
