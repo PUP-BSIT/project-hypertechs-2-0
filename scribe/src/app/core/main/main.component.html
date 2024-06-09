@@ -145,21 +145,19 @@
   <mat-sidenav-content>
     <!--Page Toolbar -->
     <mat-toolbar color="primary">
-
+      
       <!--Menu Toggle-->
       <div id="scribe_menu-container">
-        
+        @if (isHandset$ | async) {
         <button
           type="button"
           aria-label="Toggle sidenav"
           mat-icon-button
           (click)="drawer.toggle()"
         >
-        <span class="material-symbols-outlined">
-          menu
-          </span>
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
-        
+        }
       </div>
 
       <!--Search Bar-->
