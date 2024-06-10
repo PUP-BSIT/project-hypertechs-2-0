@@ -117,34 +117,56 @@ export class SignupComponent implements OnInit {
         });
   }
 
-  handleError(error: HttpErrorResponse){
-    this.errorMessage = 'Signup failed.';
+  /* Handle the error messages */
+  handleError(error: HttpErrorResponse | Error) {
+    if (error instanceof HttpErrorResponse) {
+      this.handleHttpError(error);
+    } else {
+      this.handleNetworkError();
+    }
   
-    if (error.error) {
-      this.errorMessage = error.error.error; 
+    this.showSnackbar();
+  }
+  
+  private handleHttpError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      this.errorMessage = 
+      `Server is unreachable. Please make sure your server is running.`;
+      return;
     }
-
-    if (error?.status){
-      switch (error.status) {
-        case 400:
-          this.errorMessage = 'This email is already used. Use another one.';
-          break;
-        case 500:
-          this.errorMessage = 
-            'Internal server error. Please try again later.';
-          break;
-        default:
-          this.errorMessage = 
-          `Error: ${error.status}. Please try again later.`;
-      } 
+  
+    if (error.error && error.error.error) {
+      this.errorMessage = error.error.error;
+      return;
     }
+  
+    switch (error.status) {
+      case 400:
+        this.errorMessage =
+        `This email has already been used. Use a new one.`;
+        break;
 
-    /* Snackbar for error messages */
+      case 500:
+        this.errorMessage =
+        `Internal server error. Please try again later.`;
+        break;
+
+      default:
+        this.errorMessage =
+        `Error: ${error.status}. Please try again later.`;
+    }
+  }
+  
+  private handleNetworkError() {
+    this.errorMessage = 
+    `Network error occurred. Please check your internet connection.`;
+  }
+  
+  private showSnackbar() {
     this.snackBar.open(this.errorMessage, 'Close', {
       duration: 7000,
       verticalPosition: 'bottom',
-      horizontalPosition: 'center',
-      panelClass: ['custom-snackbar']
+      horizontalPosition: 'center'
     });
-  }      
+  }
 }
