@@ -10,7 +10,7 @@
 
 #signup_main {
   flex: 1;
-  padding: 9vh 5vw;
+  padding: 5%;
   overflow-y: auto;
 }
 
@@ -19,6 +19,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: var(--graphics-bg);
 }
 
 /* signup HEADER */
@@ -34,11 +35,12 @@ nav {
   gap: 4vw;
 }
 
-img {
-  max-width: 100%;
+svg {
+  max-width: 90%;
   height: auto;
   display: block;
 }
+
 
 /* signup MAIN */
 #signup_form {
@@ -55,7 +57,6 @@ img {
   font-size: var(--font-body);
   color: var(--text);
   font-weight: 400;
-  letter-spacing: var(--letter-spacing);
 }
 
 /* MATERIAL FORM FIELD */
@@ -130,6 +131,7 @@ form {
   color: var(--tonal-form-text);
   pointer-events: none;
   font-size: var(--font-icon);
+  opacity: 0.75;
 }
 
 .material-icons.row {
@@ -137,11 +139,24 @@ form {
 }
 
 .custom-btn {
+  margin-top: 2vh;
+  color: #eff4f2 !important; // override m3 theme
+  background-color: var(--main-button) !important;
   height: 8vh;
   font-size: var(--font-body);
-  font-weight: 600;
+  font-weight: 500;
   transition: transform 0.4s ease-in-out;
-  letter-spacing: var(--letter-spacing);
+  font-family: "Google Sans Text", "Inter Tight", sans-serif !important;
+}
+
+.button-enabled {
+  opacity: 1;
+}
+
+.button-disabled {
+  opacity: 0.3;
+  cursor: not-allowed !important;
+  background-color: var(--main-button-disabled) !important;
 }
 
 #user_agreement {
@@ -258,7 +273,6 @@ form {
     opacity: 0.6; /* Corrected opacity */
     color: var(--tonal-form-text);
     font-size: var(--font-form);
-    letter-spacing: var(--letter-spacing);
   }
 
   .material-icons {
