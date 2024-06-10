@@ -2,7 +2,7 @@
   cursor: pointer;
   position: relative;
   display: inline-block;
-  width: 3.5vw;
+  width: 3.6vw;
   height: 1.8vw;
   background-color: var(--toggle-theme-bg);
   border-radius: 10vw;
@@ -38,18 +38,18 @@ input[type="checkbox"]:checked + .theme-toggle {
 }
 
 input[type="checkbox"]:checked + .theme-toggle:before {
-  transform: translateX(1.6vw);
+  transform: translateX(1.7vw);
 }
 
 .theme-toggle {
   display: flex;
   align-items: center;
   padding-left: 0.1vw;
-  gap: 0.1vw;
+  gap: 0.3vw;
   color: var(--toggle-theme-ball);
   
   #dark_mode {
-    font-size: 1.7vw;
+    font-size: 1.6vw;
     font-variation-settings: 
     "FILL" 1, 
     "wght" 200, 
