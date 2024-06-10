@@ -29,6 +29,7 @@
               placeholder="example@gmail.com"
               maxlength="320"
               formControlName="email"
+              autocomplete="email"
               [ngClass]="{
                 error: emailControl?.invalid && emailControl?.touched
               }"
@@ -70,6 +71,7 @@
               placeholder="•••••••••••••"
               maxlength="40"
               formControlName="password"
+              autocomplete="current-password"
               [ngClass]="{
                 error: passwordControl?.invalid && passwordControl?.touched
               }"
@@ -96,7 +98,7 @@
         </div>
 
         <!--Login submit form-->
-        <button class="custom-btn" mat-flat-button
+        <button  mat-flat-button type="submit" class="custom-btn"
           [ngClass]="{'button-enabled': loginForm.valid, 
             'button-disabled': !loginForm.valid}"
           [disabled]="!loginForm.valid"> Log In
