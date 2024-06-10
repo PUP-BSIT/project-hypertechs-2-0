@@ -1,10 +1,13 @@
 <mat-sidenav-container class="sidenav-container">
   <!--Side Navigation Bar-->
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="(isHandset$ | async) === false">
-
+    [opened]="(isHandset$ | async) === false"
+  >
     <div class="custom-toolbar">
       <div class="core-brand" [routerLink]="['/main/home']">
         <img src="../../../assets/images/quill-pen.png" />
@@ -25,7 +28,8 @@
           matTooltip="Go to Home"
           matTooltipPosition="after"
           matTooltipShowDelay="1000"
-          matTooltipHideDelay="100">
+          matTooltipHideDelay="100"
+        >
           <span class="material-symbols-outlined">home</span>Home
         </a>
 
@@ -40,7 +44,8 @@
           matTooltip="View your Notes"
           matTooltipPosition="after"
           matTooltipShowDelay="1000"
-          matTooltipHideDelay="100">
+          matTooltipHideDelay="100"
+        >
           <span class="material-symbols-outlined">note_stack</span>Notes
         </a>
 
@@ -55,7 +60,8 @@
           matTooltip="Manage your Tasks"
           matTooltipPosition="after"
           matTooltipShowDelay="1000"
-          matTooltipHideDelay="100">
+          matTooltipHideDelay="100"
+        >
           <span class="material-symbols-outlined">task_alt</span>Tasks
         </a>
 
@@ -70,7 +76,8 @@
           matTooltip="Browse Folders"
           matTooltipPosition="after"
           matTooltipShowDelay="1000"
-          matTooltipHideDelay="100">
+          matTooltipHideDelay="100"
+        >
           <span class="material-symbols-outlined">folder</span>Folders
         </a>
 
@@ -85,8 +92,8 @@
           matTooltip="View Trash"
           matTooltipPosition="after"
           matTooltipShowDelay="1000"
-          matTooltipHideDelay="100">
-
+          matTooltipHideDelay="100"
+        >
           <span class="material-symbols-outlined">delete</span>Trash
         </a>
       </mat-nav-list>
@@ -103,8 +110,10 @@
           matTooltip="Switch app theme"
           matTooltipPosition="after"
           matTooltipShowDelay="1000"
-          matTooltipHideDelay="100">
-          <span class="material-symbols-outlined">{{ themeIcon }}</span>Theme
+          matTooltipHideDelay="100"
+        >
+          <span class="material-symbols-outlined">{{ themeIcon }}</span
+          >Theme
         </a>
 
         <!--Settings-->
@@ -118,7 +127,8 @@
           matTooltip="Open Settings"
           matTooltipPosition="after"
           matTooltipShowDelay="1000"
-          matTooltipHideDelay="100">
+          matTooltipHideDelay="100"
+        >
           <span class="material-symbols-outlined">settings</span>Settings
         </a>
 
@@ -133,10 +143,10 @@
           matTooltipPosition="after"
           matTooltipShowDelay="1000"
           matTooltipHideDelay="100"
-          (click)="openLogoutDialog()">
+          (click)="openLogoutDialog()"
+        >
           <span class="material-symbols-outlined">logout</span>Log Out
         </a>
-
       </mat-nav-list>
     </div>
   </mat-sidenav>
@@ -145,7 +155,6 @@
   <mat-sidenav-content>
     <!--Page Toolbar -->
     <mat-toolbar color="primary">
-      
       <!--Menu Toggle-->
       <div id="scribe_menu-container">
         @if (isHandset$ | async) {
@@ -173,7 +182,7 @@
           <img src="../../../assets/images/scribe_user.png" />
         </div>
         <div id="scribe_user_info">
-          <h1>{{ firstname }}</h1>
+          <h1>{{ firstname }} {{ lastname }}</h1>
           <p>scribeuser&#64;gmail.com</p>
         </div>
       </div>
@@ -183,6 +192,5 @@
     <div class="scribe-core-content">
       <router-outlet></router-outlet>
     </div>
-
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -7,7 +7,9 @@ import { BehaviorSubject } from 'rxjs';
 export class UserService {
 
   private firstnameSubject = new BehaviorSubject<string | null>(null);
+  private lastnameSubject = new BehaviorSubject<string | null>(null);
   firstname$ = this.firstnameSubject.asObservable();
+  lastname$ = this.lastnameSubject.asObservable();
 
   constructor() { }
 
@@ -17,6 +19,14 @@ export class UserService {
 
   getFirstname(): string | null {
     return this.firstnameSubject.getValue();
+  }
+
+  setLastname(lastname: string) {
+    this.lastnameSubject.next(lastname);
+  }
+
+  getLastname(): string | null {
+    return this.lastnameSubject.getValue();
   }
 
   isLoggedIn(): boolean {

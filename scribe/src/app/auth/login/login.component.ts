@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
       try {
         const userData = JSON.parse(storedUser);
         this.userService.setFirstname(userData.firstname);
+        this.userService.setLastname(userData.lastname);
         this.router.navigate(['main']);
       } catch (error) {
         console.error('Error parsing stored user data:', error);
@@ -72,6 +73,7 @@ export class LoginComponent implements OnInit {
           console.log("Response from server: ", response);
           sessionStorage.setItem('loggedInUser', JSON.stringify(response));
           this.userService.setFirstname(response.firstname);
+          this.userService.setLastname(response.lastname);
           this.router.navigate(['main']);
         },
         error: (error: HttpErrorResponse) => {

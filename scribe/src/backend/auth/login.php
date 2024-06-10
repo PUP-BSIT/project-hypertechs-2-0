@@ -32,20 +32,25 @@
         $password = $data['password'];
         
         // SQL SELECT statement
-        $stmt = $conn->prepare("SELECT firstname, password FROM users WHERE email = ?");
+        $stmt = $conn->prepare("SELECT firstname, lastname, password FROM users WHERE email = ?");
 
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $stmt->store_result();
 
         if ($stmt->num_rows > 0) {
-            $stmt->bind_result($firstname, $hashed_password);
+            $stmt->bind_result($firstname, $lastname, $hashed_password);
             $stmt->fetch();
 
             if (password_verify($password, $hashed_password)) {
                 $_SESSION['firstname'] = $firstname;
-                // Password is correct, return a success message with the firstname
-                echo json_encode(['message' => 'Login successful.', 'firstname' => $firstname]);
+                //$lastname['lastname'];
+                // Password is correct, return a success message with ff data
+                echo json_encode(['message' => 'Login successful.', 
+                    'firstname' => $firstname, 
+                    'lastname' => $lastname, 
+                    'email' => $email
+                ]);
                 
             } else {
                 // Password is incorrect, return an error message
