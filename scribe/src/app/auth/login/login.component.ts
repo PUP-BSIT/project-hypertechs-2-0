@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email, this.customEmailValidator()]],
       password: ['', Validators.required]
     });
 
@@ -56,10 +56,18 @@ export class LoginComponent implements OnInit {
   }
 
   customEmailValidator(): ValidatorFn {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return (control: AbstractControl): ValidationErrors | null => {
-      const valid = emailRegex.test(control.value);
-      return valid ? null : { invalidEmail: true };
+    return (control: AbstractControl) => {
+      const email = control.value as string; // Cast to string for type safety
+
+      // Regular expression for email format
+      const emailRegex = /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+[a-zA-Z]{2,}))$/;
+      
+        //stricter validation using emailRegex
+        if (emailRegex && !emailRegex.test(email)) {
+          return { invalidEmail: true }; // Invalid if general format doesn't match
+        } else {
+          return null; // Valid email
+        }
     };
   }
 
