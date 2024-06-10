@@ -23,6 +23,8 @@ export class MainComponent implements OnInit {
   private breakpointObserver = inject(BreakpointObserver);
   email: string | null = null;
   firstname: string | null = null;
+  lastname: string | null = null;
+  
   //isLoggedIn: boolean = false;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
@@ -60,6 +62,8 @@ export class MainComponent implements OnInit {
         const userData = JSON.parse(storedUser);
         // Store firstname in service (optional)
         this.userService.setFirstname(userData.firstname);
+        this.userService.setLastname(userData.lastname);
+        this.userService.setEmail(userData.email);
         //this.isLoggedIn = true; // Set login state
       } catch (error) {
         console.error('Error parsing stored user data:', error);
@@ -70,6 +74,14 @@ export class MainComponent implements OnInit {
     this.userService.firstname$.subscribe((firstname) => {
       this.firstname = this.titleCaseService.toTitleCase(firstname);
     });
+
+    this.userService.lastname$.subscribe((lastname) => {
+      this.lastname = this.titleCaseService.toTitleCase(lastname);
+    });
+
+    this.userService.email$.subscribe((email) => {
+      this.email = email;
+    })
   }
 
   toggleTheme() {
@@ -78,7 +90,7 @@ export class MainComponent implements OnInit {
 
   logout() {
     sessionStorage.removeItem('loggedInUser');
-    this.router.navigate(['/login']); /* Redirect to login page */
+    this.router.navigate(['']); /* Redirect to login page */
   }
 
   /* Custom Dialog Content */
@@ -94,6 +106,7 @@ export class MainComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'logout') {
         /* Perform logout action here */
+        this.logout();
       }
     });
   }
