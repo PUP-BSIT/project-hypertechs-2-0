@@ -18,10 +18,10 @@ import { EnterOtpComponent } from './auth/recovery/enter-otp/enter-otp.component
 import { EnterNewPasswordComponent } from './auth/recovery/enter-new-password/enter-new-password.component';
 
 const routes: Routes = [
-  { path: '', component: LandingComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'recovery', component: RecoveryComponent},
-  { path: 'signup', component: SignupComponent },
+  { path: '', component: LandingComponent, data: { animationState: 'landing' } },
+  { path: 'login', component: LoginComponent, data: { animationState: 'login' } },
+  { path: 'signup', component: SignupComponent, data: { animationState: 'signup' } },
+  { path: 'recovery', component: RecoveryComponent, data: { animationState: 'recovery'} }, 
   { path: 'enter-otp', component: EnterOtpComponent },
   { path: 'enter-new-password', component: EnterNewPasswordComponent },
   {

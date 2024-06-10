@@ -5,13 +5,14 @@
     class="sidenav"
     fixedInViewport
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [mode]="(isHandset$ | async) ? 'push' : 'side'"
     [opened]="(isHandset$ | async) === false"
-  >
+    [@slideInOut]="isOpened ? 'in' : 'void'">
+
     <div class="custom-toolbar">
       <div class="core-brand" [routerLink]="['/main/home']">
         <img src="../../../assets/images/quill-pen.png" />
-        Scribe
+        <h1>Scribe</h1>
       </div>
     </div>
 
@@ -152,7 +153,7 @@
   </mat-sidenav>
 
   <!--Main Content-->
-  <mat-sidenav-content>
+  <mat-sidenav-content [@simpleFade]>
     <!--Page Toolbar -->
     <mat-toolbar color="primary">
       <!--Menu Toggle-->
