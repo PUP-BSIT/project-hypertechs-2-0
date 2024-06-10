@@ -40,6 +40,8 @@ export class SignupComponent implements OnInit {
       try {
         const userData = JSON.parse(storedUser); // Parse stored JSON data
         this.userService.setFirstname(userData.firstname);
+        this.userService.setLastname(userData.lastname);
+        this.userService.setEmail(userData.email);
         this.router.navigate(['main']); 
       } catch (error) {
         console.error('Error parsing stored user data:', error);
@@ -109,6 +111,8 @@ export class SignupComponent implements OnInit {
             console.log("Response from server:", response);
             sessionStorage.setItem('loggedInUser', JSON.stringify(response));
             this.userService.setFirstname(signupData.firstname);
+            this.userService.setLastname(signupData.lastname);
+            this.userService.setEmail(signupData.email);
             this.router.navigate(['main']); 
           },
           error:(error: HttpErrorResponse)=>{
