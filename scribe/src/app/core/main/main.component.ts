@@ -85,6 +85,7 @@ export class MainComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'logout') {
         /* Perform logout action here */
+        this.logout();
       }
     });
   }
