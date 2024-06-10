@@ -112,20 +112,17 @@
         </div>
 
         <!--Login submit form-->
-        <button  mat-flat-button type="submit" class="custom-btn"
-          [ngClass]="{'button-enabled': loginForm.valid, 
-            'button-disabled': !loginForm.valid}"
-          [disabled]="!loginForm.valid"> Log In
         <button
-          class="custom-btn"
           mat-flat-button
+          type="submit"
+          class="custom-btn"
           [ngClass]="{
             'button-enabled': loginForm.valid,
             'button-disabled': !loginForm.valid
           }"
           [disabled]="!loginForm.valid"
         >
-          Log In
+          Log In Log In
         </button>
       </form>
     </div>
