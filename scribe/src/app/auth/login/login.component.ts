@@ -55,6 +55,14 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get('password');
   }
 
+  customEmailValidator(): ValidatorFn {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return (control: AbstractControl): ValidationErrors | null => {
+      const valid = emailRegex.test(control.value);
+      return valid ? null : { invalidEmail: true };
+    };
+  }
+
   onSubmit() {
    /* Return if user inputs are invalid */
     if (!this.loginForm.valid) return;
