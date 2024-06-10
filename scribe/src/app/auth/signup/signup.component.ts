@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-signup',
@@ -17,7 +18,13 @@ export class SignupComponent implements OnInit {
   signupForm: FormGroup = this.formBuilder.group({});
   errorMessage: string = '';
 
-  constructor(private formBuilder: FormBuilder, private signupService: SignupService, private router: Router, private userService: UserService) {}
+  constructor(
+    private formBuilder: FormBuilder, 
+    private signupService: SignupService, 
+    private router: Router, 
+    private userService: UserService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group({
@@ -67,8 +74,9 @@ export class SignupComponent implements OnInit {
         const ctrlPassword = abstractControl.get(password);
         const ctrlConfirmPassword = abstractControl.get(confirmPassword);
 
-        if (ctrlConfirmPassword!.errors && !ctrlConfirmPassword!.errors?.['confirmedValidator']) {
-            return null;
+        if (ctrlConfirmPassword!.errors && 
+            !ctrlConfirmPassword!.errors?.['confirmedValidator']) {
+          return null;
         }
 
         if (ctrlPassword!.value !== ctrlConfirmPassword!.value) {
@@ -109,27 +117,56 @@ export class SignupComponent implements OnInit {
         });
   }
 
-  handleError(error: HttpErrorResponse){
-    this.errorMessage = 'Signup failed.';
-  
-    if (error.error) {
-      this.errorMessage = error.error.error; 
+  /* Handle the error messages */
+  handleError(error: HttpErrorResponse | Error) {
+    if (error instanceof HttpErrorResponse) {
+      this.handleHttpError(error);
+    } else {
+      this.handleNetworkError();
     }
+  
+    this.showSnackbar();
+  }
+  
+  private handleHttpError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      this.errorMessage = 
+      `Server is unreachable. Please make sure your server is running.`;
+      return;
+    }
+  
+    if (error.error && error.error.error) {
+      this.errorMessage = error.error.error;
+      return;
+    }
+  
+    switch (error.status) {
+      case 400:
+        this.errorMessage =
+        `This email has already been used. Use a new one.`;
+        break;
 
-    if (error?.status){
-      switch (error.status) {
-        case 400:
-          this.errorMessage = 'Email already exists.';
-          break;
-        case 500:
-          this.errorMessage = 
-            'Internal server error. Please try again later.';
-          break;
-        default:
-          this.errorMessage = 
-          `Error: ${error.status}. Please try again later.`;
-      } 
-    } 
-  }      
+      case 500:
+        this.errorMessage =
+        `Internal server error. Please try again later.`;
+        break;
 
+      default:
+        this.errorMessage =
+        `Error: ${error.status}. Please try again later.`;
+    }
+  }
+  
+  private handleNetworkError() {
+    this.errorMessage = 
+    `Network error occurred. Please check your internet connection.`;
+  }
+  
+  private showSnackbar() {
+    this.snackBar.open(this.errorMessage, 'Close', {
+      duration: 7000,
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center'
+    });
+  }
 }
