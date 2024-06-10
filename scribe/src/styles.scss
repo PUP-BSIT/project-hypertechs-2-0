@@ -31,8 +31,8 @@ body.dark-mode {
   --font-body: 1.5vw;
   --font-form: 1.3vw;
   --font-misc: 1.2vw;
-  --font-error: 1.1vw;
-  --letter-spacing: 0.02vw;
+  --font-error: 1vw;
+  --letter-spacing: 0.025vw;
 }
 
 /* -------------------------------------------------------- */
@@ -46,7 +46,7 @@ body.dark-mode {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Inter Tight", "Google Sans", sans-serif;
+  font-family: "Google Sans Text", "Inter Tight", sans-serif;
 }
 
 html,
