@@ -2,8 +2,8 @@
   cursor: pointer;
   position: relative;
   display: inline-block;
-  width: 3.8vw;
-  height: 4vh;
+  width: 3.5vw;
+  height: 1.8vw;
   background-color: var(--toggle-theme-bg);
   border-radius: 10vw;
   transition: background-color 0.5s;
@@ -13,12 +13,12 @@
   content: "";
   position: absolute;
   width: 1.4vw;
-  height: 2.9vh;
+  height: 1.4vw;
   border-radius: 50%;
   background-color: var(--toggle-theme-ball);
-  top: 0.55vh;
-  left: 0.3vw;
-  transition: 0.3s ease;
+  top: 0.2vw;
+  left: 0.25vw;
+  transition: 0.2s ease;
 }
 
 .visually-hidden {
@@ -27,9 +27,10 @@
   clip: rect(0 0 0 0);
   height: 0px;
   width: 0px;
-  margin: -1px;
+  margin: 0px;
   padding: 0;
   border: 0;
+
 }
 
 input[type="checkbox"]:checked + .theme-toggle {
@@ -37,28 +38,27 @@ input[type="checkbox"]:checked + .theme-toggle {
 }
 
 input[type="checkbox"]:checked + .theme-toggle:before {
-  transform: translateX(1.8vw);
+  transform: translateX(1.6vw);
 }
 
 .theme-toggle {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.4vw;
-  font-size: 1vw;
+  padding-left: 0.1vw;
+  gap: 0.1vw;
   color: var(--toggle-theme-ball);
-
+  
   #dark_mode {
+    font-size: 1.7vw;
     font-variation-settings: 
     "FILL" 1, 
     "wght" 200, 
     "GRAD" 0, 
     "opsz" 24;
-
   };
 
   #light_mode {
-    font-size: 1.3em;
+    font-size: 1.3vw;
     font-variation-settings: 
     "FILL" 1, 
     "wght" 400, 
@@ -70,5 +70,4 @@ input[type="checkbox"]:checked + .theme-toggle:before {
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
-    
 }

@@ -8,6 +8,7 @@
   --accent: #4da383;
 
   --landing-bg: #eff5f3;
+  --graphics-bg: #ddefe9;
 
   --toggle-theme-bg: #9dc0b2;
   --toggle-theme-ball: #366957;
@@ -29,6 +30,7 @@
 
   --destructive-bg: rgba(197, 1, 1, 0.2);
   --destructive-text: rgb(151, 0, 0);
+  
 }
 
 body.dark-mode {
@@ -41,6 +43,7 @@ body.dark-mode {
   --accent: #5ab292;
   
   --landing-bg: #050908;
+  --graphics-bg: #151918;
 
   --toggle-theme-bg: #204e3d;
   --toggle-theme-ball: #a4cbbd;
@@ -54,12 +57,12 @@ body.dark-mode {
   --highlight-prime: #009371;
   --highlight-sec: #005843;
 
-  --error-message: #ff2f2f;
+  --error-message: #ffb4ab;
 
   --core-bg: #111313;
   --core-nav: #171a1a;
-  --core-nav-hover: #00937113;
+  --core-nav-hover: #0093711c;
 
-  --destructive-bg: rgba(137, 0, 0, 0.2);
-  --destructive-text: red;
+  --destructive-bg: #532b2b52;
+  --destructive-text: #ae2c2c;
 }
