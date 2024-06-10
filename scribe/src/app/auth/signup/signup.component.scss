@@ -205,6 +205,7 @@ form {
   margin-top: 0.5em;
   visibility: hidden;
   font-size: var(--font-error);
+  color: var(--error-message);
 
   .error-item {
     display: flex;
@@ -221,19 +222,6 @@ form {
     visibility: visible;
   }
 }
-
-.error-message.custom-btn {
-  display: flex;
-  justify-content: center;
-  color: var(--error-message);
-  visibility: visible;
-  height: auto;
-}
-
-.error-message.custom-btn:empty {
-  display: none;
-}
-
 
 /* Media Queries */
 @media (max-width: 1024px) {

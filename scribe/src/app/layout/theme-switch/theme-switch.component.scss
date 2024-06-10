@@ -44,12 +44,13 @@ input[type="checkbox"]:checked + .theme-toggle:before {
 .theme-toggle {
   display: flex;
   align-items: center;
+  padding-top: 0.1vw;
   padding-left: 0.1vw;
-  gap: 0.3vw;
+  gap: 0.2vw;
   color: var(--toggle-theme-ball);
   
   #dark_mode {
-    font-size: 1.6vw;
+    font-size: 1.7vw;
     font-variation-settings: 
     "FILL" 1, 
     "wght" 200, 

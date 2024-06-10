@@ -31,6 +31,7 @@
               minlength="12"
               pattern="[^\d\w][a-zA-Z0-9_\-\.]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+[a-zA-Z]{2,}))$"
               formControlName="email"
+              autocomplete="email"
               [ngClass]="{
                 error: emailControl?.invalid && emailControl?.touched
               }"
@@ -84,6 +85,7 @@
               placeholder="•••••••••••••"
               maxlength="40"
               formControlName="password"
+              autocomplete="current-password"
               [ngClass]="{
                 error: passwordControl?.invalid && passwordControl?.touched
               }"
@@ -110,6 +112,10 @@
         </div>
 
         <!--Login submit form-->
+        <button  mat-flat-button type="submit" class="custom-btn"
+          [ngClass]="{'button-enabled': loginForm.valid, 
+            'button-disabled': !loginForm.valid}"
+          [disabled]="!loginForm.valid"> Log In
         <button
           class="custom-btn"
           mat-flat-button

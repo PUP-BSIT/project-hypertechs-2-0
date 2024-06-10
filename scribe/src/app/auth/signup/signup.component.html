@@ -15,7 +15,7 @@
           <div class="input-group lfname" [ngClass]="{
                 error: lastnameControl?.invalid && lastnameControl?.touched
               }">
-            <label for="lastname">Last Name</label>
+            <label for="last_name">Last Name</label>
 
             <!-- Actual lastname input field -->
             <div id="field_content">
@@ -28,6 +28,7 @@
                 maxlength="40"
                 minlength="2"
                 placeholder="Dela Cruz"
+                autocomplete="family-name"
                 [ngClass]="{
                   error: lastnameControl?.invalid && lastnameControl?.touched
                 }" 
@@ -59,7 +60,7 @@
           <div class="input-group lfname" [ngClass]="{
                 error: firstnameControl?.invalid && firstnameControl?.touched
               }">
-            <label for="firstname">First Name</label>
+            <label for="first_name">First Name</label>
 
             <!-- Actual firstname input field -->
             <div id="field_content">
@@ -72,6 +73,7 @@
                 maxlength="40"
                 minlength="2"
                 placeholder="Juan"
+                autocomplete="given-name"
                 [ngClass]="{
                   error: firstnameControl?.invalid && firstnameControl?.touched
                 }"
@@ -116,6 +118,7 @@
               formControlName="email"
               maxlength="320"
               placeholder="example@gmail.com"
+              autocomplete="email"
               [ngClass]="{
                   error: emailControl?.invalid && emailControl?.touched
               }" 
@@ -129,7 +132,10 @@
                 <span>Email is required. Kindly fill out the field.</span>
               </div>
               } @if (emailControl?.errors?.['email'] && emailControl?.touched){
-              <div>Email is invalid format. Please try again.</div>
+              <div class="error-item">
+                <span class="material-symbols-outlined">error</span>
+                <span>Email is invalid format. Please try again.</span>
+              </div>
               }@if(emailControl?.getError('maxlength')){
               <div class="error-item">
                 <span class="material-symbols-outlined">error</span>
