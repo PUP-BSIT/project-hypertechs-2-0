@@ -26,7 +26,7 @@ nav {
 nav a {
   text-decoration: none;
   color: var(--text);
-  font-size: 1.5vw;
+  font-size: var(--font-body);
 }
 
 /* LANDING MAIN CONTENT */
@@ -43,9 +43,18 @@ nav a {
 }
 
 #scribe_hero h1 {
+  font-family: var(--font-display);
   font-size: var(--font-hero);
   margin-top: 14vh;
-  border: 0px solid red;
+}
+
+#scribe_desc {
+  font-size: var(--font-body);
+  font-weight: 400;
+  line-height: 1.6;
+  padding: 0 8vw;
+  text-align: center;
+  letter-spacing: var(--letter-spacing);
 }
 
 #highlight {
@@ -56,17 +65,7 @@ nav a {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-#scribe_desc {
-  font-size: 3.3vh;
-  font-weight: 400;
   font-family: var(--font-display);
-  line-height: 1.6;
-  padding: 0 8vw;
-  border: 0px solid red;
-  text-align: center;
-  letter-spacing: var(--letter-spacing);
 }
 
 /* LANDING BUTTONS */
@@ -88,6 +87,7 @@ nav a {
   color: var(--accent);
   border-radius: 3vw;
   background: var(--tonal-button);
+  transition: background-color 0.75s ease
 }
 
 #scribe_signup {
@@ -142,7 +142,7 @@ svg {
 @media screen and (max-width: 768px) {
   /* Styles for smaller screens */
   #landing_container {
-  padding: 2em; /* Adjust padding for smaller screens */
+  padding: 2em;
   }
   
   nav {
@@ -169,7 +169,7 @@ svg {
   padding: 0 8vw;
   border: 0px solid red;
   text-align: center;
-  letter-spacing: 0.04vw;
+  letter-spacing: var(--letter-spacing);
   }
   
   #scribe_login, #scribe_signup {
