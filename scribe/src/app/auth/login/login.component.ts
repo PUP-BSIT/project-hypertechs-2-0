@@ -80,46 +80,54 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  /* Returns the error messages */
+  /* Handle the error messages */
   handleError(error: HttpErrorResponse | Error) {
-    this.errorMessage = 'Login failed';
-  
     if (error instanceof HttpErrorResponse) {
-      if (error.status === 0) {
-        this.errorMessage = 
-        `Server is unreachable. Please make sure your server is running.`;
-      } else {
-        if (error.error) {
-          this.errorMessage = error.error.error;
-        }
-  
-        if (error?.status) {
-          switch (error.status) {
-            case 400:
-              this.errorMessage = 
-              `Bad request. Please check your data.`;
-              break;
-            case 401:
-              this.errorMessage =
-              `You have entered an invalid email or password.`;
-              break;
-            case 500:
-              this.errorMessage =
-              `Internal server error. Please try again later.`;
-              break;
-            default:
-              this.errorMessage = 
-              `Error: ${error.status}. Please try again later.`;
-          }
-        }
-      }
+      this.handleHttpError(error);
     } else {
-      // Handle non-HTTP errors, such as network errors
-      this.errorMessage =
-      `Network error occurred. Please check your internet connection.`;
+      this.handleNetworkError();
     }
   
-    /* Snackbar for error messages */
+    this.showSnackbar();
+  }
+  
+  private handleHttpError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      this.errorMessage = 
+      `Server is unreachable. Please make sure your server is running.`;
+      return;
+    }
+  
+    if (error.error && error.error.error) {
+      this.errorMessage = error.error.error;
+      return;
+    }
+  
+    switch (error.status) {
+      case 400:
+        this.errorMessage =
+        `Bad request. Please check your data.`;
+        break;
+      case 401:
+        this.errorMessage =
+        `You have entered an invalid email or password.`;
+        break;
+      case 500:
+        this.errorMessage =
+        `Internal server error. Please try again later.`;
+        break;
+      default:
+        this.errorMessage =
+        `Error: ${error.status}. Please try again later.`;
+    }
+  }
+  
+  private handleNetworkError() {
+    this.errorMessage = 
+    `Network error occurred. Please check your internet connection.`;
+  }
+  
+  private showSnackbar() {
     this.snackBar.open(this.errorMessage, 'Close', {
       duration: 7000,
       verticalPosition: 'bottom',
