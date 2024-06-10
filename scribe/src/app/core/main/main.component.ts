@@ -69,7 +69,7 @@ export class MainComponent implements OnInit {
 
   logout() {
     sessionStorage.removeItem('loggedInUser');
-    this.router.navigate(['/login']); /* Redirect to login page */
+    this.router.navigate(['']); /* Redirect to login page */
   }
 
   /* Custom Dialog Content */
