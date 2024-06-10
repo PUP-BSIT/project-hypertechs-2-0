@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { LoginData } from '../../../models/model';
 import { LoginService } from '../../../services/login.service';
 import { Router } from '@angular/router';
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email, this.customEmailValidator()]],
       password: ['', Validators.required]
     });
 
@@ -53,6 +53,22 @@ export class LoginComponent implements OnInit {
 
   get passwordControl() {
     return this.loginForm.get('password');
+  }
+
+  customEmailValidator(): ValidatorFn {
+    return (control: AbstractControl) => {
+      const email = control.value as string; // Cast to string for type safety
+
+      // Regular expression for email format
+      const emailRegex = /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+[a-zA-Z]{2,}))$/;
+      
+        //stricter validation using emailRegex
+        if (emailRegex && !emailRegex.test(email)) {
+          return { invalidEmail: true }; // Invalid if general format doesn't match
+        } else {
+          return null; // Valid email
+        }
+    };
   }
 
   onSubmit() {
