@@ -45,6 +45,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 /* Services */
 import { LoginService } from '../services/login.service';
@@ -86,6 +87,7 @@ import { SignupService } from '../services/signup.service';
     MatFormFieldModule,
     MatInputModule,
     MatDialogModule,
+    MatSnackBarModule,
   ],
   providers: [
     provideAnimationsAsync(),

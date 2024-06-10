@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-signup',
@@ -17,7 +18,13 @@ export class SignupComponent implements OnInit {
   signupForm: FormGroup = this.formBuilder.group({});
   errorMessage: string = '';
 
-  constructor(private formBuilder: FormBuilder, private signupService: SignupService, private router: Router, private userService: UserService) {}
+  constructor(
+    private formBuilder: FormBuilder, 
+    private signupService: SignupService, 
+    private router: Router, 
+    private userService: UserService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group({
@@ -67,8 +74,9 @@ export class SignupComponent implements OnInit {
         const ctrlPassword = abstractControl.get(password);
         const ctrlConfirmPassword = abstractControl.get(confirmPassword);
 
-        if (ctrlConfirmPassword!.errors && !ctrlConfirmPassword!.errors?.['confirmedValidator']) {
-            return null;
+        if (ctrlConfirmPassword!.errors && 
+            !ctrlConfirmPassword!.errors?.['confirmedValidator']) {
+          return null;
         }
 
         if (ctrlPassword!.value !== ctrlConfirmPassword!.value) {
@@ -119,7 +127,7 @@ export class SignupComponent implements OnInit {
     if (error?.status){
       switch (error.status) {
         case 400:
-          this.errorMessage = 'Email already exists.';
+          this.errorMessage = 'This email is already used. Use another one.';
           break;
         case 500:
           this.errorMessage = 
@@ -129,7 +137,14 @@ export class SignupComponent implements OnInit {
           this.errorMessage = 
           `Error: ${error.status}. Please try again later.`;
       } 
-    } 
-  }      
+    }
 
+    /* Snackbar for error messages */
+    this.snackBar.open(this.errorMessage, 'Close', {
+      duration: 7000,
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center',
+      panelClass: ['custom-snackbar']
+    });
+  }      
 }
