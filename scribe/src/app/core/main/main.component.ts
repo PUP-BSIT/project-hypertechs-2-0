@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
+import { slideInOut, simpleFade } from '../../../animations/element-animations';
 
 /* Services */
 import { ThemeService } from '../../../services/theme.service';
@@ -14,8 +15,11 @@ import { TitleCaseService } from '../../../services/title-case.service';
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
+  animations: [slideInOut, simpleFade],
 })
 export class MainComponent implements OnInit {
+  isOpened = false;
+
   private breakpointObserver = inject(BreakpointObserver);
   email: string | null = null;
   firstname: string | null = null;
@@ -28,7 +32,7 @@ export class MainComponent implements OnInit {
       shareReplay()
     );
 
-  // Dynamically change icon based on theme
+  /* Dynamically change icon based on theme */
   themeIcon: string = 'dark_mode';
 
   constructor(
@@ -41,6 +45,11 @@ export class MainComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    setTimeout(() => {
+      this.isOpened = true;
+    }, 0);
+
+    /* Subscribe the theme link to theme service */
     this.themeService.currentTheme.subscribe((isDark) => {
       this.themeIcon = isDark ? 'dark_mode' : 'light_mode';
     });
