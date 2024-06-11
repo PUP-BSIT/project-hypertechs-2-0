@@ -97,6 +97,7 @@ export class LoginComponent implements OnInit {
           this.userService.setEmail(response.email);
           this.router.navigate(['main']);
           this.isLoading = false;
+          this.dismissSnackbar();
         },
         error: (error: HttpErrorResponse) => {
           this.handleError(error);
@@ -161,5 +162,9 @@ export class LoginComponent implements OnInit {
       verticalPosition: 'bottom',
       horizontalPosition: 'center'
     });
+  }
+
+  private dismissSnackbar() {
+    this.snackBar.dismiss();
   }
 }
