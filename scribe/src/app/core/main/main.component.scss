@@ -17,22 +17,17 @@
 }
 
 .sidenav {
-  width: 18rem;
+  width: 17rem;
   border-radius: 0 1em 1em 0;
   background: var(--core-nav);
 }
 
-.mat-toolbar {
-  color: white;
-  background: var(--core-bg);
-}
-
-.custom-toolbar,
+.sidenav-header,
 .custom-navbar {
   padding: 0 1.25vw;
 }
 
-.custom-toolbar {
+.sidenav-header {
   padding: 2.25rem;
   background: linear-gradient(90deg, var(--accent), var(--primary));
   -webkit-background-clip: text;
@@ -55,6 +50,7 @@
   }
 }
 
+/* Sidenav Links Styling */
 .mat-nav-container {
   display: flex;
   flex-direction: column;
@@ -137,21 +133,24 @@
 /* Main Content: Toolbar and Core */
 
 .mat-sidenav-content {
-  padding: 2rem 2rem;
+  // padding: 2rem 2rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
 }
 
 /* Scribe Toolbar */
-
-.mat-primary {
+.mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--core-bg);
   display: flex;
   align-items: center;
   gap: 2em;
+  padding: 4rem 2rem 4rem 2rem;
 }
 
-// Scribe Search Bar Styling
+/* Search Bar Styling */
 
 #scribe_search_container {
   flex-grow: 1;
@@ -236,16 +235,11 @@
   }
 }
 
-
-.mat-toolbar.mat-primary {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-}
-
 /* Scribe Core Content */
 .scribe-core-content {
-  padding: 0 1em;
+  padding: 0 2rem;
+  flex: 1;
+  overflow-y: auto;
 }
 
 
