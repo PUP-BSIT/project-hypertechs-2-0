@@ -1,5 +1,6 @@
 
-https://github.com/PUP-BSIT/project-hypertechs-2-0/assets/146575214/8b6d5a04-229c-46a2-9029-1c2e36a047fd
+![scribe-banner-final](https://github.com/PUP-BSIT/project-hypertechs-2-0/assets/146575214/16a845b1-7fb7-4be2-b3bd-15d74c69c30e)
+
 
 <h1 align="center">🚀 HyperTechs 2.0 Angular App Project 🚀</h1>
 <p align="center">
@@ -22,7 +23,36 @@ Introducing **Scribenote**, your new go-to note-taking app designed for busy stu
 ---
 
 ## 📂 Project Structure
-- **`/docs:`** Here, you'll find the official project proposal and other future documentation.
+
+### `/documents`
+- Contains the official project proposal, any necessary documentation for the project, and future documentation additions. This folder is designated for all formal documents that support the project's lifecycle.
+
+### `/scribe`
+This is the core directory for the Scribe application, encompassing all the necessary resources, features, and components of the app:
+
+#### `/assets`
+- Stores static files such as images, videos, and other media that the application uses.
+
+#### `/components`
+- Holds all Angular components, each managing specific parts of the user interface.
+
+#### `/services`
+- Includes services for handling data and business logic, responsible for operations such as data fetching and backend interfacing.
+
+#### `/models`
+- Contains classes and interfaces that define the types and structures of data used across the application.
+
+#### `/views`
+- Might include Angular templates or other HTML files for displaying app content to users.
+
+#### `/config`
+- Stores configuration files for different environments (development, test, production).
+
+#### `/app.module.ts`
+- The root Angular module that declares and ties together different parts of the application.
+
+#### `/main.ts`
+- The main entry point of the application which bootstraps the Angular app.
 
 ---
 
