@@ -26,7 +26,7 @@ nav {
 nav a {
   text-decoration: none;
   color: var(--text);
-  font-size: 1.5vw;
+  font-size: var(--font-body);
 }
 
 /* LANDING MAIN CONTENT */
@@ -43,30 +43,29 @@ nav a {
 }
 
 #scribe_hero h1 {
+  font-family: var(--font-display);
   font-size: var(--font-hero);
   margin-top: 14vh;
-  border: 0px solid red;
+}
+
+#scribe_desc {
+  font-size: var(--font-body);
+  font-weight: 400;
+  line-height: 1.6;
+  padding: 0 8vw;
+  text-align: center;
+  letter-spacing: var(--letter-spacing);
 }
 
 #highlight {
   background: -webkit-linear-gradient(
-    0deg, 
-    var(--highlight-prime), 
+    0deg,
+    var(--highlight-prime),
     var(--highlight-sec));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-#scribe_desc {
-  font-size: 3.3vh;
-  font-weight: 400;
   font-family: var(--font-display);
-  line-height: 1.6;
-  padding: 0 8vw;
-  border: 0px solid red;
-  text-align: center;
-  letter-spacing: var(--letter-spacing);
 }
 
 /* LANDING BUTTONS */
@@ -88,6 +87,7 @@ nav a {
   color: var(--accent);
   border-radius: 3vw;
   background: var(--tonal-button);
+  transition: background-color 0.75s ease;
 }
 
 #scribe_signup {
@@ -98,11 +98,7 @@ nav a {
   height: auto;
   padding: 2vh 0;
   border-radius: 50px;
-  background: linear-gradient(120deg, 
-    #4da383, 
-    #204739, 
-    #245040, 
-    #4da383);
+  background: linear-gradient(120deg, #4da383, #204739, #245040, #4da383);
   background-size: 400%;
   color: #fff;
   font-size: var(--font-icon);
@@ -116,11 +112,7 @@ nav a {
   right: 0;
   bottom: 0;
   z-index: -1;
-  background: linear-gradient(120deg, 
-    #4da383, 
-    #204739, 
-    #245040, 
-    #4da383);
+  background: linear-gradient(120deg, #4da383, #204739, #245040, #4da383);
   background-size: 400%;
   border-radius: 50px;
   opacity: 0;
@@ -132,103 +124,97 @@ nav a {
   opacity: 0.5;
 }
 
-/* LANDING GRAPHICS */
-svg {
-  width: 39.5vw;
-  height: auto;
-}
-
 /* Media query for smaller screens */
 @media screen and (max-width: 768px) {
   /* Styles for smaller screens */
   #landing_container {
-  padding: 2em; /* Adjust padding for smaller screens */
+    padding: 2em;
   }
-  
+
   nav {
-  display: flex;
-  align-items: center;
-  gap: 3.5vw;
+    display: flex;
+    align-items: center;
+    gap: 3.5vw;
   }
-  
+
   nav a {
-  text-decoration: none;
-  color: var(--text);
-  font-size: 1.8vw;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 1.8vw;
   }
-  
+
   #scribe_hero h1 {
-  font-size: 5vw;
-  margin-top: 8vh;
-  border: 0px solid red;
+    font-size: 5vw;
+    margin-top: 8vh;
+    border: 0px solid red;
   }
-  
+
   #scribe_desc {
-  font-size: 2.5vh;
-  line-height: 1.6;
-  padding: 0 8vw;
-  border: 0px solid red;
-  text-align: center;
-  letter-spacing: 0.04vw;
+    font-size: 2.5vh;
+    line-height: 1.6;
+    padding: 0 8vw;
+    border: 0px solid red;
+    text-align: center;
+    letter-spacing: var(--letter-spacing);
   }
-  
-  #scribe_login, #scribe_signup {
-  width: 10vw;
-  font-size: 3vh; 
-  width: 90px; 
-  height: 20px; 
-  padding: 3.5px 1px; 
-  font-size: 12px; 
+
+  #scribe_login,
+  #scribe_signup {
+    width: 10vw;
+    font-size: 3vh;
+    width: 90px;
+    height: 20px;
+    padding: 3.5px 1px;
+    font-size: 12px;
   }
 }
-  
-  CSS
-  #landing_buttons {
+
+#landing_buttons {
   gap: 20px; /* Adjust gap between buttons as needed */
-  }
-
-  :root {
-      --menu-bg-hover: rgba(0, 0, 0, 0.1); 
 }
 
-  .dropdown {
-    position: relative;
-    display: inline-block;
+:root {
+  --menu-bg-hover: rgba(0, 0, 0, 0.1);
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
 }
 
 .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: transparent;
-    min-width: 160px;
-    box-shadow: none;
-    z-index: 1;
+  display: none;
+  position: absolute;
+  background-color: transparent;
+  min-width: 160px;
+  box-shadow: none;
+  z-index: 1;
 }
 
 .dropdown-content a {
-    color: var(--text);
-    padding: 2px 10px;
-    text-decoration: none;
-    display: block;
+  color: var(--text);
+  padding: 2px 10px;
+  text-decoration: none;
+  display: block;
 }
 
 .dropdown-content a:hover {
-    background-color: var(--menu-bg-hover);
+  background-color: var(--menu-bg-hover);
 }
 
 .dropdown:hover .dropdown-content {
-    display: block;
+  display: block;
 }
 
 .dropdown .dropbtn {
-    // background-color: none;
-    // color: var(--primary);
-    // padding: 5px;
-    font-size: 10px;
-    border: none;
-    // cursor: pointer;
+  // background-color: none;
+  // color: var(--primary);
+  // padding: 5px;
+  font-size: 10px;
+  border: none;
+  // cursor: pointer;
 }
 
 .dropdown .dropbtn:hover {
-    background-color: none;
+  background-color: none;
 }

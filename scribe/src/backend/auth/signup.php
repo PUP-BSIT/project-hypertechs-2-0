@@ -56,7 +56,11 @@
 
             // insert was successful, return a success message
             echo json_encode(['message' => 'User registered successfully.',
-             'firstname' => $firstname]);
+             'firstname' => $firstname,
+             'lastname' => $lastname,
+             'email' => $email
+            
+            ]);
         } 
         else {
             // error with the insert, return an error message

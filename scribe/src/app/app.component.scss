@@ -1,0 +1,24 @@
+/* Hide vertical scrollbar */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide horizontal scrollbar */
+::-webkit-scrollbar-horizontal {
+  display: none;
+}
+
+/* Hide scrollbar track */
+::-webkit-scrollbar-track {
+  display: none;
+}
+
+/* Hide scrollbar handle */
+::-webkit-scrollbar-thumb {
+  display: none;
+}
+
+/* Hide scrollbar corner */
+::-webkit-scrollbar-corner {
+  display: none;
+}

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '../guards/auth.guard';
 
 /* Scribe App Components*/
 import { LandingComponent } from './public/landing/landing.component';
@@ -17,15 +18,16 @@ import { EnterOtpComponent } from './auth/recovery/enter-otp/enter-otp.component
 import { EnterNewPasswordComponent } from './auth/recovery/enter-new-password/enter-new-password.component';
 
 const routes: Routes = [
-  { path: '', component: LandingComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'recovery', component: RecoveryComponent},
-  { path: 'signup', component: SignupComponent },
+  { path: '', component: LandingComponent, data: { animationState: 'landing' } },
+  { path: 'login', component: LoginComponent, data: { animationState: 'login' } },
+  { path: 'signup', component: SignupComponent, data: { animationState: 'signup' } },
+  { path: 'recovery', component: RecoveryComponent, data: { animationState: 'recovery'} }, 
   { path: 'enter-otp', component: EnterOtpComponent },
   { path: 'enter-new-password', component: EnterNewPasswordComponent },
   {
     path: 'main',
     component: MainComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: 'home', component: HomeComponent },
       { path: 'notes', component: NotesComponent },
@@ -39,7 +41,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

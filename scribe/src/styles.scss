@@ -1,26 +1,25 @@
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
-@use "@angular/material" as mat;
-@import "../m3-theme.scss";
+@use '@angular/material' as mat;
+@use './scss/m3-theme.scss' as m3;
 
 @include mat.core();
 
-// Define the theme object.
-$scribe-theme: mat.define-theme(
-  (
-    color: (
-      theme-type: light,
-      primary: $_primary,
-      tertiary: $_tertiary,
-    ),
-    density: (
-      scale: 0,
-    ),
-  )
-);
+@mixin light-theme {
+  @include m3.all-component-themes(m3.$light-theme);
+}
+
+@mixin dark-theme {
+  @include m3.all-component-themes(m3.$dark-theme);
+}
 
 :root {
-  @include mat.all-component-themes($scribe-theme);
+  @include light-theme;
+}
+
+body.dark-mode {
+  @include dark-theme;
+}
+
+:root {
 
   --font-display: "Inter Tight", "Google Sans", sans-serif;
   --font-text: 'Inter', "Google Sans Text", sans-serif;
@@ -32,8 +31,8 @@ $scribe-theme: mat.define-theme(
   --font-body: 1.5vw;
   --font-form: 1.3vw;
   --font-misc: 1.2vw;
-  --font-error: 1.1vw;
-  --letter-spacing: 0.02vw;
+  --font-error: 1vw;
+  --letter-spacing: 0.025vw;
 }
 
 /* -------------------------------------------------------- */
@@ -47,7 +46,7 @@ $scribe-theme: mat.define-theme(
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Inter Tight", "Google Sans", sans-serif;
+  font-family: "Google Sans Text", "Inter Tight", sans-serif;
 }
 
 html,
@@ -90,3 +89,12 @@ body.dark-mode #not_found_container::before {
   z-index: -1;
 }
 
+/* Custom Material Form Theming */
+
+.mdc-text-field--outlined {
+  --mdc-outlined-text-field-container-shape: 28px !important;
+}
+
+mat-form-field .mdc-notched-outline > * {
+  border-width: 2px !important;
+}
