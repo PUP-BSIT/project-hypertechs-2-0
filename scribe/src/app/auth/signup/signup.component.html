@@ -239,10 +239,15 @@
         </div>
 
         <button mat-flat-button type="submit" class="custom-btn"
-          [ngClass]="{'button-enabled': signupForm.valid, 
-            'button-disabled': !signupForm.valid}" 
+          [ngClass]="{
+            'button-enabled': signupForm.valid && !isLoading, 
+            'button-disabled': !signupForm.valid || isLoading}" 
           [disabled]="!signupForm.valid">
-          Create account
+          @if(!isLoading){
+         <span>Create account</span>
+          }@if (isLoading) {
+            <mat-spinner diameter="20" color="primary"></mat-spinner>
+          }
         </button>
 
       </form>
