@@ -257,3 +257,27 @@
     display: none;
   }
 }
+
+/* Custom Scrollbar for WebKit Browsers */
+.scribe-core-content::-webkit-scrollbar {
+  width: 0.25em; // Width of the scrollbar
+  height: auto; // Height of the scrollbar
+}
+
+.scribe-core-content::-webkit-scrollbar-thumb {
+  background-color: var(--secondary); // Color of the thumb
+  border-radius: 0px; // Roundness of the thumb 
+}
+
+/*
+
+.scribe-core-content::-webkit-scrollbar-track {
+  background: var(--text); // Color of the track
+  border-radius: 0px; // Roundness of the track 
+}
+
+.scribe-core-content {
+  scrollbar-width: thin; // Width of the scrollbar
+  scrollbar-color: var(--secondary) var(--text); // Thumb color and track color
+}
+*/
