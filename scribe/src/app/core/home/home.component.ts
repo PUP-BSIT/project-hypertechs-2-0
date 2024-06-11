@@ -8,7 +8,7 @@ import { TitleCaseService } from '../../../services/title-case.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
 
