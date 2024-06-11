@@ -117,6 +117,7 @@ export class SignupComponent implements OnInit {
             this.userService.setEmail(signupData.email);
             this.router.navigate(['main']);
             this.isLoading = false;
+            this.dismissSnackbar();
           },
           error:(error: HttpErrorResponse)=>{
             this.handleError(error) 
@@ -176,5 +177,9 @@ export class SignupComponent implements OnInit {
       verticalPosition: 'bottom',
       horizontalPosition: 'center'
     });
+  }
+
+  private dismissSnackbar() {
+    this.snackBar.dismiss();
   }
 }
