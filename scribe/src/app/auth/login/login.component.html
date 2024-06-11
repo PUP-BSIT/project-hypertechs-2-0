@@ -107,14 +107,14 @@
         type="submit"
         class="custom-btn"
         [ngClass]="{
-          'button-enabled': loginForm.valid && !loading,
-          'button-disabled': !loginForm.valid || loading
+          'button-enabled': loginForm.valid && !isLoading,
+          'button-disabled': !loginForm.valid || isLoading
         }"
-        [disabled]="!loginForm.valid || loading">
+        [disabled]="!loginForm.valid || isLoading">
 
-        @if(!loading){
+        @if(!isLoading){
           <span>Log In</span>
-        } @if (loading) {
+        } @if (isLoading) {
           <mat-spinner diameter="20" color="primary"></mat-spinner>
         }
       </button>
