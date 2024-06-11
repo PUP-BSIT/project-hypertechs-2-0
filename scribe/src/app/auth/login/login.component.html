@@ -103,17 +103,22 @@
 
         <!--Login submit form-->
         <button
-          mat-flat-button
-          type="submit"
-          class="custom-btn"
-          [ngClass]="{
-            'button-enabled': loginForm.valid,
-            'button-disabled': !loginForm.valid
-          }"
-          [disabled]="!loginForm.valid"
-        >
-          Log In
-        </button>
+        mat-flat-button
+        type="submit"
+        class="custom-btn"
+        [ngClass]="{
+          'button-enabled': loginForm.valid && !loading,
+          'button-disabled': !loginForm.valid || loading
+        }"
+        [disabled]="!loginForm.valid || loading">
+
+        @if(!loading){
+          <span>Log In</span>
+        } @if (loading) {
+          <mat-spinner diameter="20" color="primary"></mat-spinner>
+        }
+      </button>
+
       </form>
     </div>
     <a id="goto_signup" routerLink="/signup">No account yet? Sign up now.</a>
