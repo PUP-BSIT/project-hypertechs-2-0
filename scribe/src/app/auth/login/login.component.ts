@@ -27,7 +27,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email, this.customEmailValidator()]],
+      email: ['', [Validators.required, Validators.email, 
+        this.customEmailValidator()]],
       password: ['', Validators.required]
     });
 
@@ -64,7 +65,7 @@ export class LoginComponent implements OnInit {
       
         //stricter validation using emailRegex
         if (emailRegex && !emailRegex.test(email)) {
-          return { invalidEmail: true }; // Invalid if general format doesn't match
+          return { invalidEmail: true }; // Invalid if format doesn't match
         } else {
           return null; // Valid email
         }
@@ -114,7 +115,7 @@ export class LoginComponent implements OnInit {
   private handleHttpError(error: HttpErrorResponse) {
     if (error.status === 0) {
       this.errorMessage = 
-      `Server is unreachable. Please make sure your server is running.`;
+      `Server is unreachable. Please make sure the server is running.`;
       return;
     }
   

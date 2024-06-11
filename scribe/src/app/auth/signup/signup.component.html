@@ -116,6 +116,7 @@
               id="email"
               name="email"
               formControlName="email"
+              minlength="6"
               maxlength="320"
               placeholder="example@gmail.com"
               autocomplete="email"
@@ -134,12 +135,18 @@
               } @if (emailControl?.errors?.['email'] && emailControl?.touched){
               <div class="error-item">
                 <span class="material-symbols-outlined">error</span>
-                <span>Email is invalid format. Please try again.</span>
+                <span>Invalid email format. </span>
               </div>
               }@if(emailControl?.getError('maxlength')){
               <div class="error-item">
                 <span class="material-symbols-outlined">error</span>
                 <span>Email should not be greater than 320 characters.</span>
+              </div>
+              }@if (emailControl?.getError('minlength') &&
+              emailControl?.touched){
+              <div class="error-item">
+                <span class="material-symbols-outlined">error</span>
+                <span>Email is too short.</span>
               </div>
               }
             </div>
