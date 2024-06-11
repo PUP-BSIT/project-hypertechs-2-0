@@ -1,16 +1,21 @@
-<div id="otp_modal" class="modal">
-  <div class="modal-content">
-    <span class="close" (click)="closeModal()">&times;</span>
-    <div class="recovery-form">
-      <h1>Check your email</h1>
-      <h4>Please enter the code sent to your email.</h4>
-      <form (ngSubmit)="submitOtp()">
-        <div class="input-group">
-          <label for="otp">6-digit code</label>
-          <input type="text" id="otp" [(ngModel)]="otp" name="otp" required>
-        </div>
-        <button type="submit" routerLink="/enter-new-password" mat-flat-button>Submit</button>
-      </form>
+<div class="recovery-form">
+  <h1>Check Your Email</h1>
+  <h4>Kindly enter the 6-digit OTP sent to your email.</h4>
+
+  <form id="otp_fields" (ngSubmit)="onSubmit()">
+    <div class="otp-inputs">
+      <input type="text" id="otp1" name="otp1" maxlength="1" (input)="onOtpInput(1, $event)" />
+      <input type="text" id="otp2" name="otp2" maxlength="1" (input)="onOtpInput(2, $event)" />
+      <input type="text" id="otp3" name="otp3" maxlength="1" (input)="onOtpInput(3, $event)" />
+      <input type="text" id="otp4" name="otp4" maxlength="1" (input)="onOtpInput(4, $event)" />
+      <input type="text" id="otp5" name="otp5" maxlength="1" (input)="onOtpInput(5, $event)" />
+      <input type="text" id="otp6" name="otp6" maxlength="1" (input)="onOtpInput(6, $event)" />
     </div>
-  </div>
+
+    <div class="error-message">
+      <div *ngIf="otpErrorMessage">{{ otpErrorMessage }}</div>
+    </div>
+
+    <button class="custom-btn" routerLink="/enter-new-password" mat-flat-button>Verify OTP</button>
+  </form>
 </div>
