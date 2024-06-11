@@ -1,5 +1,5 @@
 
-![scribe-banner](https://github.com/PUP-BSIT/project-hypertechs-2-0/assets/146575214/24e457fb-5ff3-4b28-bb3d-181aa7cf27cf)
+https://github.com/PUP-BSIT/project-hypertechs-2-0/assets/146575214/8b6d5a04-229c-46a2-9029-1c2e36a047fd
 
 <h1 align="center">🚀 HyperTechs 2.0 Angular App Project 🚀</h1>
 <p align="center">
