@@ -14,6 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class LoginComponent implements OnInit {
   errorMessage = '';
+  isLoading = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -75,6 +76,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
    /* Return if user inputs are invalid */
     if (!this.loginForm.valid) return;
+    this.isLoading = true;
 
     /* If valid, service will get the data */
     const loginData: LoginData = {
@@ -94,9 +96,12 @@ export class LoginComponent implements OnInit {
           this.userService.setLastname(response.lastname);
           this.userService.setEmail(response.email);
           this.router.navigate(['main']);
+          this.isLoading = false;
+          this.dismissSnackbar();
         },
         error: (error: HttpErrorResponse) => {
           this.handleError(error);
+          this.isLoading = false;
         }
       });
   }
@@ -157,5 +162,9 @@ export class LoginComponent implements OnInit {
       verticalPosition: 'bottom',
       horizontalPosition: 'center'
     });
+  }
+
+  private dismissSnackbar() {
+    this.snackBar.dismiss();
   }
 }

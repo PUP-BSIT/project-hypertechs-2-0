@@ -17,6 +17,7 @@ export class SignupComponent implements OnInit {
 
   signupForm: FormGroup = this.formBuilder.group({});
   errorMessage: string = '';
+  isLoading = false;
 
   constructor(
     private formBuilder: FormBuilder, 
@@ -95,6 +96,7 @@ export class SignupComponent implements OnInit {
   onSubmit() {
     // Return if potential user inputs are invalid
     if (!this.signupForm.valid) return;
+    this.isLoading = true;
 
     const signupData: SignupData = {
       lastname: this.lastnameControl?.value,
@@ -113,11 +115,14 @@ export class SignupComponent implements OnInit {
             this.userService.setFirstname(signupData.firstname);
             this.userService.setLastname(signupData.lastname);
             this.userService.setEmail(signupData.email);
-            this.router.navigate(['main']); 
+            this.router.navigate(['main']);
+            this.isLoading = false;
+            this.dismissSnackbar();
           },
           error:(error: HttpErrorResponse)=>{
-            this.handleError(error) },
-          
+            this.handleError(error) 
+            this.isLoading = false;
+          },
         });
   }
 
@@ -172,5 +177,9 @@ export class SignupComponent implements OnInit {
       verticalPosition: 'bottom',
       horizontalPosition: 'center'
     });
+  }
+
+  private dismissSnackbar() {
+    this.snackBar.dismiss();
   }
 }
