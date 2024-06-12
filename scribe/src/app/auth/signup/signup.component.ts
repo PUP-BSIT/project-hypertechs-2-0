@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   FormGroup,
   Validators,
   FormBuilder,
-  ValidationErrors,
+  AbstractControl,
+  ValidatorFn
 } from '@angular/forms';
-import { SignupData } from '../../../models/model';
-import { SignupService } from '../../../services/signup/signup.service';
-import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { SignupData } from '../../../models/model';
 import { UserService } from '../../../services/user/user.service';
+import { SignupService } from '../../../services/signup/signup.service';
 import { SnackbarService } from '../../../services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss'],
+  styleUrl: './signup.component.scss'
 })
 export class SignupComponent implements OnInit {
   signupForm: FormGroup = this.formBuilder.group({});
@@ -46,14 +46,14 @@ export class SignupComponent implements OnInit {
     const storedUser = sessionStorage.getItem('loggedInUser');
     if (storedUser) {
       try {
-        const userData = JSON.parse(storedUser); // Parse stored JSON data
+        const userData = JSON.parse(storedUser);
         this.userService.setFirstname(userData.firstname);
         this.userService.setLastname(userData.lastname);
         this.userService.setEmail(userData.email);
         this.router.navigate(['main']);
       } catch (error) {
         console.error('Error parsing stored user data:', error);
-        // Clear invalid data and proceed normally
+        /* Clear invalid data and proceed normally */
         sessionStorage.removeItem('loggedInUser');
       }
     }
@@ -103,7 +103,7 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
-    // Return if potential user inputs are invalid
+    /* Return if potential user inputs are invalid */
     if (!this.signupForm.valid) return;
     this.isLoading = true;
 
@@ -147,7 +147,8 @@ export class SignupComponent implements OnInit {
 
   private handleHttpError(error: HttpErrorResponse) {
     if (error.status === 0) {
-      this.errorMessage = `Server is unreachable. Please make sure your server is running.`;
+      this.errorMessage = 
+        `Server is unreachable. Please make sure your server is running.`;
       return;
     }
 
@@ -171,6 +172,7 @@ export class SignupComponent implements OnInit {
   }
 
   private handleNetworkError() {
-    this.errorMessage = `Network error occurred. Please check your internet connection.`;
+    this.errorMessage 
+      = `Network error occurred. Please check your internet connection.`;
   }
 }

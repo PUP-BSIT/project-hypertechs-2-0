@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   FormGroup,
   Validators,
   FormBuilder,
   ValidatorFn,
   AbstractControl,
-  ValidationErrors,
 } from '@angular/forms';
-import { LoginData } from '../../../models/model';
-import { LoginService } from '../../../services/login/login.service';
-import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { LoginData } from '../../../models/model';
 import { UserService } from '../../../services/user/user.service';
+import { LoginService } from '../../../services/login/login.service';
 import { SnackbarService } from '../../../services/snackbar/snackbar.service';
 
 @Component({
@@ -68,17 +67,17 @@ export class LoginComponent implements OnInit {
 
   customEmailValidator(): ValidatorFn {
     return (control: AbstractControl) => {
-      const email = control.value as string; // Cast to string for type safety
+      /* Cast to string for type safety */
+      const email = control.value as string;
 
-      // Regular expression for email format
       const emailRegex =
         /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+[a-zA-Z]{2,}))$/;
 
-      //stricter validation using emailRegex
+      // Stricter validation using emailRegex
       if (emailRegex && !emailRegex.test(email)) {
-        return { invalidEmail: true }; // Invalid if format doesn't match
+        return { invalidEmail: true };
       } else {
-        return null; // Valid email
+        return null;
       }
     };
   }
@@ -128,7 +127,8 @@ export class LoginComponent implements OnInit {
 
   private handleHttpError(error: HttpErrorResponse) {
     if (error.status === 0) {
-      this.errorMessage = `Server is unreachable. Please make sure the server is running.`;
+      this.errorMessage = 
+        `Server is unreachable. Please make sure the server is running.`;
       return;
     }
 
@@ -156,6 +156,7 @@ export class LoginComponent implements OnInit {
   }
 
   private handleNetworkError() {
-    this.errorMessage = `Network error occurred. Please check your internet connection.`;
+    this.errorMessage = 
+      `Network error occurred. Please check your internet connection.`;
   }
 }
