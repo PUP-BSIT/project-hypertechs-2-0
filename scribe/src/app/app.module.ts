@@ -33,6 +33,7 @@ import { NotesComponent } from './core/notes/notes.component';
 import { TasksComponent } from './core/tasks/tasks.component';
 import { FoldersComponent } from './core/folders/folders.component';
 import { TrashComponent } from './core/trash/trash.component';
+import { NoteCardComponent } from './layout/note-card/note-card.component';
 
 /* Angular Material Components */
 import { MaterialModule } from '../imports/material.module';
@@ -42,7 +43,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 /* Services */
 import { LoginService } from '../services/login.service';
 import { SignupService } from '../services/signup.service';
-import { NoteCardComponent } from './layout/note-card/note-card.component';
 
 @NgModule({
   declarations: [
