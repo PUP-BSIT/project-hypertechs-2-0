@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
 import { UserService } from '../../../services/user/user.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarService } from '../../../services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-signup',
@@ -28,7 +28,7 @@ export class SignupComponent implements OnInit {
     private signupService: SignupService,
     private router: Router,
     private userService: UserService,
-    private snackBar: MatSnackBar
+    private snackbarService: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -125,7 +125,7 @@ export class SignupComponent implements OnInit {
         this.userService.setEmail(signupData.email);
         this.router.navigate(['main']);
         this.isLoading = false;
-        this.dismissSnackbar();
+        this.snackbarService.dismiss();
       },
       error: (error: HttpErrorResponse) => {
         this.handleError(error);
@@ -142,7 +142,7 @@ export class SignupComponent implements OnInit {
       this.handleNetworkError();
     }
 
-    this.showSnackbar();
+    this.snackbarService.show(this.errorMessage);
   }
 
   private handleHttpError(error: HttpErrorResponse) {
@@ -172,17 +172,5 @@ export class SignupComponent implements OnInit {
 
   private handleNetworkError() {
     this.errorMessage = `Network error occurred. Please check your internet connection.`;
-  }
-
-  private showSnackbar() {
-    this.snackBar.open(this.errorMessage, 'Close', {
-      duration: 7000,
-      verticalPosition: 'bottom',
-      horizontalPosition: 'center',
-    });
-  }
-
-  private dismissSnackbar() {
-    this.snackBar.dismiss();
   }
 }
