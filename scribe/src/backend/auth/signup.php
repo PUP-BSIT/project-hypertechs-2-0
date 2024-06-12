@@ -53,15 +53,15 @@ if (isset($data['lastname']) && isset($data['firstname']) && isset($data['email'
     $checkEmailStmt->close();
 
     //comment out this if you want to check if email is legit>>mail.php too
-    // $validation_result = validate_email($email);
-    // if ($validation_result['status'] === 'error') {
-    //     // Handle invalid email
-    //     echo json_encode(['error' => 'undeliverable.']);
-    //     http_response_code(500);
-    //     return false;
-    //     $conn->close();
-    //     exit();
-    // }
+    $validation_result = validate_email($email);
+    if ($validation_result['status'] === 'error') {
+        // Handle invalid email
+        echo json_encode(['error' => 'undeliverable.']);
+        http_response_code(500);
+        return false;
+        $conn->close();
+        exit();
+    }
 
     // Prepare the SQL INSERT statement
     $stmt = $conn->prepare("INSERT INTO users (lastname, firstname, email, password) VALUES (?, ?, ?, ?)");
