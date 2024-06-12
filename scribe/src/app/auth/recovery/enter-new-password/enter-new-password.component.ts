@@ -3,38 +3,31 @@ import { Component, EventEmitter, Output } from '@angular/core';
 @Component({
   selector: 'app-enter-new-password',
   templateUrl: './enter-new-password.component.html',
-  styleUrls: ['./enter-new-password.component.scss', '../recovery.component.scss']
+  styleUrls: ['../recovery.component.scss']
 })
 export class EnterNewPasswordComponent {
   newPassword: string = '';
+  confirmPassword: string = '';
   @Output() passwordSubmitted = new EventEmitter<string>();
-  showSuccessModal: boolean = false;
 
-  ngOnInit() {
-    this.openModal();
-  }
+  passwordError: boolean = false;
+  confirmPasswordError: boolean = false;
 
-  submitPassword() {
+  onSubmit() {
+    this.passwordError = false;
+    this.confirmPasswordError = false;
+
+    if (this.newPassword.length < 8) {
+      this.passwordError = true;
+      return;
+    }
+
+    if (this.newPassword !== this.confirmPassword) {
+      this.confirmPasswordError = true;
+      return;
+    }
+
     console.log('Password reset successfully');
-
-    this.showSuccessModal = true;
-  }
-
-  openModal() {
-    const modal = document.getElementById('password_modal');
-    if (modal) {
-      modal.style.display = 'block';
-    }
-  }
-
-  closeModal() {
-    const modal = document.getElementById('password_modal');
-    if (modal) {
-      modal.style.display = 'none';
-    }
-  }
-
-  closeSuccessModal() {
-    this.showSuccessModal = false;
+    this.passwordSubmitted.emit(this.newPassword);
   }
 }
