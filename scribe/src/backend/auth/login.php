@@ -7,8 +7,8 @@
 
     // Database connection details 
     $servername = "127.0.0.1";
-    $username = "scribe_user";
-    $password = "u565642650_Hyperstechs2.0_dbpass";
+    $username = "u565642650_scribe_user";
+    $password = "Hyperstechs2.0_dbpass";
     $dbname = "u565642650_scribe_db";
 
     // Create connection
