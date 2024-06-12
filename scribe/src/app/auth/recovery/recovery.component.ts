@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./recovery.component.scss']
 })
 export class RecoveryComponent {
-  currentStep: string = 'enterEmail';
+  currentStep: string = 'enterOtp';
 
   handleEmailSubmitted(email: string) {
     console.log('Email submitted:', email);
