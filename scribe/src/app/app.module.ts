@@ -38,7 +38,6 @@ import { NoteCardComponent } from './layout/note-card/note-card.component';
 /* Angular Material Components */
 import { MaterialModule } from '../imports/material.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
 /* Services */
 import { LoginService } from '../services/login/login.service';
@@ -73,7 +72,6 @@ import { SignupService } from '../services/signup/signup.service';
     FormsModule,
     MaterialModule,
     DragDropModule,
-    FlexLayoutModule,
   ],
   providers: [
     provideAnimationsAsync(),
