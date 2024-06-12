@@ -4,18 +4,54 @@
 
   <form id="otp_fields" (ngSubmit)="onSubmit()">
     <div class="otp-inputs">
-      <input type="text" id="otp1" name="otp1" maxlength="1" (input)="onOtpInput(1, $event)" />
-      <input type="text" id="otp2" name="otp2" maxlength="1" (input)="onOtpInput(2, $event)" />
-      <input type="text" id="otp3" name="otp3" maxlength="1" (input)="onOtpInput(3, $event)" />
-      <input type="text" id="otp4" name="otp4" maxlength="1" (input)="onOtpInput(4, $event)" />
-      <input type="text" id="otp5" name="otp5" maxlength="1" (input)="onOtpInput(5, $event)" />
-      <input type="text" id="otp6" name="otp6" maxlength="1" (input)="onOtpInput(6, $event)" />
+      <input
+        type="text"
+        id="otp1"
+        name="otp1"
+        maxlength="1"
+        (input)="onOtpInput(1, $event)"
+      />
+      <input
+        type="text"
+        id="otp2"
+        name="otp2"
+        maxlength="1"
+        (input)="onOtpInput(2, $event)"
+      />
+      <input
+        type="text"
+        id="otp3"
+        name="otp3"
+        maxlength="1"
+        (input)="onOtpInput(3, $event)"
+      />
+      <input
+        type="text"
+        id="otp4"
+        name="otp4"
+        maxlength="1"
+        (input)="onOtpInput(4, $event)"
+      />
+      <input
+        type="text"
+        id="otp5"
+        name="otp5"
+        maxlength="1"
+        (input)="onOtpInput(5, $event)"
+      />
+      <input
+        type="text"
+        id="otp6"
+        name="otp6"
+        maxlength="1"
+        (input)="onOtpInput(6, $event)"
+      />
     </div>
 
     <div class="error-message">
       <div *ngIf="otpErrorMessage">{{ otpErrorMessage }}</div>
     </div>
 
-    <button class="custom-btn" routerLink="/enter-new-password" mat-flat-button>Verify OTP</button>
+    <button class="custom-btn" mat-flat-button>Verify OTP</button>
   </form>
 </div>

@@ -42,7 +42,7 @@ export class UserService {
 
   isLoggedIn(): boolean {
     // Replace this with your actual login state checking logic
-    const loggedInUser = sessionStorage.getItem('loggedInUser');
+    const loggedInUser = localStorage.getItem('loggedInUser');
     return loggedInUser !== null; // Check if a logged-in user exists in session storage
   }
 

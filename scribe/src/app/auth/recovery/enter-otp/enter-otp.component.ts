@@ -1,4 +1,9 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { OtpverificationService } from '../../../../services/otp/otpverification.service';
+import { Router } from '@angular/router';
+import { SnackbarService } from '../../../../services/snackbar/snackbar.service';
+
 
 @Component({
   selector: 'app-enter-otp',
@@ -11,7 +16,10 @@ export class EnterOtpComponent {
   
   @Output() otpSubmitted: EventEmitter<string> = new EventEmitter<string>();
 
+  constructor(private otpService: OtpverificationService, private router: Router, private snackbarService: SnackbarService){}
+
   onOtpInput(index: number, event: any) {
+    
     const value = event.target.value;
     if (!/^\d$/.test(value)) {
       // Clear invalid input
@@ -36,6 +44,27 @@ export class EnterOtpComponent {
       return;
     }
 
-    this.otpSubmitted.emit(otpValue);
+    //this.otpSubmitted.emit(otpValue);
+
+    this.otpService.verifyOtp(otpValue).subscribe(
+      response => {
+        if (response.status === 'success') {
+          this.handleSuccess(response);
+        } else {
+          this.handleError(response.message || 'Received OTP is incorrect');
+        }
+      },
+      error => {
+        this.handleError('An error occurred. Please try again.');
+      }
+    );
+  }
+
+  private handleSuccess(response: any) {
+    this.router.navigate(['/main']); // Redirect to dashboard on success
+  }
+
+  private handleError(message: string) {
+    this.snackbarService.show(message);
   }
 }

@@ -9,22 +9,21 @@
     <div class="recovery-form">
       <!--This is the default injected component-->
       <ng-container *ngIf="currentStep === 'enterEmail'">
-        <app-enter-email 
-          (emailSubmitted)="handleEmailSubmitted($event)">
+        <app-enter-email (emailSubmitted)="handleEmailSubmitted($event)">
         </app-enter-email>
       </ng-container>
 
       <!--This is loaded when enter-email is successfully verified-->
       <ng-container *ngIf="currentStep === 'enterOtp'">
-        <app-enter-otp 
-          (otpSubmitted)="handleOtpSubmitted($event)">
+        <app-enter-otp (otpSubmitted)="handleOtpSubmitted($event)">
         </app-enter-otp>
       </ng-container>
 
       <!--This is loaded when enter-otp is successfully verified-->
       <ng-container *ngIf="currentStep === 'enterNewPassword'">
-        <app-enter-new-password 
-          (passwordSubmitted)="handlePasswordSubmitted($event)">
+        <app-enter-new-password
+          (passwordSubmitted)="handlePasswordSubmitted($event)"
+        >
         </app-enter-new-password>
       </ng-container>
     </div>
