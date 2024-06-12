@@ -38,8 +38,8 @@ import { TrashComponent } from './core/trash/trash.component';
 import { MaterialModule } from '../imports/material.module';
 
 /* Services */
-import { LoginService } from '../services/login.service';
-import { SignupService } from '../services/signup.service';
+import { LoginService } from '../services/login/login.service';
+import { SignupService } from '../services/signup/signup.service';
 
 @NgModule({
   declarations: [
@@ -67,7 +67,7 @@ import { SignupService } from '../services/signup.service';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
   ],
   providers: [
     provideAnimationsAsync(),
