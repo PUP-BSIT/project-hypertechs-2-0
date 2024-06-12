@@ -107,12 +107,6 @@ form {
   align-items: center;
 }
 
-#email,
-#password {
-  letter-spacing: var(--letter-spacing);
-  font-family: "Google Sans Text", "Inter Tight", sans-serif;
-}
-
 .material-icons {
   margin-top: 2.25vh;
   position: absolute;
@@ -190,6 +184,12 @@ form {
   margin-top: 0.5em;
   visibility: hidden;
   font-size: var(--font-error);
+  overflow: hidden;
+
+  &.visible {
+    animation: slideDown 0.5s ease forwards;
+    visibility: visible;
+  }
 
   .error-item {
     display: flex;
@@ -201,11 +201,22 @@ form {
   .error-item .material-symbols-outlined {
     font-size: 1.2vw;
   }
+}
+@keyframes slideDown {
+  0% {
+    height: 0;
+    opacity: 0;
+    transform: translateY(-10px); /* Start slightly above its final position */
+  }
 
-  div {
-    visibility: visible;
+  100% {
+    height: auto;
+    opacity: 1;
+    transform: translateY(0); /* Reach final position */
   }
 }
+
+
 
 /* ------------------- MEDIA QUERIES ------------------- */
 

@@ -35,19 +35,21 @@
               />
 
               <!--Lastname Error Message-->
-              <div class="error-message">
+              <div class="error-message" [ngClass]="{'visible': lastnameControl?.invalid && lastnameControl?.touched}">
                 @if (lastnameControl?.errors?.['required'] &&
-                lastnameControl?.touched ) {
+                lastnameControl?.touched) {
                 <div class="error-item">
                   <span class="material-symbols-outlined">error</span>
                   <span>Last name is required.</span>
                 </div>
-                } @if(lastnameControl?.getError('minlength')){
+                } @if(lastnameControl?.getError('minlength') &&
+                lastnameControl?.touched){
                 <div class="error-item">
                   <span class="material-symbols-outlined">error</span>
                   <span>Must be at least 2 characters.</span>
                 </div>
-                }@if(lastnameControl?.getError('maxlength')){
+                }@if(lastnameControl?.getError('maxlength') &&
+                lastnameControl?.touched){
                 <div class="error-item">
                   <span class="material-symbols-outlined">error</span>
                   <span>Should not exceed 40 characters.</span>
@@ -80,19 +82,19 @@
               />
 
               <!--Firstname Error Message-->
-              <div class="error-message">
+              <div class="error-message" [ngClass]="{'visible': firstnameControl?.invalid && firstnameControl?.touched}">
                 @if (firstnameControl?.errors?.['required'] &&
                 firstnameControl?.touched) {
                 <div class="error-item">
                   <span class="material-symbols-outlined">error</span>
                   <span>First name is required.</span>
                 </div>
-                }@if(firstnameControl?.getError('minlength')){
+                }@if(firstnameControl?.getError('minlength') && firstnameControl?.touched){
                 <div class="error-item">
                   <span class="material-symbols-outlined">error</span>
                   <span>Must be atleast 2 characters.</span>
                 </div>
-                }@if(firstnameControl?.getError('maxlength')){
+                }@if(firstnameControl?.getError('maxlength') && firstnameControl?.touched){
                 <div class="error-item">
                   <span class="material-symbols-outlined">error</span>
                   <span>Should not exceed 40 characters.</span>
@@ -126,7 +128,7 @@
             />
 
             <!--Email Error Message-->
-            <div class="error-message">
+            <div class="error-message" [ngClass]="{'visible': emailControl?.invalid && emailControl?.touched}">
               @if (emailControl?.errors?.['required'] && emailControl?.touched){
               <div class="error-item">
                 <span class="material-symbols-outlined">error</span>
@@ -137,7 +139,7 @@
                 <span class="material-symbols-outlined">error</span>
                 <span>Invalid email format. </span>
               </div>
-              }@if(emailControl?.getError('maxlength')){
+              }@if(emailControl?.getError('maxlength') && emailControl?.touched){
               <div class="error-item">
                 <span class="material-symbols-outlined">error</span>
                 <span>Email should not be greater than 320 characters.</span>
@@ -176,19 +178,21 @@
             />
 
             <!--Password Error Message-->
-            <div class="error-message">
+            <div class="error-message" [ngClass]="{'visible': passwordControl?.invalid && passwordControl?.touched}">
               @if (passwordControl?.errors?.['required'] &&
               passwordControl?.touched) {
               <div class="error-item">
                 <span class="material-symbols-outlined">error</span>
                 <span>Password is required. Kindly fill out the field.</span>
               </div>
-              }@if(passwordControl?.getError('maxlength')){
+              }@if(passwordControl?.getError('maxlength') &&
+              passwordControl?.touched){
               <div class="error-item">
                 <span class="material-symbols-outlined">error</span>
                 <span>Password should not be greater than 40 characters.</span>
               </div>
-              } @if(passwordControl?.getError('minlength')){
+              } @if(passwordControl?.getError('minlength') &&
+              passwordControl?.touched){
               <div class="error-item">
                 <span class="material-symbols-outlined">error</span>
                 <span>Password must atleast 8 characters long.</span>
@@ -221,14 +225,15 @@
             />
 
             <!--Confirm Password Error Message-->
-            <div class="error-message">
+            <div class="error-message" [ngClass]="{'visible': confirmPasswordControl?.invalid && confirmPasswordControl?.touched}">
               @if (confirmPasswordControl?.errors?.['required'] &&
               confirmPasswordControl?.touched) {
               <div class="error-item">
                 <span class="material-symbols-outlined">error</span>
                 <span>Password is required. Kindly fill out the field.</span>
               </div>
-              } @if (confirmPasswordControl?.errors?.['confirmedValidator']) {
+              } @if (confirmPasswordControl?.errors?.['confirmedValidator'] &&
+              confirmPasswordControl?.touched) {
               <div class="error-item">
                 <span class="material-symbols-outlined">error</span>
                 <span>Passwords did not match.</span>
@@ -246,7 +251,7 @@
           @if(!isLoading){
          <span>Create account</span>
           }@if (isLoading) {
-            <mat-spinner diameter="20" color="primary"></mat-spinner>
+            <mat-spinner diameter="30" color="primary"></mat-spinner>
           }
         </button>
 

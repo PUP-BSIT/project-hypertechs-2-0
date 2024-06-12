@@ -41,8 +41,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 /* Services */
-import { LoginService } from '../services/login.service';
-import { SignupService } from '../services/signup.service';
+import { LoginService } from '../services/login/login.service';
+import { SignupService } from '../services/signup/signup.service';
 
 @NgModule({
   declarations: [
@@ -73,7 +73,7 @@ import { SignupService } from '../services/signup.service';
     FormsModule,
     MaterialModule,
     DragDropModule,
-    FlexLayoutModule
+    FlexLayoutModule,
   ],
   providers: [
     provideAnimationsAsync(),
