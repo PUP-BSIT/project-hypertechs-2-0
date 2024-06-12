@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
     });
 
-    const storedUser = sessionStorage.getItem('loggedInUser');
+    const storedUser = localStorage.getItem('loggedInUser');
     if (storedUser) {
       try {
         const userData = JSON.parse(storedUser);
@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
       } catch (error) {
         console.error('Error parsing stored user data:', error);
         /* Clear invalid data and proceed normally */
-        sessionStorage.removeItem('loggedInUser');
+        localStorage.removeItem('loggedInUser');
       }
     }
   }
@@ -99,7 +99,7 @@ export class LoginComponent implements OnInit {
     this.loginService.loginUser(loginData).subscribe({
       next: (response) => {
         console.log('Response from server: ', response);
-        sessionStorage.setItem('loggedInUser', JSON.stringify(response));
+        localStorage.setItem('loggedInUser', JSON.stringify(response));
         this.userService.setFirstname(response.firstname);
         this.userService.setLastname(response.lastname);
         this.userService.setEmail(response.email);
