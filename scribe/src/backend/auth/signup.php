@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once('config.php');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
@@ -52,16 +52,16 @@ if (isset($data['lastname']) && isset($data['firstname']) && isset($data['email'
     }
     $checkEmailStmt->close();
 
-
-    $validation_result = validate_email($email);
-    if ($validation_result['status'] === 'error') {
-        // Handle invalid email
-        echo json_encode(['error' => 'undeliverable.']);
-        http_response_code(500);
-        return false;
-        $conn->close();
-        exit();
-    }
+    //comment out this if you want to check if email is legit>>mail.php too
+    // $validation_result = validate_email($email);
+    // if ($validation_result['status'] === 'error') {
+    //     // Handle invalid email
+    //     echo json_encode(['error' => 'undeliverable.']);
+    //     http_response_code(500);
+    //     return false;
+    //     $conn->close();
+    //     exit();
+    // }
 
     // Prepare the SQL INSERT statement
     $stmt = $conn->prepare("INSERT INTO users (lastname, firstname, email, password) VALUES (?, ?, ?, ?)");
@@ -72,7 +72,7 @@ if (isset($data['lastname']) && isset($data['firstname']) && isset($data['email'
         $message = "Your verification code is: $verification_code";
         $recipient = $email;
 
-        if (!send_mail($recipient, "verification", $message)) {
+        if (!send_mail($recipient, "Verification Code", $message)) {
             http_response_code(500);
             echo json_encode(['error' => "You've undeliverable. Failed to register!"]);
             return false;
