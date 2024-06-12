@@ -1,0 +1,17 @@
+.note-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 10px;
+  background-color: var(--core-nav);
+
+  .note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .note-footer {
+    padding: 1rem;
+  }
+}
