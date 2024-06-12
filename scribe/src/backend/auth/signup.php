@@ -1,73 +1,114 @@
 <?php
-    session_start();
-    header('Access-Control-Allow-Origin: *');
-    header('Access-Control-Allow-Methods: POST, GET, OPTIONS'); 
-    header('Access-Control-Allow-Headers: Content-Type');
-    header('Content-Type: application/json; charset=utf-8'); // Set content type to JSON
+session_start();
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
+header('Content-Type: application/json; charset=utf-8');
 
-    $servername = "localhost";
-    $firstname = "root";
-    $password = "";
-    $dbname = "scribe_db";
+include '../send_mail/mail.php';
 
-    // Create connection
-    $conn = new mysqli($servername, $firstname, $password, $dbname);
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "scribe_db";
 
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
+$input = file_get_contents("php://input");
+$data = json_decode($input, true);
+
+if (isset($data['lastname']) && isset($data['firstname']) && isset($data['email']) && isset($data['password'])) {
+    $lastname = $data['lastname'];
+    $firstname = $data['firstname'];
+    $email = $data['email']; // Retrieve email directly from the decoded JSON data
+    $password = $data['password'];
+
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+    // Check if email exists
+    $checkEmailStmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+    $checkEmailStmt->bind_param("s", $email);
+    $checkEmailStmt->execute();
+    $checkEmailStmt->store_result();
+
+    if ($checkEmailStmt->num_rows > 0) {
+        // Email already exists
+        http_response_code(400);
+        echo json_encode(['error' => 'User already exists.']);
+        $checkEmailStmt->close();
+        $conn->close();
+        exit();
     }
+    $checkEmailStmt->close();
 
-    if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-        http_response_code(200);
+
+    $validation_result = validate_email($email);
+    if ($validation_result['status'] === 'error') {
+        // Handle invalid email
+        echo json_encode(['error' => 'undeliverable.']);
+        http_response_code(500);
+        return false;
+        $conn->close();
         exit();
     }
 
-    $input = file_get_contents("php://input");
-    $data = json_decode($input, true);
+    // Prepare the SQL INSERT statement
+    $stmt = $conn->prepare("INSERT INTO users (lastname, firstname, email, password) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("ssss", $lastname, $firstname, $email, $hashed_password);
 
-    if (isset($data['lastname']) && isset($data['firstname']) && isset($data['email']) && isset($data['password'])) {
-        $lastname = $data['lastname'];
-        $firstname = $data['firstname'];
-        $email = $data['email'];
-        $password = $data['password'];
+    if ($stmt->execute()) {
+        $verification_code = random_int(100000, 999999);
+        $message = "Your verification code is: $verification_code";
+        $recipient = $email;
 
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-        //Check if email exist
-        $checkEmailStmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-        $checkEmailStmt->bind_param("s", $email);
-        $checkEmailStmt->execute();
-        $checkEmailStmt->store_result();
-
-        if ($checkEmailStmt->num_rows > 0) {
-            // Email already exists
-            http_response_code(400);
-            echo json_encode(['error' => 'User already exists.']);
-        }$checkEmailStmt->close();
-
-        // Prepare the SQL INSERT statement
-        $stmt = $conn->prepare("INSERT INTO users (lastname, firstname, email, password) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $lastname, $firstname, $email, $hashed_password);
-
-        if ($stmt->execute()) {
-
-            $_SESSION['firstname'] = $firstname;
-
-            // insert was successful, return a success message
-            echo json_encode(['message' => 'User registered successfully.',
-             'firstname' => $firstname,
-             'lastname' => $lastname,
-             'email' => $email
-            
-            ]);
-        } 
-        else {
-            // error with the insert, return an error message
+        if (!send_mail($recipient, "verification", $message)) {
             http_response_code(500);
-            echo json_encode(['error' => 'Failed to register user.']);
-        }    
-        $stmt->close(); 
+            echo json_encode(['error' => "You've undeliverable. Failed to register!"]);
+            return false;
+            $conn->close();
+            exit();
+        } 
+
+        $_SESSION['otp'] = $verification_code; // Store the code in the session
+            $_SESSION['email'] = $email;
+            $_SESSION['firstname'] = $firstname; // Store the firstname in the session
+            http_response_code(200);
+            echo json_encode([
+                'message' => 'User registered successfully.',
+                'firstname' => $firstname,
+                'lastname' => $lastname,
+                'email' => $email,
+                'otp' => $verification_code
+            ]);
+
+            // Prepare and execute the query to insert the verification code into the verification_codes table
+            $stmt = $conn->prepare("INSERT INTO verification_codes (user_id, verification_code, created_at)
+                                    SELECT user_id, ?, CURRENT_TIMESTAMP
+                                    FROM users
+                                    WHERE email = ?");
+            $stmt->bind_param("ss", $verification_code, $email);
+            $stmt->execute();  
+        
     }
-    $conn->close();        
+
+    $stmt->close();
+} else {
+    // Invalid request data
+    http_response_code(400);
+    echo json_encode(['error' => 'Invalid request data.']);
+}
+
+$conn->close();
+
 ?>
