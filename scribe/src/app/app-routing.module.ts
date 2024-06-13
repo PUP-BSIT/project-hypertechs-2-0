@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../guards/auth.guard';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 /* Scribe App Components*/
 import { LandingComponent } from './public/landing/landing.component';
@@ -18,12 +19,36 @@ import { EnterOtpComponent } from './auth/recovery/enter-otp/enter-otp.component
 import { EnterNewPasswordComponent } from './auth/recovery/enter-new-password/enter-new-password.component';
 
 const routes: Routes = [
-  { path: '', component: LandingComponent, data: { animationState: 'landing' } },
-  { path: 'login', component: LoginComponent, data: { animationState: 'login' } },
-  { path: 'signup', component: SignupComponent, data: { animationState: 'signup' } },
-  { path: 'recovery', component: RecoveryComponent, data: { animationState: 'recovery'} }, 
-  { path: 'enter-otp', component: EnterOtpComponent },
-  { path: 'enter-new-password', component: EnterNewPasswordComponent },
+  {
+    path: '',
+    component: LandingComponent,
+    data: { animationState: 'landing' },
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    data: { animationState: 'login' },
+  },
+  {
+    path: 'signup',
+    component: SignupComponent,
+    data: { animationState: 'signup' },
+  },
+  {
+    path: 'recovery',
+    component: RecoveryComponent,
+    data: { animationState: 'recovery' },
+  },
+  {
+    path: 'enter-otp',
+    component: EnterOtpComponent,
+    data: { animationState: 'enterOtp' },
+  },
+  {
+    path: 'enter-new-password',
+    component: EnterNewPasswordComponent,
+    data: { animationState: 'enterNewPass' },
+  },
   {
     path: 'main',
     component: MainComponent,
@@ -41,7 +66,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forRoot(routes, { useHash: false })],
   exports: [RouterModule],
+  providers: [{ provide: LocationStrategy, useClass: PathLocationStrategy }],
 })
 export class AppRoutingModule {}

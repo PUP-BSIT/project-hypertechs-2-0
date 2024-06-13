@@ -1,0 +1,17 @@
+.scribe-notes-container {
+  position: relative;
+}
+
+.custom-fab {
+  position: fixed;
+  bottom: 4vw;
+  right: 4vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-misc);
+  font-weight: 500;
+  color: rgb(229, 254, 247);
+  background-color: var(--main-button);
+  padding: 1.5%;
+}

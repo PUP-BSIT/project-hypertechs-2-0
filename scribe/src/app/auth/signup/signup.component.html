@@ -12,9 +12,9 @@
 
       <form id="signup_fields" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
         <div class="input-group same-row-one">
-          <div class="input-group lfname" 
-          [ngClass]="{ error: lastnameControl?.invalid 
-            && lastnameControl?.touched }">
+          <div class="input-group lfname" [ngClass]="{
+                error: lastnameControl?.invalid && lastnameControl?.touched
+              }">
             <label for="last_name">Last Name</label>
 
             <!-- Actual lastname input field -->
@@ -29,28 +29,27 @@
                 minlength="2"
                 placeholder="Dela Cruz"
                 autocomplete="family-name"
-                [ngClass]="{ error: lastnameControl?.invalid 
-                  && lastnameControl?.touched }" 
+                [ngClass]="{
+                  error: lastnameControl?.invalid && lastnameControl?.touched
+                }" 
               />
 
               <!--Lastname Error Message-->
-              <div class="error-message" 
-                [ngClass]="{ visible: lastnameControl?.errors 
-                  && lastnameControl?.touched }">
-                @if (lastnameControl?.errors?.['required'] 
-                  && lastnameControl?.touched) {
+              <div class="error-message" [ngClass]="{'visible': lastnameControl?.invalid && lastnameControl?.touched}">
+                @if (lastnameControl?.errors?.['required'] &&
+                lastnameControl?.touched) {
                 <div class="error-item">
                   <span class="material-symbols-outlined">error</span>
                   <span>Last name is required.</span>
                 </div>
-                } @if(lastnameControl?.getError('minlength') 
-                  && lastnameControl?.touched){
+                } @if(lastnameControl?.getError('minlength') &&
+                lastnameControl?.touched){
                 <div class="error-item">
                   <span class="material-symbols-outlined">error</span>
                   <span>Must be at least 2 characters.</span>
                 </div>
-                }@if(lastnameControl?.getError('maxlength') 
-                  && lastnameControl?.touched){
+                }@if(lastnameControl?.getError('maxlength') &&
+                lastnameControl?.touched){
                 <div class="error-item">
                   <span class="material-symbols-outlined">error</span>
                   <span>Should not exceed 40 characters.</span>
@@ -60,9 +59,9 @@
             </div>
           </div>
 
-          <div class="input-group lfname" 
-            [ngClass]="{ error: firstnameControl?.invalid 
-              && firstnameControl?.touched }">
+          <div class="input-group lfname" [ngClass]="{
+                error: firstnameControl?.invalid && firstnameControl?.touched
+              }">
             <label for="first_name">First Name</label>
 
             <!-- Actual firstname input field -->
@@ -77,28 +76,25 @@
                 minlength="2"
                 placeholder="Juan"
                 autocomplete="given-name"
-                [ngClass]="{ error: firstnameControl?.invalid 
-                  && firstnameControl?.touched }"
+                [ngClass]="{
+                  error: firstnameControl?.invalid && firstnameControl?.touched
+                }"
               />
 
               <!--Firstname Error Message-->
-              <div class="error-message"
-                [ngClass]="{ visible: firstnameControl?.errors 
-                  && firstnameControl?.touched }">
-                @if (firstnameControl?.errors?.['required'] 
-                  && firstnameControl?.touched) {
+              <div class="error-message" [ngClass]="{'visible': firstnameControl?.invalid && firstnameControl?.touched}">
+                @if (firstnameControl?.errors?.['required'] &&
+                firstnameControl?.touched) {
                 <div class="error-item">
                   <span class="material-symbols-outlined">error</span>
                   <span>First name is required.</span>
                 </div>
-                }@if(firstnameControl?.getError('minlength') 
-                  && firstnameControl?.touched){
+                }@if(firstnameControl?.getError('minlength') && firstnameControl?.touched){
                 <div class="error-item">
                   <span class="material-symbols-outlined">error</span>
-                  <span>Must be at least 2 characters.</span>
+                  <span>Must be atleast 2 characters.</span>
                 </div>
-                }@if(firstnameControl?.getError('maxlength') 
-                  && firstnameControl?.touched){
+                }@if(firstnameControl?.getError('maxlength') && firstnameControl?.touched){
                 <div class="error-item">
                   <span class="material-symbols-outlined">error</span>
                   <span>Should not exceed 40 characters.</span>
@@ -109,8 +105,9 @@
           </div>
         </div>
 
-        <div class="input-group" 
-          [ngClass]="{ error: emailControl?.invalid && emailControl?.touched }">
+        <div class="input-group" [ngClass]="{
+              error: emailControl?.invalid && emailControl?.touched
+            }">
           <label for="email">Email</label>
 
           <!-- Actual email input field -->
@@ -125,14 +122,13 @@
               maxlength="320"
               placeholder="example@gmail.com"
               autocomplete="email"
-              [ngClass]="{ error: emailControl?.invalid 
-                  && emailControl?.touched}" 
+              [ngClass]="{
+                  error: emailControl?.invalid && emailControl?.touched
+              }" 
             />
 
             <!--Email Error Message-->
-            <div class="error-message" 
-              [ngClass]="{ visible: emailControl?.errors 
-                && emailControl?.touched }">
+            <div class="error-message" [ngClass]="{'visible': emailControl?.invalid && emailControl?.touched}">
               @if (emailControl?.errors?.['required'] && emailControl?.touched){
               <div class="error-item">
                 <span class="material-symbols-outlined">error</span>
@@ -143,13 +139,13 @@
                 <span class="material-symbols-outlined">error</span>
                 <span>Invalid email format. </span>
               </div>
-              }@if(emailControl?.getError('maxlength')){
+              }@if(emailControl?.getError('maxlength') && emailControl?.touched){
               <div class="error-item">
                 <span class="material-symbols-outlined">error</span>
                 <span>Email should not be greater than 320 characters.</span>
               </div>
-              }@if (emailControl?.getError('minlength') 
-                && emailControl?.touched){
+              }@if (emailControl?.getError('minlength') &&
+              emailControl?.touched){
               <div class="error-item">
                 <span class="material-symbols-outlined">error</span>
                 <span>Email is too short.</span>
@@ -159,9 +155,10 @@
           </div>
         </div>
 
-        <div class="input-group" 
-          [ngClass]="{ error: passwordControl?.invalid 
-              && passwordControl?.touched }">
+        <div class="input-group"
+            [ngClass]="{
+              error: passwordControl?.invalid && passwordControl?.touched
+            }">
           <label for="password">Create Password</label>
 
           <!-- Actual password input field -->
@@ -175,38 +172,40 @@
               maxlength="40"
               minlength="8"
               placeholder="•••••••••••••"
-              [ngClass]="{ error: passwordControl?.invalid 
-                && passwordControl?.touched }"
+              [ngClass]="{
+                  error: passwordControl?.invalid && passwordControl?.touched
+              }"
             />
 
             <!--Password Error Message-->
-            <div class="error-message" 
-              [ngClass]="{ visible: passwordControl?.errors 
-                && passwordControl?.touched }">
-              @if (passwordControl?.errors?.['required']
-                && passwordControl?.touched) {
+            <div class="error-message" [ngClass]="{'visible': passwordControl?.invalid && passwordControl?.touched}">
+              @if (passwordControl?.errors?.['required'] &&
+              passwordControl?.touched) {
               <div class="error-item">
                 <span class="material-symbols-outlined">error</span>
                 <span>Password is required. Kindly fill out the field.</span>
               </div>
-              }@if(passwordControl?.getError('maxlength')){
+              }@if(passwordControl?.getError('maxlength') &&
+              passwordControl?.touched){
               <div class="error-item">
                 <span class="material-symbols-outlined">error</span>
                 <span>Password should not be greater than 40 characters.</span>
               </div>
-              } @if(passwordControl?.getError('minlength')){
+              } @if(passwordControl?.getError('minlength') &&
+              passwordControl?.touched){
               <div class="error-item">
                 <span class="material-symbols-outlined">error</span>
-                <span>Password must be at least 8 characters long.</span>
+                <span>Password must atleast 8 characters long.</span>
               </div>
               }
             </div>
           </div>
         </div>
 
-        <div class="input-group" 
-          [ngClass]="{ error: confirmPasswordControl?.invalid 
-              && confirmPasswordControl?.touched }">
+        <div class="input-group" [ngClass]="{
+            error:
+              confirmPasswordControl?.invalid && confirmPasswordControl?.touched
+          }">
           <label for="confirm_password">Confirm Password</label>
 
           <!-- Actual confirm password input field -->
@@ -218,21 +217,23 @@
               name="confirm_password"
               formControlName="confirm_password"
               placeholder="•••••••••••••"
-              [ngClass]="{ error: confirmPasswordControl?.invalid 
-                  && confirmPasswordControl?.touched }"
+              [ngClass]="{
+                  error:
+                    confirmPasswordControl?.invalid &&
+                    confirmPasswordControl?.touched
+                }"
             />
 
             <!--Confirm Password Error Message-->
-            <div class="error-message" 
-              [ngClass]="{ visible: confirmPasswordControl?.errors 
-                && confirmPasswordControl?.touched }">
-              @if (confirmPasswordControl?.errors?.['required'] 
-                && confirmPasswordControl?.touched) {
+            <div class="error-message" [ngClass]="{'visible': confirmPasswordControl?.invalid && confirmPasswordControl?.touched}">
+              @if (confirmPasswordControl?.errors?.['required'] &&
+              confirmPasswordControl?.touched) {
               <div class="error-item">
                 <span class="material-symbols-outlined">error</span>
                 <span>Password is required. Kindly fill out the field.</span>
               </div>
-              } @if (confirmPasswordControl?.errors?.['confirmedValidator']) {
+              } @if (confirmPasswordControl?.errors?.['confirmedValidator'] &&
+              confirmPasswordControl?.touched) {
               <div class="error-item">
                 <span class="material-symbols-outlined">error</span>
                 <span>Passwords did not match.</span>
@@ -245,12 +246,15 @@
         <button mat-flat-button type="submit" class="custom-btn"
           [ngClass]="{
             'button-enabled': signupForm.valid && !isLoading, 
-            'button-disabled': signupForm.invalid || isLoading
-          }"
-          [disabled]="signupForm.invalid || isLoading"
-        >
-          Sign Up
+            'button-disabled': !signupForm.valid || isLoading}" 
+          [disabled]="!signupForm.valid">
+          @if(!isLoading){
+         <span>Create account</span>
+          }@if (isLoading) {
+            <mat-spinner diameter="30" color="primary"></mat-spinner>
+          }
         </button>
+
       </form>
     </div>
 

@@ -1,33 +1,70 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { OtpverificationService } from '../../../../services/otp/otpverification.service';
+import { Router } from '@angular/router';
+import { SnackbarService } from '../../../../services/snackbar/snackbar.service';
+
 
 @Component({
   selector: 'app-enter-otp',
   templateUrl: './enter-otp.component.html',
-  styleUrls: ['./enter-otp.component.scss', '../recovery.component.scss']
+  styleUrls: ['../recovery.component.scss'],
 })
 export class EnterOtpComponent {
-  otp: string = '';
-  @Output() otpSubmitted = new EventEmitter<string>();
+  otp: string[] = new Array(6).fill('');
+  otpErrorMessage: string = '';
+  
+  @Output() otpSubmitted: EventEmitter<string> = new EventEmitter<string>();
 
-    ngOnInit() {
-      this.openModal();
+  constructor(private otpService: OtpverificationService, private router: Router, private snackbarService: SnackbarService){}
+
+  onOtpInput(index: number, event: any) {
+    
+    const value = event.target.value;
+    if (!/^\d$/.test(value)) {
+      // Clear invalid input
+      event.target.value = '';
+      return;
     }
-  
-    submitOtp() {
-      this.otpSubmitted.emit(this.otp);
-    }
-  
-    openModal() {
-      const modal = document.getElementById('otp_modal');
-      if (modal) {
-        modal.style.display = 'block';
-      }
-    }
-  
-    closeModal() {
-      const modal = document.getElementById('otp_modal');
-      if (modal) {
-        modal.style.display = 'none';
+
+    this.otp[index - 1] = value;
+
+    if (value && index < 6) {
+      const nextInput = event.target.nextElementSibling;
+      if (nextInput) {
+        nextInput.focus();
       }
     }
   }
+  
+  onSubmit() {
+    const otpValue = this.otp.join('');
+    if (otpValue.length !== 6 || !/^\d{6}$/.test(otpValue)) {
+      this.otpErrorMessage = 'Please enter a valid 6-digit OTP.';
+      return;
+    }
+
+    //this.otpSubmitted.emit(otpValue);
+
+    this.otpService.verifyOtp(otpValue).subscribe(
+      response => {
+        if (response.status === 'success') {
+          this.handleSuccess(response);
+        } else {
+          this.handleError(response.message || 'Received OTP is incorrect');
+        }
+      },
+      error => {
+        this.handleError('An error occurred. Please try again.');
+      }
+    );
+  }
+
+  private handleSuccess(response: any) {
+    this.router.navigate(['/main']); // Redirect to dashboard on success
+  }
+
+  private handleError(message: string) {
+    this.snackbarService.show(message);
+  }
+}

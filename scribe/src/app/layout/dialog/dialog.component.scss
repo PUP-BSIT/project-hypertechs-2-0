@@ -1,12 +1,17 @@
+.material-dialog-container {
+  padding: 0%;
+}
+
 .custom-dialog-title {
-  font-size: 1.5em;
+  font-size: 1.75rem;
   color: var(--label);
   font-weight: 500;
-  font-family: "Google Sans Text"
+  font-family: "Google Sans Text";
+  letter-spacing: -0.025rem;
 }
 
 .custom-dialog-content {
-  font-size: 1em;
+  font-size: 1rem;
   margin: 1em 0;
   color: var(--text) !important;
 
@@ -17,16 +22,16 @@
 
 /* Common buttons styling */
 .custom-dialog-buttons button {
-  font-size: 1.1em !important;
+  font-size: 1rem !important;
 }
 
 /* Cancel action button styling */
 .custom-dialog-buttons .dialog-cancel {
-  color: var(--label) !important;
+  color: var(--label);
  
 }
 
 /* Proceed action button styling */
 .custom-dialog-buttons .dialog-action {
-  color: var(--label) !important;
+  color: var(--label);
 }

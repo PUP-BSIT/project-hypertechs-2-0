@@ -79,8 +79,10 @@
     gap: 1rem;
     padding: 2vh;
     font-size: 1.25em;
+<<<<<<< feat/home
+=======
     font-family: 'Google Sans Text', 'Inter Tight', sans-serif;
-    letter-spacing: var(--letter-spacing);
+>>>>>>> development
     border-radius: 2em;
     transition: 
       color 0.3s ease-in-out,
@@ -147,7 +149,7 @@
   display: flex;
   align-items: center;
   gap: 2em;
-  padding: 4rem 2rem 4rem 2rem;
+  padding: 4rem 3rem 3rem 3rem;
 }
 
 /* Search Bar Styling */
@@ -177,7 +179,6 @@
     border-radius: 10em;
     font-size: 1.1rem;
     background-color: var(--core-nav);
-    font-family: 'Google Sans Text', 'Inter Tight', sans-serif;
 
     &::placeholder {
       color: var(--text);
@@ -226,18 +227,16 @@
 
   h1 {
     font-size: 1.25em;
-    font-family: 'Google Sans Text', 'Inter Tight', sans-serif;
   }
 
   p {
-    opacity: 0.6;
-    font-family: 'Google Sans Text', 'Inter Tight', sans-serif;
+    opacity: 0.5;
   }
 }
 
 /* Scribe Core Content */
 .scribe-core-content {
-  padding: 0 2rem;
+  padding: 0 3rem;
   flex: 1;
   overflow-y: auto;
 }
