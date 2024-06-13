@@ -17,7 +17,12 @@ export const RouteTransitionAnimations = trigger('triggerName', [
     login => recovery,
     signup => login,
     signup => landing,
-    recovery => landing`,
+    recovery => landing,
+    recovery => login,
+    recovery => enterOtp,
+    enterOtp => recovery,
+    enterOtp => enterNewPass,
+    enterNewPass => enterOtp`,
     [   
       style({ opacity: 0 }),
       animate('750ms ease-out', style({ opacity: 1 })),
@@ -25,7 +30,7 @@ export const RouteTransitionAnimations = trigger('triggerName', [
   ),
 ]);
 
-/* Sliding Route Animation
+/* Alternative Sliding Route Animation. We may need this in the future.
 
 export const RouteTransitionAnimations = trigger('triggerName', [
   transition('landing => login, login => signup, landing => signup', [

@@ -18,6 +18,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: var(--graphics-bg);
 }
 
 header {
@@ -32,8 +33,8 @@ nav {
   gap: 4vw;
 }
 
-img {
-  max-width: 100%;
+svg {
+  max-width: 80%;
   height: auto;
   display: block;
 }
@@ -51,7 +52,6 @@ img {
     font-size: var(--font-body);
     color: var(--text);
     font-weight: 400;
-    letter-spacing: var(--letter-spacing);
   }
 }
 
@@ -59,7 +59,6 @@ form {
   display: flex;
   flex-direction: column;
   margin-top: 4vh;
-  letter-spacing: var(--letter-spacing);
 }
 
 .recovery-form input[type="text"],
@@ -82,7 +81,6 @@ form {
     opacity: 0.6;
     color: var(--tonal-form-text);
     font-size: var(--font-form);
-    letter-spacing: var(--letter-spacing);
   }
 }
 
@@ -100,11 +98,6 @@ form {
   }
 }
 
-#email,
-#password {
-  letter-spacing: var(--letter-spacing);
-}
-
 .material-icons {
   margin-top: 2.25vh;
   position: absolute;
@@ -120,6 +113,8 @@ form {
   font-size: var(--font-body);
   font-weight: 600;
   transition: transform 0.4s ease-in-out;
+  background-color: var(--main-button) !important;
+  color: #eff4f2 !important;
 }
 
 /* Error styles */
@@ -141,7 +136,12 @@ form {
   margin-top: 0.5em;
   visibility: hidden;
   font-size: var(--font-error);
-  border: 2px solid red;
+  overflow: hidden;
+
+  &.visible {
+    animation: slideDown 0.5s ease forwards;
+    visibility: visible;
+  }
 
   .error-item {
     display: flex;
@@ -153,9 +153,18 @@ form {
   .error-item .material-symbols-outlined {
     font-size: 1.2vw;
   }
+}
+@keyframes slideDown {
+  0% {
+    height: 0;
+    opacity: 0;
+    transform: translateY(-10px); /* Start slightly above its final position */
+  }
 
-  div {
-    visibility: visible;
+  100% {
+    height: auto;
+    opacity: 1;
+    transform: translateY(0); /* Reach final position */
   }
 }
 
@@ -255,7 +264,6 @@ form {
         opacity: 0.6;
         color: var(--tonal-form-text);
         font-size: var(--font-form);
-        letter-spacing: var(--letter-spacing);
       }
     }
 
@@ -327,7 +335,6 @@ form {
     font-size: var(--font-body);
     color: var(--text);
     font-weight: 400;
-    letter-spacing: var(--letter-spacing);
     font-size: 10px;
   }
 
@@ -354,7 +361,6 @@ form {
     opacity: 10;
     color: var(--tonal-form-text);
     font-size: var(--font-form);
-    letter-spacing: var(--letter-spacing);
     font-size: 9px;
     padding: 3vw;
   }
@@ -433,6 +439,5 @@ form {
 
   #goto_signup {
     font-size: calc(var(--font-misc) - 1px);
-    letter-spacing: var(--letter-spacing);
   }
 }
