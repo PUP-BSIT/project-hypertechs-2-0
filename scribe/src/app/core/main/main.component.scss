@@ -79,7 +79,6 @@
     gap: 1rem;
     padding: 2vh;
     font-size: 1.25em;
-    font-family: 'Google Sans Text', 'Inter Tight', sans-serif;
     border-radius: 2em;
     transition: 
       color 0.3s ease-in-out,
@@ -176,7 +175,6 @@
     border-radius: 10em;
     font-size: 1.1rem;
     background-color: var(--core-nav);
-    font-family: 'Google Sans Text', 'Inter Tight', sans-serif;
 
     &::placeholder {
       color: var(--text);
@@ -225,12 +223,10 @@
 
   h1 {
     font-size: 1.25em;
-    font-family: 'Google Sans Text', 'Inter Tight', sans-serif;
   }
 
   p {
-    opacity: 0.6;
-    font-family: 'Google Sans Text', 'Inter Tight', sans-serif;
+    opacity: 0.5;
   }
 }
 
