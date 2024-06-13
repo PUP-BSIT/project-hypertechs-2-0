@@ -6,7 +6,7 @@ import { LoginData } from '../models/model';
 @Injectable()
 export class LoginService {
 
-  private baseUrl = 'http://localhost/backend/auth/login.php';
+  private baseUrl = '../backend/auth/login.php';
   constructor( private http: HttpClient) { }
   loginUser(loginData: LoginData): Observable<any>{
     const httpOptions = {
