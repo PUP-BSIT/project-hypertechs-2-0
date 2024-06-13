@@ -25,6 +25,7 @@ import { EnterNewPasswordComponent } from './auth/recovery/enter-new-password/en
 import { BrandComponent } from './layout/brand/brand.component';
 import { ThemeSwitchComponent } from './layout/theme-switch/theme-switch.component';
 import { DialogComponent } from './layout/dialog/dialog.component';
+import { TypingEffectComponent } from './layout/typing-effect/typing-effect.component';
 
 /* Core Components */
 import { MainComponent } from './core/main/main.component';
@@ -65,6 +66,7 @@ import { SignupService } from '../services/signup/signup.service';
     EnterNewPasswordComponent,
     DialogComponent,
     NoteCardComponent,
+    TypingEffectComponent,
   ],
   imports: [
     BrowserModule,
