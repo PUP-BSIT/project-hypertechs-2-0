@@ -33,11 +33,12 @@ import { NotesComponent } from './core/notes/notes.component';
 import { TasksComponent } from './core/tasks/tasks.component';
 import { FoldersComponent } from './core/folders/folders.component';
 import { TrashComponent } from './core/trash/trash.component';
-import { NoteCardComponent } from './layout/note-card/note-card.component';
+import { NoteCardComponent } from './core/components/note-card/note-card.component';
 
-/* Angular Material Components */
+/* Other Modules */
 import { MaterialModule } from '../imports/material.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { NgxMasonryModule } from 'ngx-masonry';
 
 /* Services */
 import { LoginService } from '../services/login/login.service';
@@ -72,6 +73,7 @@ import { SignupService } from '../services/signup/signup.service';
     FormsModule,
     MaterialModule,
     DragDropModule,
+    NgxMasonryModule
   ],
   providers: [
     provideAnimationsAsync(),
