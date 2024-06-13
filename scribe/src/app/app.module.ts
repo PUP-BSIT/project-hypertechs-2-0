@@ -66,10 +66,7 @@ import { SignupService } from '../services/signup/signup.service';
     EnterNewPasswordComponent,
     DialogComponent,
     NoteCardComponent,
-<<<<<<< feat/home
     TypingEffectComponent,
-=======
->>>>>>> development
   ],
   imports: [
     BrowserModule,
