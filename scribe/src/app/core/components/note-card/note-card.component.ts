@@ -1,11 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NgxMasonryOptions } from 'ngx-masonry';
-
-interface Note {
-  title: string;
-  content: string;
-  lastEdited: string;
-}
+import { TempNote } from '../../../../models/model';
 
 @Component({
   selector: 'app-note-card',
@@ -13,7 +8,7 @@ interface Note {
   styleUrl: './note-card.component.scss',
 })
 export class NoteCardComponent {
-  @Input() note!: Note;
+  @Input() note!: TempNote;
 
   notes = [
     {
