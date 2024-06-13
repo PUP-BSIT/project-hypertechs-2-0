@@ -14,8 +14,8 @@
     <div id="featured_templates">
       <div
         matRipple
-        [matRippleAnimation]="{ enterDuration: 400, exitDuration: 400 }"
-        matRippleColor="rgba(0,0,0,0.2)"
+        [matRippleAnimation]="{ enterDuration: 300, exitDuration: 300 }"
+        matRippleColor="rgba(61, 156, 119, 0.1)"
         class="template-card"
         *ngFor="let template of templates"
       >
@@ -36,16 +36,10 @@
       </div>
 
       <!--Notes Tiles-->
-      <div
-        cdkDropList
-        id="pinned_notes_tiles"
-        (cdkDropListDropped)="drop($event)"
-      >
-        @for(note of notes; track note){
-          <div cdkDrag>
-            <app-note-card [note]="note"></app-note-card>
-          </div>
-        }   
+      <div id="pinned_notes_tiles">
+        <ngx-masonry class="masonry-note-container">
+          <app-note-card></app-note-card>
+        </ngx-masonry>
       </div>
     </div>
   </main>
