@@ -12,6 +12,8 @@ import { SignupData } from '../../../models/model';
 import { UserService } from '../../../services/user/user.service';
 import { SignupService } from '../../../services/signup/signup.service';
 import { SnackbarService } from '../../../services/snackbar/snackbar.service';
+import { DialogService } from '../../../services/dialog/dialog.service';
+
 
 @Component({
   selector: 'app-signup',
@@ -28,7 +30,8 @@ export class SignupComponent implements OnInit {
     private signupService: SignupService,
     private router: Router,
     private userService: UserService,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private dialogService: DialogService
   ) {}
 
   ngOnInit(): void {
@@ -43,7 +46,7 @@ export class SignupComponent implements OnInit {
       { validators: this.matchValidator('password', 'confirm_password') }
     );
 
-    const storedUser = sessionStorage.getItem('loggedInUser');
+    const storedUser = localStorage.getItem('loggedInUser');
     if (storedUser) {
       try {
         const userData = JSON.parse(storedUser);
@@ -54,7 +57,7 @@ export class SignupComponent implements OnInit {
       } catch (error) {
         console.error('Error parsing stored user data:', error);
         /* Clear invalid data and proceed normally */
-        sessionStorage.removeItem('loggedInUser');
+        localStorage.removeItem('loggedInUser');
       }
     }
   }
@@ -119,11 +122,11 @@ export class SignupComponent implements OnInit {
     this.signupService.signupUser(signupData).subscribe({
       next: (response) => {
         console.log('Response from server:', response);
-        sessionStorage.setItem('loggedInUser', JSON.stringify(response));
+        localStorage.setItem('loggedInUser', JSON.stringify(response));
         this.userService.setFirstname(signupData.firstname);
         this.userService.setLastname(signupData.lastname);
         this.userService.setEmail(signupData.email);
-        this.router.navigate(['main']);
+        this.openSentmailDialog();
         this.isLoading = false;
         this.snackbarService.dismiss();
       },
@@ -174,5 +177,22 @@ export class SignupComponent implements OnInit {
   private handleNetworkError() {
     this.errorMessage 
       = `Network error occurred. Please check your internet connection.`;
+  }
+
+  openSentmailDialog(): void {
+    const dialogRef = this.dialogService.openDialog({
+      title: 'Email Verification',
+      content: 'We sent a code to your email',
+      cancelText: 'Cancel',
+      confirmText: 'Ok',
+      action: 'ok',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'ok') {
+        /* Perform logout action here */
+        this.router.navigate(['enter-otp']); 
+      }
+    });
   }
 }

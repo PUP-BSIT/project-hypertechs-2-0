@@ -56,7 +56,7 @@ export class MainComponent implements OnInit {
       this.themeIcon = isDark ? 'dark_mode' : 'light_mode';
     });
 
-    const storedUser = sessionStorage.getItem('loggedInUser');
+    const storedUser = localStorage.getItem('loggedInUser');
     if (storedUser) {
       try {
         const userData = JSON.parse(storedUser);
@@ -67,7 +67,7 @@ export class MainComponent implements OnInit {
         //this.isLoggedIn = true; // Set login state
       } catch (error) {
         console.error('Error parsing stored user data:', error);
-        sessionStorage.removeItem('loggedInUser');
+        localStorage.removeItem('loggedInUser');
       }
     }
 
@@ -89,7 +89,7 @@ export class MainComponent implements OnInit {
   }
 
   logout() {
-    sessionStorage.removeItem('loggedInUser');
+    localStorage.removeItem('loggedInUser');
     this.router.navigate(['']); /* Redirect to login page */
   }
 
