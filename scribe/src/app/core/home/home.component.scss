@@ -57,10 +57,10 @@
 
 .material-symbols-outlined {
   font-variation-settings: 
-  'FILL' 0, 
-  'wght' 500,
-  'GRAD' 0,
-  'opsz' 40;
+  "FILL" 0, 
+  "wght" 500, 
+  "GRAD" 0, 
+  "opsz" 40;
 }
 
 h3 {
@@ -99,10 +99,10 @@ h3 {
     font-family: "Google Sans", sans-serif;
     font-weight: 500;
     background: -webkit-linear-gradient(
-      45deg, 
-      var(--highlight-prime) 15%, 
+      45deg,
+      var(--highlight-prime) 15%,
       var(--highlight-next) 70%
-      );
+    );
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -115,7 +115,7 @@ h3 {
     font-family: "Google Sans Text", sans-serif;
     color: var(--text);
     font-weight: 400;
-    font-size: 1.25vw;
+    font-size: 1.35vw;
     opacity: 0.9;
     transition: color 0.75s ease;
     display: flex;
@@ -130,7 +130,7 @@ h3 {
   align-items: center;
   justify-content: space-between;
   gap: 0.5vw;
-  
+
   .template-card {
     display: flex;
     align-items: center;
@@ -156,6 +156,7 @@ h3 {
     align-items: center;
     justify-content: center;
     font-size: 1vw;
+    font-weight: 500;
     white-space: nowrap;
     text-overflow: ellipsis;
     color: var(--feat-text);
@@ -176,15 +177,9 @@ h3 {
 
   #pinned_notes_tiles {
     margin-top: 1rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(15vw, 1fr));
-    gap: 1rem;
-  
-    [cdkDrag] {
-      display: block;
-    }
+    width: 100%;
   }
-}  
+}
 
 /* ------ REMINDERS LIST STYLING ------ */
 #reminders_empty {
