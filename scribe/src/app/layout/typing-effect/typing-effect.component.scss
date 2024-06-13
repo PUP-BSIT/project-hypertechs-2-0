@@ -1,0 +1,15 @@
+.typing-container {
+  display: inline-block;
+  white-space: pre-wrap;
+  overflow: hidden;
+  height: 22vw;
+
+  h1 {
+    font-family: "Inter Tight", sans-serif !important;
+    font-size: var(--font-hero);
+    margin-top: 12vh;
+    display: inline-block;
+    word-break: break-word;
+    letter-spacing: -0.05em;
+  }
+}
