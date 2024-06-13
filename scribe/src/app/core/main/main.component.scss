@@ -80,7 +80,6 @@
     padding: 2vh;
     font-size: 1.25em;
     font-family: 'Google Sans Text', 'Inter Tight', sans-serif;
-    letter-spacing: var(--letter-spacing);
     border-radius: 2em;
     transition: 
       color 0.3s ease-in-out,
@@ -147,7 +146,7 @@
   display: flex;
   align-items: center;
   gap: 2em;
-  padding: 4rem 2rem 4rem 2rem;
+  padding: 4rem 3rem 3rem 3rem;
 }
 
 /* Search Bar Styling */
@@ -237,7 +236,7 @@
 
 /* Scribe Core Content */
 .scribe-core-content {
-  padding: 0 2rem;
+  padding: 0 3rem;
   flex: 1;
   overflow-y: auto;
 }
