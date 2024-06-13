@@ -6,7 +6,7 @@
     header('Content-Type: application/json; charset=utf-8'); 
 
     // Database connection details 
-    $servername = "127.0.0.1";
+    $servername = "127.0.0.1:3306";
     $username = "u565642650_scribe_user";
     $password = "Hyperstechs2.0_dbpass";
     $dbname = "u565642650_scribe_db";
