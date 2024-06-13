@@ -1,74 +1,48 @@
-// Google Sans
+/* Google Sans */
 @font-face {
   font-family: "Google Sans";
-  src: url("../assets/fonts/Google-Sans/GoogleSans-Regular.ttf")
-    format("truetype");
+  src: url("../assets/fonts/Google-Sans/GoogleSans-Regular.woff2")
+    format("woff2");
   font-weight: 400; /* Normal */
   font-style: normal;
 }
 
 @font-face {
   font-family: "Google Sans";
-  src: url("../assets/fonts/Google-Sans/GoogleSans-Medium.ttf")
-    format("truetype");
+  src: url("../assets/fonts/Google-Sans/GoogleSans-Medium.woff2")
+    format("woff2");
   font-weight: 500; /* Medium */
   font-style: normal;
 }
 
 @font-face {
   font-family: "Google Sans";
-  src: url("../assets/fonts/Google-Sans/GoogleSans-Bold.ttf")
-    format("truetype");
+  src: url("../assets/fonts/Google-Sans/GoogleSans-Bold.woff2") format("woff2");
   font-weight: 700; /* Bold */
   font-style: normal;
 }
 
-// Google Sans Display
-@font-face {
-  font-family: "Google Sans Display";
-  src: url("../assets/fonts/Google-Sans-Display/GoogleSansDisplay-Regular.ttf")
-    format("truetype");
-  font-weight: 400; /* Normal */
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Google Sans Display";
-  src: url("../assets/fonts/Google-Sans-Display/GoogleSansDisplay-Medium.ttf")
-    format("truetype");
-  font-weight: 500; /* Medium */
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Google Sans Display";
-  src: url("../assets/fonts/Google-Sans-Display/GoogleSansDisplay-Bold.ttf")
-    format("truetype");
-  font-weight: 700; /* Bold */
-  font-style: normal;
-}
-
-// Google Sans Text
+/* Google Sans Text */
 @font-face {
   font-family: "Google Sans Text";
-  src: url("../assets/fonts/Google-Sans-Text/GoogleSansText-Regular.ttf")
-    format("truetype");
+  src: url("../assets/fonts/Google-Sans-Text/GoogleSansText-Regular.woff2")
+    format("woff2");
   font-weight: 400; /* Normal */
   font-style: normal;
 }
 
 @font-face {
   font-family: "Google Sans Text";
-  src: url("../assets/fonts/Google-Sans-Text/GoogleSansText-Medium.ttf")
-    format("truetype");
+  src: url("../assets/fonts/Google-Sans-Text/GoogleSansText-Medium.woff2")
+    format("woff2");
   font-weight: 500; /* Medium */
   font-style: normal;
 }
 
 @font-face {
   font-family: "Google Sans Text";
-  src: url("../assets/fonts/Google-Sans-Text/GoogleSansText-Bold.ttf")
-    format("truetype");
+  src: url("../assets/fonts/Google-Sans-Text/GoogleSansText-Bold.woff2")
+    format("woff2");
   font-weight: 700; /* Bold */
   font-style: normal;
 }
