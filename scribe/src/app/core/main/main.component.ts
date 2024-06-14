@@ -6,10 +6,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { slideInOut, simpleFade } from '../../../animations/element-animations';
 
 /* Services */
-import { ThemeService } from '../../../services/theme.service';
-import { UserService } from '../../../services/user.service';
-import { DialogService } from '../../../services/dialog.service';
-import { TitleCaseService } from '../../../services/title-case.service';
+import { ThemeService } from '../../../services/theme/theme.service';
+import { UserService } from '../../../services/user/user.service';
+import { DialogService } from '../../../services/dialog/dialog.service';
+import { TitleCaseService } from '../../../services/title-case/title-case.service';
 
 @Component({
   selector: 'app-main',
@@ -24,7 +24,7 @@ export class MainComponent implements OnInit {
   email: string | null = null;
   firstname: string | null = null;
   lastname: string | null = null;
-  
+
   //isLoggedIn: boolean = false;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
@@ -56,7 +56,7 @@ export class MainComponent implements OnInit {
       this.themeIcon = isDark ? 'dark_mode' : 'light_mode';
     });
 
-    const storedUser = sessionStorage.getItem('loggedInUser');
+    const storedUser = localStorage.getItem('loggedInUser');
     if (storedUser) {
       try {
         const userData = JSON.parse(storedUser);
@@ -67,7 +67,7 @@ export class MainComponent implements OnInit {
         //this.isLoggedIn = true; // Set login state
       } catch (error) {
         console.error('Error parsing stored user data:', error);
-        sessionStorage.removeItem('loggedInUser');
+        localStorage.removeItem('loggedInUser');
       }
     }
 
@@ -81,7 +81,7 @@ export class MainComponent implements OnInit {
 
     this.userService.email$.subscribe((email) => {
       this.email = email;
-    })
+    });
   }
 
   toggleTheme() {
@@ -89,7 +89,7 @@ export class MainComponent implements OnInit {
   }
 
   logout() {
-    sessionStorage.removeItem('loggedInUser');
+    localStorage.removeItem('loggedInUser');
     this.router.navigate(['']); /* Redirect to login page */
   }
 

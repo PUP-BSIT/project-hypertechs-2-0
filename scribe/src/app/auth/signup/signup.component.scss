@@ -66,7 +66,6 @@ form {
   flex-direction: column;
   gap: 2vh;
   margin-top: 4vh;
-  letter-spacing: var(--letter-spacing);
 }
 
 .input-group.same-row-one {
@@ -103,7 +102,6 @@ form {
   opacity: 0.6;
   color: var(--tonal-form-text);
   font-size: var(--font-form);
-  letter-spacing: var(--letter-spacing);
 }
 
 .input-group {
@@ -117,11 +115,6 @@ form {
   font-size: var(--font-body);
   font-weight: 500;
   color: var(--label);
-}
-
-#email,
-#password {
-  letter-spacing: var(--letter-spacing);
 }
 
 .material-icons {
@@ -146,7 +139,6 @@ form {
   font-size: var(--font-body);
   font-weight: 500;
   transition: transform 0.4s ease-in-out;
-  font-family: "Google Sans Text", "Inter Tight", sans-serif !important;
 }
 
 .button-enabled {
@@ -206,6 +198,12 @@ form {
   visibility: hidden;
   font-size: var(--font-error);
   color: var(--error-message);
+  overflow: hidden;
+
+  &.visible {
+    animation: slideDown 0.5s ease forwards;
+    visibility: visible;
+  }
 
   .error-item {
     display: flex;
@@ -220,6 +218,20 @@ form {
 
   div {
     visibility: visible;
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    height: 0;
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  100% {
+    height: auto;
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -332,7 +344,6 @@ form {
     font-size: var(--font-body);
     color: var(--text);
     font-weight: 400;
-    letter-spacing: var(--letter-spacing);
     font-size: 10px;
   }
 
@@ -360,7 +371,6 @@ form {
     opacity: 10;
     color: var(--tonal-form-text);
     font-size: var(--font-form);
-    letter-spacing: var(--letter-spacing);
     font-size: 10px;
     padding: 3vw;
     margin-right: 10vh;

@@ -82,7 +82,6 @@ form {
     opacity: 0.6;
     color: var(--tonal-form-text);
     font-size: var(--font-form);
-    font-family: "Google Sans Text", "Inter Tight", sans-serif;
   }
 }
 
@@ -96,7 +95,6 @@ form {
     margin-left: 0vw;
     font-size: var(--font-body);
     font-weight: 500;
-    font-family: "Google Sans Text", "Inter Tight", sans-serif;
     color: var(--label);
   }
 }
@@ -105,12 +103,6 @@ form {
   display: flex;
   flex-direction: row;
   align-items: center;
-}
-
-#email,
-#password {
-  letter-spacing: var(--letter-spacing);
-  font-family: "Google Sans Text", "Inter Tight", sans-serif;
 }
 
 .material-icons {
@@ -134,10 +126,6 @@ form {
   font-size: var(--font-misc);
   color: var(--label);
   cursor: pointer;
-
-  span {
-    font-family: "Google Sans Text", "Inter Tight", sans-serif;
-  }
 }
 
 .custom-btn {
@@ -148,7 +136,6 @@ form {
   font-size: var(--font-body);
   font-weight: 500;
   transition: transform 0.4s ease-in-out;
-  font-family: "Google Sans Text", "Inter Tight", sans-serif !important;
 }
 
 .button-enabled {
@@ -170,7 +157,6 @@ form {
   text-align: center;
   cursor: pointer;
   text-decoration: none;
-  font-family: "Google Sans Text", "Inter Tight", sans-serif;
 }
 
 /* Error styles */
@@ -190,6 +176,12 @@ form {
   margin-top: 0.5em;
   visibility: hidden;
   font-size: var(--font-error);
+  overflow: hidden;
+
+  &.visible {
+    animation: slideDown 0.5s ease forwards;
+    visibility: visible;
+  }
 
   .error-item {
     display: flex;
@@ -201,11 +193,22 @@ form {
   .error-item .material-symbols-outlined {
     font-size: 1.2vw;
   }
+}
+@keyframes slideDown {
+  0% {
+    height: 0;
+    opacity: 0;
+    transform: translateY(-10px); /* Start slightly above its final position */
+  }
 
-  div {
-    visibility: visible;
+  100% {
+    height: auto;
+    opacity: 1;
+    transform: translateY(0); /* Reach final position */
   }
 }
+
+
 
 /* ------------------- MEDIA QUERIES ------------------- */
 

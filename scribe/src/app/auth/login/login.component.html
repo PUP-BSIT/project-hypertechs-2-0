@@ -17,7 +17,7 @@
           class="input-group"
           [ngClass]="{ error: emailControl?.invalid && emailControl?.touched }"
         >
-          <label for="email">Email Address</label>
+          <label for="email">Email</label>
 
           <!--Actual email input-->
           <div id="field_content">
@@ -38,7 +38,9 @@
             />
 
             <!--Email error message-->
-            <div class="error-message">
+            <div class="error-message" 
+              [ngClass]="{'visible': emailControl?.invalid 
+                && emailControl?.touched}">
               @if (emailControl?.errors?.['required'] && emailControl?.touched){
               <div class="error-item">
                 <span class="material-symbols-outlined">error</span>
@@ -84,7 +86,9 @@
             <!--Below the password, we wrap forgot password and error msg-->
             <div id="below_pass_row">
               <!--Error Message-->
-              <div class="error-message password">
+              <div class="error-message password" 
+                [ngClass]="{'visible': passwordControl?.invalid 
+                  && passwordControl?.touched}">
                 @if (passwordControl?.errors?.['required'] &&
                 passwordControl?.touched) {
                 <div class="error-item">
@@ -103,17 +107,22 @@
 
         <!--Login submit form-->
         <button
-          mat-flat-button
-          type="submit"
-          class="custom-btn"
-          [ngClass]="{
-            'button-enabled': loginForm.valid,
-            'button-disabled': !loginForm.valid
-          }"
-          [disabled]="!loginForm.valid"
-        >
-          Log In
-        </button>
+        mat-flat-button
+        type="submit"
+        class="custom-btn"
+        [ngClass]="{
+          'button-enabled': loginForm.valid && !isLoading,
+          'button-disabled': !loginForm.valid || isLoading
+        }"
+        [disabled]="!loginForm.valid || isLoading">
+
+        @if(!isLoading){
+          <span>Log In</span>
+        } @if (isLoading) {
+          <mat-spinner diameter="30" color="primary"></mat-spinner>
+        }
+      </button>
+
       </form>
     </div>
     <a id="goto_signup" routerLink="/signup">No account yet? Sign up now.</a>

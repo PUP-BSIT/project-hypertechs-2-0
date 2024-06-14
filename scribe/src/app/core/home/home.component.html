@@ -1,6 +1,72 @@
 <div class="scribe-home-container">
-  <div id="home_greetings">
-    <h1>Hello, {{ firstname }}</h1>
-    <h2>Ideas are sparking! Capture them with Scribe.</h2>
-  </div>
+  <!-- SECTION: Home Greetings & Templates & Pinned Notes Container-->
+  <main id="scribe_home_main">
+    <!--Home Greetings-->
+    <div id="home_greetings">
+      <h1>Hello, {{ firstname }}</h1>
+      <h2>
+        Ideas are sparking! Capture them with Scribe. Start with a template
+        below.
+      </h2>
+    </div>
+
+    <!--Featured Templates-->
+    <div id="featured_templates">
+      <div
+        matRipple
+        [matRippleAnimation]="{ enterDuration: 300, exitDuration: 300 }"
+        matRippleColor="rgba(61, 156, 119, 0.1)"
+        class="template-card"
+        *ngFor="let template of templates"
+      >
+        <span class="material-symbols-outlined">{{ template.icon }}</span>
+        <span class="template-title">{{ template.title }}</span>
+      </div>
+    </div>
+
+    <!--Pinned Notes-->
+    <div id="pinned_notes">
+      <!--Heading-->
+      <div id="pinned_notes_heading">
+        <h3><span class="material-symbols-outlined">keep</span>Pinned Notes</h3>
+        <span routerLink="/main/notes" class="view-all">
+          All Notes
+          <span class="material-symbols-outlined">arrow_forward_ios</span>
+        </span>
+      </div>
+
+      <!--Notes Tiles-->
+      <div id="pinned_notes_tiles">
+        <ngx-masonry class="masonry-note-container">
+          <app-note-card></app-note-card>
+        </ngx-masonry>
+      </div>
+    </div>
+  </main>
+
+  <!--SECTION: Reminders Container-->
+  <aside id="scribe_home_side">
+    <!--Heading-->
+    <div id="side_heading">
+      <h3>
+        <span class="material-symbols-outlined">notifications</span>Reminders
+      </h3>
+      <span routerLink="/main/tasks" class="view-all">
+        View All
+        <span class="material-symbols-outlined">arrow_forward_ios</span>
+      </span>
+    </div>
+
+    <!--Reminders List-->
+    <div id="reminders_list">
+      <!--If reminders list is empty, display this:-->
+      <div id="reminders_empty">
+        <img src="../../../assets/images/empty_holder.svg" />
+        <p>No upcoming reminders.<br />Click to add one.</p>
+      </div>
+
+      <!--If reminders list has at least one content, display this:-->
+      <div id="reminders_content"></div>
+    </div>
+  </aside>
 </div>

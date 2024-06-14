@@ -6,13 +6,13 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { LoginData } from '../../../../models/model';
-import { LoginService } from '../../../../services/login.service';
+import { LoginService } from '../../../../services/login/login.service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-enter-email',
   templateUrl: './enter-email.component.html',
-  styleUrls: ['../recovery.component.scss'], // Use the parent scss 
+  styleUrls: ['../recovery.component.scss', './enter-email.component.scss'],
 })
 export class EnterEmailComponent implements OnInit {
   @Output() emailSubmitted = new EventEmitter<string>(); // Add EventEmitter
@@ -83,10 +83,12 @@ export class EnterEmailComponent implements OnInit {
               this.errorMessage = 'Bad request. Please check your data.';
               break;
             case 401:
-              this.errorMessage = 'You have entered an invalid email or password.';
+              this.errorMessage =
+                'You have entered an invalid email or password.';
               break;
             case 500:
-              this.errorMessage = 'Internal server error. Please try again later.';
+              this.errorMessage =
+                'Internal server error. Please try again later.';
               break;
             default:
               this.errorMessage = `Error: ${error.status}. Please try again later.`;
