@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../guards/auth.guard';
-import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+// import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 /* Scribe App Components*/
 import { LandingComponent } from './public/landing/landing.component';
@@ -66,8 +66,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: false })],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule],
-  providers: [{ provide: LocationStrategy, useClass: PathLocationStrategy }],
+  providers: [],
 })
 export class AppRoutingModule {}
