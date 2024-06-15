@@ -1,105 +1,162 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { LoginData } from '../../../models/model';
-import { LoginService } from '../../../services/login.service';
 import { Router } from '@angular/router';
+import {
+  FormGroup,
+  Validators,
+  FormBuilder,
+  ValidatorFn,
+  AbstractControl,
+} from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
+import { LoginData } from '../../../models/model';
+import { UserService } from '../../../services/user/user.service';
+import { LoginService } from '../../../services/login/login.service';
+import { SnackbarService } from '../../../services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
 })
-export class LoginComponent implements OnInit{
-  //loginForm: FormGroup;
+export class LoginComponent implements OnInit {
   errorMessage = '';
+  isLoading = false;
 
-  constructor(private formBuilder: FormBuilder, private loginService: LoginService, 
-    private router: Router
-  ){}
+  constructor(
+    private formBuilder: FormBuilder,
+    private loginService: LoginService,
+    private router: Router,
+    private userService: UserService,
+    private snackbarService: SnackbarService
+  ) {}
 
   loginForm: FormGroup = this.formBuilder.group({});
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      email:['', [Validators.required, Validators.email]],
-      password:['', Validators.required]
-    })
+      email: [
+        '',
+        [Validators.required, Validators.email, this.customEmailValidator()],
+      ],
+      password: ['', Validators.required],
+    });
 
-    const storedUser = sessionStorage.getItem('loggedInUser');
+    const storedUser = localStorage.getItem('loggedInUser');
     if (storedUser) {
       try {
-        const userData = JSON.parse(storedUser); // Parse stored JSON data
-        this.router.navigate(['main'], { queryParams: { firstname: userData.firstname } });
-        //alert(`Log In Successful! Hi ${userData.username}`);
+        const userData = JSON.parse(storedUser);
+        this.userService.setFirstname(userData.firstname);
+        this.userService.setLastname(userData.lastname);
+        this.userService.setEmail(userData.email);
+        this.router.navigate(['main']);
       } catch (error) {
         console.error('Error parsing stored user data:', error);
-        // Clear invalid data and proceed normally
-        sessionStorage.removeItem('loggedInUser');
+        /* Clear invalid data and proceed normally */
+        localStorage.removeItem('loggedInUser');
       }
     }
   }
 
-  get emailControl(){
+  get emailControl() {
     return this.loginForm.get('email');
   }
 
-  get passwordControl(){
+  get passwordControl() {
     return this.loginForm.get('password');
   }
 
-  onSubmit(){
-    //return if user inputs are invalidd
-    if (!this.loginForm.valid) return; 
-    
-    //if valid, service will get the data
+  customEmailValidator(): ValidatorFn {
+    return (control: AbstractControl) => {
+      /* Cast to string for type safety */
+      const email = control.value as string;
+
+      const emailRegex =
+        /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+[a-zA-Z]{2,}))$/;
+
+      // Stricter validation using emailRegex
+      if (emailRegex && !emailRegex.test(email)) {
+        return { invalidEmail: true };
+      } else {
+        return null;
+      }
+    };
+  }
+
+  onSubmit() {
+    /* Return if user inputs are invalid */
+    if (!this.loginForm.valid) return;
+    this.isLoading = true;
+
+    /* If valid, service will get the data */
     const loginData: LoginData = {
-        email: this.loginForm.value.email,
-        password: this.loginForm.value.password
-      };
+      email: this.loginForm.value.email,
+      password: this.loginForm.value.password,
+    };
 
-    console.log("Data sent to service: ", loginData);
-    
-    //service will process the data 
-    this.loginService.loginUser(loginData)
-    .subscribe({
-      next: (response)=>{
-        console.log("Response from server: ", response);
-        //I disabled routing after successful log in
-        // for the meantime I used alert 
-        sessionStorage.setItem('loggedInUser', JSON.stringify(response));
-        this.router.navigate(['main'], { queryParams: { firstname: response.firstname} });
-        //alert(`Log In Successful! Hi ${response.username}`);
+    console.log('Data sent to service: ', loginData);
+
+    /* Service will process the data */
+    this.loginService.loginUser(loginData).subscribe({
+      next: (response) => {
+        console.log('Response from server: ', response);
+        localStorage.setItem('loggedInUser', JSON.stringify(response));
+        this.userService.setFirstname(response.firstname);
+        this.userService.setLastname(response.lastname);
+        this.userService.setEmail(response.email);
+        this.router.navigate(['main']);
+        this.isLoading = false;
+        this.snackbarService.dismiss();
       },
-      error:(error: HttpErrorResponse)=>{
-        this.handleError(error) },
-      }); 
-  } 
+      error: (error: HttpErrorResponse) => {
+        this.handleError(error);
+        this.isLoading = false;
+      },
+    });
+  }
 
-  handleError(error: HttpErrorResponse){
-    this.errorMessage = 'Login failed';
-  
-    if (error.error) {
-      this.errorMessage = error.error.error; 
+  /* Handle the error messages */
+  handleError(error: HttpErrorResponse | Error) {
+    if (error instanceof HttpErrorResponse) {
+      this.handleHttpError(error);
+    } else {
+      this.handleNetworkError();
     }
 
-    if (error?.status){
-      switch (error.status) {
-        case 400:
-          this.errorMessage = 'Bad request. Please check your data.';
-          break;
-        case 401:
-          this.errorMessage = 
-            'You have entered an invalid email or password.';
-          break;
-        case 500:
-          this.errorMessage = 
-            'Internal server error. Please try again later.';
-          break;
-        default:
-          this.errorMessage = 
-          `Error: ${error.status}. Please try again later.`;
-      } 
-    } 
-  }      
+    this.snackbarService.show(this.errorMessage);
+  }
+
+  private handleHttpError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      this.errorMessage = 
+        `Server is unreachable. Please make sure the server is running.`;
+      return;
+    }
+
+    if (error.error && error.error.error) {
+      this.errorMessage = error.error.error;
+      return;
+    }
+
+    switch (error.status) {
+      case 400:
+        this.errorMessage = `Bad request. Please check your data.`;
+        break;
+
+      case 401:
+        this.errorMessage = `You have entered an invalid email or password.`;
+        break;
+
+      case 500:
+        this.errorMessage = `Internal server error. Please try again later.`;
+        break;
+
+      default:
+        this.errorMessage = `Error: ${error.status}. Please try again later.`;
+    }
+  }
+
+  private handleNetworkError() {
+    this.errorMessage = 
+      `Network error occurred. Please check your internet connection.`;
+  }
 }

@@ -13,7 +13,8 @@
 #scribe_name {
   font-weight: bold;
   font-size: 2.5vw;
-  background: linear-gradient(270deg, var(--primary), var(--secondary));
+  font-family: "Inter Tight", "Google Sans", sans-serif;
+  background: linear-gradient(270deg, var(--highlight-prime), var(--highlight-sec));
   background-size: 400% 400%;
   -webkit-background-clip: text;
   background-clip: text;

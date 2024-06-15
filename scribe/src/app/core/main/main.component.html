@@ -5,22 +5,23 @@
     class="sidenav"
     fixedInViewport
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [mode]="(isHandset$ | async) ? 'push' : 'side'"
     [opened]="(isHandset$ | async) === false"
-  >
-    <div class="custom-toolbar">
-      <div class="core-brand" [routerLink]="['/']">
+    [@slideInOut]="isOpened ? 'in' : 'void'">
+
+    <div class="sidenav-header">
+      <div class="core-brand" [routerLink]="['/main/home']">
         <img src="../../../assets/images/quill-pen.png" />
-        Scribe
+        <h1>Scribe</h1>
       </div>
     </div>
 
     <div class="mat-nav-container">
       <mat-nav-list class="custom-navbar" id="upper_nav">
+        <!--Home-->
         <a
           matRipple
-          [matRippleCentered]="true"
-          matRippleColor="rgba(0,0,0,0.1)"
+          matRippleColor="rgba(0, 148, 113, 0.1)"
           [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
           [routerLink]="['/main/home']"
           routerLinkActive="active-link"
@@ -31,10 +32,11 @@
         >
           <span class="material-symbols-outlined">home</span>Home
         </a>
+
+        <!--Notes-->
         <a
           matRipple
-          [matRippleCentered]="true"
-          matRippleColor="rgba(0,0,0,0.1)"
+          matRippleColor="rgba(0, 148, 113, 0.1)"
           [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
           [routerLink]="['/main/notes']"
           routerLinkActive="active-link"
@@ -45,10 +47,11 @@
         >
           <span class="material-symbols-outlined">note_stack</span>Notes
         </a>
+
+        <!--Tasks-->
         <a
           matRipple
-          [matRippleCentered]="true"
-          matRippleColor="rgba(0,0,0,0.1)"
+          matRippleColor="rgba(0, 148, 113, 0.1)"
           [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
           [routerLink]="['/main/tasks']"
           routerLinkActive="active-link"
@@ -59,10 +62,11 @@
         >
           <span class="material-symbols-outlined">task_alt</span>Tasks
         </a>
+
+        <!--Folders-->
         <a
           matRipple
-          [matRippleCentered]="true"
-          matRippleColor="rgba(0,0,0,0.1)"
+          matRippleColor="rgba(0, 148, 113, 0.1)"
           [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
           [routerLink]="['/main/folders']"
           routerLinkActive="active-link"
@@ -73,10 +77,11 @@
         >
           <span class="material-symbols-outlined">folder</span>Folders
         </a>
+
+        <!--Trash-->
         <a
           matRipple
-          [matRippleCentered]="true"
-          matRippleColor="rgba(0,0,0,0.1)"
+          matRippleColor="rgba(0, 148, 113, 0.1)"
           [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
           [routerLink]="['/main/trash']"
           routerLinkActive="active-link"
@@ -88,12 +93,13 @@
           <span class="material-symbols-outlined">delete</span>Trash
         </a>
       </mat-nav-list>
-    
+
       <mat-nav-list class="custom-navbar" id="upper_nav">
-        <a id="theme_nav"
+        <!--Trash-->
+        <a
+          id="theme_nav"
           matRipple
-          [matRippleCentered]="true"
-          matRippleColor="rgba(0,0,0,0.1)"
+          matRippleColor="rgba(0, 148, 113, 0.1)"
           [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
           (click)="toggleTheme()"
           matTooltip="Switch app theme"
@@ -101,12 +107,14 @@
           matTooltipShowDelay="1000"
           matTooltipHideDelay="100"
         >
-          <span class="material-symbols-outlined">{{ themeIcon }}</span>Theme
+          <span class="material-symbols-outlined">{{ themeIcon }}</span
+          >Theme
         </a>
+
+        <!--Settings-->
         <a
           matRipple
-          [matRippleCentered]="true"
-          matRippleColor="rgba(0,0,0,0.1)"
+          matRippleColor="rgba(0, 148, 113, 0.1)"
           [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
           [routerLink]="['/main/settings']"
           routerLinkActive="active-link"
@@ -117,34 +125,38 @@
         >
           <span class="material-symbols-outlined">settings</span>Settings
         </a>
+
+        <!--Logout-->
         <a
           matRipple
-          [matRippleCentered]="true"
-          matRippleColor="rgba(0,0,0,0.1)"
+          matRippleColor="rgba(150, 0, 0, 0.1)"
           [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
           class="logout-link"
           matTooltip="Log Out"
           matTooltipPosition="after"
           matTooltipShowDelay="1000"
           matTooltipHideDelay="100"
+          (click)="openLogoutDialog()"
         >
           <span class="material-symbols-outlined">logout</span>Log Out
         </a>
       </mat-nav-list>
     </div>
-    
   </mat-sidenav>
 
   <!--Main Content-->
-  <mat-sidenav-content>
+  <mat-sidenav-content [@simpleFade]>
     <!--Page Toolbar -->
     <mat-toolbar color="primary">
-
       <!--Menu Toggle-->
       <div id="scribe_menu-container">
         @if (isHandset$ | async) {
-        <button type="button" aria-label="Toggle sidenav" 
-          mat-icon-button (click)="drawer.toggle()">
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+        >
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
         }
@@ -153,37 +165,25 @@
       <!--Search Bar-->
       <div id="scribe_search_container">
         <span class="material-symbols-outlined search-icon">search</span>
-        <input type="search" placeholder="Search" id="search_input">
+        <input type="search" placeholder="Search" id="search_input" />
       </div>
 
       <!--User Profile-->
       <div id="scribe_user_container">
         <!--User Icon-->
         <div id="scribe_user_icon">
-          <img src="../../../assets/images/scribe_user.png">
+          <img src="../../../assets/images/scribe_user.png" />
         </div>
         <div id="scribe_user_info">
-          <h1>Scribe User</h1>
-          <p>scribeuser&#64;gmail.com</p>
+          <h1>{{ firstname }} {{ lastname }}</h1>
+          <p>{{ email }}</p>
         </div>
-        
       </div>
-
     </mat-toolbar>
 
     <!--Actual Loaded Pages Content-->
     <div class="scribe-core-content">
       <router-outlet></router-outlet>
     </div>
-
-    <!--
-
-    <div class="main-container">
-      <div class="user-info">
-        <p class="greeting">Hi,{{ firstname }}</p>
-      </div>
-    </div>
-
-    -->
   </mat-sidenav-content>
 </mat-sidenav-container>

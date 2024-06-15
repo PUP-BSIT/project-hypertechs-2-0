@@ -20,12 +20,17 @@ nav {
   gap: 4vw;
 }
 
-#goto_home {
+.custom-button {
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: var(--font-misc);
   font-weight: 400;
+}
+
+.custom-button {
+  color: white !important;
+  background-color: var(--main-button) !important;
 }
 
 .button-content {
@@ -66,6 +71,7 @@ h1 {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  font-family: "Inter Tight", "Google Sans", sans-serif;
 }
 
 #not_found_graphics {

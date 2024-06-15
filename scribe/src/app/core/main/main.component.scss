@@ -12,36 +12,30 @@
 }
 
 .sidenav-container {
-  height: 100%;
+  height: 100vh; // change from % to vh to remove flicker
   background: var(--core-bg);
 }
 
 .sidenav {
-  width: 18rem;
+  width: 17rem;
   border-radius: 0 1em 1em 0;
   background: var(--core-nav);
 }
 
-.mat-toolbar {
-  color: white;
-  background: var(--core-bg);
-}
-
-.custom-toolbar,
+.sidenav-header,
 .custom-navbar {
   padding: 0 1.25vw;
 }
 
-.custom-toolbar {
+.sidenav-header {
   padding: 2.25rem;
-  font: 700 2em var(--font-display), sans-serif;
   background: linear-gradient(90deg, var(--accent), var(--primary));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 
   img {
-    width: 1em;
+    width: 1.8em;
     margin-right: 1rem;
   }
 
@@ -49,9 +43,14 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+
+    h1 {
+      font: 700 2em "Inter Tight", sans-serif;
+    }
   }
 }
 
+/* Sidenav Links Styling */
 .mat-nav-container {
   display: flex;
   flex-direction: column;
@@ -80,8 +79,6 @@
     gap: 1rem;
     padding: 2vh;
     font-size: 1.25em;
-    font-family: 'Google Sans Text', 'Inter Tight', sans-serif;
-    letter-spacing: var(--letter-spacing);
     border-radius: 2em;
     transition: 
       color 0.3s ease-in-out,
@@ -134,21 +131,24 @@
 /* Main Content: Toolbar and Core */
 
 .mat-sidenav-content {
-  padding: 2rem 2rem;
+  // padding: 2rem 2rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
 }
 
 /* Scribe Toolbar */
-
-.mat-primary {
+.mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--core-bg);
   display: flex;
   align-items: center;
   gap: 2em;
+  padding: 4rem 3rem 3rem 3rem;
 }
 
-// Scribe Search Bar Styling
+/* Search Bar Styling */
 
 #scribe_search_container {
   flex-grow: 1;
@@ -175,7 +175,6 @@
     border-radius: 10em;
     font-size: 1.1rem;
     background-color: var(--core-nav);
-    font-family: 'Google Sans Text', 'Inter Tight', sans-serif;
 
     &::placeholder {
       color: var(--text);
@@ -224,25 +223,18 @@
 
   h1 {
     font-size: 1.25em;
-    font-family: 'Google Sans Text', 'Inter Tight', sans-serif;
   }
 
   p {
-    opacity: 0.6;
-    font-family: 'Google Sans Text', 'Inter Tight', sans-serif;
+    opacity: 0.5;
   }
-}
-
-
-.mat-toolbar.mat-primary {
-  position: sticky;
-  top: 0;
-  z-index: 1;
 }
 
 /* Scribe Core Content */
 .scribe-core-content {
-  padding: 0 1em;
+  padding: 0 3rem;
+  flex: 1;
+  overflow-y: auto;
 }
 
 
@@ -260,3 +252,27 @@
     display: none;
   }
 }
+
+/* Custom Scrollbar for WebKit Browsers */
+.scribe-core-content::-webkit-scrollbar {
+  width: 0.25em; // Width of the scrollbar
+  height: auto; // Height of the scrollbar
+}
+
+.scribe-core-content::-webkit-scrollbar-thumb {
+  background-color: var(--secondary); // Color of the thumb
+  border-radius: 0px; // Roundness of the thumb 
+}
+
+/*
+
+.scribe-core-content::-webkit-scrollbar-track {
+  background: var(--text); // Color of the track
+  border-radius: 0px; // Roundness of the track 
+}
+
+.scribe-core-content {
+  scrollbar-width: thin; // Width of the scrollbar
+  scrollbar-color: var(--secondary) var(--text); // Thumb color and track color
+}
+*/

@@ -1,41 +1,63 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder, ValidationErrors } from '@angular/forms';
-import { SignupData } from '../../../models/model';
-import { SignupService } from '../../../services/signup.service';
 import { Router } from '@angular/router';
+import {
+  FormGroup,
+  Validators,
+  FormBuilder,
+  AbstractControl,
+  ValidatorFn
+} from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { SignupData } from '../../../models/model';
+import { UserService } from '../../../services/user/user.service';
+import { SignupService } from '../../../services/signup/signup.service';
+import { SnackbarService } from '../../../services/snackbar/snackbar.service';
+import { DialogService } from '../../../services/dialog/dialog.service';
+
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss']
+  styleUrl: './signup.component.scss'
 })
 export class SignupComponent implements OnInit {
-
   signupForm: FormGroup = this.formBuilder.group({});
   errorMessage: string = '';
+  isLoading = false;
 
-  constructor(private formBuilder: FormBuilder, private signupService: SignupService, private router: Router) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private signupService: SignupService,
+    private router: Router,
+    private userService: UserService,
+    private snackbarService: SnackbarService,
+    private dialogService: DialogService
+  ) {}
 
   ngOnInit(): void {
-    this.signupForm = this.formBuilder.group({
-      lastname: ['', Validators.required],
-      firstname: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      confirm_password: ['', [Validators.required]]
-    }, {validators: this.matchValidator('password','confirm_password')});
+    this.signupForm = this.formBuilder.group(
+      {
+        lastname: ['', Validators.required],
+        firstname: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', Validators.required],
+        confirm_password: ['', [Validators.required]],
+      },
+      { validators: this.matchValidator('password', 'confirm_password') }
+    );
 
-    const storedUser = sessionStorage.getItem('loggedInUser');
+    const storedUser = localStorage.getItem('loggedInUser');
     if (storedUser) {
       try {
-        const userData = JSON.parse(storedUser); // Parse stored JSON data
-        this.router.navigate(['main'], { queryParams: { firstname: userData.firstname } });
+        const userData = JSON.parse(storedUser);
+        this.userService.setFirstname(userData.firstname);
+        this.userService.setLastname(userData.lastname);
+        this.userService.setEmail(userData.email);
+        this.router.navigate(['main']);
       } catch (error) {
         console.error('Error parsing stored user data:', error);
-        // Clear invalid data and proceed normally
-        sessionStorage.removeItem('loggedInUser');
+        /* Clear invalid data and proceed normally */
+        localStorage.removeItem('loggedInUser');
       }
     }
   }
@@ -62,27 +84,31 @@ export class SignupComponent implements OnInit {
 
   matchValidator(password: string, confirmPassword: string): Validators {
     return (abstractControl: AbstractControl) => {
-        const ctrlPassword = abstractControl.get(password);
-        const ctrlConfirmPassword = abstractControl.get(confirmPassword);
+      const ctrlPassword = abstractControl.get(password);
+      const ctrlConfirmPassword = abstractControl.get(confirmPassword);
 
-        if (ctrlConfirmPassword!.errors && !ctrlConfirmPassword!.errors?.['confirmedValidator']) {
-            return null;
-        }
+      if (
+        ctrlConfirmPassword!.errors &&
+        !ctrlConfirmPassword!.errors?.['confirmedValidator']
+      ) {
+        return null;
+      }
 
-        if (ctrlPassword!.value !== ctrlConfirmPassword!.value) {
-          const error = { confirmedValidator: 'Passwords do not match.' };
-          ctrlConfirmPassword!.setErrors(error);
-          return error;
-        } else {
-          ctrlConfirmPassword!.setErrors(null);
-          return null;
-        }
-    }
+      if (ctrlPassword!.value !== ctrlConfirmPassword!.value) {
+        const error = { confirmedValidator: 'Passwords do not match.' };
+        ctrlConfirmPassword!.setErrors(error);
+        return error;
+      } else {
+        ctrlConfirmPassword!.setErrors(null);
+        return null;
+      }
+    };
   }
 
   onSubmit() {
-    // Return if potential user inputs are invalid
+    /* Return if potential user inputs are invalid */
     if (!this.signupForm.valid) return;
+    this.isLoading = true;
 
     const signupData: SignupData = {
       lastname: this.lastnameControl?.value,
@@ -91,43 +117,82 @@ export class SignupComponent implements OnInit {
       password: this.passwordControl?.value,
     };
 
-    console.log("Data sent to service: ", signupData);
+    console.log('Data sent to service: ', signupData);
 
-    this.signupService.signupUser(signupData)
-        .subscribe({
-          next: (response) => {
-            console.log("Response from server:", response);
-            sessionStorage.setItem('loggedInUser', JSON.stringify(response));
-            this.router.navigate(['main'], { queryParams: { firstname: signupData.firstname } });
-            //alert(`Log In Successful! Hi ${response.firstname}`);
-          },
-          error:(error: HttpErrorResponse)=>{
-            this.handleError(error) },
-          
-        });
+    this.signupService.signupUser(signupData).subscribe({
+      next: (response) => {
+        console.log('Response from server:', response);
+        localStorage.setItem('loggedInUser', JSON.stringify(response));
+        this.userService.setFirstname(signupData.firstname);
+        this.userService.setLastname(signupData.lastname);
+        this.userService.setEmail(signupData.email);
+        this.openSentmailDialog();
+        this.isLoading = false;
+        this.snackbarService.dismiss();
+      },
+      error: (error: HttpErrorResponse) => {
+        this.handleError(error);
+        this.isLoading = false;
+      },
+    });
   }
 
-  handleError(error: HttpErrorResponse){
-    this.errorMessage = 'Signup failed.';
-  
-    if (error.error) {
-      this.errorMessage = error.error.error; 
+  /* Handle the error messages */
+  handleError(error: HttpErrorResponse | Error) {
+    if (error instanceof HttpErrorResponse) {
+      this.handleHttpError(error);
+    } else {
+      this.handleNetworkError();
     }
 
-    if (error?.status){
-      switch (error.status) {
-        case 400:
-          this.errorMessage = 'Email already exists.';
-          break;
-        case 500:
-          this.errorMessage = 
-            'Internal server error. Please try again later.';
-          break;
-        default:
-          this.errorMessage = 
-          `Error: ${error.status}. Please try again later.`;
-      } 
-    } 
-  }      
+    this.snackbarService.show(this.errorMessage);
+  }
 
+  private handleHttpError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      this.errorMessage = 
+        `Server is unreachable. Please make sure your server is running.`;
+      return;
+    }
+
+    if (error.error && error.error.error) {
+      this.errorMessage = error.error.error;
+      return;
+    }
+
+    switch (error.status) {
+      case 400:
+        this.errorMessage = `This email has already been used. Use a new one.`;
+        break;
+
+      case 500:
+        this.errorMessage = `Internal server error. Please try again later.`;
+        break;
+
+      default:
+        this.errorMessage = `Error: ${error.status}. Please try again later.`;
+    }
+  }
+
+  private handleNetworkError() {
+    this.errorMessage 
+      = `Network error occurred. Please check your internet connection.`;
+  }
+
+  openSentmailDialog(): void {
+    const dialogRef = this.dialogService.openDialog({
+      title: 'Email Verification',
+      content: 'We sent a code to your email',
+      cancelText: 'Cancel',
+      confirmText: 'Ok',
+      action: 'ok',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'ok') {
+        /* Perform logout action here */
+        this.router.navigate(['enter-otp']); 
+      }
+    });
+  }
 }

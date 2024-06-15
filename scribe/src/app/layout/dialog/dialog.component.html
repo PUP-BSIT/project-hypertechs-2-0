@@ -1,0 +1,25 @@
+<div class="material-dialog-container">
+  <!--Dialog title-->
+  <h1 mat-dialog-title class="custom-dialog-title">{{ data.title }}</h1>
+
+  <!--Dialog Content-->
+  <div mat-dialog-content class="custom-dialog-content dialog-content">
+    <p>{{ data.content }}</p>
+  </div>
+
+  <!--Dialog Buttons-->
+  <div mat-dialog-actions class="custom-dialog-buttons">
+    <!--Cancel Button-->
+    <button mat-button (click)="onNoClick()" 
+      class="dialog-cancel" >{{ data.cancelText }}
+    </button>
+    <!--Actions-->
+    <button mat-button (click)="onActionClick(data.action)"
+      class="dialog-action" 
+      [ngStyle]="{
+        'color': data.actionTextColor,
+        'background-color': data.actionBgColor}" cdkFocusInitial>
+        {{ data.confirmText }}
+    </button>
+  </div>
+</div>
