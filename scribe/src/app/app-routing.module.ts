@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '../guards/auth.guard';
+import { authGuard } from '../guards/auth.guard';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 /* Scribe App Components*/
@@ -52,7 +52,7 @@ const routes: Routes = [
   {
     path: 'main',
     component: MainComponent,
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
     children: [
       { path: 'home', component: HomeComponent },
       { path: 'notes', component: NotesComponent },
