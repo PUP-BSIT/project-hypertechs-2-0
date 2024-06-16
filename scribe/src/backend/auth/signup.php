@@ -7,10 +7,15 @@ header('Content-Type: application/json; charset=utf-8');
 
 include '../send_mail/mail.php';
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "scribe_db";
+    $servername = "127.0.0.1:3306";
+    $username = "u565642650_scribe_user";
+    $password = "Hypertechs2.0_dbpass";
+    $dbname = "u565642650_scribe_db";
+
+    // $servername = "localhost";
+    // $firstname = "root";
+    // $password = "";
+    // $dbname = "scribe_db";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -53,15 +58,15 @@ if (isset($data['lastname']) && isset($data['firstname']) && isset($data['email'
     $checkEmailStmt->close();
 
     //comment out this if you want to check if email is legit>>mail.php too
-    $validation_result = validate_email($email);
-    if ($validation_result['status'] === 'error') {
-        // Handle invalid email
-        echo json_encode(['error' => 'undeliverable.']);
-        http_response_code(500);
-        return false;
-        $conn->close();
-        exit();
-    }
+    // $validation_result = validate_email($email);
+    // if ($validation_result['status'] === 'error') {
+    //     // Handle invalid email
+    //     echo json_encode(['error' => 'undeliverable.']);
+    //     http_response_code(500);
+    //     return false;
+    //     $conn->close();
+    //     exit();
+    // }
 
     // Prepare the SQL INSERT statement
     $stmt = $conn->prepare("INSERT INTO users (lastname, firstname, email, password) VALUES (?, ?, ?, ?)");

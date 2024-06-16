@@ -191,7 +191,7 @@ export class SignupComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'ok') {
         /* Perform logout action here */
-        this.router.navigate(['enter-otp']); 
+        this.router.navigate(['recovery']); 
       }
     });
   }
