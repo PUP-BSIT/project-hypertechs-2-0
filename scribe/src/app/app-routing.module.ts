@@ -37,16 +37,19 @@ const routes: Routes = [
   {
     path: 'recovery',
     component: RecoveryComponent,
+    canActivate: [AuthGuard],
     data: { animationState: 'recovery' },
   },
   {
     path: 'enter-otp',
     component: EnterOtpComponent,
+    canActivate: [AuthGuard],
     data: { animationState: 'enterOtp' },
   },
   {
     path: 'enter-new-password',
     component: EnterNewPasswordComponent,
+    canActivate: [AuthGuard],
     data: { animationState: 'enterNewPass' },
   },
   {
