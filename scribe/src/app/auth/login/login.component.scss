@@ -312,52 +312,31 @@ form {
   }
 }
 
-/* Tablet Devices (481px to 768px) */
-@media (min-width: 481px) and (max-width: 768px) {
-  #login_container {
-    flex-direction: column;
+.error-message {
+  display: flex;
+  align-items: center;
+  min-height: 1.5em;
+  margin-top: 0.5em;
+  visibility: hidden;
+  font-size: var(--font-error);
+  font-size: 10px;
+  overflow: hidden;
+
+  &.visible {
+    animation: slideDown 0.5s ease forwards;
+    visibility: visible;
   }
 
-  #login_graphics {
-    display: none;
-  }
+  // .error-item {
+  //   display: flex;
+  //   align-items: center;
+  //   gap: 0.5em;
+  //   margin-left: 1vw;
+  // }
 
-  header {
-    flex-direction: row;
-    align-items: center;
-    gap: 4vh;
-  }
-
-  nav {
-    gap: 2vw;
-  }
-
-  #login_form input[type="text"],
-  #login_form input[type="password"] {
-    padding: 1.5vh 4vw;
-    height: 7vh;
-    font-size: calc(var(--font-form) - 1px);
-  }
-
-  #login_form input[type="text"]::placeholder,
-  #login_form input[type="password"]::placeholder {
-    font-size: calc(var(--font-form) - 1px);
-  }
-
-  .material-icons {
-    font-size: calc(var(--font-icon) - 2px);
-  }
-
-  #forgot_password {
-    font-size: calc(var(--font-misc) - 1px);
-  }
-
-  button.custom-btn {
-    height: 7vh;
-    font-size: calc(var(--font-body) - 1px);
-  }
-
-  #goto_signup {
-    font-size: calc(var(--font-misc) - 1px);
+  .error-item .material-symbols-outlined {
+    font-size: 3.5vw;
   }
 }
+
+
