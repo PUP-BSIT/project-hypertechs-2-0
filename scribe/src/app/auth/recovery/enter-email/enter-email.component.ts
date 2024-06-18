@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-enter-email',
   templateUrl: './enter-email.component.html',
-  styleUrls: ['../recovery.component.scss'], // Use the parent scss
+  styleUrls: ['../recovery.component.scss', './enter-email.component.scss'],
 })
 export class EnterEmailComponent implements OnInit {
   @Output() emailSubmitted = new EventEmitter<string>(); // Add EventEmitter
