@@ -25,6 +25,7 @@ import { EnterNewPasswordComponent } from './auth/recovery/enter-new-password/en
 import { BrandComponent } from './layout/brand/brand.component';
 import { ThemeSwitchComponent } from './layout/theme-switch/theme-switch.component';
 import { DialogComponent } from './layout/dialog/dialog.component';
+import { TypingEffectComponent } from './layout/typing-effect/typing-effect.component';
 
 /* Core Components */
 import { MainComponent } from './core/main/main.component';
@@ -33,9 +34,12 @@ import { NotesComponent } from './core/notes/notes.component';
 import { TasksComponent } from './core/tasks/tasks.component';
 import { FoldersComponent } from './core/folders/folders.component';
 import { TrashComponent } from './core/trash/trash.component';
+import { NoteCardComponent } from './core/components/note-card/note-card.component';
 
-/* Angular Material Components */
+/* Other Modules */
 import { MaterialModule } from '../imports/material.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { NgxMasonryModule } from 'ngx-masonry';
 
 /* Services */
 import { LoginService } from '../services/login/login.service';
@@ -61,6 +65,8 @@ import { SignupService } from '../services/signup/signup.service';
     EnterOtpComponent,
     EnterNewPasswordComponent,
     DialogComponent,
+    NoteCardComponent,
+    TypingEffectComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +74,8 @@ import { SignupService } from '../services/signup/signup.service';
     ReactiveFormsModule,
     FormsModule,
     MaterialModule,
+    DragDropModule,
+    NgxMasonryModule
   ],
   providers: [
     provideAnimationsAsync(),

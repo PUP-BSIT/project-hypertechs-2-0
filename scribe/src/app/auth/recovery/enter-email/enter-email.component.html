@@ -1,6 +1,6 @@
 <div class="recovery-form">
-  <h1>Forgot Password</h1>
-  <h4>Kindly enter your email used in Scribe to recover your account.</h4>
+  <h1>Forgot Password?</h1>
+  <h4>Enter your Scribe email to recover access to your account.</h4>
 
   <!--recovery form-->
   <form id="recovery_fields" [formGroup]="recoveryForm" (ngSubmit)="onSubmit()">
@@ -11,14 +11,15 @@
 
       <!--Actual email input-->
       <div id="field_content">
-        <i class="material-icons">account_circle</i>
+        <i class="material-icons">email</i>
         <input type="text" id="email" name="email" 
-          placeholder="your-scribe-email@gmail.com" maxlength="320"
+          placeholder="your-scribe-email@email.com" maxlength="320"
           formControlName="email" [ngClass]="{'error': 
             emailControl?.invalid && emailControl?.touched}" />
 
         <!--Email error message-->
-        <div class="error-message">
+        <div class="error-message" [ngClass]="{'visible': emailControl?.invalid 
+        && emailControl?.touched}">
           @if (emailControl?.errors?.['required'] && emailControl?.touched){
           <div class="error-item">
             <span class="material-symbols-outlined">error</span>
@@ -38,6 +39,12 @@
       <div>{{ errorMessage }}</div>
       }
     </div>
-    <button class="custom-btn" routerLink="/enter-otp" mat-flat-button>Submit</button>
+    <button mat-flat-button class="custom-btn" routerLink="/enter-otp">
+      Submit
+    </button>
+    <p id="recovery_info">
+      After clicking "Submit", we will send a one-time password (OTP) 
+      to your email address to verify your account.
+    </p>
   </form>
 </div>

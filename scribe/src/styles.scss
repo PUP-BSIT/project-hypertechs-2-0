@@ -1,5 +1,5 @@
-@use '@angular/material' as mat;
-@use './scss/m3-theme.scss' as m3;
+@use "@angular/material" as mat;
+@use "./scss/m3-theme.scss" as m3;
 
 @include mat.core();
 
@@ -20,11 +20,7 @@ body.dark-mode {
 }
 
 :root {
-
-  --font-display: "Inter Tight", "Google Sans", sans-serif;
-  --font-text: 'Inter', "Google Sans Text", sans-serif;
-
-  --font-hero: 5vw;  
+  --font-hero: 5.5vw;
   --font-title: 3vw;
   --font-brand: 2vw;
   --font-icon: 1.75vw;
@@ -62,11 +58,7 @@ body {
 }
 
 .material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 500,
-  'GRAD' 0,
-  'opsz' 24
+  font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 24;
 }
 
 // Enables spotlight effect when dark mode only
