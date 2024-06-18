@@ -1,55 +1,36 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgxMasonryOptions } from 'ngx-masonry';
-import { TempNote } from '../../../../models/model';
 
 @Component({
   selector: 'app-note-card',
   templateUrl: './note-card.component.html',
-  styleUrl: './note-card.component.scss',
+  styleUrls: ['./note-card.component.scss'],
 })
-export class NoteCardComponent {
-  @Input() note!: TempNote;
+export class NoteCardComponent implements OnInit {
+  @Input() note: any;
 
-  notes = [
-    {
-      title: 'Note 1',
-      content: 'This is a short note.',
-      lastEdited: '2 minutes ago'
-    },
-    {
-      title: 'Note 2',
-      content: 'Here is an even longer note that spans multiple lines to test the layout with more content. Is it working now?',
-      lastEdited: '4 hours ago'
-    },
-    {
-      title: 'Note 3',
-      content: 'Another short note for variety.',
-      lastEdited: 'Yesterday'
-    },
-    {
-      title: 'Note 4',
-      content: 'Content of Note 1',
-      lastEdited: '3 days ago'
-    },
-    {
-      title: 'Note 5',
-      content: 'Am I allowed to cry?',
-      lastEdited: '6 days ago'
-    },
-    {
-      title: 'Note 6',
-      content: 'Content of Note 3',
-      lastEdited: 'Last Week'
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    console.log('Note data:', this.note);
+
+    // Convert last_edited to Date object if it is a string
+    if (this.note.last_edited && typeof this.note.last_edited === 'string') {
+      this.note.last_edited = new Date(this.note.last_edited);
     }
-  ];
+  }
 
   public masonryOptions: NgxMasonryOptions = {
     itemSelector: '.note',
     columnWidth: '.note',
-		gutter: 20,
+    gutter: 20,
     percentPosition: true,
-		resize: true,
-		fitWidth: true,
-	};
-}
+    resize: true,
+    fitWidth: true,
+  };
 
+  editNote() {
+    this.router.navigate(['/main/editor', this.note.id]);
+  }
+}
