@@ -11,6 +11,15 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "scribe_db";
+    $servername = "127.0.0.1:3306";
+    $username = "u565642650_scribe_user";
+    $password = "Hypertechs2.0_dbpass";
+    $dbname = "u565642650_scribe_db";
+
+    // $servername = "localhost";
+    // $firstname = "root";
+    // $password = "";
+    // $dbname = "scribe_db";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
