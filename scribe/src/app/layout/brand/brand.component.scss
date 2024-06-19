@@ -35,8 +35,35 @@
   }
 }
 
+//smaller mobile
+@media screen and (max-width: 339px){
+  #scribe_brand {
+    display: flex;
+    align-items: center;
+    gap: 2vw;
+    cursor: pointer;
+  }
+  
+  #scribe_logo {
+    width: 3.5vw;
+    height: auto;
+  }
+  
+  #scribe_name {
+    font-weight: bold;
+    font-size: 3.5vw;
+    font-family: "Inter Tight", "Google Sans", sans-serif;
+    background: linear-gradient(270deg, var(--highlight-prime), var(--highlight-sec));
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientAnimation 3s ease infinite;
+  }
+}
+
 //mobile device
-@media screen and (max-width: 600px){
+@media screen and (min-width: 340px) and (max-width: 540px){
   #scribe_brand {
     display: flex;
     align-items: center;
@@ -63,7 +90,7 @@
 }
 
 //tablet device
-@media screen and (min-width: 601px)and (max-width: 769px){
+@media screen and (min-width: 541px)and (max-width: 739px){
   #scribe_brand {
     display: flex;
     align-items: center;
@@ -72,13 +99,13 @@
   }
   
   #scribe_logo {
-    width: 4.5vw;
+    width: 4vw;
     height: auto;
   }
   
   #scribe_name {
     font-weight: bold;
-    font-size: 4.5vw;
+    font-size: 4vw;
     font-family: "Inter Tight", "Google Sans", sans-serif;
     background: linear-gradient(270deg, var(--highlight-prime), var(--highlight-sec));
     background-size: 400% 400%;
