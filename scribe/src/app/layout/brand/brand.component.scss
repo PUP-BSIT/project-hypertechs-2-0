@@ -13,7 +13,7 @@
 #scribe_name {
   font-weight: bold;
   font-size: 2.5vw;
-  font-family: var(--font-display);
+  font-family: "Inter Tight", "Google Sans", sans-serif;
   background: linear-gradient(270deg, var(--highlight-prime), var(--highlight-sec));
   background-size: 400% 400%;
   -webkit-background-clip: text;
@@ -34,3 +34,85 @@
     background-position: 0% 50%;
   }
 }
+
+//smaller mobile
+@media screen and (max-width: 339px){
+  #scribe_brand {
+    display: flex;
+    align-items: center;
+    gap: 2vw;
+    cursor: pointer;
+  }
+  
+  #scribe_logo {
+    width: 3.5vw;
+    height: auto;
+  }
+  
+  #scribe_name {
+    font-weight: bold;
+    font-size: 3.5vw;
+    font-family: "Inter Tight", "Google Sans", sans-serif;
+    background: linear-gradient(270deg, var(--highlight-prime), var(--highlight-sec));
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientAnimation 3s ease infinite;
+  }
+}
+
+//mobile device
+@media screen and (min-width: 340px) and (max-width: 540px){
+  #scribe_brand {
+    display: flex;
+    align-items: center;
+    gap: 3.5vw;
+    cursor: pointer;
+  }
+  
+  #scribe_logo {
+    width: 5.5vw;
+    height: auto;
+  }
+  
+  #scribe_name {
+    font-weight: bold;
+    font-size: 5.5vw;
+    font-family: "Inter Tight", "Google Sans", sans-serif;
+    background: linear-gradient(270deg, var(--highlight-prime), var(--highlight-sec));
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientAnimation 3s ease infinite;
+  }
+}
+
+//tablet device
+@media screen and (min-width: 541px)and (max-width: 739px){
+  #scribe_brand {
+    display: flex;
+    align-items: center;
+    gap: 3.5vw;
+    cursor: pointer;
+  }
+  
+  #scribe_logo {
+    width: 4vw;
+    height: auto;
+  }
+  
+  #scribe_name {
+    font-weight: bold;
+    font-size: 4vw;
+    font-family: "Inter Tight", "Google Sans", sans-serif;
+    background: linear-gradient(270deg, var(--highlight-prime), var(--highlight-sec));
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientAnimation 3s ease infinite;
+  }
+}
+

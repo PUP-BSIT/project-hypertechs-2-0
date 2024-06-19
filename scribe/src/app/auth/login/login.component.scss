@@ -82,7 +82,7 @@ form {
     opacity: 0.6;
     color: var(--tonal-form-text);
     font-size: var(--font-form);
-    font-family: "Google Sans Text", "Inter Tight", sans-serif;
+    font-size: 10000px;
   }
 }
 
@@ -96,7 +96,6 @@ form {
     margin-left: 0vw;
     font-size: var(--font-body);
     font-weight: 500;
-    font-family: "Google Sans Text", "Inter Tight", sans-serif;
     color: var(--label);
   }
 }
@@ -115,6 +114,7 @@ form {
   pointer-events: none;
   font-size: var(--font-icon);
   opacity: 0.75;
+  font-size: 10000px;
 }
 
 #below_pass_row {
@@ -128,10 +128,6 @@ form {
   font-size: var(--font-misc);
   color: var(--label);
   cursor: pointer;
-
-  span {
-    font-family: "Google Sans Text", "Inter Tight", sans-serif;
-  }
 }
 
 .custom-btn {
@@ -142,7 +138,6 @@ form {
   font-size: var(--font-body);
   font-weight: 500;
   transition: transform 0.4s ease-in-out;
-  font-family: "Google Sans Text", "Inter Tight", sans-serif !important;
 }
 
 .button-enabled {
@@ -164,7 +159,6 @@ form {
   text-align: center;
   cursor: pointer;
   text-decoration: none;
-  font-family: "Google Sans Text", "Inter Tight", sans-serif;
 }
 
 /* Error styles */
@@ -196,10 +190,11 @@ form {
     align-items: center;
     gap: 0.5em;
     margin-left: 1vw;
+    font-size: 15px;
   }
 
   .error-item .material-symbols-outlined {
-    font-size: 1.2vw;
+    font-size: 2vw;
   }
 }
 @keyframes slideDown {
@@ -228,24 +223,24 @@ form {
 
   #login_main {
     flex: 1;
-    padding: 5vh 15vw;
+    padding: 5vh 10vw;
   }
 
-  .field-content {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
+  // .field-content {
+  //   display: flex;
+  //   flex-direction: row;
+  //   align-items: center;
+  // }
 
   #login_graphics {
     display: none;
   }
 
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2vh;
-  }
+  // header {
+  //   flex-direction: column;
+  //   align-items: flex-start;
+  //   gap: 2vh;
+  // }
 
   nav {
     gap: 2vw;
@@ -254,7 +249,7 @@ form {
   #login_form h1 {
     font-size: var(--font-title);
     color: var(--text);
-    font-size: 20px;
+    font-size: 25px;
   }
 
   #login_form h4 {
@@ -262,22 +257,22 @@ form {
     font-size: var(--font-body);
     color: var(--text);
     font-weight: 400;
-    font-size: 10px;
+    font-size: 13px;
   }
 
   .input-group label {
     margin-bottom: 2vh;
     margin-left: 0vw;
     font-size: var(--font-body);
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 500;
     color: var(--label);
   }
 
   #login_form input[type="text"],
   #login_form input[type="password"] {
-    padding: 1.5vh 7vw;
-    height: 6vh;
+    padding: 2vh 4vw;
+    height: 8.5vh;
     font-size: calc(var(--font-form) - 2px);
     font-size: 10px;
   }
@@ -288,37 +283,38 @@ form {
     opacity: 10;
     color: var(--tonal-form-text);
     font-size: var(--font-form);
-    font-size: 10px;
-    padding: 3vw;
-    margin-right: 10vh;
+    font-size: 10000px;
+    padding: 10vw;
+    margin-right: vh;
   }
 
   .material-icons {
     margin-top: 1.75vh;
     position: absolute;
-    left: 1.5vw;
+    left: 5vw;
     color: var(--tonal-form-text);
     pointer-events: none;
     font-size: var(--font-icon);
-    font-size: 13px;
+    font-size: 10000px;
   }
 
   #forgot_password {
     font-size: calc(var(--font-misc) - 2px);
-    font-size: 12px;
+    font-size: 13px;
   }
 
   button.custom-btn {
-    height: 6vh;
+    height: 8.5vh;
     font-size: calc(var(--font-body) - 2px);
-    font-size: 12px;
+    font-size: 14px;
   }
 
   #goto_signup {
     font-size: calc(var(--font-misc) - 2px);
-    font-size: 12px;
+    font-size: 13px;
   }
 }
+
 
 /* Tablet Devices (481px to 768px) */
 @media (min-width: 481px) and (max-width: 768px) {
@@ -326,46 +322,84 @@ form {
     flex-direction: column;
   }
 
-  #login_graphics {
-    display: none;
+  #login_main {
+    flex: 1;
+    padding: 9vh 10vw;
   }
 
-  header {
-    flex-direction: row;
-    align-items: center;
-    gap: 4vh;
+  #login_graphics {
+    display: none;
   }
 
   nav {
     gap: 2vw;
   }
 
+  #login_form h1 {
+    font-size: var(--font-title);
+    color: var(--text);
+    font-size: 35px;
+  }
+
+  #login_form h4 {
+    margin-top: 2vh;
+    font-size: var(--font-body);
+    color: var(--text);
+    font-weight: 400;
+    font-size: 22px;
+  }
+
+  .input-group label {
+    margin-bottom: 2vh;
+    margin-left: 0vw;
+    font-size: var(--font-body);
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--label);
+  }
+
   #login_form input[type="text"],
   #login_form input[type="password"] {
-    padding: 1.5vh 4vw;
-    height: 7vh;
-    font-size: calc(var(--font-form) - 1px);
+    padding: 1.75vh 5vw;
+    height: 8.5vh;
+    // font-size: calc(var(--font-form) - 2px);
+    font-size: 10px;
   }
 
   #login_form input[type="text"]::placeholder,
   #login_form input[type="password"]::placeholder {
-    font-size: calc(var(--font-form) - 1px);
+    margin-top: 1.35vh;
+    opacity: 10;
+    color: var(--tonal-form-text);
+    font-size: var(--font-form);
+    font-size: 20000px;
+    padding: 6vw;
+    margin-right: 20vh;
   }
 
   .material-icons {
-    font-size: calc(var(--font-icon) - 2px);
+    margin-top: 1.75vh;
+    position: absolute;
+    left: 5vw;
+    color: var(--tonal-form-text);
+    pointer-events: none;
+    font-size: var(--font-icon);
+    font-size: 30000px;
   }
 
   #forgot_password {
-    font-size: calc(var(--font-misc) - 1px);
+    font-size: calc(var(--font-misc) - 2px);
+    font-size: 20px;
   }
 
   button.custom-btn {
-    height: 7vh;
-    font-size: calc(var(--font-body) - 1px);
+    height: 8.5vh;
+    font-size: calc(var(--font-body) - 2px);
+    font-size: 20px;
   }
 
   #goto_signup {
-    font-size: calc(var(--font-misc) - 1px);
+    // font-size: calc(var(--font-misc) - 2px);
+    font-size: 20px;
   }
 }

@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
-
 import { UserService } from '../../../services/user/user.service';
 import { TitleCaseService } from '../../../services/title-case/title-case.service';
+import { FeaturedTemplates } from '../../../models/model';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +12,7 @@ import { TitleCaseService } from '../../../services/title-case/title-case.servic
 })
 export class HomeComponent implements OnInit {
   @Input() firstname: string | null = null;
+  @Input() note: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,4 +26,13 @@ export class HomeComponent implements OnInit {
       this.firstname = this.titleCaseService.toTitleCase(firstname);
     });
   }
+
+  templates: FeaturedTemplates[] = [
+    { icon: 'meeting_room', title: 'Meeting' },
+    { icon: 'check_circle_outline', title: 'Tasks List' },
+    { icon: 'assignment', title: 'Project Plan' },
+    { icon: 'celebration', title: 'Event Plan' },
+    { icon: 'school', title: 'Lectures' },
+    { icon: 'today', title: 'Daily Planner' },
+  ];
 }
