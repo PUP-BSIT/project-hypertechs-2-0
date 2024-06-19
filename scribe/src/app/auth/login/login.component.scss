@@ -194,7 +194,7 @@ form {
   }
 
   .error-item .material-symbols-outlined {
-    font-size: 10px;
+    font-size: 2vw;
   }
 }
 @keyframes slideDown {
@@ -315,32 +315,6 @@ form {
   }
 }
 
-.error-message {
-  display: flex;
-  align-items: center;
-  min-height: 1.5em;
-  margin-top: 0.5em;
-  visibility: hidden;
-  font-size: var(--font-error);
-  font-size: 1px;
-  overflow: hidden;
-
-  &.visible {
-    animation: slideDown 0.5s ease forwards;
-    visibility: visible;
-  }
-
-  // .error-item {
-  //   display: flex;
-  //   align-items: center;
-  //   gap: 0.5em;
-  //   margin-left: 1vw;
-  // }
-
-  .error-item .material-symbols-outlined {
-    font-size: 3.5vw;
-  }
-}
 
 /* Tablet Devices (481px to 768px) */
 @media (min-width: 481px) and (max-width: 768px) {
@@ -353,21 +327,9 @@ form {
     padding: 9vh 10vw;
   }
 
-  // .field-content {
-  //   display: flex;
-  //   flex-direction: row;
-  //   align-items: center;
-  // }
-
   #login_graphics {
     display: none;
   }
-
-  // header {
-  //   flex-direction: column;
-  //   align-items: flex-start;
-  //   gap: 2vh;
-  // }
 
   nav {
     gap: 2vw;
@@ -439,32 +401,5 @@ form {
   #goto_signup {
     // font-size: calc(var(--font-misc) - 2px);
     font-size: 20px;
-  }
-}
-
-.error-message {
-  display: flex;
-  align-items: center;
-  min-height: 1.5em;
-  margin-top: 0.5em;
-  visibility: hidden;
-  font-size: var(--font-error);
-  font-size: 15px;
-  overflow: hidden;
-
-  &.visible {
-    animation: slideDown 0.5s ease forwards;
-    visibility: visible;
-  }
-
-  // .error-item {
-  //   display: flex;
-  //   align-items: center;
-  //   gap: 0.5em;
-  //   margin-left: 1vw;
-  // }
-
-  .error-item .material-symbols-outlined {
-    font-size: 4vw;
   }
 }
