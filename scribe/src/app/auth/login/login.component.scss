@@ -190,11 +190,11 @@ form {
     align-items: center;
     gap: 0.5em;
     margin-left: 1vw;
-    font-size: 15px;
+    font-size: 10px;
   }
 
   .error-item .material-symbols-outlined {
-    font-size: 2vw;
+    font-size: 15px;
   }
 }
 @keyframes slideDown {
@@ -226,21 +226,9 @@ form {
     padding: 5vh 10vw;
   }
 
-  // .field-content {
-  //   display: flex;
-  //   flex-direction: row;
-  //   align-items: center;
-  // }
-
   #login_graphics {
     display: none;
   }
-
-  // header {
-  //   flex-direction: column;
-  //   align-items: flex-start;
-  //   gap: 2vh;
-  // }
 
   nav {
     gap: 2vw;
@@ -362,7 +350,6 @@ form {
   #login_form input[type="password"] {
     padding: 1.75vh 5vw;
     height: 8.5vh;
-    // font-size: calc(var(--font-form) - 2px);
     font-size: 10px;
   }
 
@@ -399,7 +386,6 @@ form {
   }
 
   #goto_signup {
-    // font-size: calc(var(--font-misc) - 2px);
     font-size: 20px;
   }
 }
