@@ -190,10 +190,11 @@ form {
     align-items: center;
     gap: 0.5em;
     margin-left: 1vw;
+    font-size: 15px;
   }
 
   .error-item .material-symbols-outlined {
-    font-size: 0.5vw;
+    font-size: 10px;
   }
 }
 @keyframes slideDown {
