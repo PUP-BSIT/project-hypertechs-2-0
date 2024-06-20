@@ -15,16 +15,22 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM notes_test ORDER BY last_edited DESC";
-$result = $conn->query($sql);
+$userId = isset($_GET['user_id']) ? intval($_GET['user_id']) : 0;
 
-$notes = [];
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $notes[] = $row;
+if ($userId > 0) {
+    $sql = "SELECT * FROM notes WHERE user_id = $userId ORDER BY last_edited DESC";
+    $result = $conn->query($sql);
+
+    $notes = [];
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $notes[] = $row;
+        }
     }
-}
 
-echo json_encode($notes);
+    echo json_encode($notes);
+} else {
+    echo json_encode(["error" => "Invalid user ID"]);
+}
 
 $conn->close();

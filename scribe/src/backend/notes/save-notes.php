@@ -21,8 +21,8 @@ $request = json_decode($postData);
 
 // Check if required fields are present and not null
 if (
-    !isset($request->title) || !isset($request->content) || !isset($request->lastEdited) ||
-    $request->title === null || $request->content === null || $request->lastEdited === null
+    !isset($request->title) || !isset($request->content) || !isset($request->lastEdited) || !isset($request->user_id) ||
+    $request->title === null || $request->content === null || $request->lastEdited === null || $request->user_id === null
 ) {
     // Return an error response
     echo json_encode(["error" => "Invalid or missing data"]);
@@ -33,15 +33,15 @@ if (
 $title = mysqli_real_escape_string($conn, $request->title);
 $content = mysqli_real_escape_string($conn, $request->content);
 $lastEdited = mysqli_real_escape_string($conn, $request->lastEdited);
+$user_id = intval($request->user_id); // Makes sure that user_id is an integer
 
 // Convert the lastEdited timestamp to Philippine Standard Time
 $dateTime = new DateTime($lastEdited, new DateTimeZone('UTC')); 
 $dateTime->setTimezone(new DateTimeZone('Asia/Manila'));
 $lastEditedFormatted = $dateTime->format('Y-m-d H:i:s');
 
-// Insert the note into the database
-$sql = "INSERT INTO notes_test (title, content, last_edited) 
-    VALUES ('$title', '$content', '$lastEditedFormatted')";
+$sql = "INSERT INTO notes (title, content, last_edited, user_id) 
+    VALUES ('$title', '$content', '$lastEditedFormatted', $user_id)";
 
 if ($conn->query($sql) === TRUE) {
     echo json_encode(["message" => "Note saved successfully"]);

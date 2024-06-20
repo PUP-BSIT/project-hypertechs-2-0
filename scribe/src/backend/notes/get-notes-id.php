@@ -4,25 +4,22 @@ header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 header('Content-Type: application/json; charset=utf-8');
 
-// Database connection details
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "scribe_db";
 
-// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Get the note ID from query parameters
 $noteId = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$userId = isset($_GET['user_id']) ? intval($_GET['user_id']) : 0;
 
-if ($noteId > 0) {
-    $sql = "SELECT * FROM notes_test WHERE id = $noteId";
+if ($noteId > 0 && $userId > 0) {
+    $sql = "SELECT * FROM notes WHERE id = $noteId AND user_id = $userId";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
@@ -32,7 +29,7 @@ if ($noteId > 0) {
         echo json_encode(["message" => "Note not found"]);
     }
 } else {
-    echo json_encode(["error" => "Invalid note ID"]);
+    echo json_encode(["error" => "Invalid note ID or user ID"]);
 }
 
 $conn->close();
