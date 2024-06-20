@@ -10,6 +10,7 @@ import { ThemeService } from '../../../services/theme/theme.service';
 import { UserService } from '../../../services/user/user.service';
 import { DialogService } from '../../../services/dialog/dialog.service';
 import { TitleCaseService } from '../../../services/title-case/title-case.service';
+import { ToolbarService } from '../../../services/toolbar/toolbar.service';
 
 @Component({
   selector: 'app-main',
@@ -19,6 +20,7 @@ import { TitleCaseService } from '../../../services/title-case/title-case.servic
 })
 export class MainComponent implements OnInit {
   isOpened = false;
+  toolbarVisible: boolean = true;
 
   private breakpointObserver = inject(BreakpointObserver);
   email: string | null = null;
@@ -43,7 +45,8 @@ export class MainComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private dialogService: DialogService,
-    private titleCaseService: TitleCaseService
+    private titleCaseService: TitleCaseService,
+    private toolbarService: ToolbarService,
   ) {}
 
   ngOnInit() {
@@ -51,11 +54,17 @@ export class MainComponent implements OnInit {
       this.isOpened = true;
     }, 0);
 
+    /* Toggle Toolbar in certain components */
+    this.toolbarService.toolbarVisible$.subscribe(visible => {
+      this.toolbarVisible = visible;
+    });
+
     /* Subscribe the theme link to theme service */
     this.themeService.currentTheme.subscribe((isDark) => {
       this.themeIcon = isDark ? 'dark_mode' : 'light_mode';
     });
 
+    /* Display User Data */
     const storedUser = localStorage.getItem('loggedInUser');
     if (storedUser) {
       try {
@@ -90,7 +99,7 @@ export class MainComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('loggedInUser');
-    this.router.navigate(['']); /* Redirect to login page */
+    this.router.navigate(['']);
   }
 
   /* Custom Dialog Content */
@@ -105,7 +114,6 @@ export class MainComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'logout') {
-        /* Perform logout action here */
         this.logout();
       }
     });

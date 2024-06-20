@@ -1,0 +1,184 @@
+.scribe-editor-container {
+  margin-top: 2rem;
+}
+
+/*  ----- EDITOR HEADER STYLING ----- */
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-back,
+.btn-fullscreen,
+.btn-save {
+  font-size: 1vw;
+  color: var(--primary) !important;
+  cursor: pointer;
+}
+
+/*  ----- EDITOR TITLE STYLING ----- */
+
+.editor-title .title-input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 2.5vw;
+  letter-spacing: -0.025rem;
+}
+
+.title-input {
+  background-color: transparent;
+  font-weight: bold;
+  color: var(--text);
+  caret-color: var(--text);
+  border: none;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.title-input::placeholder {
+  color: var(--text);
+  opacity: 0.6;
+  font-weight: bold;
+}
+
+/*  ----- EDITOR TIMESTAMP STYLING ----- */
+
+.editor-timestamp {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text);
+  opacity: 0.6;
+  margin-bottom: 20px;
+}
+
+/*  ----- EDITOR TAGS STYLING ----- */
+
+.editor-tags-reminders {
+  margin-bottom: 20px;
+}
+
+.btn-tags,
+.btn-reminders {
+  background: var(--feat-template) !important;
+  color: var(--feat-text) !important;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+/*  ----- EDITOR TOOLBAR STYLING ----- */
+
+.editor-toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background: var(--toolbar);
+  border-radius: 10px;
+  position: fixed;
+  bottom: 1vw;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.editor-toolbar .toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-right: 1px solid rgba(128, 128, 128, 0.182);
+  padding-right: 10px;
+  margin-right: 10px;
+}
+
+.editor-toolbar .toolbar-group:last-child {
+  border-right: none;
+  padding-right: 0;
+  margin-right: 0;
+}
+
+.editor-toolbar button,
+.editor-toolbar select {
+  padding: 5px;
+  cursor: pointer;
+  background: none;
+  border-radius: 7px;
+  color: var(--text);
+  border: none;
+}
+
+.editor-toolbar button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.editor-toolbar button.active {
+  background-color: var(--feat-template);
+  color: var(--feat-text);
+}
+
+.editor-toolbar select {
+  background-color: var(--core-nav);
+  color: var(--text);
+  border: none;
+  outline: none;
+  border-radius: 7px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+/*  ----- EDITOR CONTENT STYLING ----- */
+
+.editor-content {
+  height: auto;
+  outline: none;
+}
+
+::ng-deep .editor-content .custom-list {
+  margin: 0 !important;
+  padding-left: 20px !important;
+  list-style-position: inside !important;
+
+  li {
+    margin: 0 !important;
+  }
+}
+
+.editor-content:empty:before {
+  content: attr(data-placeholder);
+  opacity: 0.6;
+  cursor: text;
+}
+
+/* Style for the color picker input */
+input[type="color"] {
+  border: 1px solid var(--toolbar);
+  width: 25px;
+  cursor: pointer;
+}
+
+input[type="color"]:focus {
+  border-color: none;
+}
+
+/* Style for the color picker trigger */
+.color-picker-trigger {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  /* Add styles as needed */
+}
+
+/* Style for the color display */
+.color-display {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 10px;
+  /* Add more styles as needed */
+}
