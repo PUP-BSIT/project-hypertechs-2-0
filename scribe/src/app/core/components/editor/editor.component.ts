@@ -4,17 +4,15 @@ import {
   ElementRef,
   AfterViewInit,
   OnDestroy,
-  Renderer2,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToolbarService } from '../../../../services/toolbar/toolbar.service';
 import { Location } from '@angular/common';
 import { NoteService } from '../../../../services/notes/note.service';
 import { NgForm } from '@angular/forms';
-import {
-  slideInOut,
-  simpleFade,
-} from '../../../../animations/element-animations';
+import { slideInOut, simpleFade } from '../../../../animations/element-animations';
+import { SnackbarService } from '../../../../services/snackbar/snackbar.service';
+import { templates } from '../../../../imports/templates';
 
 @Component({
   selector: 'app-editor',
@@ -32,26 +30,27 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   backgroundColor!: string;
   noteTitle: string = '';
   noteContent: string = '';
-  noteId: number | null = null; // For editing
+  noteId: number | null = null;
 
   constructor(
     private toolbarService: ToolbarService,
-    private renderer: Renderer2,
     private location: Location,
     private noteService: NoteService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private snackbarService: SnackbarService
   ) {}
 
   ngAfterViewInit() {
     this.toolbarService.setToolbarVisible(false);
     this.updateActiveCommands();
 
-    // Check if we're editing an existing note
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       if (params['id']) {
         this.noteId = +params['id'];
         this.loadNote();
+      } else if (params['template']) {
+        this.loadTemplate(params['template']);
       }
     });
   }
@@ -76,6 +75,15 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  private loadTemplate(template: string) {
+    const selectedTemplate = templates[template];
+    if (selectedTemplate) {
+      this.noteTitle = selectedTemplate.title;
+      this.noteContent = selectedTemplate.content;
+      this.editorContentRef.nativeElement.innerHTML = this.noteContent;
+    }
+  }
+
   format(command: string, value?: string) {
     if (command === 'foreColor' || command === 'backColor') {
       document.execCommand(command, false, value);
@@ -95,7 +103,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     const editorContent = this.editorContentRef.nativeElement;
     const lists = editorContent.querySelectorAll('ul, ol');
     lists.forEach((list: HTMLElement) => {
-      this.renderer.addClass(list, 'custom-list');
+      list.classList.add('custom-list');
     });
   }
 
@@ -153,10 +161,6 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  goBack() {
-    this.location.back();
-  }
-
   onContentChange(event: Event) {
     const content = (event.target as HTMLElement).innerHTML;
     this.noteContent = content;
@@ -168,19 +172,19 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     console.log('Note last edited:', this.lastEdited);
 
     this.lastEdited = new Date(); // Update the last edited time
-  
+
     const noteData = {
-      id: this.noteId, // Include the note ID here
+      id: this.noteId,
       title: this.noteTitle || 'Untitled',
       content: this.noteContent,
-      lastEdited: this.lastEdited.toISOString() // Ensure proper formatting
+      lastEdited: this.lastEdited.toISOString(), // Ensure proper formatting
     };
-  
+
     if (this.noteId !== null) {
       this.noteService.updateNote(this.noteId, noteData).subscribe(
         (response) => {
           console.log('Note updated:', response);
-          alert('Note Updated!');
+          this.snackbarService.show('Note updated!');
         },
         (error) => {
           console.error('Error updating note:', error);
@@ -188,10 +192,12 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
         }
       );
     } else {
+      // For new notes, create a new note without an ID
       this.noteService.saveNote(noteData).subscribe(
         (response) => {
           console.log('Note saved:', response);
-          alert('Note Saved!');
+          this.noteId = response.id; // Set the new note ID
+          this.snackbarService.show('Note saved!');
         },
         (error) => {
           console.error('Error saving note:', error);
@@ -199,5 +205,9 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
         }
       );
     }
+  }
+
+  goBack() {
+    this.location.back();
   }
 }
