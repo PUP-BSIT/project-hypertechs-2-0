@@ -82,7 +82,7 @@ form {
     opacity: 0.6;
     color: var(--tonal-form-text);
     font-size: var(--font-form);
-    font-size: 10000px;
+    font-size: 20px;
   }
 }
 
@@ -114,7 +114,7 @@ form {
   pointer-events: none;
   font-size: var(--font-icon);
   opacity: 0.75;
-  font-size: 10000px;
+  font-size: 25px;
 }
 
 #below_pass_row {
@@ -190,11 +190,11 @@ form {
     align-items: center;
     gap: 0.5em;
     margin-left: 1vw;
-    font-size: 15px;
+    font-size: 10px;
   }
 
   .error-item .material-symbols-outlined {
-    font-size: 2vw;
+    font-size: 15px;
   }
 }
 @keyframes slideDown {
@@ -226,21 +226,9 @@ form {
     padding: 5vh 10vw;
   }
 
-  // .field-content {
-  //   display: flex;
-  //   flex-direction: row;
-  //   align-items: center;
-  // }
-
   #login_graphics {
     display: none;
   }
-
-  // header {
-  //   flex-direction: column;
-  //   align-items: flex-start;
-  //   gap: 2vh;
-  // }
 
   nav {
     gap: 2vw;
@@ -271,36 +259,37 @@ form {
 
   #login_form input[type="text"],
   #login_form input[type="password"] {
-    padding: 2vh 4vw;
+    padding: 2vh 15vw;
     height: 8.5vh;
     font-size: calc(var(--font-form) - 2px);
-    font-size: 10px;
+    font-size: 13px;
+    opacity: 50;
   }
 
   #login_form input[type="text"]::placeholder,
   #login_form input[type="password"]::placeholder {
     margin-top: 1.35vh;
-    opacity: 10;
+    opacity: 5;
     color: var(--tonal-form-text);
     font-size: var(--font-form);
-    font-size: 10000px;
-    padding: 10vw;
+    font-size: 13px;
+    padding: 0vh;
     margin-right: vh;
   }
 
   .material-icons {
-    margin-top: 1.75vh;
+    margin-top: 2.5vh;
     position: absolute;
     left: 5vw;
     color: var(--tonal-form-text);
     pointer-events: none;
     font-size: var(--font-icon);
-    font-size: 10000px;
+    font-size: 20px;
   }
 
   #forgot_password {
-    font-size: calc(var(--font-misc) - 2px);
-    font-size: 13px;
+    font-size: var(--font-misc);
+    font-size: 10px;
   }
 
   button.custom-btn {
@@ -360,21 +349,20 @@ form {
 
   #login_form input[type="text"],
   #login_form input[type="password"] {
-    padding: 1.75vh 5vw;
+    padding: 2vh 11vw;
     height: 8.5vh;
-    // font-size: calc(var(--font-form) - 2px);
-    font-size: 10px;
+    font-size: calc(var(--font-form) - 2px);
+    font-size: 18px;
+    opacity: 50;
   }
 
   #login_form input[type="text"]::placeholder,
   #login_form input[type="password"]::placeholder {
-    margin-top: 1.35vh;
-    opacity: 10;
     color: var(--tonal-form-text);
     font-size: var(--font-form);
-    font-size: 20000px;
-    padding: 6vw;
-    margin-right: 20vh;
+    font-size: 18px;
+    padding: 0vw;
+    margin-right: 10vh;
   }
 
   .material-icons {
@@ -384,7 +372,7 @@ form {
     color: var(--tonal-form-text);
     pointer-events: none;
     font-size: var(--font-icon);
-    font-size: 30000px;
+    font-size: 30px;
   }
 
   #forgot_password {
@@ -399,7 +387,6 @@ form {
   }
 
   #goto_signup {
-    // font-size: calc(var(--font-misc) - 2px);
     font-size: 20px;
   }
 }

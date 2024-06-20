@@ -235,36 +235,60 @@ form {
   }
 }
 
-/* Media Queries */
-@media (max-width: 1024px) {
-  #signup_container {
-    flex-direction: column;
-  }
+//TODO!!
+// /* Media Queries */
+// @media (max-width: 1024px) {
+//   #signup_container {
+//     flex-direction: column;
+//   }
 
-  #signup_main {
-    padding: 5vh 5vw;
+//   #signup_main {
+//     padding: 5vh 5vw;
+//   }
+
+//   #signup_graphics {
+//     display: none;
+//   }
+// }
+
+@media (max-width: 768px) {
+  .input-group.same-row-one {
+    flex-direction: column;
+    gap: 3vh;
   }
 
   #signup_graphics {
     display: none;
   }
-}
 
-@media (max-width: 768px) {
-  .input-group.same-row-one {
-    flex-direction: column;
-    gap: 4vh;
+  #signup_form h1 {
+    font-size: 1.9rem;
+    color: var(--text);
+  }
+  
+  #signup_form h4 {
+    margin-top: 1vh;
+    font-size: 1rem;
+    color: var(--text);
+    font-weight: 400;
   }
 
   .material-icons.row {
     left: 5vw;
   }
 
+  .input-group label {
+    margin-bottom: 2vh;
+    margin-left: 0vw;
+    font-size: 1rem;
+    color: var(--label);
+  }
+
   #signup_form input[type="text"],
   #signup_form input[type="password"] {
     padding: 1.5vh 4vw;
     height: 6vh;
-    font-size: calc(var(--font-form) - 2px);
+    font-size: 0.85rem;
   }
 
   #signup_form input[type="text"]::placeholder,
@@ -272,7 +296,42 @@ form {
     margin-top: 1.35vh;
     opacity: 0.6; /* Corrected opacity */
     color: var(--tonal-form-text);
-    font-size: var(--font-form);
+    font-size: 0.85rem;
+  }
+
+  .input-group.error .error-message div {
+    color: var(--error-message);
+  }
+  
+  .error-message {
+    display: flex;
+    align-items: center;
+    min-height: 1.5em;
+    margin-top: 0.5em;
+    visibility: hidden;
+    font-size: 1.5vw;
+    color: var(--error-message);
+    overflow: hidden;
+  
+    &.visible {
+      animation: slideDown 0.5s ease forwards;
+      visibility: visible;
+    }
+  
+    .error-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      margin-left: 1vw;
+    }
+  
+    .error-item .material-symbols-outlined {
+      font-size: 1.5vw;
+    }
+  
+    div {
+      visibility: visible;
+    }
   }
 
   .material-icons {
@@ -284,27 +343,42 @@ form {
     font-size: 13px;
   }
 
+  .material-icons.row{
+    margin-top: 1.75vh;
+    position: absolute;
+    left: 1.5vw;
+    color: var(--tonal-form-text);
+    margin-top: 1.75vh;
+    left: 1.5vw;
+    font-size: 0.75rem;
+  }
+
   #forgot_password {
     font-size: calc(var(--font-misc) - 2px);
   }
 
   button.custom-btn {
     height: 6vh;
-    font-size: calc(var(--font-body) - 2px);
+    font-size: 1rem;
   }
 
   #goto_login {
-    font-size: calc(var(--font-misc) - 2px);
+    font-size: 0.80rem;
   }
 
   #user_agreement {
     margin-top: 2vh;
     text-align: center;
-    font-size: 10px;
+    font-size: 0.90rem;
   }
 }
 
 @media (max-width: 480px) {
+
+  .input-group.same-row-one {
+    flex-direction: column;
+    gap: 2.65vh;
+  }
 
   #signup_container {
     flex-direction: column;
@@ -319,6 +393,7 @@ form {
     flex-direction: row;
     align-items: center;
   }
+  
   #signup_graphics {
     display: none;
   }
@@ -334,34 +409,28 @@ form {
   }
 
   #signup_form h1 {
-    font-size: var(--font-title);
+    font-size: 1.25rem;
     color: var(--text);
-    font-size: 20px;
   }
 
   #signup_form h4 {
     margin-top: 2vh;
-    font-size: var(--font-body);
+    font-size: 0.70rem;
     color: var(--text);
-    font-weight: 400;
-    font-size: 10px;
   }
 
   .input-group label {
     margin-bottom: 2vh;
     margin-left: 0vw;
-    font-size: var(--font-body);
-    font-size: 10px;
-    font-weight: 500;
+    font-size: 0.75rem;
     color: var(--label);
   }
 
   #signup_form input[type="text"],
   #signup_form input[type="password"] {
-    padding: 1.5vh 4vw;
+    padding: 1.5vw 5vh;
     height: 6vh;
-    font-size: calc(var(--font-form) - 2px);
-    font-size: 10px;
+    font-size: 0.75rem;
     
   }
 
@@ -370,46 +439,84 @@ form {
     margin-top: 1.35vh;
     opacity: 10;
     color: var(--tonal-form-text);
-    font-size: var(--font-form);
-    font-size: 10px;
-    padding: 3vw;
+    font-size: 0.75rem;
+    padding: 0.4vw;
+    padding-right: 2.5vw;
     margin-right: 10vh;
   }
 
+  .input-group.error .error-message div {
+    color: var(--error-message);
+  }
+  
+  .error-message {
+    display: flex;
+    align-items: center;
+    min-height: 1.5em;
+    margin-top: 0.5em;
+    visibility: hidden;
+    font-size: 3vw;
+    color: var(--error-message);
+    overflow: hidden;
+  
+    &.visible {
+      animation: slideDown 0.5s ease forwards;
+      visibility: visible;
+    }
+  
+    .error-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      margin-left: 1vw;
+    }
+  
+    .error-item .material-symbols-outlined {
+      font-size: 3vw;
+    }
+  
+    div {
+      visibility: visible;
+    }
+  }
+
   .material-icons {
-    margin-top: 1.75vh;
+    margin-top: 2.4vh;
     position: absolute;
-    left: 1.5vw;
+    left: 1.5vh;
     color: var(--tonal-form-text);
-    pointer-events: none;
-    font-size: var(--font-icon);
-    font-size: 13px;
+    font-size: 0.75rem;
+  }
+
+  .material-icons.row{
+    margin-top: 2.4vh;
+    position: absolute;
+    left: 1.5vh;
+    color: var(--tonal-form-text);
+    font-size: 0.75rem;
   }
 
   #forgot_password {
-    font-size: calc(var(--font-misc) - 2px);
-    font-size: 10px;
+    font-size: 0.75rem;
   }
 
   button.custom-btn {
     height: 6vh;
-    font-size: calc(var(--font-body) - 2px);
-    font-size: 10px;
+    font-size: 0.75rem;
   }
 
   #goto_login {
-    font-size: calc(var(--font-misc) - 2px);
-    font-size: 10px;
+    font-size: 0.70rem;
   }
 
   .custom-btn {
     height: 6vh;
-    font-size: calc(var(--font-body) - 2px);
-    font-size: 10px;
+    font-size: 0.75rem;
   }
+
   #user_agreement {
     margin-top: 2vh;
     text-align: center;
-    font-size: 10px;
+    font-size: 0.65rem;
   }
 }
