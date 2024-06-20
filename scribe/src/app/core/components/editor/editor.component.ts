@@ -14,6 +14,8 @@ import { slideInOut, simpleFade } from '../../../../animations/element-animation
 import { SnackbarService } from '../../../../services/snackbar/snackbar.service';
 import { templates } from '../../../../imports/templates';
 
+type EditableProperty = 'textColor' | 'backgroundColor';
+
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
@@ -28,9 +30,26 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   lastEdited = new Date();
   textColor!: string;
   backgroundColor!: string;
-  noteTitle: string = '';
-  noteContent: string = '';
+  noteTitle = '';
+  noteContent = '';
   noteId: number | null = null;
+
+  private readonly COMMANDS = [
+    'bold',
+    'italic',
+    'underline',
+    'strikeThrough',
+    'justifyLeft',
+    'justifyCenter',
+    'justifyRight',
+    'justifyFull',
+    'insertUnorderedList',
+    'insertOrderedList',
+    'indent',
+    'outdent',
+    'foreColor',
+    'backColor',
+  ];
 
   constructor(
     private toolbarService: ToolbarService,
@@ -42,36 +61,41 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   ) {}
 
   ngAfterViewInit() {
-    this.toolbarService.setToolbarVisible(false);
-    this.updateActiveCommands();
-
-    this.route.params.subscribe((params) => {
-      if (params['id']) {
-        this.noteId = +params['id'];
-        this.loadNote();
-      } else if (params['template']) {
-        this.loadTemplate(params['template']);
-      }
-    });
+    this.initializeToolbar();
+    this.loadNoteOrTemplate();
   }
 
   ngOnDestroy() {
     this.toolbarService.setToolbarVisible(true);
   }
 
-  private loadNote() {
+  private initializeToolbar() {
+    this.toolbarService.setToolbarVisible(false);
+    this.updateActiveCommands();
+  }
+
+  private loadNoteOrTemplate() {
+    this.route.params.subscribe(async (params) => {
+      if (params['id']) {
+        this.noteId = +params['id'];
+        await this.loadNote();
+      } else if (params['template']) {
+        this.loadTemplate(params['template']);
+      }
+    });
+  }
+
+  private async loadNote() {
     if (this.noteId !== null) {
-      this.noteService.getNoteById(this.noteId).subscribe(
-        (note) => {
-          this.noteTitle = note.title;
-          this.noteContent = note.content;
-          this.lastEdited = new Date(note.last_edited);
-          this.editorContentRef.nativeElement.innerHTML = this.noteContent;
-        },
-        (error) => {
-          console.error('Error fetching note:', error);
-        }
-      );
+      try {
+        const note = await this.noteService.getNoteById(this.noteId).toPromise();
+        this.noteTitle = note.title;
+        this.noteContent = note.content;
+        this.lastEdited = new Date(note.last_edited);
+        this.editorContentRef.nativeElement.innerHTML = this.noteContent;
+      } catch (error) {
+        console.error('Error fetching note:', error);
+      }
     }
   }
 
@@ -85,16 +109,14 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   }
 
   format(command: string, value?: string) {
-    if (command === 'foreColor' || command === 'backColor') {
+    if (command === 'foreColor' || command === 'backColor' || 
+      command === 'fontSize' || command === 'formatBlock') {
       document.execCommand(command, false, value);
-    } else if (command === 'fontSize') {
-      document.execCommand('fontSize', false, value);
     } else {
       document.execCommand(command, false);
     }
     this.updateActiveCommands();
-
-    if (command === 'insertUnorderedList' || command === 'insertOrderedList') {
+    if (['insertUnorderedList', 'insertOrderedList'].includes(command)) {
       this.addListClass();
     }
   }
@@ -102,33 +124,18 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   private addListClass() {
     const editorContent = this.editorContentRef.nativeElement;
     const lists = editorContent.querySelectorAll('ul, ol');
-    lists.forEach((list: HTMLElement) => {
-      list.classList.add('custom-list');
-    });
+    lists.forEach((list: HTMLElement) => list.classList.add('custom-list'));
   }
 
   formatBlock(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
     const tag = selectElement.value;
-    document.execCommand('formatBlock', false, tag);
-    this.updateActiveCommands();
+    this.format('formatBlock', tag);
   }
 
   onFontSizeChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
-    const fontSize = selectElement.value;
-    this.format('fontSize', fontSize);
-  }
-
-  private changeColor(event: Event, command: string, property: string) {
-    const target = event.target as HTMLInputElement;
-    if (target && target.value) {
-      const color = target.value;
-      this.format(command, color);
-      if (property === 'textColor' || property === 'backgroundColor') {
-        this[property] = color;
-      }
-    }
+    this.format('fontSize', selectElement.value);
   }
 
   changeTextColor(event: Event) {
@@ -139,34 +146,25 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     this.changeColor(event, 'backColor', 'backgroundColor');
   }
 
+  private changeColor(event: Event, command: string, property: EditableProperty) {
+    const target = event.target as HTMLInputElement;
+    if (target && target.value) {
+      this.format(command, target.value);
+      this[property] = target.value;
+    }
+  }
+
   private updateActiveCommands() {
-    const commands = [
-      'bold',
-      'italic',
-      'underline',
-      'strikeThrough',
-      'justifyLeft',
-      'justifyCenter',
-      'justifyRight',
-      'justifyFull',
-      'insertUnorderedList',
-      'insertOrderedList',
-      'indent',
-      'outdent',
-      'foreColor',
-      'backColor',
-    ];
-    commands.forEach((command) => {
+    this.COMMANDS.forEach(command => {
       this.activeCommands[command] = document.queryCommandState(command);
     });
   }
 
   onContentChange(event: Event) {
-    const content = (event.target as HTMLElement).innerHTML;
-    this.noteContent = content;
+    this.noteContent = (event.target as HTMLElement).innerHTML;
   }
 
-  saveNote() {
+  async saveNote() {
     console.log('Note title:', this.noteTitle);
     console.log('Note content:', this.noteContent);
     console.log('Note last edited:', this.lastEdited);
@@ -180,30 +178,21 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
       lastEdited: this.lastEdited.toISOString(), // Ensure proper formatting
     };
 
-    if (this.noteId !== null) {
-      this.noteService.updateNote(this.noteId, noteData).subscribe(
-        (response) => {
-          console.log('Note updated:', response);
-          this.snackbarService.show('Note updated!');
-        },
-        (error) => {
-          console.error('Error updating note:', error);
-          alert('Error updating note!');
-        }
-      );
-    } else {
-      // For new notes, create a new note without an ID
-      this.noteService.saveNote(noteData).subscribe(
-        (response) => {
-          console.log('Note saved:', response);
-          this.noteId = response.id; // Set the new note ID
-          this.snackbarService.show('Note saved!');
-        },
-        (error) => {
-          console.error('Error saving note:', error);
-          alert('Error saving note!');
-        }
-      );
+    try {
+      if (this.noteId !== null) {
+        const response = 
+          await this.noteService.updateNote(this.noteId, noteData).toPromise();
+        console.log('Note updated:', response);
+        this.snackbarService.show('Note updated!');
+      } else {
+        const response = await this.noteService.saveNote(noteData).toPromise();
+        console.log('Note saved:', response);
+        this.noteId = response.id; // Set the new note ID
+        this.snackbarService.show('Note saved!');
+      }
+    } catch (error) {
+      console.error('Error saving note:', error);
+      alert('Error saving note!');
     }
   }
 
