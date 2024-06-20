@@ -10,7 +10,7 @@
 
 #recovery_main {
   flex: 1;
-  padding: 9vh 5vw;
+  padding: 4%;
 }
 
 #recovery_graphics {
@@ -115,6 +115,11 @@ form {
   transition: transform 0.4s ease-in-out;
   background-color: var(--main-button) !important;
   color: #eff4f2 !important;
+}
+
+#recovery_info {
+  text-align: center;
+  margin: 3vh;
 }
 
 /* Error styles */
@@ -270,10 +275,8 @@ form {
     .error-message {
       margin-top: 5px;
       font-size: var(--font-error);
-
-      div {
-        color: var(--error-message);
-      }
+      color: var(--error-message);
+      visibility: visible;
     }
   }
 
@@ -303,9 +306,7 @@ form {
 }
 
 /* MEDIA QUERIES */
-
-/* Mobile Devices (up to 480px) */
-@media (max-width: 480px) {
+@media screen and (max-width: 339px) {
   #recovery_container {
     flex-direction: column;
   }
@@ -321,79 +322,128 @@ form {
   }
 
   nav {
-    gap: 2vw;
+    gap: 3.5vw;
   }
 
   .recovery-form h1 {
-    font-size: var(--font-title);
-    color: var(--text);
     font-size: 20px;
   }
 
   .recovery-form h4 {
     margin-top: 2vh;
-    font-size: var(--font-body);
-    color: var(--text);
-    font-weight: 400;
     font-size: 10px;
   }
 
   .input-group label {
-    margin-bottom: 2vh;
-    margin-left: 0vw;
-    font-size: var(--font-body);
     font-size: 10px;
-    font-weight: 500;
-    color: var(--label);
+    margin-bottom: 1vh;
   }
 
   .recovery-form input[type="text"],
   .recovery-form input[type="password"] {
-    padding: 1.5vh 4vw;
+    padding: 1.5vh 4vw 1.5vh 8vw;
     height: 6vh;
-    font-size: calc(var(--font-form) - 2px);
     font-size: 10px;
   }
 
   .recovery-form input[type="text"]::placeholder,
   .recovery-form input[type="password"]::placeholder {
-    margin-top: 1.35vh;
-    opacity: 10;
-    color: var(--tonal-form-text);
-    font-size: var(--font-form);
-    font-size: 9px;
-    padding: 3vw;
+    font-size: 10px;
   }
 
   .material-icons {
-    margin-top: 1.75vh;
     position: absolute;
-    left: 1.5vw;
-    color: var(--tonal-form-text);
+    top: 42.5%;
+    left: 2.5vw;
+    transform: translateY(-50%);
+    font-size: 10px;
     pointer-events: none;
-    font-size: var(--font-icon);
-    font-size: 13px;
   }
 
   #forgot_password {
-    font-size: calc(var(--font-misc) - 2px);
     font-size: 10px;
   }
 
   button.custom-btn {
     height: 6vh;
-    font-size: calc(var(--font-body) - 2px);
     font-size: 10px;
   }
 
   #goto_signup {
-    font-size: calc(var(--font-misc) - 2px);
     font-size: 10px;
+  }
+
+  #recovery_info {
+    margin: 2vh;
+    font-size: 8px;
+  }
+
+  .error-message {
+    font-size: 8px;
+    margin-top: 0.3em;
+  }
+
+  .error-item .material-symbols-outlined {
+    font-size: 0.8em;
+  }
+
+  #otp_fields .otp-inputs {
+    display: flex;
+    gap: 2vw;
+  }
+
+  #otp_fields .otp-inputs input[type="text"] {
+    height: 6vh;
+    width: 12vw;
+    padding: 0.5vh;
+    font-size: 10px;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  #new_password_form .input-group {
+    margin-bottom: 2vh;
+    position: relative;
+  }
+
+  #new_password_form input[type="password"] {
+    padding: 1.5vh 10vw;
+    height: 5vh;
+    font-size: 10px;
+    border-radius: 5vw;
+    background-color: var(--tonal-form);
+  }
+
+  #new_password_form input[type="password"]::placeholder {
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  #new_password_form .material-icons {
+    position: absolute;
+    top: 45%;
+    left: 1.5vw;
+    transform: translateY(-50%);
+    font-size: 7px;
+    pointer-events: none;
+    color: var(--tonal-form-text);
+  }
+
+  #new_password_form .error-message {
+    margin-top: 5px;
+    font-size: 8px;
+    color: var(--error-message);
+  }
+
+  #new_password_form .input-group.error .material-icons {
+    top: 35%;
+    left: 1.5vw;
+    transform: translateY(-50%);
+    font-size: 7px;
   }
 }
 
-/* Tablet Devices (481px to 768px) */
-@media (min-width: 481px) and (max-width: 768px) {
+@media screen and (min-width: 340px) and (max-width: 540px) {
   #recovery_container {
     flex-direction: column;
   }
@@ -403,41 +453,403 @@ form {
   }
 
   header {
-    flex-direction: row;
-    align-items: center;
-    gap: 4vh;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2vh;
   }
 
   nav {
-    gap: 2vw;
+    gap: 3.5vw;
+  }
+
+  .recovery-form h1 {
+    font-size: 22px;
+  }
+
+  .recovery-form h4 {
+    margin-top: 2vh;
+    font-size: 11px;
+  }
+
+  .input-group label {
+    font-size: 11px;
+    margin-bottom: 1vh;
   }
 
   .recovery-form input[type="text"],
   .recovery-form input[type="password"] {
-    padding: 1.5vh 4vw;
-    height: 7vh;
-    font-size: calc(var(--font-form) - 1px);
+    padding: 1.5vh 4vw 1.5vh 8vw;
+    height: 6.5vh;
+    font-size: 11px;
   }
 
   .recovery-form input[type="text"]::placeholder,
   .recovery-form input[type="password"]::placeholder {
-    font-size: calc(var(--font-form) - 1px);
+    font-size: 11px;
   }
 
   .material-icons {
-    font-size: calc(var(--font-icon) - 2px);
+    position: absolute;
+    top: 35%;
+    left: 3vw;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
   }
 
   #forgot_password {
-    font-size: calc(var(--font-misc) - 1px);
+    font-size: 11px;
   }
 
   button.custom-btn {
-    height: 7vh;
-    font-size: calc(var(--font-body) - 1px);
+    height: 5vh;
+    font-size: 11px;
   }
 
   #goto_signup {
-    font-size: calc(var(--font-misc) - 1px);
+    font-size: 11px;
+  }
+
+  #recovery_info {
+    margin: 2vh;
+    font-size: 12px;
+  }
+
+  .error-message {
+    font-size: 9px;
+    margin-top: 0.3em;
+  }
+
+  .error-item .material-symbols-outlined {
+    font-size: 0.9em;
+  }
+
+  #otp_fields .otp-inputs {
+    display: flex;
+    gap: 2.5vw;
+  }
+
+  #otp_fields .otp-inputs input[type="text"] {
+    height: 10vh;
+    width: 12vw;
+    padding: 1.5vh;
+    font-size: 12px;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  #new_password_form .input-group {
+    margin-bottom: 2vh;
+    position: relative;
+  }
+
+  #new_password_form input[type="password"] {
+    padding: 1.5vh 8vw;
+    height: 6.5vh;
+    font-size: 11px;
+    border-radius: 5vw;
+    background-color: var(--tonal-form);
+  }
+
+  #new_password_form input[type="password"]::placeholder {
+    font-size: 11px;
+    opacity: 0.7;
+  }
+
+  #new_password_form .material-icons {
+    position: absolute;
+    top: 43%;
+    left: 1.5vw;
+    transform: translateY(-50%);
+    font-size: 9px;
+    pointer-events: none;
+    color: var(--tonal-form-text);
+  }
+
+  #new_password_form .error-message {
+    margin-top: 5px;
+    font-size: 9px;
+    color: var(--error-message);
+  }
+
+  #new_password_form .input-group.error .material-icons {
+    top: 37.5%;
+    left: 1.5vw;
+    transform: translateY(-50%);
+    font-size: 9px;
+  }
+}
+
+@media screen and (min-width: 541px) and (max-width: 739px) {
+  #recovery_container {
+    flex-direction: column;
+  }
+
+  #recovery_graphics {
+    display: none;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2vh;
+  }
+
+  nav {
+    gap: 3.5vw;
+  }
+
+  .recovery-form h1 {
+    font-size: 24px;
+  }
+
+  .recovery-form h4 {
+    margin-top: 2vh;
+    font-size: 12px;
+  }
+
+  .input-group label {
+    font-size: 12px;
+    margin-bottom: 1vh;
+  }
+
+  .recovery-form input[type="text"],
+  .recovery-form input[type="password"] {
+    padding: 1.5vh 4vw 1.5vh 8vw;
+    height: 7vh;
+    font-size: 12px;
+  }
+
+  .recovery-form input[type="text"]::placeholder,
+  .recovery-form input[type="password"]::placeholder {
+    font-size: 12px;
+  }
+
+  .material-icons {
+    position: absolute;
+    top: 35%;
+    left: 3vw;
+    transform: translateY(-50%);
+    font-size: 17px;
+    pointer-events: none;
+  }
+
+  #forgot_password {
+    font-size: 12px;
+  }
+
+  button.custom-btn {
+    height: 5vh;
+    font-size: 12px;
+  }
+
+  #goto_signup {
+    font-size: 12px;
+  }
+
+  #recovery_info {
+    margin: 2vh;
+    font-size: 12px;
+  }
+
+  .error-message {
+    font-size: 10px;
+    margin-top: 0.3em;
+  }
+
+  .error-item .material-symbols-outlined {
+    font-size: 1em;
+  }
+
+  #otp_fields .otp-inputs {
+    display: flex;
+    gap: 3vw;
+  }
+
+  #otp_fields .otp-inputs input[type="text"] {
+    height: 10vh;
+    width: 11.7vw;
+    padding: 2.5vh;
+    font-size: 13px;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  #new_password_form .input-group {
+    margin-bottom: 2vh;
+    position: relative;
+  }
+
+  #new_password_form input[type="password"] {
+    padding: 1.5vh 7vw;
+    height: 7vh;
+    font-size: 12px;
+    border-radius: 5vw;
+    background-color: var(--tonal-form);
+  }
+
+  #new_password_form input[type="password"]::placeholder {
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  #new_password_form .material-icons {
+    position: absolute;
+    top: 45%;
+    left: 2vw;
+    transform: translateY(-50%);
+    font-size: 12px;
+    pointer-events: none;
+    color: var(--tonal-form-text);
+  }
+
+  #new_password_form .error-message {
+    margin-top: 5px;
+    font-size: 10px;
+    color: var(--error-message);
+  }
+
+  #new_password_form .input-group.error .material-icons {
+    top: 39%;
+    left: 2vw;
+    transform: translateY(-50%);
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width: 740px) and (max-width: 769px) {
+  #recovery_container {
+    flex-direction: column;
+  }
+
+  #recovery_graphics {
+    display: none;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2vh;
+  }
+
+  nav {
+    gap: 3.5vw;
+  }
+
+  .recovery-form h1 {
+    font-size: 26px;
+  }
+
+  .recovery-form h4 {
+    margin-top: 2vh;
+    font-size: 14px;
+  }
+
+  .input-group label {
+    font-size: 14px;
+    margin-bottom: 1vh;
+  }
+
+  .recovery-form input[type="text"],
+  .recovery-form input[type="password"] {
+    padding: 1.5vh 4vw 1.5vh 8vw;
+    height: 8vh;
+    font-size: 14px;
+  }
+
+  .recovery-form input[type="text"]::placeholder,
+  .recovery-form input[type="password"]::placeholder {
+    font-size: 14px;
+  }
+
+  .material-icons {
+    position: absolute;
+    top: 35%;
+    left: 3.5vw;
+    transform: translateY(-50%);
+    font-size: 20px;
+    pointer-events: none;
+  }
+
+  #forgot_password {
+    font-size: 14px;
+  }
+
+  button.custom-btn {
+    height: 6vh;
+    font-size: 14px;
+  }
+
+  #goto_signup {
+    font-size: 14px;
+  }
+
+  #recovery_info {
+    margin: 2vh;
+    font-size: 15px;
+  }
+
+  .error-message {
+    font-size: 12px;
+    margin-top: 0.3em;
+  }
+
+  .error-item .material-symbols-outlined {
+    font-size: 1.2em;
+  }
+
+  #otp_fields .otp-inputs {
+    display: flex;
+    gap: 3vw;
+  }
+
+  #otp_fields .otp-inputs input[type="text"] {
+    height: 10vh;
+    width: 12vw;
+    padding: 3.5vh;
+    font-size: 14px;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  #new_password_form .input-group {
+    margin-bottom: 2vh;
+    position: relative;
+  }
+
+  #new_password_form input[type="password"] {
+    padding: 1.5vh 6vw;
+    height: 8vh;
+    font-size: 14px;
+    border-radius: 5vw;
+    background-color: var(--tonal-form);
+  }
+
+  #new_password_form input[type="password"]::placeholder {
+    font-size: 14px;
+    opacity: 0.7;
+  }
+
+  #new_password_form .material-icons {
+    position: absolute;
+    top: 45%;
+    left: 1.5vw;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+    color: var(--tonal-form-text);
+  }
+
+  #new_password_form .error-message {
+    margin-top: 5px;
+    font-size: 12px;
+    color: var(--error-message);
+  }
+
+  #new_password_form .input-group.error .material-icons {
+    top: 39%;
+    left: 1.5vw;
+    transform: translateY(-50%);
+    font-size: 15px;
   }
 }

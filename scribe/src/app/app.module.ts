@@ -35,6 +35,7 @@ import { TasksComponent } from './core/tasks/tasks.component';
 import { FoldersComponent } from './core/folders/folders.component';
 import { TrashComponent } from './core/trash/trash.component';
 import { NoteCardComponent } from './core/components/note-card/note-card.component';
+import { EditorComponent } from './core/components/editor/editor.component';
 
 /* Other Modules */
 import { MaterialModule } from '../imports/material.module';
@@ -67,6 +68,7 @@ import { SignupService } from '../services/signup/signup.service';
     DialogComponent,
     NoteCardComponent,
     TypingEffectComponent,
+    EditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,7 +77,7 @@ import { SignupService } from '../services/signup/signup.service';
     FormsModule,
     MaterialModule,
     DragDropModule,
-    NgxMasonryModule
+    NgxMasonryModule,
   ],
   providers: [
     provideAnimationsAsync(),

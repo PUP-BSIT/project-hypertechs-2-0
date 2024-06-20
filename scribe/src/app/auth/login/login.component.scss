@@ -10,7 +10,7 @@
 
 #login_main {
   flex: 1;
-  padding: 5%;
+  padding: 4%;
 }
 
 #login_graphics {
@@ -220,23 +220,11 @@ form {
 
   #login_main {
     flex: 1;
-    padding: 5vh 15vw;
-  }
-
-  .field-content {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    padding: 5vh 10vw;
   }
 
   #login_graphics {
     display: none;
-  }
-
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2vh;
   }
 
   nav {
@@ -246,7 +234,7 @@ form {
   #login_form h1 {
     font-size: var(--font-title);
     color: var(--text);
-    font-size: 20px;
+    font-size: 25px;
   }
 
   #login_form h4 {
@@ -254,63 +242,65 @@ form {
     font-size: var(--font-body);
     color: var(--text);
     font-weight: 400;
-    font-size: 10px;
+    font-size: 13px;
   }
 
   .input-group label {
     margin-bottom: 2vh;
     margin-left: 0vw;
     font-size: var(--font-body);
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 500;
     color: var(--label);
   }
 
   #login_form input[type="text"],
   #login_form input[type="password"] {
-    padding: 1.5vh 7vw;
-    height: 6vh;
+    padding: 2vh 15vw;
+    height: 8.5vh;
     font-size: calc(var(--font-form) - 2px);
-    font-size: 10px;
+    font-size: 13px;
+    opacity: 50;
   }
 
   #login_form input[type="text"]::placeholder,
   #login_form input[type="password"]::placeholder {
     margin-top: 1.35vh;
-    opacity: 10;
+    opacity: 5;
     color: var(--tonal-form-text);
     font-size: var(--font-form);
-    font-size: 10px;
-    padding: 3vw;
-    margin-right: 10vh;
+    font-size: 13px;
+    padding: 0vh;
+    margin-right: vh;
   }
 
   .material-icons {
-    margin-top: 1.75vh;
+    margin-top: 2.5vh;
     position: absolute;
-    left: 1.5vw;
+    left: 5vw;
     color: var(--tonal-form-text);
     pointer-events: none;
     font-size: var(--font-icon);
-    font-size: 13px;
+    font-size: 20px;
   }
 
   #forgot_password {
-    font-size: calc(var(--font-misc) - 2px);
-    font-size: 12px;
+    font-size: var(--font-misc);
+    font-size: 10px;
   }
 
   button.custom-btn {
-    height: 6vh;
+    height: 8.5vh;
     font-size: calc(var(--font-body) - 2px);
-    font-size: 12px;
+    font-size: 14px;
   }
 
   #goto_signup {
     font-size: calc(var(--font-misc) - 2px);
-    font-size: 12px;
+    font-size: 13px;
   }
 }
+
 
 /* Tablet Devices (481px to 768px) */
 @media (min-width: 481px) and (max-width: 768px) {
@@ -318,46 +308,82 @@ form {
     flex-direction: column;
   }
 
-  #login_graphics {
-    display: none;
+  #login_main {
+    flex: 1;
+    padding: 9vh 10vw;
   }
 
-  header {
-    flex-direction: row;
-    align-items: center;
-    gap: 4vh;
+  #login_graphics {
+    display: none;
   }
 
   nav {
     gap: 2vw;
   }
 
+  #login_form h1 {
+    font-size: var(--font-title);
+    color: var(--text);
+    font-size: 35px;
+  }
+
+  #login_form h4 {
+    margin-top: 2vh;
+    font-size: var(--font-body);
+    color: var(--text);
+    font-weight: 400;
+    font-size: 22px;
+  }
+
+  .input-group label {
+    margin-bottom: 2vh;
+    margin-left: 0vw;
+    font-size: var(--font-body);
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--label);
+  }
+
   #login_form input[type="text"],
   #login_form input[type="password"] {
-    padding: 1.5vh 4vw;
-    height: 7vh;
-    font-size: calc(var(--font-form) - 1px);
+    padding: 2vh 11vw;
+    height: 8.5vh;
+    font-size: calc(var(--font-form) - 2px);
+    font-size: 18px;
+    opacity: 50;
   }
 
   #login_form input[type="text"]::placeholder,
   #login_form input[type="password"]::placeholder {
-    font-size: calc(var(--font-form) - 1px);
+    color: var(--tonal-form-text);
+    font-size: var(--font-form);
+    font-size: 18px;
+    padding: 0vw;
+    margin-right: 10vh;
   }
 
   .material-icons {
-    font-size: calc(var(--font-icon) - 2px);
+    margin-top: 1.75vh;
+    position: absolute;
+    left: 5vw;
+    color: var(--tonal-form-text);
+    pointer-events: none;
+    font-size: var(--font-icon);
+    font-size: 30px;
   }
 
   #forgot_password {
-    font-size: calc(var(--font-misc) - 1px);
+    font-size: calc(var(--font-misc) - 2px);
+    font-size: 20px;
   }
 
   button.custom-btn {
-    height: 7vh;
-    font-size: calc(var(--font-body) - 1px);
+    height: 8.5vh;
+    font-size: calc(var(--font-body) - 2px);
+    font-size: 20px;
   }
 
   #goto_signup {
-    font-size: calc(var(--font-misc) - 1px);
+    font-size: 20px;
   }
 }
