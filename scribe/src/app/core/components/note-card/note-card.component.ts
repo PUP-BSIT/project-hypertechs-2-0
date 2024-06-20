@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxMasonryOptions } from 'ngx-masonry';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-note-card',
@@ -10,7 +11,7 @@ import { NgxMasonryOptions } from 'ngx-masonry';
 export class NoteCardComponent implements OnInit {
   @Input() note: any;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private sanitizer: DomSanitizer) {}
 
   ngOnInit() {
     console.log('Note data:', this.note);
@@ -19,6 +20,10 @@ export class NoteCardComponent implements OnInit {
     if (this.note.last_edited && typeof this.note.last_edited === 'string') {
       this.note.last_edited = new Date(this.note.last_edited);
     }
+  }
+
+  get sanitizedContent(): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(this.note.content);
   }
 
   public masonryOptions: NgxMasonryOptions = {
