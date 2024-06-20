@@ -14,11 +14,11 @@ This repository is dedicated to our upcoming Angular application project for thi
 
 ---
 
-## 📝 Scribenote Application
+## 📝 Scribe Application
 
-Introducing **Scribenote**, your new go-to note-taking app designed for busy students and professionals. Capture ideas, organize your thoughts, and boost your productivity with ease.
+Introducing **Scribe**, your new go-to note-taking app designed for busy students and professionals. Capture ideas, organize your thoughts, and boost your productivity with ease.
 
-🔗 [Visit Scribenote](https://scribenote.tech/)
+🔗 [Visit Scribe](https://scribenote.tech/)
 
 ---
 
