@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 20, 2024 at 09:58 AM
+-- Generation Time: Jun 20, 2024 at 10:20 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -51,6 +51,13 @@ CREATE TABLE `notes` (
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `notes`
+--
+
+INSERT INTO `notes` (`id`, `title`, `content`, `last_edited`, `user_id`, `folder_id`, `tags`, `is_deleted`) VALUES
+(7, 'fallingforyou', 'What time you coming out?<div><i>We started losing light...</i></div>', '2024-06-20 16:18:18', 47, NULL, NULL, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -67,24 +74,6 @@ CREATE TABLE `notes_test` (
   `folder` varchar(255) DEFAULT NULL,
   `is_deleted` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `notes_test`
---
-
-INSERT INTO `notes_test` (`id`, `title`, `content`, `last_edited`, `user_id`, `tags`, `folder`, `is_deleted`) VALUES
-(97, 'Starboy', 'I\'m tryna put you on a worst mood ah', '2024-06-18 22:38:52', 49, NULL, NULL, 0),
-(98, 'John Wick', 'Hi! I\'m John Wick.&nbsp;<div>I\'m gonna kill your entire bloodline</div><div>Ha-ha! kidding</div><div>Or...Am I?</div><div>Maybe</div><div><br></div>', '2024-06-18 23:41:59', 48, NULL, NULL, 0),
-(102, 'Kill List', '1. Viggo<div>2. Zeros</div><div>3. Me...?</div>', '2024-06-18 23:48:50', 48, NULL, NULL, 0),
-(112, 'My First Note', '<h2><font color=\"#b71a1a\">THEY NOT LIKE US!!!</font></h2>', '2024-06-19 09:58:54', 50, NULL, NULL, 0),
-(113, 'Guilty as Sin?', '<div>Drowning in the Blue Nile</div><div>He sent me \'Downtown Lights\'</div><div>I hadn\'t heard it in a while</div><div>My boredom\'s bone deep</div><div>This cage was once just fine</div><div>Am I allowed to cry?</div><div>I dream of cracking locks</div><div>Throwing my life to the wolves</div><div>Or the ocean rocks</div><div>Crashing into him tonight</div><div>He\'s a paradox</div><div>I\'m seeing visions, am I bad?</div><div>Or mad? Or wise?<span style=\"color: var(--text);\">Drowning in the Blue Nile</span></div><div>He sent me \'Downtown Lights\'</div><div>I hadn\'t heard it in a while</div><div>My boredom\'s bone deep</div><div>This cage was once just fine</div><div>Am I allowed to cry?</div><div>I dream of cracking locks</div><div>Throwing my life to the wolves</div><div>Or the ocean rocks</div><div>Crashing into him tonight</div><div>He\'s a paradox</div><div>I\'m seeing visions, am I bad?</div><div>Or mad? Or wise?</div><div>What if he\'s written \'mine\' on my upper thigh</div><div>Only in my mind?</div><div>One slip and falling back into the hedge maze</div><div>Oh what a way to die</div><div>I keep recalling things we never did</div><div>Messy top lip kiss</div><div>How I long for our trysts</div><div>Without ever touching his skin</div><div>How can I be guilty as sin?</div><div>What if he\'s written \'mine\' on my upper thigh</div><div>Only in my mind?</div><div>One slip and falling back into the hedge maze</div><div>Oh what a way to die</div><div>I keep recalling things we never did</div><div>Messy top lip kiss</div><div>How I long for our trysts</div><div>Without ever touching his skin</div><div>How can I be guilty as sin?</div>', '2024-06-19 16:38:16', 47, NULL, NULL, 0),
-(504, 'State of Grace', '<font color=\"#d21e1e\"><b>I\'m walking fast through the traffic lights...</b></font>', '2024-06-20 12:39:46', 47, NULL, NULL, 0),
-(505, 'Well', 'we\'re fucked up', '2024-06-19 23:15:54', 47, NULL, NULL, 0),
-(506, 'Not Like Us', 'Mustard on the beat, hoe!<div><br></div>', '2024-06-20 12:39:25', 47, NULL, NULL, 0),
-(507, 'App Dev', 'papasa ba kami dito', '2024-06-20 13:13:36', 47, NULL, NULL, 0),
-(508, 'Sample Note', 'This is a note content', '2024-06-20 13:45:52', 47, NULL, NULL, 0),
-(509, 'NOTE', 'This is a test', '2024-06-20 13:51:19', 47, NULL, NULL, 0),
-(510, 'So High School', 'i feel so highschool...', '2024-06-20 13:53:51', 47, 'music', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -227,7 +216,7 @@ ALTER TABLE `folders`
 -- AUTO_INCREMENT for table `notes`
 --
 ALTER TABLE `notes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `notes_test`
