@@ -18,6 +18,7 @@
         matRippleColor="rgba(61, 156, 119, 0.1)"
         class="template-card"
         *ngFor="let template of templates"
+        (click)="selectTemplate(template)"
       >
         <span class="material-symbols-outlined">{{ template.icon }}</span>
         <span class="template-title">{{ template.title }}</span>
@@ -38,7 +39,7 @@
       <!--Notes Tiles-->
       <div id="pinned_notes_tiles">
         <ngx-masonry class="masonry-note-container">
-          <app-note-card></app-note-card>
+          <!-- <app-note-card></app-note-card> -->
         </ngx-masonry>
       </div>
     </div>

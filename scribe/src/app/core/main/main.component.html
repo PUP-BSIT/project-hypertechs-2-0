@@ -7,8 +7,8 @@
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'push' : 'side'"
     [opened]="(isHandset$ | async) === false"
-    [@slideInOut]="isOpened ? 'in' : 'void'">
-
+    [@slideInOut]="isOpened ? 'in' : 'void'"
+  >
     <div class="sidenav-header">
       <div class="core-brand" [routerLink]="['/main/home']">
         <img src="../../../assets/images/quill-pen.png" />
@@ -147,6 +147,7 @@
   <!--Main Content-->
   <mat-sidenav-content [@simpleFade]>
     <!--Page Toolbar -->
+    @if(toolbarVisible) {
     <mat-toolbar color="primary">
       <!--Menu Toggle-->
       <div id="scribe_menu-container">
@@ -155,8 +156,8 @@
           type="button"
           aria-label="Toggle sidenav"
           mat-icon-button
-          (click)="drawer.toggle()"
-        >
+          (click)="drawer.toggle()">
+          
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
         }
@@ -180,6 +181,7 @@
         </div>
       </div>
     </mat-toolbar>
+    }
 
     <!--Actual Loaded Pages Content-->
     <div class="scribe-core-content">

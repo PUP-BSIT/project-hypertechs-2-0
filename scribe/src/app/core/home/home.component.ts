@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../services/user/user.service';
 import { TitleCaseService } from '../../../services/title-case/title-case.service';
 import { FeaturedTemplates } from '../../../models/model';
@@ -35,4 +34,29 @@ export class HomeComponent implements OnInit {
     { icon: 'school', title: 'Lectures' },
     { icon: 'today', title: 'Daily Planner' },
   ];
+
+  selectTemplate(template: FeaturedTemplates) {
+    switch (template.title) {
+      case 'Meeting':
+        this.router.navigate(['/main/editor', { template: 'meeting' }]);
+        break;
+      case 'Tasks List':
+        this.router.navigate(['/main/editor', { template: 'tasksList' }]);
+        break;
+      case 'Project Plan':
+        this.router.navigate(['/main/editor', { template: 'projectPlan' }]);
+        break;
+      case 'Event Plan':
+        this.router.navigate(['/main/editor', { template: 'eventPlan' }]);
+        break;
+      case 'Lectures':
+        this.router.navigate(['/main/editor', { template: 'lectures' }]);
+        break;
+      case 'Daily Planner':
+        this.router.navigate(['/main/editor', { template: 'dailyPlanner' }]);
+        break;
+      default:
+        console.log('Template not found');
+    }
+  }
 }

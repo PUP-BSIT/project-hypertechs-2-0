@@ -5,7 +5,7 @@
 
 .masonry-note {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   background-color: var(--note-card);
   border-radius: 10px;
   font-size: 1rem;
@@ -33,12 +33,17 @@
   }
 
   .note-content {
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1.25rem;
     line-height: 1.5;
+    max-height: 21vh;
+    max-width: 90%;
+    overflow: hidden;
+    position: relative;
   }
 
   .note-footer {
     padding: 1rem;
+    margin-top: auto; /* Pushes footer to the bottom */
 
     #last_edited_info {
       display: flex;
