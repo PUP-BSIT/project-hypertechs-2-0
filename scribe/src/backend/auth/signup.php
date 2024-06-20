@@ -1,5 +1,7 @@
 <?php
+
 require_once('config.php');
+
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
@@ -11,15 +13,6 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "scribe_db";
-    $servername = "127.0.0.1:3306";
-    $username = "u565642650_scribe_user";
-    $password = "Hypertechs2.0_dbpass";
-    $dbname = "u565642650_scribe_db";
-
-    // $servername = "localhost";
-    // $firstname = "root";
-    // $password = "";
-    // $dbname = "scribe_db";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -86,7 +79,7 @@ if (isset($data['lastname']) && isset($data['firstname']) && isset($data['email'
             echo json_encode(['error' => "You've undeliverable. Failed to register!"]);
             $conn->close();
             exit();
-        } 
+        }
 
         $_SESSION['otp'] = $verification_code; // Store the code in the session
         $_SESSION['email'] = $email;
