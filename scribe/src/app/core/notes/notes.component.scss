@@ -2,6 +2,27 @@
   position: relative;
 }
 
+#notes_heading {
+  margin-bottom: 1rem;
+
+  h1 {
+    font-size: 3.5vw;
+    font-family: "Google Sans", sans-serif;
+    font-weight: 500;
+    background: -webkit-linear-gradient(
+      45deg,
+      var(--highlight-prime) 15%,
+      var(--highlight-next) 70%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.025em;
+    transition: color 0.75s ease;
+    width: 60%;
+  }
+}
+
 .custom-fab {
   position: fixed;
   bottom: 4vw;
@@ -14,4 +35,19 @@
   color: rgb(229, 254, 247);
   background-color: var(--main-button);
   padding: 1.5%;
+}
+
+.empty-notes {
+  opacity: 0.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2vh;
+  cursor: pointer;
+  margin-top: 5%;
+
+  img {
+    width: 20%;
+    height: auto;
+  }
 }

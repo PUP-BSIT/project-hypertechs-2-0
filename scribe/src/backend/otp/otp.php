@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
@@ -30,17 +30,46 @@ if (isset($data['otp'])) {
     $receivedOtp = $data['otp'];
 
     // Query directly using the OTP
-    $stmt = $conn->prepare("SELECT verification_code FROM verification_codes WHERE verification_code = ?");
+    $stmt = $conn->prepare(
+        "SELECT verification_code, expiration_time, user_id 
+        FROM verification_codes 
+        WHERE verification_code = ?"
+    );
+
     $stmt->bind_param("s", $receivedOtp);
     $stmt->execute();
-    $stmt->bind_result($verificationCode);
+    $stmt->bind_result($verificationCode, $expirationTime, $user_id);
     $stmt->fetch();
     $stmt->close();
 
+    error_log("Received OTP: " . $receivedOtp);
+    error_log("Fetched verification code: " . $verificationCode);
+
     if ($receivedOtp === $verificationCode) {
-        echo json_encode(['status' => 'success', 'otp' => $receivedOtp]);
+
+         $currentDateTime = new DateTime();
+         $otpExpirationDateTime = new DateTime($expirationTime);
+
+         if ($currentDateTime < $otpExpirationDateTime){
+
+            $_SESSION['user_id'] = $user_id;
+
+            echo json_encode([
+                'status' => 'success', 
+                'otp' => $receivedOtp, 
+                'id'=>$user_id, 
+                'session'=>$_SESSION['user_id']]);/*TODO for testing*/
+        } else{
+            echo json_encode([
+                'status' => 'error', 
+                'message'=> 'OTP has expired']);
+        }  
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'OTP does not match']);
+        echo json_encode([
+            'status' => 'error', 
+            'message' => 'OTP does not match', 
+            'verification'=>$verificationCode, 
+            'receivedOtp' => $receivedOtp]); /*TODO for testing*/
     }
 } else {
     http_response_code(400);
