@@ -82,17 +82,21 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.toolbarService.setToolbarVisible(true);
-
-    this.snackbarService.show(
-      'Note saved successfully!', 
-      'Close', 
-      this.snackbarDuration
-    );
-
+  
+    // Check if any changes have been made before showing the snackbar
+    if (this.noteContent.trim() !== '' || this.noteTitle.trim() !== '') {
+      this.snackbarService.show(
+        'Note saved successfully!', 
+        'Close', 
+        this.snackbarDuration
+      );
+    }
+  
     if (this.autoSaveInterval) {
       this.autoSaveInterval.unsubscribe();
     }
   }
+  
 
   private initializeToolbar() {
     this.toolbarService.setToolbarVisible(false);
