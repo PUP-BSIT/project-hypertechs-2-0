@@ -6,7 +6,9 @@
   <div id="all_notes_tiles">
     <ngx-masonry class="masonry-note-container">
       <!--Bind the fetched notes to this component-->
-      <app-note-card *ngFor="let note of notes" [note]="note"></app-note-card>
+      @for (note of notes; track note.id) {
+        <app-note-card [note]="note"></app-note-card>
+      }
     </ngx-masonry>
   </div>
   <!-- Floating Action Button -->
