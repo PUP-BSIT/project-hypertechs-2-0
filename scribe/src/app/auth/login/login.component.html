@@ -38,9 +38,12 @@
             />
 
             <!--Email error message-->
-            <div class="error-message" 
-              [ngClass]="{'visible': emailControl?.invalid 
-                && emailControl?.touched}">
+            <div
+              class="error-message"
+              [ngClass]="{
+                visible: emailControl?.invalid && emailControl?.touched
+              }"
+            >
               @if (emailControl?.errors?.['required'] && emailControl?.touched){
               <div class="error-item">
                 <span class="material-symbols-outlined">error</span>
@@ -86,9 +89,12 @@
             <!--Below the password, we wrap forgot password and error msg-->
             <div id="below_pass_row">
               <!--Error Message-->
-              <div class="error-message password" 
-                [ngClass]="{'visible': passwordControl?.invalid 
-                  && passwordControl?.touched}">
+              <div
+                class="error-message password"
+                [ngClass]="{
+                  visible: passwordControl?.invalid && passwordControl?.touched
+                }"
+              >
                 @if (passwordControl?.errors?.['required'] &&
                 passwordControl?.touched) {
                 <div class="error-item">
@@ -107,22 +113,21 @@
 
         <!--Login submit form-->
         <button
-        mat-flat-button
-        type="submit"
-        class="custom-btn"
-        [ngClass]="{
-          'button-enabled': loginForm.valid && !isLoading,
-          'button-disabled': !loginForm.valid || isLoading
-        }"
-        [disabled]="!loginForm.valid || isLoading">
-
-        @if(!isLoading){
+          mat-flat-button
+          type="submit"
+          class="custom-btn"
+          [ngClass]="{
+            'button-enabled': loginForm.valid && !isLoading,
+            'button-disabled': !loginForm.valid || isLoading
+          }"
+          [disabled]="!loginForm.valid || isLoading"
+        >
+          @if(!isLoading){
           <span>Log In</span>
-        } @if (isLoading) {
+          } @if (isLoading) {
           <mat-spinner diameter="30" color="primary"></mat-spinner>
-        }
-      </button>
-
+          }
+        </button>
       </form>
     </div>
     <a id="goto_signup" routerLink="/signup">No account yet? Sign up now.</a>
