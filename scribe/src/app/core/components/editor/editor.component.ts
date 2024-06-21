@@ -39,6 +39,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   autoSaveInterval: any;
   contentChanged = new Subject<void>();
   private snackbarDuration: number = 3000;
+  readOnly = false;
 
   private readonly COMMANDS = [
     'bold',
@@ -82,7 +83,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.toolbarService.setToolbarVisible(true);
-  
+
     // Check if any changes have been made before showing the snackbar
     if (this.noteContent.trim() !== '' || this.noteTitle.trim() !== '') {
       this.snackbarService.show(
@@ -91,12 +92,11 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
         this.snackbarDuration
       );
     }
-  
+
     if (this.autoSaveInterval) {
       this.autoSaveInterval.unsubscribe();
     }
   }
-  
 
   private initializeToolbar() {
     this.toolbarService.setToolbarVisible(false);
@@ -248,5 +248,10 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   // Return to notes list
   goBack() {
     this.location.back();
+  }
+
+  // Toggle between edit and read-only modes
+  toggleEditMode() {
+    this.readOnly = !this.readOnly;
   }
 }
