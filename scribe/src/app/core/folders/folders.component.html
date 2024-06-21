@@ -1,1 +1,30 @@
-<p>folders works!</p>
+<div class="folders-container">
+    <div id="folders_heading">
+      <h1>Folders</h1>
+    </div>
+    <div class="header">
+      <div class="filter-field-container">
+        <mat-form-field appearance="fill" class="filter-field">
+          <mat-select disableRipple [(value)]="selectedFilter">
+            <mat-option *ngFor="let filter of filters" [value]="filter">{{ filter }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="view-toggle-container">
+        <button class="view-toggle-button" (click)="toggleView()">
+          {{ isGridView ? 'List View' : 'Grid View' }}
+          <mat-icon>{{ isGridView ? 'view_list' : 'view_module' }}</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="folder-grid" [ngClass]="{'grid-view': isGridView, 'list-view': !isGridView}">
+      <div class="folder" *ngFor="let folder of folders">
+        <span class="material-symbols-outlined">folder</span>
+        <p class="folder-name">{{ folder.name }}</p>
+      </div>
+    </div>
+    <button mat-fab extended class="new-folder-button">
+      <mat-icon>add_circle</mat-icon> New Folder
+    </button>
+  </div>
+  
