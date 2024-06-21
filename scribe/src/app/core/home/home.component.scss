@@ -32,7 +32,7 @@
       // border: 1px solid yellow;
     }
 
-    #reminders_list {
+    #tasks_list {
       flex-grow: 1;
       display: flex;
       flex-direction: column;
@@ -42,7 +42,7 @@
       border-radius: 10px;
       // border: 1px solid green;
 
-      #reminders_empty {
+      #tasks_empty {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -181,7 +181,7 @@ h3 {
 }
 
 /* ------ REMINDERS LIST STYLING ------ */
-#reminders_empty {
+#tasks_empty {
   opacity: 0.5;
 
   img {
