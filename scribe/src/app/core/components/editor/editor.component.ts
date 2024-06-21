@@ -38,6 +38,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   noteId: number | null = null;
   autoSaveInterval: any;
   contentChanged = new Subject<void>();
+  private snackbarDuration: number = 3000;
 
   private readonly COMMANDS = [
     'bold',
@@ -82,7 +83,11 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.toolbarService.setToolbarVisible(true);
 
-    this.snackbarService.show('Note saved successfully!');
+    this.snackbarService.show(
+      'Note saved successfully!', 
+      'Close', 
+      this.snackbarDuration
+    );
 
     if (this.autoSaveInterval) {
       this.autoSaveInterval.unsubscribe();
