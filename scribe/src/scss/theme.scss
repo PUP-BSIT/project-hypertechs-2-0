@@ -28,8 +28,9 @@
   --error-message: #93000a;
 
   --core-bg: #fbfffe;
-  --core-nav: #e6f1ed;
-  --core-nav-hover: #006c531e;
+  --core-nav: #e7f1ee;
+  --core-nav-hover: #636f6c29;
+  --core-nav-active: #006c531e;
 
   --destructive-bg: #c5010133;
   --destructive-text: #970000;
@@ -39,7 +40,10 @@
   --feat-template: #e6f1ed;
   --feat-text: #014837;
 
-  --empty-bg: #ebf7f3;
+  --note-card: #f4f5f4;
+  --empty-bg: #f4f5f4;
+
+  --toolbar: #fbfffe;
 }
 
 body.dark-mode {
@@ -73,7 +77,8 @@ body.dark-mode {
 
   --core-bg: #111313;
   --core-nav: #181a1a;
-  --core-nav-hover: #0093711c;
+  --core-nav-hover: #7f908c1a;
+  --core-nav-active: #006c531e;
 
   --destructive-bg: #532b2b52;
   --destructive-text: #ae2c2c;
@@ -83,6 +88,9 @@ body.dark-mode {
   --feat-template: #162522;
   --feat-text: #98d5bf;
 
-  --empty-bg: #151717;
+  --note-card: #181a1a;
+  --empty-bg: #161818;
+
+  --toolbar: #181a1a;
 
 }

@@ -1,0 +1,188 @@
+<div class="scribe-editor-container" [@simpleFade]>
+  <!--Editor header-->
+  <div class="editor-header">
+    <button mat-button class="btn-back" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+      Back
+    </button>
+    <div class="editor-actions">
+      <form (ngSubmit)="saveNote()" #noteForm="ngForm">
+        <button mat-button class="btn-fullscreen">
+          <mat-icon>open_in_full</mat-icon>
+          Full Screen
+        </button>
+        <button mat-button class="btn-save">
+          <mat-icon>check</mat-icon>
+          Done
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!--Note Title-->
+  <div class="editor-title">
+    <input
+      type="text"
+      placeholder="Add note title"
+      class="title-input"
+      [(ngModel)]="noteTitle"
+    />
+  </div>
+
+  <!--Note Timestamp-->
+  <div class="editor-timestamp">
+    Last edited: {{ lastEdited | date : "short" }}
+  </div>
+
+  <!--Note Tags & Reminders-->
+  <div class="editor-tags-reminders">
+    <button mat-button class="btn-tags">
+      <mat-icon>new_label</mat-icon>
+      Add Tags
+    </button>
+    <button mat-button class="btn-reminders">
+      <mat-icon>notifications</mat-icon>
+      Add Reminders
+    </button>
+  </div>
+
+  <!--Note Editor Content-->
+  <div
+    class="editor-content"
+    contenteditable="true"
+    #editorContent
+    data-placeholder="Write down your notes here..."
+    (input)="onContentChange($event)"
+  ></div>
+
+  <!--Editor Toolbar-->
+  <div class="editor-toolbar">
+    <!-- Font Styles -->
+    <div class="toolbar-group">
+      <button [class.active]="activeCommands['bold']" (click)="format('bold')">
+        <mat-icon>format_bold</mat-icon>
+      </button>
+      <button
+        [class.active]="activeCommands['italic']"
+        (click)="format('italic')"
+      >
+        <mat-icon>format_italic</mat-icon>
+      </button>
+      <button
+        [class.active]="activeCommands['underline']"
+        (click)="format('underline')"
+      >
+        <mat-icon>format_underline</mat-icon>
+      </button>
+      <button
+        [class.active]="activeCommands['strikeThrough']"
+        (click)="format('strikeThrough')"
+      >
+        <mat-icon>strikethrough_s</mat-icon>
+      </button>
+    </div>
+
+    <!-- Alignments -->
+    <div class="toolbar-group">
+      <button
+        [class.active]="activeCommands['justifyLeft']"
+        (click)="format('justifyLeft')"
+      >
+        <mat-icon>format_align_left</mat-icon>
+      </button>
+      <button
+        [class.active]="activeCommands['justifyCenter']"
+        (click)="format('justifyCenter')"
+      >
+        <mat-icon>format_align_center</mat-icon>
+      </button>
+      <button
+        [class.active]="activeCommands['justifyRight']"
+        (click)="format('justifyRight')"
+      >
+        <mat-icon>format_align_right</mat-icon>
+      </button>
+      <button
+        [class.active]="activeCommands['justifyFull']"
+        (click)="format('justifyFull')"
+      >
+        <mat-icon>format_align_justify</mat-icon>
+      </button>
+    </div>
+
+    <!-- Headings -->
+    <div class="toolbar-group">
+      <select (change)="formatBlock($event)">
+        <option value="" selected disabled hidden>Headings</option>
+        <option value="h1">Heading 1</option>
+        <option value="h2">Heading 2</option>
+        <option value="h3">Heading 3</option>
+        <option value="p">Paragraph</option>
+      </select>
+    </div>
+
+    <!-- Font Size -->
+    <div class="toolbar-group">
+      <select (change)="onFontSizeChange($event)">
+        <option value="1">8</option>
+        <option value="2">10</option>
+        <option value="3">12</option>
+        <option value="4">14</option>
+        <option value="5">16</option>
+        <option value="6">18</option>
+        <option value="7">20</option>
+        <option value="8">24</option>
+        <option value="9">32</option>
+        <option value="10">36</option>
+      </select>
+    </div>
+
+    <!-- Lists -->
+    <div class="toolbar-group">
+      <button
+        [class.active]="activeCommands['insertUnorderedList']"
+        (click)="format('insertUnorderedList')"
+      >
+        <mat-icon>format_list_bulleted</mat-icon>
+      </button>
+      <button
+        [class.active]="activeCommands['insertOrderedList']"
+        (click)="format('insertOrderedList')"
+      >
+        <mat-icon>format_list_numbered</mat-icon>
+      </button>
+    </div>
+
+    <!-- Indentation -->
+    <div class="toolbar-group">
+      <button
+        [class.active]="activeCommands['indent']"
+        (click)="format('indent')"
+      >
+        <mat-icon>format_indent_increase</mat-icon>
+      </button>
+      <button
+        [class.active]="activeCommands['outdent']"
+        (click)="format('outdent')"
+      >
+        <mat-icon>format_indent_decrease</mat-icon>
+      </button>
+    </div>
+
+    <!-- Colors -->
+    <div class="toolbar-group">
+      <label for="textColor"><mat-icon>format_color_text</mat-icon></label>
+      <input
+        type="color"
+        (input)="changeTextColor($event)"
+        [(ngModel)]="textColor"
+      />
+      <label for="textColor"><mat-icon>border_color</mat-icon></label>
+      <input
+        type="color"
+        (input)="changeBackgroundColor($event)"
+        [(ngModel)]="backgroundColor"
+      />
+    </div>
+  </div>
+</div>

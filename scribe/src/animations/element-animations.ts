@@ -9,7 +9,7 @@ export const slideInOut = trigger('slideInOut', [
     style({
       transform: 'translateX(-100%)',
       opacity: 0,
-      'will-change': 'transform, opacity' // Optimize for GPU acceleration
+      // 'will-change': 'transform, opacity' // Optimize for GPU acceleration
     }),
     animate('800ms ease-out')
   ]),

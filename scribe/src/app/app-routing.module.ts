@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '../guards/auth.guard';
+import { authGuard } from '../guards/auth.guard';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 /* Scribe App Components*/
@@ -17,6 +17,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { RecoveryComponent } from './auth/recovery/recovery.component';
 import { EnterOtpComponent } from './auth/recovery/enter-otp/enter-otp.component';
 import { EnterNewPasswordComponent } from './auth/recovery/enter-new-password/enter-new-password.component';
+import { EditorComponent } from './core/components/editor/editor.component';
 
 const routes: Routes = [
   {
@@ -52,13 +53,15 @@ const routes: Routes = [
   {
     path: 'main',
     component: MainComponent,
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
     children: [
       { path: 'home', component: HomeComponent },
       { path: 'notes', component: NotesComponent },
       { path: 'tasks', component: TasksComponent },
       { path: 'folders', component: FoldersComponent },
       { path: 'trash', component: TrashComponent },
+      { path: 'editor', component: EditorComponent },
+      { path: 'editor/:id', component: EditorComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ],
   },

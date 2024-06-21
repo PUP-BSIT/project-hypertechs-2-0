@@ -1,8 +1,17 @@
 <div class="scribe-notes-container">
-    note works!
-    <!-- Floating Action Button -->
-    <button mat-fab extended class="custom-fab">
-      <mat-icon>create</mat-icon>
-      <span>New note</span>
-    </button>
+  <div id="notes_heading">
+    <h1>My Notes</h1>
   </div>
+  <!--Notes Tiles-->
+  <div id="all_notes_tiles">
+    <ngx-masonry class="masonry-note-container">
+      <!--Bind the fetched notes to this component-->
+      <app-note-card *ngFor="let note of notes" [note]="note"></app-note-card>
+    </ngx-masonry>
+  </div>
+  <!-- Floating Action Button -->
+  <button routerLink="/main/editor" mat-fab extended class="custom-fab">
+    <mat-icon>create</mat-icon>
+    <span>New note</span>
+  </button>
+</div>
