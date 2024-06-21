@@ -177,6 +177,7 @@ form {
   visibility: hidden;
   font-size: var(--font-error);
   overflow: hidden;
+  font-size: 15px;
 
   &.visible {
     animation: slideDown 0.5s ease forwards;
@@ -191,7 +192,7 @@ form {
   }
 
   .error-item .material-symbols-outlined {
-    font-size: 1.2vw;
+    font-size: 15px;
   }
 }
 @keyframes slideDown {
@@ -300,7 +301,6 @@ form {
     font-size: 13px;
   }
 }
-
 
 /* Tablet Devices (481px to 768px) */
 @media (min-width: 481px) and (max-width: 768px) {
