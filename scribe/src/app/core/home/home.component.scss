@@ -166,7 +166,11 @@ h3 {
 /* ------ RECENT NOTES STYLING ------ */
 
 #recent_notes {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   margin-top: 1vw;
+  height: 100%;
 
   #recent_notes_heading {
     display: flex;
@@ -178,6 +182,21 @@ h3 {
     margin-top: 1rem;
     width: 100%;
   }
+
+  .empty-notes {
+    opacity: 0.5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2vh;
+    cursor: pointer;
+    margin-top: 5%;
+
+    img {
+      width: 20%;
+      height: auto;
+    }
+  }
 }
 
 /* ------ REMINDERS LIST STYLING ------ */
@@ -186,9 +205,5 @@ h3 {
 
   img {
     width: 80%;
-  }
-
-  p {
-    font-size: 1.1vw;
   }
 }

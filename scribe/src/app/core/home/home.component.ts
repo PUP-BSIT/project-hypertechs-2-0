@@ -10,12 +10,13 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+  styleUrls: ['./home.component.scss'], // Corrected from 'styleUrl'
 })
 export class HomeComponent implements OnInit, OnDestroy {
   @Input() firstname: string | null = null;
   @Input() note: any;
   notes: any[] = [];
+  isLoading = true; // Add this flag
   private userSubscription!: Subscription;
 
   constructor(
@@ -37,6 +38,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.loadNotes();
       } else {
         this.notes = []; // Clear notes when no user is logged in
+        this.isLoading = false; // Set loading to false if no user
       }
     });
   }
@@ -46,9 +48,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       (data) => {
         console.log('Notes received from backend:', data);
         this.notes = data;
+        this.isLoading = false; // Set the flag to false when loading is complete
       },
       (error) => {
         console.error('Error fetching notes:', error);
+        this.isLoading = false; // Set the flag to false even on error
       }
     );
   }
@@ -91,5 +95,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       default:
         console.log('Template not found');
     }
+  }
+
+  trackByNoteId(index: number, note: any): number {
+    return note.id; // or whatever unique identifier your notes have
   }
 }
