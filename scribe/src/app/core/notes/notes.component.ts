@@ -10,10 +10,13 @@ import { Subscription } from 'rxjs';
 })
 export class NotesComponent implements OnInit, OnDestroy {
   notes: any[] = [];
-  isLoading = true; // Add this flag
+  isLoading = true;
   private userSubscription!: Subscription;
 
-  constructor(private noteService: NoteService, private authService: AuthService) {}
+  constructor(
+    private noteService: NoteService, 
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.userSubscription = this.authService.user$.subscribe(userId => {
@@ -47,6 +50,6 @@ export class NotesComponent implements OnInit, OnDestroy {
   }
 
   trackByNoteId(index: number, note: any): number {
-    return note.id; // or whatever unique identifier your notes have
+    return note.id;
   }
 }
