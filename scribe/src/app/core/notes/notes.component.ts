@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 })
 export class NotesComponent implements OnInit, OnDestroy {
   notes: any[] = [];
+  isLoading = true; // Add this flag
   private userSubscription!: Subscription;
 
   constructor(private noteService: NoteService, private authService: AuthService) {}
@@ -20,6 +21,7 @@ export class NotesComponent implements OnInit, OnDestroy {
         this.loadNotes();
       } else {
         this.notes = []; // Clear notes when no user is logged in
+        this.isLoading = false; // Set loading to false if no user
       }
     });
   }
@@ -29,9 +31,11 @@ export class NotesComponent implements OnInit, OnDestroy {
       (data) => {
         console.log('Notes received from backend:', data);
         this.notes = data;
+        this.isLoading = false; // Set the flag to false when loading is complete
       },
       (error) => {
         console.error('Error fetching notes:', error);
+        this.isLoading = false; // Set the flag to false even on error
       }
     );
   }
@@ -40,5 +44,9 @@ export class NotesComponent implements OnInit, OnDestroy {
     if (this.userSubscription) {
       this.userSubscription.unsubscribe();
     }
+  }
+
+  trackByNoteId(index: number, note: any): number {
+    return note.id; // or whatever unique identifier your notes have
   }
 }
