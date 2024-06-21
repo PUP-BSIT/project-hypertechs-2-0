@@ -6,16 +6,17 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToolbarService } from '../../../../services/toolbar/toolbar.service';
 import { Location } from '@angular/common';
-import { NoteService } from '../../../../services/notes/note.service';
 import { NgForm } from '@angular/forms';
-import { slideInOut, simpleFade } from '../../../../animations/element-animations';
-import { SnackbarService } from '../../../../services/snackbar/snackbar.service';
+import { interval, Subject, debounceTime } from 'rxjs';
+
+/* Custom Imports */
 import { templates } from '../../../../imports/templates';
-import { interval, Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { slideInOut, simpleFade } from '../../../../animations/element-animations';
+import { ToolbarService } from '../../../../services/toolbar/toolbar.service';
 import { AuthService } from '../../../../services/auth/auth.service';
+import { NoteService } from '../../../../services/notes/note.service';
+import { SnackbarService } from '../../../../services/snackbar/snackbar.service';
 
 type EditableProperty = 'textColor' | 'backgroundColor';
 
@@ -33,13 +34,13 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   lastEdited = new Date();
   textColor!: string;
   backgroundColor!: string;
-  noteTitle = '';
-  noteContent = '';
+  noteTitle: string | undefined;
+  noteContent: string | undefined;
   noteId: number | null = null;
   autoSaveInterval: any;
   contentChanged = new Subject<void>();
-  private snackbarDuration: number = 3000;
   readOnly = false;
+  private snackbarDuration = 3000;
 
   private readonly COMMANDS = [
     'bold',
@@ -84,11 +85,13 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.toolbarService.setToolbarVisible(true);
 
-    // Check if any changes have been made before showing the snackbar
-    if (this.noteContent.trim() !== '' || this.noteTitle.trim() !== '') {
+    if (
+      (this.noteContent && this.noteContent.trim() !== '') ||
+      (this.noteTitle && this.noteTitle.trim() !== '')
+    ) {
       this.snackbarService.show(
-        'Note saved successfully!', 
-        'Close', 
+        'Note saved successfully!',
+        'Close',
         this.snackbarDuration
       );
     }
@@ -208,7 +211,6 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     this.contentChanged.next();
   }
 
-  // Save/Update the note
   async saveNote() {
     console.log('Saving note with data:', {
       id: this.noteId,
@@ -223,7 +225,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     const noteData = {
       id: this.noteId,
       title: this.noteTitle || 'Untitled',
-      content: this.noteContent,
+      content: this.noteContent || '',
       lastEdited: this.lastEdited.toISOString(),
       user_id: this.authService.getUserId(),
     };
@@ -245,12 +247,10 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  // Return to notes list
   goBack() {
     this.location.back();
   }
 
-  // Toggle between edit and read-only modes
   toggleEditMode() {
     this.readOnly = !this.readOnly;
   }
