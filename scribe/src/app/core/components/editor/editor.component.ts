@@ -13,6 +13,9 @@ import { NgForm } from '@angular/forms';
 import { slideInOut, simpleFade } from '../../../../animations/element-animations';
 import { SnackbarService } from '../../../../services/snackbar/snackbar.service';
 import { templates } from '../../../../imports/templates';
+import { interval, Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import { AuthService } from '../../../../services/auth/auth.service';
 
 type EditableProperty = 'textColor' | 'backgroundColor';
 
@@ -33,6 +36,8 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   noteTitle = '';
   noteContent = '';
   noteId: number | null = null;
+  autoSaveInterval: any;
+  contentChanged = new Subject<void>();
 
   private readonly COMMANDS = [
     'bold',
@@ -57,16 +62,31 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     private noteService: NoteService,
     private route: ActivatedRoute,
     private router: Router,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private authService: AuthService
   ) {}
 
   ngAfterViewInit() {
     this.initializeToolbar();
     this.loadNoteOrTemplate();
+
+    this.autoSaveInterval = interval(30000).subscribe(() => {
+      this.saveNote();
+    });
+
+    this.contentChanged.pipe(debounceTime(1000)).subscribe(() => {
+      this.saveNote();
+    });
   }
 
   ngOnDestroy() {
     this.toolbarService.setToolbarVisible(true);
+
+    this.snackbarService.show('Note saved successfully!');
+
+    if (this.autoSaveInterval) {
+      this.autoSaveInterval.unsubscribe();
+    }
   }
 
   private initializeToolbar() {
@@ -88,7 +108,9 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   private async loadNote() {
     if (this.noteId !== null) {
       try {
-        const note = await this.noteService.getNoteById(this.noteId).toPromise();
+        const note = await this.noteService
+          .getNoteById(this.noteId)
+          .toPromise();
         this.noteTitle = note.title;
         this.noteContent = note.content;
         this.lastEdited = new Date(note.last_edited);
@@ -109,8 +131,12 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   }
 
   format(command: string, value?: string) {
-    if (command === 'foreColor' || command === 'backColor' || 
-      command === 'fontSize' || command === 'formatBlock') {
+    if (
+      command === 'foreColor' ||
+      command === 'backColor' ||
+      command === 'fontSize' ||
+      command === 'formatBlock'
+    ) {
       document.execCommand(command, false, value);
     } else {
       document.execCommand(command, false);
@@ -146,7 +172,11 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     this.changeColor(event, 'backColor', 'backgroundColor');
   }
 
-  private changeColor(event: Event, command: string, property: EditableProperty) {
+  private changeColor(
+    event: Event,
+    command: string,
+    property: EditableProperty
+  ) {
     const target = event.target as HTMLInputElement;
     if (target && target.value) {
       this.format(command, target.value);
@@ -155,47 +185,58 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   }
 
   private updateActiveCommands() {
-    this.COMMANDS.forEach(command => {
+    this.COMMANDS.forEach((command) => {
       this.activeCommands[command] = document.queryCommandState(command);
     });
   }
 
   onContentChange(event: Event) {
     this.noteContent = (event.target as HTMLElement).innerHTML;
+    this.contentChanged.next();
   }
 
-  async saveNote() {
-    console.log('Note title:', this.noteTitle);
-    console.log('Note content:', this.noteContent);
-    console.log('Note last edited:', this.lastEdited);
+  onTitleChange() {
+    this.contentChanged.next();
+  }
 
-    this.lastEdited = new Date(); // Update the last edited time
+  // Save/Update the note
+  async saveNote() {
+    console.log('Saving note with data:', {
+      id: this.noteId,
+      title: this.noteTitle,
+      content: this.noteContent,
+      lastEdited: this.lastEdited,
+      user_id: this.authService.getUserId(),
+    });
+
+    this.lastEdited = new Date();
 
     const noteData = {
       id: this.noteId,
       title: this.noteTitle || 'Untitled',
       content: this.noteContent,
-      lastEdited: this.lastEdited.toISOString(), // Ensure proper formatting
+      lastEdited: this.lastEdited.toISOString(),
+      user_id: this.authService.getUserId(),
     };
 
     try {
       if (this.noteId !== null) {
-        const response = 
-          await this.noteService.updateNote(this.noteId, noteData).toPromise();
+        const response = await this.noteService
+          .updateNote(this.noteId, noteData)
+          .toPromise();
         console.log('Note updated:', response);
-        this.snackbarService.show('Note updated!');
       } else {
         const response = await this.noteService.saveNote(noteData).toPromise();
         console.log('Note saved:', response);
-        this.noteId = response.id; // Set the new note ID
-        this.snackbarService.show('Note saved!');
+        this.noteId = response.id;
+        console.log('New note ID set:', this.noteId);
       }
     } catch (error) {
       console.error('Error saving note:', error);
-      alert('Error saving note!');
     }
   }
 
+  // Return to notes list
   goBack() {
     this.location.back();
   }
