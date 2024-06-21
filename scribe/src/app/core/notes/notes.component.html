@@ -2,13 +2,31 @@
   <div id="notes_heading">
     <h1>My Notes</h1>
   </div>
-  <!--Notes Tiles-->
+
+  <!--All Notes Tiles-->
   <div id="all_notes_tiles">
     <ngx-masonry class="masonry-note-container">
-      <!--Bind the fetched notes to this component-->
-      <app-note-card *ngFor="let note of notes" [note]="note"></app-note-card>
+      @if (isLoading) {
+        <!--Prevent flicker-->
+        <div class="loading"></div>
+      } @else {
+        @if (notes.length > 0) {
+          <!--If notes are present-->
+          @for (note of notes; track note.id) {
+            <app-note-card [note]="note"></app-note-card>
+          }
+        } @else {
+          <!--If notes are empty-->
+          <div class="empty-notes" routerLink="/main/editor">
+            <img src="../../../assets/images/empty-notes.svg">
+            <p>No notes yet. Click to add one.</p>
+          </div>
+        }
+      }
     </ngx-masonry>
   </div>
+  
+  
   <!-- Floating Action Button -->
   <button routerLink="/main/editor" mat-fab extended class="custom-fab">
     <mat-icon>create</mat-icon>

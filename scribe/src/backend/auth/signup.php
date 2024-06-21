@@ -1,5 +1,7 @@
 <?php
+
 require_once('config.php');
+
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
@@ -77,7 +79,7 @@ if (isset($data['lastname']) && isset($data['firstname']) && isset($data['email'
             echo json_encode(['error' => "You've undeliverable. Failed to register!"]);
             $conn->close();
             exit();
-        } 
+        }
 
         $_SESSION['otp'] = $verification_code; // Store the code in the session
         $_SESSION['email'] = $email;
