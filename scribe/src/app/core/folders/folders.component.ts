@@ -1,10 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-folders',
   templateUrl: './folders.component.html',
-  styleUrl: './folders.component.scss'
+  styleUrls: ['./folders.component.scss'],
 })
-export class FoldersComponent {
+export class FoldersComponent implements OnInit {
+  folders = [
+    { name: 'Folder 1' },
+    { name: 'Folder 2' },
+    { name: 'Folder 3' },
+    { name: 'Folder 4' }
+  ];
 
+  filters = ['All', 'Recent', 'Shared'];
+  selectedFilter = 'All';
+  isGridView: boolean = true;
+
+  constructor() { }
+
+  ngOnInit(): void { }
+
+  toggleView(): void {
+    this.isGridView = !this.isGridView;
+  }
 }
