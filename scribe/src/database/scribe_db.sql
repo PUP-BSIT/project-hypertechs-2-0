@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 20, 2024 at 09:58 AM
+-- Generation Time: Jun 21, 2024 at 04:13 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -50,6 +50,15 @@ CREATE TABLE `notes` (
   `tags` varchar(255) DEFAULT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `notes`
+--
+
+INSERT INTO `notes` (`id`, `title`, `content`, `last_edited`, `user_id`, `folder_id`, `tags`, `is_deleted`) VALUES
+(7, 'hello', 'Hello', '2024-06-20 22:47:44', 61, NULL, NULL, 0),
+(8, 'dfsf', 'dbfkasbfkas', '2024-06-20 23:00:31', 62, NULL, NULL, 0),
+(9, 'afafa', 'afsfa', '2024-06-21 19:16:06', 66, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -150,17 +159,18 @@ CREATE TABLE `verification_codes` (
   `code_id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `verification_code` varchar(6) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `expiration_time` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `verification_codes`
 --
 
-INSERT INTO `verification_codes` (`code_id`, `user_id`, `verification_code`, `created_at`) VALUES
-(2, 47, '835363', '2024-06-15 01:54:50'),
-(3, 48, '631104', '2024-06-18 10:18:24'),
-(5, 50, '130074', '2024-06-19 01:57:42');
+INSERT INTO `verification_codes` (`code_id`, `user_id`, `verification_code`, `created_at`, `expiration_time`) VALUES
+(2, 47, '835363', '2024-06-15 01:54:50', NULL),
+(3, 48, '631104', '2024-06-18 10:18:24', NULL),
+(5, 50, '130074', '2024-06-19 01:57:42', NULL);
 
 --
 -- Indexes for dumped tables
@@ -227,7 +237,7 @@ ALTER TABLE `folders`
 -- AUTO_INCREMENT for table `notes`
 --
 ALTER TABLE `notes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `notes_test`
@@ -251,13 +261,13 @@ ALTER TABLE `trash`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `verification_codes`
 --
 ALTER TABLE `verification_codes`
-  MODIFY `code_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `code_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Constraints for dumped tables
