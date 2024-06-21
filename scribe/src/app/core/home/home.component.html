@@ -1,5 +1,5 @@
 <div class="scribe-home-container">
-  <!-- SECTION: Home Greetings & Templates & Pinned Notes Container-->
+  <!-- SECTION: Home Greetings & Templates & recent Notes Container-->
   <main id="scribe_home_main">
     <!--Home Greetings-->
     <div id="home_greetings">
@@ -25,11 +25,14 @@
       </div>
     </div>
 
-    <!--Pinned Notes-->
-    <div id="pinned_notes">
+    <!--recent Notes-->
+    <div id="recent_notes">
       <!--Heading-->
-      <div id="pinned_notes_heading">
-        <h3><span class="material-symbols-outlined">keep</span>Pinned Notes</h3>
+      <div id="recent_notes_heading">
+        <h3>
+          <span class="material-symbols-outlined">sticky_note_2</span>Recent
+          Notes
+        </h3>
         <span routerLink="/main/notes" class="view-all">
           All Notes
           <span class="material-symbols-outlined">arrow_forward_ios</span>
@@ -37,9 +40,12 @@
       </div>
 
       <!--Notes Tiles-->
-      <div id="pinned_notes_tiles">
+      <div id="recent_notes_tiles">
         <ngx-masonry class="masonry-note-container">
-          <!-- <app-note-card></app-note-card> -->
+          <app-note-card
+            *ngFor="let note of notes.slice(0, 4)"
+            [note]="note"
+          ></app-note-card>
         </ngx-masonry>
       </div>
     </div>

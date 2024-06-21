@@ -163,18 +163,18 @@ h3 {
   }
 }
 
-/* ------ PINNED NOTES STYLING ------ */
+/* ------ RECENT NOTES STYLING ------ */
 
-#pinned_notes {
+#recent_notes {
   margin-top: 1vw;
 
-  #pinned_notes_heading {
+  #recent_notes_heading {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
 
-  #pinned_notes_tiles {
+  #recent_notes_tiles {
     margin-top: 1rem;
     width: 100%;
   }
