@@ -1,0 +1,38 @@
+.scribe-trash-container {
+  position: relative;
+}
+
+#trash_heading {
+  margin-bottom: 1rem;
+
+  h1 {
+    font-size: 3.5vw;
+    font-family: "Google Sans", sans-serif;
+    font-weight: 500;
+    background: -webkit-linear-gradient(
+      45deg,
+      var(--highlight-prime) 15%,
+      var(--highlight-next) 70%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.025em;
+    transition: color 0.75s ease;
+    width: 60%;
+  }
+}
+
+.custom-fab {
+  position: fixed;
+  bottom: 4vw;
+  right: 4vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-misc);
+  font-weight: 500;
+  color: rgb(229, 254, 247);
+  background-color: var(--main-button);
+  padding: 1.5%;
+}
