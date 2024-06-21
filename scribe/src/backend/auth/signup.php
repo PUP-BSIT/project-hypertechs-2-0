@@ -52,15 +52,16 @@ if (isset($data['lastname']) && isset($data['firstname']) && isset($data['email'
     }
     $checkEmailStmt->close();
 
+    /*TODO for testing*/
     // Comment out this if you want to check if email is legit>>mail.php too
-    $validation_result = validate_email($email);
-    if ($validation_result['status'] === 'error') {
-        // Handle invalid email
-        echo json_encode(['error' => 'undeliverable.']);
-        http_response_code(500);
-        $conn->close();
-        exit();
-    }
+    // $validation_result = validate_email($email);
+    // if ($validation_result['status'] === 'error') {
+    //     // Handle invalid email
+    //     echo json_encode(['error' => 'undeliverable.']);
+    //     http_response_code(500);
+    //     $conn->close();
+    //     exit();
+    // }
 
     // Prepare the SQL INSERT statement
     $stmt = $conn->prepare("INSERT INTO users (lastname, firstname, email, password) VALUES (?, ?, ?, ?)");
@@ -72,6 +73,7 @@ if (isset($data['lastname']) && isset($data['firstname']) && isset($data['email'
 
         $verification_code = random_int(100000, 999999);
         $message = "Your verification code is: $verification_code";
+        $expiration_time = date("Y-m-d H:i:s", strtotime('+80 seconds'));
         $recipient = $email;
 
         if (!send_mail($recipient, "Verification Code", $message)) {
@@ -81,9 +83,10 @@ if (isset($data['lastname']) && isset($data['firstname']) && isset($data['email'
             exit();
         }
 
-        $_SESSION['otp'] = $verification_code; // Store the code in the session
-        $_SESSION['email'] = $email;
-        $_SESSION['firstname'] = $firstname; // Store the firstname in the session
+        $_SESSION['otp'] = $verification_code; /*TODO for testing*/
+        $_SESSION['email'] = $email; /*TODO for testing*/
+        $_SESSION['firstname'] = $firstname;  /*TODO for testing*/
+        $_SESSION['user_id'] = $user_id;
 
         http_response_code(200);
         echo json_encode([
@@ -96,9 +99,9 @@ if (isset($data['lastname']) && isset($data['firstname']) && isset($data['email'
         ]);
 
         // Prepare and execute the query to insert the verification code into the verification_codes table
-        $stmt = $conn->prepare("INSERT INTO verification_codes (user_id, verification_code, created_at)
-                                VALUES (?, ?, CURRENT_TIMESTAMP)");
-        $stmt->bind_param("is", $user_id, $verification_code);
+        $stmt = $conn->prepare("INSERT INTO verification_codes (user_id, verification_code, created_at, expiration_time)
+                                VALUES (?, ?, CURRENT_TIMESTAMP,?)");
+        $stmt->bind_param("iss", $user_id, $verification_code, $expiration_time);
         $stmt->execute();
     } else {
         // Failed to insert user
@@ -114,3 +117,5 @@ if (isset($data['lastname']) && isset($data['firstname']) && isset($data['email'
 }
 
 $conn->close();
+
+?>
