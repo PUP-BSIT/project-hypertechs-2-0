@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { simpleFade } from '../../../animations/element-animations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-landing',
@@ -7,4 +8,15 @@ import { simpleFade } from '../../../animations/element-animations';
   styleUrl: './landing.component.scss',
   animations: [simpleFade],
 })
-export class LandingComponent {}
+export class LandingComponent implements OnInit {
+
+  constructor(private router: Router){}
+
+  ngOnInit(): void {
+
+    const storedUser = localStorage.getItem('loggedInUser');
+    if(storedUser){
+      this.router.navigate(['main']);
+    }
+  }
+}
