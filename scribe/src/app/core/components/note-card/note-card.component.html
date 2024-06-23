@@ -36,7 +36,7 @@
   </div>
 
   <mat-card-content class="note-content" (click)="editNote()">
-    <div [innerHTML]="note.content"></div>
+    <div [innerHTML]="sanitizedContent"></div>
   </mat-card-content>
 
   <mat-card-footer class="note-footer">
