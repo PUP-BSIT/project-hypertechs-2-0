@@ -39,7 +39,6 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   initialNoteContent: string | undefined;
   contentChanged = new Subject<void>();
 
-
   private readonly COMMANDS = [
     'bold',
     'italic',
@@ -73,7 +72,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     this.loadNoteOrTemplate();
 
     // Check for readonly query parameter
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       if (params['readonly']) {
         this.readOnly = true;
         this.isInTrash = true; // Set isInTrash to true if readonly is true
@@ -91,27 +90,27 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.toolbarService.setToolbarVisible(true);
-  
-    const hasTitleChanged = this.noteTitle?.trim() !== this.initialNoteTitle?.trim();
-    const hasContentChanged = this.noteContent?.trim() !== this.initialNoteContent?.trim();
-  
-    if ((hasTitleChanged || hasContentChanged) &&
-        ((this.noteContent && this.noteContent.trim() !== '') ||
-         (this.noteTitle && this.noteTitle.trim() !== ''))) {
-      this.snackbarService.show(
-        'Note saved successfully!',
-        'Close',
-        3000
-      );
+
+    const hasTitleChanged =
+      this.noteTitle?.trim() !== this.initialNoteTitle?.trim();
+    const hasContentChanged =
+      this.noteContent?.trim() !== this.initialNoteContent?.trim();
+
+    if (
+      (hasTitleChanged || hasContentChanged) &&
+      ((this.noteContent && this.noteContent.trim() !== '') ||
+        (this.noteTitle && this.noteTitle.trim() !== ''))
+    ) {
+      this.snackbarService.show('Note saved successfully!', 'Close', 3000);
     }
-  
+
     if (this.autoSaveInterval) {
       this.autoSaveInterval.unsubscribe();
     }
-  
+
     this.sidenavService.open();
   }
-  
+
   private initializeToolbar() {
     this.toolbarService.setToolbarVisible(false);
     this.updateActiveCommands();
@@ -145,7 +144,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
       }
     }
   }
-  
+
   private loadTemplate(template: string) {
     const selectedTemplate = templates[template];
     if (selectedTemplate) {
@@ -265,7 +264,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   goBack() {
     this.location.back();
   }
-  
+
   toggleSidenav() {
     this.sidenavService.toggle();
   }
