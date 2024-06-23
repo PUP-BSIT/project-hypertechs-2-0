@@ -2,21 +2,21 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../services/user/user.service';
 import { TitleCaseService } from '../../../services/title-case/title-case.service';
-import { FeaturedTemplates } from '../../../models/model';
 import { NoteService } from '../../../services/notes/note.service';
 import { AuthService } from '../../../services/auth/auth.service';
+import { FeaturedTemplates } from '../../../models/model';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'], // Corrected from 'styleUrl'
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
   @Input() firstname: string | null = null;
   @Input() note: any;
   notes: any[] = [];
-  isLoading = true; // Add this flag
+  isLoading = true;
   private userSubscription!: Subscription;
 
   constructor(
@@ -47,14 +47,18 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.noteService.getNotes().subscribe(
       (data) => {
         console.log('Notes received from backend:', data);
-        this.notes = data;
-        this.isLoading = false; // Set the flag to false when loading is complete
+        this.notes = data.filter((note: any) => note.is_deleted == 0);
+        this.isLoading = false;
       },
       (error) => {
         console.error('Error fetching notes:', error);
-        this.isLoading = false; // Set the flag to false even on error
+        this.isLoading = false;
       }
     );
+  }
+
+  onNoteDelete(noteId: number) {
+    this.notes = this.notes.filter(note => note.id !== noteId);
   }
 
   ngOnDestroy() {
@@ -98,6 +102,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   trackByNoteId(index: number, note: any): number {
-    return note.id; // or whatever unique identifier your notes have
+    return note.id;
   }
 }
