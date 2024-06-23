@@ -1,9 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
-import { slideInOut, simpleFade } from '../../../animations/element-animations';
+import { Router } from '@angular/router';
 
 /* Services */
 import { ThemeService } from '../../../services/theme/theme.service';
@@ -11,23 +10,21 @@ import { UserService } from '../../../services/user/user.service';
 import { DialogService } from '../../../services/dialog/dialog.service';
 import { TitleCaseService } from '../../../services/title-case/title-case.service';
 import { ToolbarService } from '../../../services/toolbar/toolbar.service';
+import { SidenavService } from '../../../services/sidenav/sidenav.service';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
-  animations: [slideInOut, simpleFade],
+  styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
   isOpened = false;
   toolbarVisible: boolean = true;
+  themeIcon: string = 'dark_mode';
 
-  private breakpointObserver = inject(BreakpointObserver);
   email: string | null = null;
   firstname: string | null = null;
   lastname: string | null = null;
-
-  //isLoggedIn: boolean = false;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
@@ -36,44 +33,73 @@ export class MainComponent implements OnInit {
       shareReplay()
     );
 
-  /* Dynamically change icon based on theme */
-  themeIcon: string = 'dark_mode';
-
   constructor(
     private themeService: ThemeService,
-    private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
     private dialogService: DialogService,
     private titleCaseService: TitleCaseService,
     private toolbarService: ToolbarService,
+    private sidenavService: SidenavService,
+    private breakpointObserver: BreakpointObserver
   ) {}
 
   ngOnInit() {
-    setTimeout(() => {
-      this.isOpened = true;
-    }, 0);
+    this.sidenavService.isOpened$.subscribe(isOpened => {
+      this.isOpened = isOpened; // Update isOpened based on sidenav service
+    });
 
-    /* Toggle Toolbar in certain components */
+    // Initialize other components as needed
+    this.initializeToolbar();
+    this.initializeTheme();
+    this.initializeUserData();
+  }
+
+  toggleTheme() {
+    this.themeService.toggleTheme();
+  }
+
+  logout() {
+    localStorage.removeItem('loggedInUser');
+    this.router.navigate(['']);
+  }
+
+  openLogoutDialog(): void {
+    const dialogRef = this.dialogService.openDialog({
+      title: 'Confirm Logout',
+      content: 'Are you sure you want to log out?',
+      cancelText: 'Cancel',
+      confirmText: 'Logout',
+      action: 'logout',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'logout') {
+        this.logout();
+      }
+    });
+  }
+
+  private initializeToolbar() {
     this.toolbarService.toolbarVisible$.subscribe(visible => {
       this.toolbarVisible = visible;
     });
+  }
 
-    /* Subscribe the theme link to theme service */
+  private initializeTheme() {
     this.themeService.currentTheme.subscribe((isDark) => {
       this.themeIcon = isDark ? 'dark_mode' : 'light_mode';
     });
+  }
 
-    /* Display User Data */
+  private initializeUserData() {
     const storedUser = localStorage.getItem('loggedInUser');
     if (storedUser) {
       try {
         const userData = JSON.parse(storedUser);
-        // Store firstname in service (optional)
         this.userService.setFirstname(userData.firstname);
         this.userService.setLastname(userData.lastname);
         this.userService.setEmail(userData.email);
-        //this.isLoggedIn = true; // Set login state
       } catch (error) {
         console.error('Error parsing stored user data:', error);
         localStorage.removeItem('loggedInUser');
@@ -90,32 +116,6 @@ export class MainComponent implements OnInit {
 
     this.userService.email$.subscribe((email) => {
       this.email = email;
-    });
-  }
-
-  toggleTheme() {
-    this.themeService.toggleTheme();
-  }
-
-  logout() {
-    localStorage.removeItem('loggedInUser');
-    this.router.navigate(['']);
-  }
-
-  /* Custom Dialog Content */
-  openLogoutDialog(): void {
-    const dialogRef = this.dialogService.openDialog({
-      title: 'Confirm Logout',
-      content: 'Are you sure you want to log out?',
-      cancelText: 'Cancel',
-      confirmText: 'Logout',
-      action: 'logout',
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result === 'logout') {
-        this.logout();
-      }
     });
   }
 }

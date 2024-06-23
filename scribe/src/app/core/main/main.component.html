@@ -1,14 +1,15 @@
 <mat-sidenav-container class="sidenav-container">
   <!--Side Navigation Bar-->
+  <!-- default property:: [opened]="(isHandset$ | async) === false" -->
   <mat-sidenav
     #drawer
     class="sidenav"
     fixedInViewport
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'push' : 'side'"
-    [opened]="(isHandset$ | async) === false"
+    [opened]="isOpened"
     [@slideInOut]="isOpened ? 'in' : 'void'"
-  >
+>
     <div class="sidenav-header">
       <div class="core-brand" [routerLink]="['/main/home']">
         <img src="../../../assets/images/quill-pen.png" />
