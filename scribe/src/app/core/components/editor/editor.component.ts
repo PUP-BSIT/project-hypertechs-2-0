@@ -1,10 +1,4 @@
-import {
-  Component,
-  ViewChild,
-  ElementRef,
-  AfterViewInit,
-  OnDestroy,
-} from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { NgForm } from '@angular/forms';
@@ -40,7 +34,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   autoSaveInterval: any;
   contentChanged = new Subject<void>();
   readOnly = false;
-  private snackbarDuration = 3000;
+  isInTrash: boolean = false;
 
   private readonly COMMANDS = [
     'bold',
@@ -73,6 +67,14 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     this.initializeToolbar();
     this.loadNoteOrTemplate();
 
+    // Check for readonly query parameter
+    this.route.queryParams.subscribe(params => {
+      if (params['readonly']) {
+        this.readOnly = true;
+        this.isInTrash = true; // Set isInTrash to true if readonly is true
+      }
+    });
+
     this.autoSaveInterval = interval(30000).subscribe(() => {
       this.saveNote();
     });
@@ -92,7 +94,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
       this.snackbarService.show(
         'Note saved successfully!',
         'Close',
-        this.snackbarDuration
+        3000
       );
     }
 
@@ -252,6 +254,10 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   }
 
   toggleEditMode() {
+    // Only allow toggle if not in read-only mode due to trash
+    if (this.route.snapshot.queryParams['readonly']) {
+      return;
+    }
     this.readOnly = !this.readOnly;
   }
 }
