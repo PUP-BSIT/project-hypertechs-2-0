@@ -10,34 +10,44 @@ import { Subscription } from 'rxjs';
 })
 export class NotesComponent implements OnInit, OnDestroy {
   notes: any[] = [];
-  isLoading = true; // Add this flag
+  isLoading = true;
   private userSubscription!: Subscription;
 
-  constructor(private noteService: NoteService, private authService: AuthService) {}
+  constructor(
+    private noteService: NoteService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
-    this.userSubscription = this.authService.user$.subscribe(userId => {
+    this.userSubscription = this.authService.user$.subscribe((userId) => {
+      console.log('User ID:', userId);
       if (userId !== null) {
         this.loadNotes();
       } else {
-        this.notes = []; // Clear notes when no user is logged in
-        this.isLoading = false; // Set loading to false if no user
+        this.notes = [];
+        this.isLoading = false;
       }
     });
   }
 
   loadNotes() {
+    console.log('Loading notes...');
     this.noteService.getNotes().subscribe(
-      (data) => {
+      (data: any[]) => {
         console.log('Notes received from backend:', data);
-        this.notes = data;
-        this.isLoading = false; // Set the flag to false when loading is complete
+        this.notes = data.filter((note) => note.is_deleted == 0);
+        console.log('Filtered notes:', this.notes);
+        this.isLoading = false;
       },
       (error) => {
         console.error('Error fetching notes:', error);
-        this.isLoading = false; // Set the flag to false even on error
+        this.isLoading = false;
       }
     );
+  }
+
+  onNoteDelete(noteId: number) {
+    this.notes = this.notes.filter((note) => note.id !== noteId);
   }
 
   ngOnDestroy() {
@@ -47,6 +57,6 @@ export class NotesComponent implements OnInit, OnDestroy {
   }
 
   trackByNoteId(index: number, note: any): number {
-    return note.id; // or whatever unique identifier your notes have
+    return note.id;
   }
 }
