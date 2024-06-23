@@ -36,3 +36,16 @@
   background-color: var(--main-button);
   padding: 1.5%;
 }
+
+.empty-trash {
+  opacity: 0.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2vh;
+
+  img {
+    width: 30%;
+    height: auto;
+  }
+}
