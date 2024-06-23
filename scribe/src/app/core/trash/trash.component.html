@@ -5,24 +5,27 @@
 
   <div id="trash_main">
     <ngx-masonry class="masonry-note-container">
-      <div class="loading" *ngIf="isLoading"></div>
-      <div *ngIf="!isLoading">
+      @if (isLoading) {
+        <div class="loading"></div>
+      } @else {
         <!-- If notes are present in trash, this will display -->
-        <div *ngIf="notes.length > 0">
-          <app-note-card
-            *ngFor="let note of notes; trackBy: trackByNoteId"
-            [note]="note"
-            [isInTrash]="true"
-            (restore)="restoreNote(note.id)"
-            (deleteForever)="refreshTrash(note.id)">
-          </app-note-card>
-        </div>
-        <!-- If no notes are present in trash, this will display -->
-        <div *ngIf="notes.length === 0" class="empty-trash">
-          <img src="../../../assets/images/empty-trash.svg" />
-          <p>No deleted notes yet.</p>
-        </div>
-      </div>
+        @if (notes.length > 0) {
+          @for (note of notes; track note.id) {
+            <app-note-card
+              [note]="note"
+              [isInTrash]="true"
+              (restore)="restoreNote(note.id)"
+              (deleteForever)="refreshTrash(note.id)">
+            </app-note-card>
+          }
+        } @else {
+          <!-- If no notes are present in trash, this will display -->
+          <div class="empty-trash">
+            <img src="../../../assets/images/empty-trash.svg" />
+            <p>No deleted notes yet.</p>
+          </div>
+        }
+      }
     </ngx-masonry>
   </div>
 

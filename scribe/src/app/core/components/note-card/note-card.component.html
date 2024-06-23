@@ -8,7 +8,7 @@
     </button>
     <mat-menu #menu="matMenu">
       <!-- If the notes are active, display this -->
-      <ng-container *ngIf="!isInTrash">
+      @if (!isInTrash) {
         <button mat-menu-item (click)="editNote()">
           <mat-icon>edit</mat-icon>
           <span>Edit</span>
@@ -21,9 +21,8 @@
           <mat-icon>share</mat-icon>
           <span>Share</span>
         </button>
-      </ng-container>
       <!-- If the notes are soft-deleted and in trash, display this -->
-      <ng-container *ngIf="isInTrash">
+      } @else {
         <button mat-menu-item (click)="restoreNote()">
           <mat-icon>restore</mat-icon>
           <span>Restore</span>
@@ -32,7 +31,7 @@
           <mat-icon>delete_forever</mat-icon>
           <span>Delete Forever</span>
         </button>
-      </ng-container>
+      }
     </mat-menu>
   </div>
 
