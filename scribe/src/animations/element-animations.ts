@@ -31,12 +31,3 @@ export const simpleFade = trigger('simpleFade', [
     animate('1000ms', style({ opacity: 0 }))
   ])
 ]);
-
-/* Animation 3: Typing Effect 
-export const typingAnimation = trigger('typingAnimation', [
-  transition(':enter', [
-    style({ 'white-space': 'nowrap', 'overflow': 'hidden', 'width': '*' }),
-    animate('500ms', style({ 'width': '1' })), 
-  ]),
-]);
-*/
