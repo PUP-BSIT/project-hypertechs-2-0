@@ -1,15 +1,38 @@
 <div class="scribe-trash-container">
-    <div id="trash_heading">
-        <h1>Trash</h1>
-    </div>
+  <div id="trash_heading">
+    <h1>Trash</h1>
+  </div>
 
-    <div id="trash_main">
-        <!--Soft Deleted notes will be displayed here-->
-    </div>
+  <div id="trash_main">
+    <ngx-masonry class="masonry-note-container">
+      <div class="loading" *ngIf="isLoading"></div>
+      <div *ngIf="!isLoading">
+        <!-- If notes are present in trash, this will display -->
+        <div *ngIf="notes.length > 0">
+          <app-note-card
+            *ngFor="let note of notes; trackBy: trackByNoteId"
+            [note]="note"
+            [isInTrash]="true"
+            (restore)="restoreNote(note.id)"
+            (deleteForever)="refreshTrash(note.id)">
+          </app-note-card>
+        </div>
+        <!-- If no notes are present in trash, this will display -->
+        <div *ngIf="notes.length === 0" class="empty-trash">
+          <img src="../../../assets/images/empty-trash.svg" />
+          <p>No deleted notes yet.</p>
+        </div>
+      </div>
+    </ngx-masonry>
+  </div>
 
-    <!-- Floating Action Button -->
-    <button mat-fab extended class="custom-fab">
-        <mat-icon>delete_sweep</mat-icon>
-        <span>Empty Trash</span>
-    </button>
+  <button
+    mat-fab
+    extended
+    class="custom-fab"
+    (click)="confirmEmptyTrash()"
+    [disabled]="notes.length === 0">
+    <mat-icon>delete_sweep</mat-icon>
+    <span>Empty Trash</span>
+  </button>
 </div>
