@@ -33,9 +33,12 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   noteTitle: string | undefined;
   noteContent: string | undefined;
   autoSaveInterval: any;
-  contentChanged = new Subject<void>();
   readOnly = false;
   isInTrash: boolean = false;
+  initialNoteTitle: string | undefined;
+  initialNoteContent: string | undefined;
+  contentChanged = new Subject<void>();
+
 
   private readonly COMMANDS = [
     'bold',
@@ -65,10 +68,6 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     private sidenavService: SidenavService
   ) {}
 
-  toggleSidenav() {
-    this.sidenavService.toggle();
-  }
-
   ngAfterViewInit() {
     this.initializeToolbar();
     this.loadNoteOrTemplate();
@@ -92,25 +91,27 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.toolbarService.setToolbarVisible(true);
-
-    if (
-      (this.noteContent && this.noteContent.trim() !== '') ||
-      (this.noteTitle && this.noteTitle.trim() !== '')
-    ) {
+  
+    const hasTitleChanged = this.noteTitle?.trim() !== this.initialNoteTitle?.trim();
+    const hasContentChanged = this.noteContent?.trim() !== this.initialNoteContent?.trim();
+  
+    if ((hasTitleChanged || hasContentChanged) &&
+        ((this.noteContent && this.noteContent.trim() !== '') ||
+         (this.noteTitle && this.noteTitle.trim() !== ''))) {
       this.snackbarService.show(
         'Note saved successfully!',
         'Close',
         3000
       );
     }
-
+  
     if (this.autoSaveInterval) {
       this.autoSaveInterval.unsubscribe();
     }
-
+  
     this.sidenavService.open();
   }
-
+  
   private initializeToolbar() {
     this.toolbarService.setToolbarVisible(false);
     this.updateActiveCommands();
@@ -135,6 +136,8 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
           .toPromise();
         this.noteTitle = note.title;
         this.noteContent = note.content;
+        this.initialNoteTitle = note.title;
+        this.initialNoteContent = note.content;
         this.lastEdited = new Date(note.last_edited);
         this.editorContentRef.nativeElement.innerHTML = this.noteContent;
       } catch (error) {
@@ -142,12 +145,14 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
       }
     }
   }
-
+  
   private loadTemplate(template: string) {
     const selectedTemplate = templates[template];
     if (selectedTemplate) {
       this.noteTitle = selectedTemplate.title;
       this.noteContent = selectedTemplate.content;
+      this.initialNoteTitle = selectedTemplate.title;
+      this.initialNoteContent = selectedTemplate.content;
       this.editorContentRef.nativeElement.innerHTML = this.noteContent;
     }
   }
@@ -259,6 +264,10 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
 
   goBack() {
     this.location.back();
+  }
+  
+  toggleSidenav() {
+    this.sidenavService.toggle();
   }
 
   toggleEditMode() {
