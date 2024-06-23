@@ -13,13 +13,13 @@
           <mat-icon>edit</mat-icon>
           <span>Edit</span>
         </button>
-        <button mat-menu-item (click)="deleteNote()">
-          <mat-icon>delete</mat-icon>
-          <span>Move to trash</span>
-        </button>
         <button mat-menu-item>
           <mat-icon>share</mat-icon>
           <span>Share</span>
+        </button>
+        <button mat-menu-item (click)="deleteNote()">
+          <mat-icon>delete</mat-icon>
+          <span>Move to trash</span>
         </button>
       <!-- If the notes are soft-deleted and in trash, display this -->
       } @else {
