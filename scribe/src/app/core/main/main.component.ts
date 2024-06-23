@@ -11,11 +11,13 @@ import { DialogService } from '../../../services/dialog/dialog.service';
 import { TitleCaseService } from '../../../services/title-case/title-case.service';
 import { ToolbarService } from '../../../services/toolbar/toolbar.service';
 import { SidenavService } from '../../../services/sidenav/sidenav.service';
+import { simpleFade, slideInOut } from '../../../animations/element-animations';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  styleUrls: ['./main.component.scss'],
+  animations: [simpleFade, slideInOut]
 })
 export class MainComponent implements OnInit {
   isOpened = false;
