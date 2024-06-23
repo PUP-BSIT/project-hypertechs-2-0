@@ -7,4 +7,4 @@ ini_set('session.cookie_lifetime', $expire);
 // Start session
 session_start();
 
-?>
+

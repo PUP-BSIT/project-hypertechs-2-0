@@ -18,8 +18,7 @@
         [matRippleAnimation]="{ enterDuration: 300, exitDuration: 300 }"
         matRippleColor="rgba(61, 156, 119, 0.1)"
         class="template-card"
-        (click)="selectTemplate(template)"
-      >
+        (click)="selectTemplate(template)">
         <span class="material-symbols-outlined">{{ template.icon }}</span>
         <span class="template-title">{{ template.title }}</span>
       </div>
@@ -43,27 +42,25 @@
       <!--Recent Notes Tiles-->
       <div id="recent_notes_tiles">
         <ngx-masonry class="masonry-note-container">
-          @if (isLoading) {
-            <!--Prevent flicker-->
-            <div class="loading"></div>
-          } @else {
-            <!--If notes are present-->
-            @if (notes.length > 0) {
-              @for (note of notes.slice(0, 4); track note.id) {
-                <app-note-card [note]="note"></app-note-card>
-              }
-            } @else {
-              <!--If notes are empty-->
-              <div class="empty-notes" routerLink="/main/editor">
-                <img src="../../../assets/images/empty-notes.svg">
-                <p>No notes yet. Click to add one.</p>
-              </div>
-            }
-          }
+          <div class="loading" *ngIf="isLoading"></div>
+          <div *ngIf="!isLoading">
+            <div *ngIf="notes.length > 0">
+              <app-note-card
+                *ngFor="let note of notes.slice(0, 4); trackBy: trackByNoteId"
+                [note]="note"
+                (delete)="onNoteDelete($event)">
+              </app-note-card>
+            </div>
+            <div
+              *ngIf="notes.length === 0"
+              class="empty-notes"
+              routerLink="/main/editor">
+              <img src="../../../assets/images/empty-notes.svg" />
+              <p>No notes yet. Click to add one.</p>
+            </div>
+          </div>
         </ngx-masonry>
       </div>
-      
-      
     </div>
   </main>
 
@@ -71,9 +68,7 @@
   <aside id="scribe_home_side">
     <!--Heading-->
     <div id="side_heading">
-      <h3>
-        <span class="material-symbols-outlined">today</span>Tasks
-      </h3>
+      <h3><span class="material-symbols-outlined">today</span>Tasks</h3>
       <span routerLink="/main/tasks" class="view-all">
         View All
         <span class="material-symbols-outlined">arrow_forward_ios</span>
