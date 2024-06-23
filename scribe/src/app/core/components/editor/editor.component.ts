@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { NgForm } from '@angular/forms';
 import { interval, Subject, debounceTime } from 'rxjs';
+import { SidenavService } from '../../../../services/sidenav/sidenav.service';
 
 /* Custom Imports */
 import { templates } from '../../../../imports/templates';
@@ -28,9 +29,9 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   lastEdited = new Date();
   textColor!: string;
   backgroundColor!: string;
+  noteId: number | null = null;
   noteTitle: string | undefined;
   noteContent: string | undefined;
-  noteId: number | null = null;
   autoSaveInterval: any;
   contentChanged = new Subject<void>();
   readOnly = false;
@@ -60,8 +61,13 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private snackbarService: SnackbarService,
-    private authService: AuthService
+    private authService: AuthService,
+    private sidenavService: SidenavService
   ) {}
+
+  toggleSidenav() {
+    this.sidenavService.toggle();
+  }
 
   ngAfterViewInit() {
     this.initializeToolbar();
@@ -101,6 +107,8 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     if (this.autoSaveInterval) {
       this.autoSaveInterval.unsubscribe();
     }
+
+    this.sidenavService.open();
   }
 
   private initializeToolbar() {
