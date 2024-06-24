@@ -1,0 +1,27 @@
+#scribe_search_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Make the container take up the full height of its parent */
+  width: 100%; /* Make the container take up the full width of its parent */
+}
+
+#initial_search_content {
+  opacity: 0.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1; /* Make the content expand to take up all available space */
+  height: 100%; /* Ensure the content takes up the full height */
+  width: 100%; /* Ensure the content takes up the full width */
+  padding-bottom: 5%;
+
+  img {
+    width: 25%;
+  }
+
+  h3 {
+    font-weight: 400;
+  }
+}
