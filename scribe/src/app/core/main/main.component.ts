@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 /* Services */
 import { ThemeService } from '../../../services/theme/theme.service';
@@ -17,12 +17,14 @@ import { simpleFade, slideInOut } from '../../../animations/element-animations';
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
-  animations: [simpleFade, slideInOut]
+  animations: [simpleFade, slideInOut],
 })
 export class MainComponent implements OnInit {
   isOpened = false;
   toolbarVisible: boolean = true;
   themeIcon: string = 'dark_mode';
+  showCancelButton: boolean = false;
+  previousUrl: string | null = null;
 
   email: string | null = null;
   firstname: string | null = null;
@@ -44,14 +46,22 @@ export class MainComponent implements OnInit {
     private toolbarService: ToolbarService,
     private sidenavService: SidenavService,
     private breakpointObserver: BreakpointObserver
-  ) {}
+  ) {
+    // Listen to route changes to track the previous route
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        if (this.router.url !== '/main/search') {
+          this.previousUrl = event.url;
+        }
+      }
+    });
+  }
 
   ngOnInit() {
-    this.sidenavService.isOpened$.subscribe(isOpened => {
+    this.sidenavService.isOpened$.subscribe((isOpened) => {
       this.isOpened = isOpened; // Update isOpened based on sidenav service
     });
 
-    // Initialize other components as needed
     this.initializeToolbar();
     this.initializeTheme();
     this.initializeUserData();
@@ -82,8 +92,56 @@ export class MainComponent implements OnInit {
     });
   }
 
+  /* Search bar behavior */
+  onSearchFocus() {
+    this.router.navigate(['/main/search']);
+    this.showCancelButton = true;
+    setTimeout(() => {
+      const cancelText = document.querySelector('.cancel-text') as HTMLElement;
+      if (cancelText) {
+        cancelText.classList.add('visible');
+      }
+    }, 0);
+  }
+
+  onSearchBlur() {
+    setTimeout(() => {
+      this.showCancelButton = false;
+      const cancelText = document.querySelector('.cancel-text') as HTMLElement;
+      if (cancelText) {
+        cancelText.classList.remove('visible');
+      }
+      if (this.previousUrl) {
+        this.router.navigate([this.previousUrl]);
+      }
+    }, 100);
+  }
+
+  onSearchInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.showCancelButton = input.value.length > 0;
+  }
+
+  onCancelSearch() {
+    const searchInput = document.getElementById(
+      'search_input'
+    ) as HTMLInputElement;
+    if (searchInput) {
+      searchInput.value = '';
+      searchInput.blur();
+      this.showCancelButton = false;
+      const cancelText = document.querySelector('.cancel-text') as HTMLElement;
+      if (cancelText) {
+        cancelText.classList.remove('visible');
+      }
+      if (this.previousUrl) {
+        this.router.navigate([this.previousUrl]);
+      }
+    }
+  }
+
   private initializeToolbar() {
-    this.toolbarService.toolbarVisible$.subscribe(visible => {
+    this.toolbarService.toolbarVisible$.subscribe((visible) => {
       this.toolbarVisible = visible;
     });
   }
