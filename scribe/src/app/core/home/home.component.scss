@@ -32,7 +32,7 @@
       // border: 1px solid yellow;
     }
 
-    #reminders_list {
+    #tasks_list {
       flex-grow: 1;
       display: flex;
       flex-direction: column;
@@ -42,7 +42,8 @@
       border-radius: 10px;
       // border: 1px solid green;
 
-      #reminders_empty {
+      #tasks_empty {
+        font-size: 1vw;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -163,32 +164,47 @@ h3 {
   }
 }
 
-/* ------ PINNED NOTES STYLING ------ */
+/* ------ RECENT NOTES STYLING ------ */
 
-#pinned_notes {
+#recent_notes {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   margin-top: 1vw;
+  height: 100%;
 
-  #pinned_notes_heading {
+  #recent_notes_heading {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
 
-  #pinned_notes_tiles {
+  #recent_notes_tiles {
     margin-top: 1rem;
     width: 100%;
+  }
+
+  .empty-notes {
+    opacity: 0.5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2vh;
+    cursor: pointer;
+    margin-top: 5%;
+
+    img {
+      width: 20%;
+      height: auto;
+    }
   }
 }
 
 /* ------ REMINDERS LIST STYLING ------ */
-#reminders_empty {
+#tasks_empty {
   opacity: 0.5;
 
   img {
     width: 80%;
-  }
-
-  p {
-    font-size: 1.1vw;
   }
 }

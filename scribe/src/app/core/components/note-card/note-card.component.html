@@ -1,38 +1,49 @@
-<mat-card ngxMasonryItem class="masonry-note" *ngFor="let note of notes">
-        
-    <!--Card Header-->
-    <div class="note-header">
-      <mat-card-title class="note-title">{{ note.title }}</mat-card-title>
-      <button mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>
+<mat-card ngxMasonryItem class="masonry-note">
+  <div class="note-header">
+    <mat-card-title class="note-title" (click)="editNote()">
+      {{ note.title }}
+    </mat-card-title>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <!-- If the notes are active, display this -->
+      @if (!isInTrash) {
+        <button mat-menu-item (click)="editNote()">
           <mat-icon>edit</mat-icon>
           <span>Edit</span>
-        </button>
-        <button mat-menu-item>
-          <mat-icon>delete</mat-icon>
-          <span>Delete</span>
         </button>
         <button mat-menu-item>
           <mat-icon>share</mat-icon>
           <span>Share</span>
         </button>
-      </mat-menu>
+        <button mat-menu-item (click)="deleteNote()">
+          <mat-icon>delete</mat-icon>
+          <span>Move to trash</span>
+        </button>
+      <!-- If the notes are soft-deleted and in trash, display this -->
+      } @else {
+        <button mat-menu-item (click)="restoreNote()">
+          <mat-icon>restore</mat-icon>
+          <span>Restore</span>
+        </button>
+        <button mat-menu-item (click)="hardDeleteNote()">
+          <mat-icon>delete_forever</mat-icon>
+          <span>Delete Forever</span>
+        </button>
+      }
+    </mat-menu>
+  </div>
+
+  <mat-card-content class="note-content" (click)="editNote()">
+    <div [innerHTML]="sanitizedContent"></div>
+  </mat-card-content>
+
+  <mat-card-footer class="note-footer" (click)="editNote()">
+    <div id="last_edited_info">
+      <span class="material-symbols-outlined">schedule</span>
+      <p>{{ note.last_edited | date: 'MMM d h:mm a' }}</p>
     </div>
-
-    <!--Card Content-->
-    <mat-card-content class="note-content">
-      <p>{{ note.content }}</p>
-    </mat-card-content>
-
-    <!--Card Footer-->
-    <mat-card-footer class="note-footer">
-      <div id="last_edited_info">
-        <span class="material-symbols-outlined"> schedule </span>
-        <p>{{ note.lastEdited }}</p>
-      </div>
-    </mat-card-footer>
-
-  </mat-card>
+  </mat-card-footer>
+  
+</mat-card>

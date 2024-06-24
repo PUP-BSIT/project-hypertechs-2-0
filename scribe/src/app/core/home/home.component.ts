@@ -1,30 +1,72 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../services/user/user.service';
 import { TitleCaseService } from '../../../services/title-case/title-case.service';
+import { NoteService } from '../../../services/notes/note.service';
+import { AuthService } from '../../../services/auth/auth.service';
 import { FeaturedTemplates } from '../../../models/model';
+import { Subscription } from 'rxjs';
+import { simpleFade, slideInOut } from '../../../animations/element-animations';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+  styleUrls: ['./home.component.scss'],
+  animations: [simpleFade, slideInOut],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   @Input() firstname: string | null = null;
   @Input() note: any;
+  notes: any[] = [];
+  isLoading = true;
+  private userSubscription!: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
-    private titleCaseService: TitleCaseService
+    private titleCaseService: TitleCaseService,
+    private noteService: NoteService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
     this.userService.firstname$.subscribe((firstname) => {
       this.firstname = this.titleCaseService.toTitleCase(firstname);
     });
+
+    this.userSubscription = this.authService.user$.subscribe((userId) => {
+      if (userId !== null) {
+        this.loadNotes();
+      } else {
+        this.notes = []; // Clear notes when no user is logged in
+        this.isLoading = false; // Set loading to false if no user
+      }
+    });
+  }
+
+  loadNotes() {
+    this.noteService.getNotes().subscribe(
+      (data) => {
+        console.log('Notes received from backend:', data);
+        this.notes = data.filter((note: any) => note.is_deleted == 0);
+        this.isLoading = false;
+      },
+      (error) => {
+        console.error('Error fetching notes:', error);
+        this.isLoading = false;
+      }
+    );
+  }
+
+  onNoteDelete(noteId: number) {
+    this.notes = this.notes.filter(note => note.id !== noteId);
+  }
+
+  ngOnDestroy() {
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
   }
 
   templates: FeaturedTemplates[] = [
@@ -35,4 +77,33 @@ export class HomeComponent implements OnInit {
     { icon: 'school', title: 'Lectures' },
     { icon: 'today', title: 'Daily Planner' },
   ];
+
+  selectTemplate(template: FeaturedTemplates) {
+    switch (template.title) {
+      case 'Meeting':
+        this.router.navigate(['/main/editor', { template: 'meeting' }]);
+        break;
+      case 'Tasks List':
+        this.router.navigate(['/main/editor', { template: 'tasksList' }]);
+        break;
+      case 'Project Plan':
+        this.router.navigate(['/main/editor', { template: 'projectPlan' }]);
+        break;
+      case 'Event Plan':
+        this.router.navigate(['/main/editor', { template: 'eventPlan' }]);
+        break;
+      case 'Lectures':
+        this.router.navigate(['/main/editor', { template: 'lectures' }]);
+        break;
+      case 'Daily Planner':
+        this.router.navigate(['/main/editor', { template: 'dailyPlanner' }]);
+        break;
+      default:
+        console.log('Template not found');
+    }
+  }
+
+  trackByNoteId(index: number, note: any): number {
+    return note.id;
+  }
 }

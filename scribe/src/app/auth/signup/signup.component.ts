@@ -1,24 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import {
   FormGroup,
   Validators,
   FormBuilder,
   AbstractControl,
-  ValidatorFn
+  ValidatorFn,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SignupData } from '../../../models/model';
 import { UserService } from '../../../services/user/user.service';
 import { SignupService } from '../../../services/signup/signup.service';
 import { SnackbarService } from '../../../services/snackbar/snackbar.service';
 import { DialogService } from '../../../services/dialog/dialog.service';
-
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.scss'
+  styleUrl: './signup.component.scss',
 })
 export class SignupComponent implements OnInit {
   signupForm: FormGroup = this.formBuilder.group({});
@@ -31,7 +31,8 @@ export class SignupComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private snackbarService: SnackbarService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
@@ -53,10 +54,10 @@ export class SignupComponent implements OnInit {
         this.userService.setFirstname(userData.firstname);
         this.userService.setLastname(userData.lastname);
         this.userService.setEmail(userData.email);
+        this.userService.setUserId(userData.user_id);
         this.router.navigate(['main']);
       } catch (error) {
         console.error('Error parsing stored user data:', error);
-        /* Clear invalid data and proceed normally */
         localStorage.removeItem('loggedInUser');
       }
     }
@@ -106,7 +107,6 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
-    /* Return if potential user inputs are invalid */
     if (!this.signupForm.valid) return;
     this.isLoading = true;
 
@@ -121,11 +121,12 @@ export class SignupComponent implements OnInit {
 
     this.signupService.signupUser(signupData).subscribe({
       next: (response) => {
-        console.log('Response from server:', response);
         localStorage.setItem('loggedInUser', JSON.stringify(response));
         this.userService.setFirstname(signupData.firstname);
         this.userService.setLastname(signupData.lastname);
         this.userService.setEmail(signupData.email);
+        this.userService.setUserId(response.user_id);
+        this.authService.setUserId(response.user_id); // Notify AuthService
         this.openSentmailDialog();
         this.isLoading = false;
         this.snackbarService.dismiss();
@@ -137,21 +138,18 @@ export class SignupComponent implements OnInit {
     });
   }
 
-  /* Handle the error messages */
   handleError(error: HttpErrorResponse | Error) {
     if (error instanceof HttpErrorResponse) {
       this.handleHttpError(error);
     } else {
       this.handleNetworkError();
     }
-
     this.snackbarService.show(this.errorMessage);
   }
 
   private handleHttpError(error: HttpErrorResponse) {
     if (error.status === 0) {
-      this.errorMessage = 
-        `Server is unreachable. Please make sure your server is running.`;
+      this.errorMessage = 'You are currently offline';
       return;
     }
 
@@ -162,36 +160,33 @@ export class SignupComponent implements OnInit {
 
     switch (error.status) {
       case 400:
-        this.errorMessage = `This email has already been used. Use a new one.`;
+        this.errorMessage = 'This email has already been used. Use a new one.';
         break;
-
       case 500:
-        this.errorMessage = `Internal server error. Please try again later.`;
+        this.errorMessage = 'Internal server error. Please try again later.';
         break;
-
       default:
         this.errorMessage = `Error: ${error.status}. Please try again later.`;
     }
   }
 
   private handleNetworkError() {
-    this.errorMessage 
-      = `Network error occurred. Please check your internet connection.`;
+    this.errorMessage =
+      'Network error occurred. Please check your internet connection.';
   }
 
   openSentmailDialog(): void {
     const dialogRef = this.dialogService.openDialog({
       title: 'Email Verification',
-      content: 'We sent a code to your email',
+      content: 'We sent an OTP code to your email to verify your identity.',
       cancelText: 'Cancel',
-      confirmText: 'Ok',
+      confirmText: 'Proceed',
       action: 'ok',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'ok') {
-        /* Perform logout action here */
-        this.router.navigate(['recovery']); 
+        this.router.navigate(['recovery']);
       }
     });
   }

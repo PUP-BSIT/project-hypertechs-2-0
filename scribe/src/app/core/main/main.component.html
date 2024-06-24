@@ -1,5 +1,6 @@
 <mat-sidenav-container class="sidenav-container">
   <!--Side Navigation Bar-->
+  <!-- default property:: [opened]="(isHandset$ | async) === false" -->
   <mat-sidenav
     #drawer
     class="sidenav"
@@ -7,8 +8,9 @@
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'push' : 'side'"
     [opened]="(isHandset$ | async) === false"
-    [@slideInOut]="isOpened ? 'in' : 'void'">
-
+    [opened]="isOpened"
+    [@slideInOut]="isOpened ? 'in' : 'void'"
+>
     <div class="sidenav-header">
       <div class="core-brand" [routerLink]="['/main/home']">
         <img src="../../../assets/images/quill-pen.png" />
@@ -21,7 +23,7 @@
         <!--Home-->
         <a
           matRipple
-          matRippleColor="rgba(0, 148, 113, 0.1)"
+          matRippleColor="rgba(0, 108, 83, 0.12)"
           [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
           [routerLink]="['/main/home']"
           routerLinkActive="active-link"
@@ -36,7 +38,7 @@
         <!--Notes-->
         <a
           matRipple
-          matRippleColor="rgba(0, 148, 113, 0.1)"
+          matRippleColor="rgba(0, 108, 83, 0.12)"
           [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
           [routerLink]="['/main/notes']"
           routerLinkActive="active-link"
@@ -51,7 +53,7 @@
         <!--Tasks-->
         <a
           matRipple
-          matRippleColor="rgba(0, 148, 113, 0.1)"
+          matRippleColor="rgba(0, 108, 83, 0.12)"
           [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
           [routerLink]="['/main/tasks']"
           routerLinkActive="active-link"
@@ -66,7 +68,7 @@
         <!--Folders-->
         <a
           matRipple
-          matRippleColor="rgba(0, 148, 113, 0.1)"
+          matRippleColor="rgba(0, 108, 83, 0.12)"
           [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
           [routerLink]="['/main/folders']"
           routerLinkActive="active-link"
@@ -81,7 +83,7 @@
         <!--Trash-->
         <a
           matRipple
-          matRippleColor="rgba(0, 148, 113, 0.1)"
+          matRippleColor="rgba(0, 108, 83, 0.12)"
           [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
           [routerLink]="['/main/trash']"
           routerLinkActive="active-link"
@@ -99,7 +101,7 @@
         <a
           id="theme_nav"
           matRipple
-          matRippleColor="rgba(0, 148, 113, 0.1)"
+          matRippleColor="rgba(0, 108, 83, 0.12)"
           [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
           (click)="toggleTheme()"
           matTooltip="Switch app theme"
@@ -114,7 +116,7 @@
         <!--Settings-->
         <a
           matRipple
-          matRippleColor="rgba(0, 148, 113, 0.1)"
+          matRippleColor="rgba(0, 108, 83, 0.12)"
           [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
           [routerLink]="['/main/settings']"
           routerLinkActive="active-link"
@@ -147,6 +149,7 @@
   <!--Main Content-->
   <mat-sidenav-content [@simpleFade]>
     <!--Page Toolbar -->
+    @if(toolbarVisible) {
     <mat-toolbar color="primary">
       <!--Menu Toggle-->
       <div id="scribe_menu-container">
@@ -155,17 +158,32 @@
           type="button"
           aria-label="Toggle sidenav"
           mat-icon-button
-          (click)="drawer.toggle()"
-        >
+          (click)="drawer.toggle()">
+          
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
         }
       </div>
 
-      <!--Search Bar-->
+      <!-- Search Bar -->
       <div id="scribe_search_container">
         <span class="material-symbols-outlined search-icon">search</span>
-        <input type="search" placeholder="Search" id="search_input" />
+        <input 
+          type="search"
+          placeholder="Search"
+          id="search_input" 
+          (focus)="onSearchFocus()"
+          (blur)="onSearchBlur()"
+          (input)="onSearchInput($event)" />
+
+          <!--Shows cancel when search is clicked -->
+          @if (showCancelButton) {
+          <span 
+            class="cancel-text" 
+            (click)="onCancelSearch()">
+            Cancel
+          </span>
+        }
       </div>
 
       <!--User Profile-->
@@ -180,6 +198,7 @@
         </div>
       </div>
     </mat-toolbar>
+    }
 
     <!--Actual Loaded Pages Content-->
     <div class="scribe-core-content">

@@ -5,25 +5,27 @@
 
 .masonry-note {
   display: flex;
-  flex-wrap: wrap;
-  background-color: var(--core-nav);
+  flex-direction: column;
+  background-color: var(--note-card);
   border-radius: 10px;
   font-size: 1rem;
   margin-bottom: 10px;
   margin-right: 10px;
   width: calc(25% - 10px);
   cursor: pointer;
+  max-height: 40vh;  /* Makes the note-card height dynamic */
+  overflow: auto;  /* Makes the note-card height dynamic */
 
   .note-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 1rem 0.5rem 0rem 1.25rem;
+    padding: 5% 3% 0% 9%;
   }
 
   .note-title {
-    font-size: 1.25rem;
+    font-size: 1.25vw;
     font-weight: 500;
     font-family: "Google Sans Text", sans-serif;
     white-space: nowrap;
@@ -33,12 +35,18 @@
   }
 
   .note-content {
-    padding: 0.5rem 1rem;
+    font-size: 1vw;
+    padding: 5% 9% 0% 9%;
     line-height: 1.5;
+    // max-height: 30vh;
+    max-width: 100%;
+    overflow: hidden;
+    position: relative;
   }
 
   .note-footer {
-    padding: 1rem;
+    padding: 9% 7% 9% 7%;
+    margin-top: auto; /* Pushes footer to the bottom */
 
     #last_edited_info {
       display: flex;
@@ -50,11 +58,11 @@
       width: fit-content;
 
       span {
-        font-size: 1rem;
+        font-size: 1vw;
       }
 
       p {
-        font-size: 0.8rem;
+        font-size: 0.9vw;
         color: var(--text);
       }
     }

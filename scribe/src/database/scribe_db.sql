@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 10, 2024 at 04:58 PM
+-- Generation Time: Jun 23, 2024 at 05:14 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,13 +41,14 @@ CREATE TABLE `folders` (
 --
 
 CREATE TABLE `notes` (
-  `note_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  `last_edited` datetime NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `folder_id` int(11) DEFAULT NULL,
-  `note_title` varchar(100) NOT NULL,
-  `note_content` text DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `tags` varchar(255) DEFAULT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -63,20 +64,6 @@ CREATE TABLE `tasks` (
   `is_completed` tinyint(1) DEFAULT 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `trash`
---
-
-CREATE TABLE `trash` (
-  `trash_id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `item_type` enum('note','folder','task') NOT NULL,
-  `item_id` int(11) NOT NULL,
-  `deleted_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -100,7 +87,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `firstname`, `lastname`, `email`, `password`, `is_verified`, `created_at`) VALUES
-(1, 'Mary Joy', 'Danay', 'maryjoydanay2.0@gmail.com', '$2y$10$0TiAKv3FVfjL5AmnoHtFBOxe4tDCTOd4Gxf6MeMh32TR/uCvvH0ea', 0, '2024-06-10 14:49:28');
+(47, 'Emmanuel', 'Martinez', 'emmanuellmartinez013@gmail.com', '$2y$10$rQc7hBfNmd2Y6f4vKxDbyuoazX1zDWwXwwuFyb7rdqcgOlbzp/cU2', 0, '2024-06-15 01:54:45'),
+(48, 'John', 'Wick', 'emminemx@gmail.com', '$2y$10$ZQ5tLu31XrwoxPA2CPp5TutTSE.S6yrnKgObW/qL8s0Ejgie3hIYO', 0, '2024-06-18 10:18:18');
 
 -- --------------------------------------------------------
 
@@ -112,8 +100,17 @@ CREATE TABLE `verification_codes` (
   `code_id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `verification_code` varchar(6) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `expiration_time` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `verification_codes`
+--
+
+INSERT INTO `verification_codes` (`code_id`, `user_id`, `verification_code`, `created_at`, `expiration_time`) VALUES
+(2, 47, '835363', '2024-06-15 01:54:50', NULL),
+(3, 48, '631104', '2024-06-18 10:18:24', NULL);
 
 --
 -- Indexes for dumped tables
@@ -130,22 +127,14 @@ ALTER TABLE `folders`
 -- Indexes for table `notes`
 --
 ALTER TABLE `notes`
-  ADD PRIMARY KEY (`note_id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `folder_id` (`folder_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_notes_users` (`user_id`);
 
 --
 -- Indexes for table `tasks`
 --
 ALTER TABLE `tasks`
   ADD PRIMARY KEY (`task_id`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- Indexes for table `trash`
---
-ALTER TABLE `trash`
-  ADD PRIMARY KEY (`trash_id`),
   ADD KEY `user_id` (`user_id`);
 
 --
@@ -176,7 +165,7 @@ ALTER TABLE `folders`
 -- AUTO_INCREMENT for table `notes`
 --
 ALTER TABLE `notes`
-  MODIFY `note_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tasks`
@@ -185,22 +174,16 @@ ALTER TABLE `tasks`
   MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `trash`
---
-ALTER TABLE `trash`
-  MODIFY `trash_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `verification_codes`
 --
 ALTER TABLE `verification_codes`
-  MODIFY `code_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `code_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Constraints for dumped tables
@@ -216,20 +199,13 @@ ALTER TABLE `folders`
 -- Constraints for table `notes`
 --
 ALTER TABLE `notes`
-  ADD CONSTRAINT `notes_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `notes_ibfk_2` FOREIGN KEY (`folder_id`) REFERENCES `folders` (`folder_id`) ON DELETE SET NULL;
+  ADD CONSTRAINT `fk_notes_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `tasks`
 --
 ALTER TABLE `tasks`
   ADD CONSTRAINT `tasks_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
-
---
--- Constraints for table `trash`
---
-ALTER TABLE `trash`
-  ADD CONSTRAINT `trash_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `verification_codes`

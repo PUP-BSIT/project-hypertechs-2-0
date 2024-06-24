@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { OtpverificationService } from '../../../../services/otp/otpverification.service';
 import { Router } from '@angular/router';
 import { SnackbarService } from '../../../../services/snackbar/snackbar.service';
-
+import { AuthService } from '../../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-enter-otp',
@@ -16,7 +16,12 @@ export class EnterOtpComponent {
   
   @Output() otpSubmitted: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private otpService: OtpverificationService, private router: Router, private snackbarService: SnackbarService){}
+  constructor(
+    private otpService: OtpverificationService, 
+    private router: Router, 
+    private snackbarService: SnackbarService,
+    private authService: AuthService
+  ){}
 
   onOtpInput(index: number, event: any) {
     
@@ -61,7 +66,10 @@ export class EnterOtpComponent {
   }
 
   private handleSuccess(response: any) {
-    this.router.navigate(['/main']); // Redirect to dashboard on success
+    const user_id = this.authService.getUserId();
+    this.router.navigate(['/enter-new-password'], { queryParams: { user_id: user_id } });
+    //TODO testing
+    console.log(user_id);
   }
 
   private handleError(message: string) {

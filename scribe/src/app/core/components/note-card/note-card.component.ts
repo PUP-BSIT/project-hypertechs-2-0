@@ -1,55 +1,95 @@
-import { Component, Input } from '@angular/core';
-import { NgxMasonryOptions } from 'ngx-masonry';
-import { TempNote } from '../../../../models/model';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { NoteService } from '../../../../services/notes/note.service';
+import { DialogService } from '../../../../services/dialog/dialog.service';
+import { SnackbarService } from '../../../../services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-note-card',
   templateUrl: './note-card.component.html',
-  styleUrl: './note-card.component.scss',
+  styleUrls: ['./note-card.component.scss'],
 })
-export class NoteCardComponent {
-  @Input() note!: TempNote;
+export class NoteCardComponent implements OnInit {
+  @Input() note: any;
+  @Input() isInTrash: boolean = false;
+  @Output() restore = new EventEmitter<number>();
+  @Output() delete = new EventEmitter<number>();
+  @Output() deleteForever = new EventEmitter<number>();
 
-  notes = [
-    {
-      title: 'Note 1',
-      content: 'This is a short note.',
-      lastEdited: '2 minutes ago'
-    },
-    {
-      title: 'Note 2',
-      content: 'Here is an even longer note that spans multiple lines to test the layout with more content. Is it working now?',
-      lastEdited: '4 hours ago'
-    },
-    {
-      title: 'Note 3',
-      content: 'Another short note for variety.',
-      lastEdited: 'Yesterday'
-    },
-    {
-      title: 'Note 4',
-      content: 'Content of Note 1',
-      lastEdited: '3 days ago'
-    },
-    {
-      title: 'Note 5',
-      content: 'Am I allowed to cry?',
-      lastEdited: '6 days ago'
-    },
-    {
-      title: 'Note 6',
-      content: 'Content of Note 3',
-      lastEdited: 'Last Week'
+  constructor(
+    private router: Router,
+    private sanitizer: DomSanitizer,
+    private noteService: NoteService,
+    private dialogService: DialogService,
+    private snackbarService: SnackbarService
+  ) {}
+
+  ngOnInit() {
+    console.log('Note data:', this.note);
+
+    if (this.note.last_edited && typeof this.note.last_edited === 'string') {
+      this.note.last_edited = new Date(this.note.last_edited);
     }
-  ];
+  }
 
-  public masonryOptions: NgxMasonryOptions = {
-    itemSelector: '.note',
-    columnWidth: '.note',
-		gutter: 20,
-    percentPosition: true,
-		resize: true,
-		fitWidth: true,
-	};
+  get sanitizedContent(): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(this.note.content);
+  }
+
+  editNote() {
+    const queryParams = this.isInTrash ? { readonly: true } : {};
+    this.router.navigate(['/main/editor', this.note.id], { queryParams });
+  }
+
+  deleteNote() {
+    this.noteService.deleteNote(this.note.id).subscribe(
+      () => {
+        console.log('Note deleted successfully');
+        this.delete.emit(this.note.id);
+        this.snackbarService.show('Note moved to trash', 'Go to Trash', 2000);
+      },
+      (error) => {
+        console.error('Error deleting note:', error);
+      }
+    );
+  }
+
+  onDelete() {
+    this.delete.emit(this.note.id);
+  }
+
+  restoreNote() {
+    this.restore.emit(this.note.id);
+    this.snackbarService.show('Note successfully restored!', 'Close', 2000);
+  }
+
+  hardDeleteNote() {
+    const dialogRef = this.dialogService.openDialog({
+      title: 'Permanent Delete',
+      content: 'Are you sure you want to delete this note forever?',
+      confirmText: 'Confirm',
+      cancelText: 'Cancel',
+      action: 'confirm',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'confirm') {
+        this.noteService.hardDeleteNote(this.note.id).subscribe(
+          () => {
+            console.log('Note permanently deleted successfully');
+            this.snackbarService.show('Note permanently deleted');
+            this.deleteForever.emit(this.note.id);
+          },
+          (error) => {
+            console.error('Error permanently deleting note:', error);
+            this.snackbarService.show(
+              'Error permanently deleting note',
+              'Retry'
+            );
+          }
+        );
+      }
+    });
+  }
 }
-
