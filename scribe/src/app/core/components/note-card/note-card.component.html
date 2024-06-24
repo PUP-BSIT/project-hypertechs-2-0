@@ -42,7 +42,8 @@
   <mat-card-footer class="note-footer">
     <div id="last_edited_info">
       <span class="material-symbols-outlined">schedule</span>
-      <p>{{ note.last_edited | date : "short" }}</p>
+      <p>{{ note.last_edited | date: 'MMM d h:mm a' }}</p>
     </div>
   </mat-card-footer>
+  
 </mat-card>
