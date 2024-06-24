@@ -1,3 +1,8 @@
+* {
+  color: var(--text);
+  transition: background-color 0.75s ease, color 0.75s ease;
+}
+
 #scribe_search_container {
   display: flex;
   align-items: center;

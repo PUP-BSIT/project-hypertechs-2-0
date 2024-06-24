@@ -106,13 +106,22 @@ export class MainComponent implements OnInit {
 
   onSearchBlur() {
     setTimeout(() => {
-      this.showCancelButton = false;
-      const cancelText = document.querySelector('.cancel-text') as HTMLElement;
-      if (cancelText) {
-        cancelText.classList.remove('visible');
+      // Check if the search component is still present
+      const searchComponent = document.querySelector(
+        '.search-component'
+      ) as HTMLElement;
+      if (searchComponent && searchComponent.style.display !== 'none') {
+        return; // If search component is still present, do not hide cancel
       }
-      if (this.previousUrl) {
-        this.router.navigate([this.previousUrl]);
+
+      // If search component is not present, hide cancel button when not clicked
+      if (!this.showCancelButton) {
+        const cancelText = document.querySelector(
+          '.cancel-text'
+        ) as HTMLElement;
+        if (cancelText) {
+          cancelText.classList.remove('visible');
+        }
       }
     }, 100);
   }
