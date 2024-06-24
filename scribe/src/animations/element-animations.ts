@@ -9,7 +9,6 @@ export const slideInOut = trigger('slideInOut', [
     style({
       transform: 'translateX(-100%)',
       opacity: 0,
-      // 'will-change': 'transform, opacity' // Optimize for GPU acceleration
     }),
     animate('700ms ease-out')
   ]),
@@ -25,9 +24,9 @@ export const slideInOut = trigger('slideInOut', [
 export const simpleFade = trigger('simpleFade', [
   transition(':enter', [
     style({ opacity: 0 }),
-    animate('1000ms', style({ opacity: 1 }))
+    animate('700ms', style({ opacity: 1 }))
   ]),
   transition(':leave', [
-    animate('1000ms', style({ opacity: 0 }))
+    animate('700ms', style({ opacity: 0 }))
   ])
 ]);
