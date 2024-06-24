@@ -86,6 +86,11 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     this.contentChanged.pipe(debounceTime(1000)).subscribe(() => {
       this.saveNote();
     });
+
+    // Subscribe to selection change event
+    this.editorContentRef.nativeElement.addEventListener('mouseup', () => {
+      this.updateActiveCommands();
+    });
   }
 
   ngOnDestroy() {
