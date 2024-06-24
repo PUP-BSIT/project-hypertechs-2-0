@@ -13,6 +13,8 @@
   margin-right: 10px;
   width: calc(25% - 10px);
   cursor: pointer;
+  max-height: 40vh;  /* Makes the note-card height dynamic */
+  overflow: auto;  /* Makes the note-card height dynamic */
 
   .note-header {
     display: flex;
@@ -34,16 +36,16 @@
 
   .note-content {
     font-size: 1vw;
-    padding: 5% 9%;
+    padding: 5% 9% 0% 9%;
     line-height: 1.5;
-    max-height: 21vh;
-    max-width: 90%;
+    // max-height: 30vh;
+    max-width: 100%;
     overflow: hidden;
     position: relative;
   }
 
   .note-footer {
-    padding: 9% 7%;
+    padding: 9% 7% 9% 7%;
     margin-top: auto; /* Pushes footer to the bottom */
 
     #last_edited_info {
