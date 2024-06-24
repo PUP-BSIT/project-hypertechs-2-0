@@ -38,7 +38,8 @@ export class NoteCardComponent implements OnInit {
   }
 
   editNote() {
-    this.router.navigate(['/main/editor', this.note.id]);
+    const queryParams = this.isInTrash ? { readonly: true } : {};
+    this.router.navigate(['/main/editor', this.note.id], { queryParams });
   }
 
   deleteNote() {
@@ -46,6 +47,7 @@ export class NoteCardComponent implements OnInit {
       () => {
         console.log('Note deleted successfully');
         this.delete.emit(this.note.id);
+        this.snackbarService.show('Note moved to trash', 'Go to Trash', 2000);
       },
       (error) => {
         console.error('Error deleting note:', error);
@@ -59,6 +61,7 @@ export class NoteCardComponent implements OnInit {
 
   restoreNote() {
     this.restore.emit(this.note.id);
+    this.snackbarService.show('Note successfully restored!', 'Close', 2000);
   }
 
   hardDeleteNote() {
