@@ -177,8 +177,6 @@
     border-radius: 10em;
     font-size: 1.1rem;
     background-color: var(--core-nav);
-    transition: padding-right 0.5s ease;
-    transition-property: padding-right;
 
     &::placeholder {
       color: var(--text);
