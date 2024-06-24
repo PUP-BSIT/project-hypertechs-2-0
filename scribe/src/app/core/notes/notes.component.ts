@@ -2,11 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NoteService } from '../../../services/notes/note.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { Subscription } from 'rxjs';
+import { simpleFade, slideInOut } from '../../../animations/element-animations';
 
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
   styleUrls: ['./notes.component.scss'],
+  animations: [simpleFade, slideInOut],
 })
 export class NotesComponent implements OnInit, OnDestroy {
   notes: any[] = [];
