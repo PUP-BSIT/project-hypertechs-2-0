@@ -164,10 +164,25 @@
         }
       </div>
 
-      <!--Search Bar-->
+      <!-- Search Bar -->
       <div id="scribe_search_container">
         <span class="material-symbols-outlined search-icon">search</span>
-        <input type="search" placeholder="Search" id="search_input" />
+        <input 
+          type="search"
+          placeholder="Search"
+          id="search_input" 
+          (focus)="onSearchFocus()"
+          (blur)="onSearchBlur()"
+          (input)="onSearchInput($event)" />
+
+          <!--Shows cancel when search is clicked -->
+          @if (showCancelButton) {
+          <span 
+            class="cancel-text" 
+            (click)="onCancelSearch()">
+            Cancel
+          </span>
+        }
       </div>
 
       <!--User Profile-->
