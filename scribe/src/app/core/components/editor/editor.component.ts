@@ -7,7 +7,7 @@ import { SidenavService } from '../../../../services/sidenav/sidenav.service';
 
 /* Custom Imports */
 import { templates } from '../../../../imports/templates';
-import { slideInOut, simpleFade } from '../../../../animations/element-animations';
+import { slideUpDown, simpleFade } from '../../../../animations/element-animations';
 import { ToolbarService } from '../../../../services/toolbar/toolbar.service';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { NoteService } from '../../../../services/notes/note.service';
@@ -19,7 +19,7 @@ type EditableProperty = 'textColor' | 'backgroundColor';
   selector: 'app-editor',
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss'],
-  animations: [slideInOut, simpleFade],
+  animations: [slideUpDown, simpleFade],
 })
 export class EditorComponent implements AfterViewInit, OnDestroy {
   @ViewChild('editorContent') editorContentRef!: ElementRef;
