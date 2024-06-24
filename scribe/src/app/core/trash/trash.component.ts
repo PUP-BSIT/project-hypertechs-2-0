@@ -4,11 +4,14 @@ import { AuthService } from '../../../services/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { DialogService } from '../../../services/dialog/dialog.service';
 import { SnackbarService } from '../../../services/snackbar/snackbar.service';
+import { simpleFade, slideInOut } from '../../../animations/element-animations';
+
 
 @Component({
   selector: 'app-trash',
   templateUrl: './trash.component.html',
   styleUrls: ['./trash.component.scss'],
+  animations: [simpleFade, slideInOut],
 })
 export class TrashComponent implements OnInit, OnDestroy {
   notes: any[] = [];
