@@ -6,11 +6,13 @@ import { NoteService } from '../../../services/notes/note.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { FeaturedTemplates } from '../../../models/model';
 import { Subscription } from 'rxjs';
+import { simpleFade, slideInOut } from '../../../animations/element-animations';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  animations: [simpleFade, slideInOut],
 })
 export class HomeComponent implements OnInit, OnDestroy {
   @Input() firstname: string | null = null;
