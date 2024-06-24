@@ -39,7 +39,7 @@
     <div [innerHTML]="sanitizedContent"></div>
   </mat-card-content>
 
-  <mat-card-footer class="note-footer">
+  <mat-card-footer class="note-footer" (click)="editNote()">
     <div id="last_edited_info">
       <span class="material-symbols-outlined">schedule</span>
       <p>{{ note.last_edited | date: 'MMM d h:mm a' }}</p>
