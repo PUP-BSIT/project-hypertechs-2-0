@@ -8,7 +8,7 @@
     </div>
     <div class="recovery-form">
       <!--This is the default injected component-->
-      <ng-container *ngIf="currentStep === 'enterOtp'">
+      <ng-container *ngIf="currentStep === 'enterEmail'">
         <app-enter-email (emailSubmitted)="handleEmailSubmitted($event)">
         </app-enter-email>
       </ng-container>
