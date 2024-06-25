@@ -1,3 +1,8 @@
+* {
+  color: var(--text);
+  transition: background-color 0.75s ease, color 0.75s ease;
+}
+
 .scribe-editor-container {
   margin-top: 2rem;
 }
@@ -10,11 +15,16 @@
 }
 
 .btn-back,
-.btn-fullscreen,
-.btn-save {
+.btn-focus,
+.btn-edit,
+.btn-done {
   font-size: 1vw;
   color: var(--primary) !important;
   cursor: pointer;
+
+  .mat-icon {
+    color: var(--primary);
+  }
 }
 
 /*  ----- EDITOR TITLE STYLING ----- */
@@ -53,6 +63,14 @@
   color: var(--text);
   opacity: 0.6;
   margin-bottom: 20px;
+
+  .mat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    margin-right: 0.25rem;
+  }
 }
 
 /*  ----- EDITOR TAGS STYLING ----- */
@@ -64,11 +82,15 @@
 .btn-tags,
 .btn-reminders {
   background: var(--feat-template) !important;
-  color: var(--feat-text) !important;
+  color: var(--primary) !important;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
   margin-right: 10px;
+
+  .mat-icon {
+    color: var(--primary);
+  }
 }
 
 /*  ----- EDITOR TOOLBAR STYLING ----- */
@@ -137,6 +159,7 @@
 .editor-content {
   height: auto;
   outline: none;
+  padding-bottom: 15%;
 }
 
 ::ng-deep .editor-content .custom-list {
@@ -171,7 +194,6 @@ input[type="color"]:focus {
   display: flex;
   align-items: center;
   cursor: pointer;
-  /* Add styles as needed */
 }
 
 /* Style for the color display */
@@ -180,5 +202,9 @@ input[type="color"]:focus {
   height: 20px;
   border-radius: 50%;
   margin-right: 10px;
-  /* Add more styles as needed */
+}
+
+.disabled-button {
+  opacity: 0.5;
+  cursor: default !important;
 }

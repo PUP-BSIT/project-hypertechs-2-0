@@ -1,20 +1,42 @@
 <div class="scribe-editor-container" [@simpleFade]>
   <!--Editor header-->
   <div class="editor-header">
+    <!--Back Button-->
     <button mat-button class="btn-back" (click)="goBack()">
       <mat-icon>arrow_back</mat-icon>
       Back
     </button>
     <div class="editor-actions">
-      <form (ngSubmit)="saveNote()" #noteForm="ngForm">
-        <button mat-button class="btn-fullscreen">
-          <mat-icon>open_in_full</mat-icon>
-          Full Screen
+      <form #noteForm="ngForm">
+        <!--Focus Mode-->
+        <button mat-button class="btn-focus" (click)="toggleSidenav()">
+          <mat-icon>crop_free</mat-icon> Focus Mode
         </button>
-        <button mat-button class="btn-save">
-          <mat-icon>check</mat-icon>
-          Done
-        </button>
+    
+        @if (isInTrash) {
+          <!-- Edit button with tooltip if the note is in trash -->
+          <button mat-button 
+          class="btn-edit" 
+          (click)="toggleEditMode()"
+          matTooltip="Note can't be edited while it's in trash."
+          [ngClass]="{'disabled-button': isInTrash}">
+            <mat-icon>edit</mat-icon> Edit
+          </button>
+        }
+    
+        @if (!isInTrash && readOnly) {
+          <!-- Edit button without tooltip if the note is not in trash -->
+          <button mat-button class="btn-edit" (click)="toggleEditMode()">
+            <mat-icon>edit</mat-icon> Edit
+          </button>
+        }
+    
+        @if (!isInTrash && !readOnly) {
+          <!-- Done button when not in read-only mode -->
+          <button mat-button class="btn-done" (click)="toggleEditMode()">
+            <mat-icon>check</mat-icon> Done
+          </button>
+        }
       </form>
     </div>
   </div>
@@ -25,13 +47,19 @@
       type="text"
       placeholder="Add note title"
       class="title-input"
+      [readonly]="readOnly"
+      (keyup)="onTitleChange()"
       [(ngModel)]="noteTitle"
     />
   </div>
 
   <!--Note Timestamp-->
   <div class="editor-timestamp">
-    Last edited: {{ lastEdited | date : "short" }}
+    <mat-icon>schedule</mat-icon>
+
+    <div id="timestamp_content">
+      Last edited: {{ lastEdited | date : "short" }}
+    </div>
   </div>
 
   <!--Note Tags & Reminders-->
@@ -50,12 +78,14 @@
   <div
     class="editor-content"
     contenteditable="true"
-    #editorContent
     data-placeholder="Write down your notes here..."
+    #editorContent
     (input)="onContentChange($event)"
+    [attr.contenteditable]="!readOnly"
   ></div>
 
   <!--Editor Toolbar-->
+  @if (!readOnly) {
   <div class="editor-toolbar">
     <!-- Font Styles -->
     <div class="toolbar-group">
@@ -185,4 +215,5 @@
       />
     </div>
   </div>
+  }
 </div>

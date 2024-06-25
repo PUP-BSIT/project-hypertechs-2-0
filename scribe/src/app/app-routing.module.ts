@@ -18,6 +18,7 @@ import { RecoveryComponent } from './auth/recovery/recovery.component';
 import { EnterOtpComponent } from './auth/recovery/enter-otp/enter-otp.component';
 import { EnterNewPasswordComponent } from './auth/recovery/enter-new-password/enter-new-password.component';
 import { EditorComponent } from './core/components/editor/editor.component';
+import { SearchComponent } from './core/components/search/search.component';
 
 const routes: Routes = [
   {
@@ -62,6 +63,7 @@ const routes: Routes = [
       { path: 'trash', component: TrashComponent },
       { path: 'editor', component: EditorComponent },
       { path: 'editor/:id', component: EditorComponent },
+      { path: 'search', component: SearchComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ],
   },

@@ -9,12 +9,11 @@ export const slideInOut = trigger('slideInOut', [
     style({
       transform: 'translateX(-100%)',
       opacity: 0,
-      // 'will-change': 'transform, opacity' // Optimize for GPU acceleration
     }),
-    animate('800ms ease-out')
+    animate('700ms ease-out')
   ]),
   transition('* => void', [
-    animate('800ms ease-out', style({
+    animate('300ms ease-out', style({
       transform: 'translateX(-100%)',
       opacity: 0 
     }))
@@ -25,18 +24,9 @@ export const slideInOut = trigger('slideInOut', [
 export const simpleFade = trigger('simpleFade', [
   transition(':enter', [
     style({ opacity: 0 }),
-    animate('800ms', style({ opacity: 1 }))
+    animate('700ms', style({ opacity: 1 }))
   ]),
   transition(':leave', [
-    animate('800ms', style({ opacity: 0 }))
+    animate('700ms', style({ opacity: 0 }))
   ])
 ]);
-
-/* Animation 3: Typing Effect 
-export const typingAnimation = trigger('typingAnimation', [
-  transition(':enter', [
-    style({ 'white-space': 'nowrap', 'overflow': 'hidden', 'width': '*' }),
-    animate('500ms', style({ 'width': '1' })), 
-  ]),
-]);
-*/
