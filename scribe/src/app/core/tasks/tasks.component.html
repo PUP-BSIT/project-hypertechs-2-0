@@ -1,1 +1,18 @@
-<p>tasks works!</p>
+<div class="scribe-tasks-container" [@simpleFade]>
+  <!--Tasks Heading-->
+  <div id="tasks_heading">
+    <h1>Tasks</h1>
+  </div>
+
+  <!--All Tasks Tiles-->
+  <div id="tasks_main">
+    <div id="all_tasks_tiles">
+      <app-task-card *ngFor="let task of tasks" [task]="task"></app-task-card>
+    </div>
+  </div>
+
+  <button mat-fab extended routerLink="/main/board" class="custom-fab">
+    <mat-icon>add_task</mat-icon>
+    <span>Add Task</span>
+  </button>
+</div>
