@@ -45,6 +45,9 @@
 
   --toolbar: #fbfffe;
   --active-command: #c9e7dc;
+
+  --progress-base: #d0d0d0;
+  --progress-bar-one: #00654e;
 }
 
 body.dark-mode {
@@ -94,4 +97,7 @@ body.dark-mode {
 
   --toolbar: #181a1a;
   --active-command: #006c5361;
+
+  --progress-base: #282d2b;
+  --progress-bar-one: #00503e;
 }
