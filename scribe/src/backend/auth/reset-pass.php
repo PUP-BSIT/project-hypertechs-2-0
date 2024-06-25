@@ -16,10 +16,15 @@ if (isset($data['user_id']) && isset($data['password'])) {
     $user_id = $data['user_id'];
     $new_password = password_hash($data['password'], PASSWORD_DEFAULT);
 
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "scribe_db";
+    // $servername = "localhost";
+    // $username = "root";
+    // $password = "";
+    // $dbname = "scribe_db";
+
+    $servername = "127.0.0.1";
+    $username = "u565642650_scribe_user";
+    $password = "Hypertechs2.0_dbpass";
+    $dbname = "u565642650_scribe_db";
 
     $conn = new mysqli($servername, $username, $password, $dbname);
     
