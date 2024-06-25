@@ -15,6 +15,7 @@
   cursor: pointer;
   max-height: 40vh;  /* Makes the note-card height dynamic */
   overflow: auto;  /* Makes the note-card height dynamic */
+  user-select: none;
 
   .note-header {
     display: flex;
