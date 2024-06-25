@@ -1,0 +1,19 @@
+<div id="task_card">
+  <!--Task Title-->
+  <div id="task_card_title">
+    <h2>{{ task.title }}</h2>
+  </div>
+  <!--Task Description-->
+  <div id="task_card_desc">
+    <span>{{ task.description }}</span>
+  </div>
+  <!--Task Progress-->
+  <div id="task_card_progress">
+    <div id="progress_text">
+      <h4>
+        Task Progress: <span>{{ task.progress }}%</span>
+      </h4>
+    </div>
+    <div id="progress_bar" [style.--progress]="task.progress + '%'"></div>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+* {
+  color: var(--text);
+  transition: background-color 0.75s ease, color 0.75s ease;
+}
+
+#task_card {
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+  padding: 7%;
+  border-radius: 15px;
+  background-color: var(--note-card);
+  cursor: pointer;
+}
+
+#task_card_title {
+  h2 {
+    font-weight: 500;
+  }
+}
+
+#task_card_desc {
+  text-align: justify;
+
+  span {
+    height: 10vh;
+  }
+}
+
+#task_card_progress {
+  margin-top: 5%;
+
+  #progress_text {
+    display: flex;
+    flex-direction: row;
+
+    h4 {
+      font-weight: 500;
+    }
+  }
+
+  #progress_bar {
+    margin-top: 3%;
+    width: 100%;
+    height: 1.5vh;
+    background-color: var(--progress-base);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  #progress_bar::before {
+    content: "";
+    display: block;
+    width: var(--progress, 100%);
+    height: 100%;
+    background: -webkit-linear-gradient(
+      45deg,
+      var(--progress-bar-one),
+      var(--highlight-prime)
+    );
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: transform 0.5s ease-in-out;
+  }
+}
