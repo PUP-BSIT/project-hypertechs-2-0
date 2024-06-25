@@ -24,7 +24,7 @@ export const slideInOut = trigger('slideInOut', [
   ]),
   transition('* => void', [
     animate(
-      '300ms cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+      '200ms cubic-bezier(0.25, 0.46, 0.45, 0.94)',
       style({
         transform: 'translateX(-100%)',
         opacity: 0,
@@ -48,13 +48,13 @@ export const slideUpDown = trigger('slideUpDown', [
   transition(':enter', [
     style({ transform: 'translateY(100%)', opacity: 0 }),
     animate(
-      '800ms cubic-bezier(0.25, 0.8, 0.25, 1)',
+      '900ms cubic-bezier(0.25, 0.8, 0.25, 1)',
       style({ transform: 'translateY(0)', opacity: 1 })
     ),
   ]),
   transition(':leave', [
     animate(
-      '800ms cubic-bezier(0.25, 0.8, 0.25, 1)',
+      '900ms cubic-bezier(0.25, 0.8, 0.25, 1)',
       style({ transform: 'translateY(100%)', opacity: 0 })
     ),
   ]),
