@@ -101,9 +101,10 @@
     margin-top: 2vh;
     padding: 0 2%;
     height: 7vh;
-    background-color: var(--core-nav);
+    background-color: var(--note-card);
     border-radius: 7px;
     overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 
     .material-symbols-outlined {
       font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
@@ -112,6 +113,7 @@
     .delete-icon {
       cursor: pointer;
       visibility: hidden;
+      opacity: 0.5;
     }
 
     .full-width-checkbox {
@@ -129,14 +131,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 23vw;
     overflow: hidden;
   }
 
   .board-task-part-one {
     display: flex;
     align-items: center;
-    max-width: 90%;
+    max-width: 95%;
   }
 
   .task-list-display {
@@ -144,6 +145,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-width: 18vw;
   }
 
   // Input for tasks items
@@ -241,11 +243,27 @@
     border-left: 7px solid #31b968;
   }
 
-  span {
+  .empty-done {
     padding: 5%;
     opacity: 0.6;
     cursor: default;
     user-select: none;
+  }
+
+  .board-task-part-one {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: start;
+    max-width: 20vw;
+  }
+
+  .board-task-item {
+   
+  }
+
+  .delete-icon {
+    cursor: pointer;
   }
 }
 
@@ -254,14 +272,10 @@
   color: var(--text);
   opacity: 0.5;
   font-size: 1rem;
-}
-
-.board-list .board-done {
   white-space: nowrap;
-  overflow: hidden;
   text-overflow: ellipsis;
-  background: grey;
-  width: 1vw;
+  overflow: hidden;
+
 }
 
 /* Style for the done task checkbox */
