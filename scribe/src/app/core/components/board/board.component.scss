@@ -121,7 +121,8 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 
     .material-symbols-outlined {
-      font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 24;
+      user-select: none;
     }
 
     .delete-icon {
@@ -198,7 +199,7 @@
 
 .board {
   overflow-y: scroll;
-  height: 69vh;
+  height: 68vh;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -252,6 +253,26 @@
   #in_progress_list {
     border-left: 7px solid var(--in-progress);
   }
+
+  #in_progress_actions {
+    display: flex;
+    
+  }
+
+  .undo-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    visibility: hidden;
+    opacity: 0.5;
+    font-size: 1.1em;
+  }
+
+  .board-list:hover .undo-icon {
+    visibility: visible;
+  }
+
 }
 
 /* --- DONE -BOARD --- */
@@ -282,9 +303,6 @@
     display: flex;
     justify-content: start;
     max-width: 20vw;
-  }
-
-  .board-task-item {
   }
 
   .delete-icon {
