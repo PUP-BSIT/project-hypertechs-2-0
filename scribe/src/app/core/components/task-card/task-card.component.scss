@@ -6,18 +6,21 @@
 #task_card {
   display: flex;
   flex-direction: column;
-  gap: 2vh;
-  padding: 7%;
-  border-radius: 15px;
+  gap: 1vh;
+  padding: 5% 7% 7% 7%;
+  border-radius: 10px;
   background-color: var(--note-card);
   cursor: pointer;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
+/* ----- TASK CARD HEADER ----- */
+
 #task_header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  // border: 1px solid red;
 }
 
 #task_card_title {
@@ -25,6 +28,8 @@
   text-overflow: ellipsis;
 
   h2 {
+    width: 13vw;
+    font-size: 1.3vw;
     font-weight: 500;
     overflow: hidden;
     white-space: nowrap;
@@ -32,10 +37,13 @@
   }
 }
 
+/* ----- TASK CARD STATUS ----- */
+
 #task_card_status {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.5vh;
+  // border: 1px solid green;
 
   .task-status {
     display: flex;
@@ -46,11 +54,11 @@
       display: flex;
       align-items: center;
       justify-content: start;
-      font-size: 1.25em;
+      font-size: 1.25vw;
     }
 
     span {
-      font-size: 1rem;
+      font-size: 1.1vw;
     }
   }
 
@@ -70,18 +78,25 @@
   }
 }
 
+/* ----- TASK CARD PROGRESS ----- */
+
 #task_card_progress {
-  margin-bottom: 2%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1vh;
+  margin: 5% 0 3% 0;
+
   #progress_text {
     display: flex;
 
     h4 {
+      font-size: 1.1vw;
       font-weight: 500;
     }
   }
 
   #progress_bar {
-    margin-top: 3%;
     width: 100%;
     height: 1.5vh;
     background-color: var(--progress-base);
