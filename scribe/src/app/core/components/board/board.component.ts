@@ -5,6 +5,7 @@ import { TaskService } from '../../../../services/tasks/task.service';
 import {
   slideUpDown,
   simpleFade,
+  taskAnimation,
 } from '../../../../animations/element-animations';
 import { ToolbarService } from '../../../../services/toolbar/toolbar.service';
 import { AuthService } from '../../../../services/auth/auth.service';
@@ -23,7 +24,7 @@ interface Task {
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
-  animations: [slideUpDown, simpleFade],
+  animations: [slideUpDown, simpleFade, taskAnimation],
 })
 export class BoardComponent implements AfterViewInit, OnDestroy, OnInit {
   isInTrash: boolean = false;
@@ -130,10 +131,26 @@ export class BoardComponent implements AfterViewInit, OnDestroy, OnInit {
     this.triggerSave();
   }
 
+  moveToInProgress(task: Task) {
+    this.deleteTask(task, 'todo');
+    this.inProgressTasks.push(task);
+    this.triggerSave();
+  }
+
   moveToDone(task: Task, board: string) {
-    this.deleteTask(task, board);
-    task.previousBoard = board;
-    this.doneTasks.push(task);
+    if (board === 'todo') {
+      this.moveToInProgress(task);
+    } else if (board === 'inProgress') {
+      this.deleteTask(task, board);
+      task.previousBoard = board;
+      this.doneTasks.push(task);
+      this.triggerSave();
+    }
+  }
+
+  moveBackToTodo(task: Task) {
+    this.deleteTask(task, 'inProgress');
+    this.todoTasks.push(task);
     this.triggerSave();
   }
 
