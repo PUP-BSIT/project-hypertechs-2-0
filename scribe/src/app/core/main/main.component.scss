@@ -71,6 +71,7 @@
   flex-direction: column;
   gap: 0.25rem;
   cursor: pointer;
+  user-select: none;
 
   a {
     text-decoration: none;

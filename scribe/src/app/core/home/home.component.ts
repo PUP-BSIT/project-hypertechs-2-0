@@ -4,7 +4,7 @@ import { UserService } from '../../../services/user/user.service';
 import { TitleCaseService } from '../../../services/title-case/title-case.service';
 import { NoteService } from '../../../services/notes/note.service';
 import { AuthService } from '../../../services/auth/auth.service';
-import { TaskService } from '../../../services/tasks/task.service'; // Import TaskService
+import { TaskService } from '../../../services/tasks/task.service';
 import { Subscription } from 'rxjs';
 import { simpleFade, slideInOut } from '../../../animations/element-animations';
 
