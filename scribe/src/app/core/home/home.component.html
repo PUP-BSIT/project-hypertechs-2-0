@@ -68,7 +68,7 @@
   <aside id="scribe_home_side">
     <!--Heading-->
     <div id="side_heading">
-      <h3><span class="material-symbols-outlined">today</span>Tasks</h3>
+      <h3><span class="material-symbols-outlined">today</span>Recent Tasks</h3>
       <span routerLink="/main/tasks" class="view-all">
         View All
         <span class="material-symbols-outlined">arrow_forward_ios</span>
@@ -77,14 +77,21 @@
 
     <!--Tasks List-->
     <div id="tasks_list">
+      <!--If tasks list has at least one content, display this:-->
+      <div id="tasks_content">
+        <app-task-card
+          *ngFor="let task of userTasks.slice(0, 2)"
+          [task]="task"
+          (taskDeleted)="onTaskDeleted($event)">
+        </app-task-card>
+      </div>
+      
       <!--If tasks list is empty, display this:-->
-      <div id="tasks_empty">
+      <div routerLink="/main/board" id="tasks_empty" *ngIf="userTasks.length === 0">
         <img src="../../../assets/images/empty_holder.svg" />
         <p>No upcoming tasks.<br />Click to add one.</p>
       </div>
-
-      <!--If tasks list has at least one content, display this:-->
-      <div id="tasks_content"></div>
     </div>
+
   </aside>
 </div>
