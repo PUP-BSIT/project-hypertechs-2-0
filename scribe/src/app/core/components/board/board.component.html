@@ -1,8 +1,7 @@
 <div class="scribe-board-container">
   <div class="slide-container" [@slideUpDown]>
-    <!--Task Board Header-->
+    <!-- Task Board Header -->
     <div class="board-header">
-      <!--Back Button-->
       <button mat-button class="btn-back" (click)="goBack()">
         <mat-icon>arrow_back</mat-icon>
         Back
@@ -10,7 +9,6 @@
 
       <div class="board-actions">
         <form #noteForm="ngForm">
-          <!--Focus Mode-->
           <button mat-button class="btn-focus" (click)="toggleSidenav()">
             <mat-icon>crop_free</mat-icon> Focus Mode
           </button>
@@ -18,7 +16,7 @@
       </div>
     </div>
 
-    <!--Task Board Title-->
+    <!-- Task Board Title -->
     <div class="board-title">
       <input
         type="text"
@@ -30,7 +28,7 @@
       />
     </div>
 
-    <!--Task Board Description-->
+    <!-- Task Board Description -->
     <div class="board-desc">
       <input
         type="text"
@@ -43,11 +41,10 @@
     </div>
   </div>
 
-  <!--Task Boards Main-->
+  <!-- Task Boards Main -->
   <div class="board-main" [@halfSlide]>
-    <!--To-Do Board-->
+    <!-- To-Do Board -->
     <div id="to_do_board" class="board">
-      <!--To-Do Board Header-->
       <div class="board-header task-board">
         <div class="board-header-title">
           <mat-icon>app_registration</mat-icon>
@@ -58,28 +55,22 @@
         </button>
       </div>
 
-      <!--To-Do task Items-->
-      <div
-        *ngFor="let task of todoTasks"
-        class="board-list board-task-item board-to-do"
-        [@taskAnimation]
-      >
+      @for (task of todoTasks; track task) {
+      <div class="board-list board-task-item board-to-do" [@taskAnimation]>
         <div class="board-task-part-one">
           <mat-checkbox (change)="moveToDone(task, 'todo')"></mat-checkbox>
-          <div
-            class="task-list-display"
-            *ngIf="!task.editing"
-            (click)="editTask(task, 'todo')"
-          >
+          @if (!task.editing) {
+          <div class="task-list-display" (click)="editTask(task, 'todo')">
             {{ task.text }}
           </div>
+          } @else {
           <input
             class="task-edit-input"
-            *ngIf="task.editing"
             [(ngModel)]="task.text"
             (blur)="saveTask(task)"
             (keyup.enter)="saveTask(task)"
           />
+          }
         </div>
         <span
           class="material-symbols-outlined delete-icon"
@@ -88,8 +79,9 @@
           close_small
         </span>
       </div>
+      }
 
-      <!--To-Do Board Task Input-->
+      <!-- To-Do Board Task Input -->
       <div class="board-list">
         <mat-checkbox class="full-width-checkbox">
           <div class="input-container">
@@ -104,9 +96,8 @@
       </div>
     </div>
 
-    <!--In Progress Board-->
+    <!-- In Progress Board -->
     <div id="in_progress_board" class="board">
-      <!--To-Do Board Header-->
       <div class="board-header">
         <div class="board-header-title">
           <mat-icon>rotate_right</mat-icon>
@@ -117,8 +108,8 @@
         </button>
       </div>
 
+      @for (task of inProgressTasks; track task) {
       <div
-        *ngFor="let task of inProgressTasks"
         class="board-list board-task-item board-in-progress"
         [@taskAnimation]
       >
@@ -126,20 +117,18 @@
           <mat-checkbox
             (change)="moveToDone(task, 'inProgress')"
           ></mat-checkbox>
-          <div
-            class="task-list-display"
-            *ngIf="!task.editing"
-            (click)="editTask(task, 'inProgress')"
-          >
+          @if (!task.editing) {
+          <div class="task-list-display" (click)="editTask(task, 'inProgress')">
             {{ task.text }}
           </div>
+          } @else {
           <input
             class="task-edit-input"
-            *ngIf="task.editing"
             [(ngModel)]="task.text"
             (blur)="saveTask(task)"
             (keyup.enter)="saveTask(task)"
           />
+          }
         </div>
 
         <div id="in_progress_actions">
@@ -157,8 +146,9 @@
           </span>
         </div>
       </div>
+      }
 
-      <!--In Progress Board Task Input-->
+      <!-- In Progress Board Task Input -->
       <div class="board-list">
         <mat-checkbox>
           <input
@@ -171,9 +161,8 @@
       </div>
     </div>
 
-    <!--Done Board-->
+    <!-- Done Board -->
     <div id="done_board" class="board">
-      <!--Done Board Header-->
       <div class="board-header">
         <div class="board-header-title">
           <mat-icon>done_all</mat-icon>
@@ -184,11 +173,8 @@
         </button>
       </div>
 
-      <div
-        *ngFor="let task of doneTasks"
-        class="board-list board-task-item board-done"
-        [@taskAnimation]
-      >
+      @for (task of doneTasks; track task) {
+      <div class="board-list board-task-item board-done" [@taskAnimation]>
         <div class="board-task-part-one">
           <mat-checkbox
             class="done-task"
@@ -207,11 +193,14 @@
           close_small
         </span>
       </div>
+      }
 
-      <!--Done Tasks List-->
-      <div *ngIf="doneTasks.length === 0" class="board-list">
+      <!-- Done Tasks List -->
+      @if (doneTasks.length === 0) {
+      <div class="board-list">
         <span class="empty-done">No done tasks yet</span>
       </div>
+      }
     </div>
   </div>
 </div>
