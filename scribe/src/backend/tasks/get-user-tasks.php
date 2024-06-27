@@ -17,7 +17,7 @@ if ($conn->connect_error) {
 
 $user_id = $_GET['user_id'];
 
-$sql = "SELECT * FROM tasks WHERE user_id = ?";
+$sql = "SELECT * FROM tasks WHERE user_id = ? ORDER BY last_edited DESC";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
@@ -29,3 +29,6 @@ while ($row = $result->fetch_assoc()) {
 }
 
 echo json_encode($tasks);
+
+$stmt->close();
+$conn->close();
