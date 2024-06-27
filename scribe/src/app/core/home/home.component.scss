@@ -39,7 +39,7 @@
       align-items: center;
       justify-content: start;
       border-radius: 10px;
-     //  border: 1px solid green;
+      //  border: 1px solid green;
 
       #tasks_content {
         display: flex;
@@ -60,6 +60,7 @@
         text-align: center;
         gap: 1rem;
         cursor: pointer;
+        border-radius: 10px;
         background-color: var(--empty-bg);
         // border: 1px solid red;
       }
@@ -68,11 +69,7 @@
 }
 
 .material-symbols-outlined {
-  font-variation-settings: 
-  "FILL" 0, 
-  "wght" 500, 
-  "GRAD" 0, 
-  "opsz" 40;
+  font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 40;
 }
 
 h3 {
@@ -213,9 +210,12 @@ h3 {
 
 /* ------ TASKS LIST STYLING ------ */
 #tasks_empty {
-  opacity: 0.5;
+  #empty_task_text {
+    opacity: 0.5;
+  }
 
   img {
     width: 80%;
+    opacity: 0.5;
   }
 }
