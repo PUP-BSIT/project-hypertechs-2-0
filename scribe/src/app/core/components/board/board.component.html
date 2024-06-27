@@ -18,27 +18,30 @@
       </div>
     </div>
 
-    <!--Task Board Title-->
-    <div class="board-title">
-      <input
-        type="text"
-        placeholder="Add task title"
-        class="title-input"
-        maxlength="50"
-        [(ngModel)]="taskTitle"
-      />
-    </div>
+<!--Task Board Title-->
+<div class="board-title">
+  <input 
+    type="text" 
+    placeholder="Add task title" 
+    class="title-input" 
+    maxlength="50" 
+    [(ngModel)]="taskTitle" 
+    (ngModelChange)="onTitleChange()"
+  />
+</div>
 
-    <!--Task Board Description-->
-    <div class="board-desc">
-      <input
-        type="text"
-        placeholder="Add task description here"
-        class="board-desc-input"
-        maxlength="70"
-        [(ngModel)]="taskDescription"
-      />
-    </div>
+<!--Task Board Description-->
+<div class="board-desc">
+  <input 
+    type="text" 
+    placeholder="Add task description here" 
+    class="board-desc-input" 
+    maxlength="70" 
+    [(ngModel)]="taskDescription" 
+    (ngModelChange)="onDescriptionChange()"
+  />
+</div>
+
 
     <!--Task Boards Main-->
     <div class="board-main">
@@ -56,31 +59,16 @@
         </div>
 
         <!--To-Do task Items-->
-        <div
-          *ngFor="let task of todoTasks"
-          class="board-list board-task-item board-to-do"
-        >
+        <div *ngFor="let task of todoTasks" class="board-list board-task-item board-to-do">
           <div class="board-task-part-one">
             <mat-checkbox (change)="moveToDone(task, 'todo')"></mat-checkbox>
-            <div
-              class="task-list-display"
-              *ngIf="!task.editing"
-              (click)="editTask(task, 'todo')"
-            >
+            <div class="task-list-display" *ngIf="!task.editing" (click)="editTask(task, 'todo')">
               {{ task.text }}
             </div>
-            <input
-              class="task-edit-input"
-              *ngIf="task.editing"
-              [(ngModel)]="task.text"
-              (blur)="saveTask(task)"
-              (keyup.enter)="saveTask(task)"
-            />
+            <input class="task-edit-input" *ngIf="task.editing" [(ngModel)]="task.text" (blur)="saveTask(task)"
+              (keyup.enter)="saveTask(task)" />
           </div>
-          <span
-            class="material-symbols-outlined delete-icon"
-            (click)="deleteTask(task, 'todo')"
-          >
+          <span class="material-symbols-outlined delete-icon" (click)="deleteTask(task, 'todo')">
             close_small
           </span>
         </div>
@@ -89,12 +77,8 @@
         <div class="board-list">
           <mat-checkbox class="full-width-checkbox">
             <div class="input-container">
-              <input
-                class="board-task-input"
-                type="text"
-                placeholder="Add task here"
-                (keyup.enter)="addTask($event, 'todo')"
-              />
+              <input class="board-task-input" type="text" placeholder="Add task here"
+                (keyup.enter)="addTask($event, 'todo')" />
             </div>
           </mat-checkbox>
         </div>
@@ -113,33 +97,16 @@
           </button>
         </div>
 
-        <div
-          *ngFor="let task of inProgressTasks"
-          class="board-list board-task-item board-in-progress"
-        >
+        <div *ngFor="let task of inProgressTasks" class="board-list board-task-item board-in-progress">
           <div class="board-task-part-one">
-            <mat-checkbox
-              (change)="moveToDone(task, 'inProgress')"
-            ></mat-checkbox>
-            <div
-              class="task-list-display"
-              *ngIf="!task.editing"
-              (click)="editTask(task, 'inProgress')"
-            >
+            <mat-checkbox (change)="moveToDone(task, 'inProgress')"></mat-checkbox>
+            <div class="task-list-display" *ngIf="!task.editing" (click)="editTask(task, 'inProgress')">
               {{ task.text }}
             </div>
-            <input
-              class="task-edit-input"
-              *ngIf="task.editing"
-              [(ngModel)]="task.text"
-              (blur)="saveTask(task)"
-              (keyup.enter)="saveTask(task)"
-            />
+            <input class="task-edit-input" *ngIf="task.editing" [(ngModel)]="task.text" (blur)="saveTask(task)"
+              (keyup.enter)="saveTask(task)" />
           </div>
-          <span
-            class="material-symbols-outlined delete-icon"
-            (click)="deleteTask(task, 'inProgress')"
-          >
+          <span class="material-symbols-outlined delete-icon" (click)="deleteTask(task, 'inProgress')">
             close_small
           </span>
         </div>
@@ -147,12 +114,8 @@
         <!--In Progress Board Task Input-->
         <div class="board-list">
           <mat-checkbox>
-            <input
-              class="board-task-input"
-              type="text"
-              placeholder="Add task here"
-              (keyup.enter)="addTask($event, 'inProgress')"
-            />
+            <input class="board-task-input" type="text" placeholder="Add task here"
+              (keyup.enter)="addTask($event, 'inProgress')" />
           </mat-checkbox>
         </div>
       </div>
@@ -170,27 +133,22 @@
           </button>
         </div>
 
-        <div *ngFor="let task of doneTasks" class="board-list board-done">
-          <mat-checkbox
-            class="done-task"
-            [checked]="true"
-            (change)="moveBackToPreviousBoard(task)"
-          >
-            <span class="task-text">
-              {{ task.text }}
-            </span>
-          </mat-checkbox>
-          <span
-            class="material-symbols-outlined delete-icon"
-            (click)="deleteTask(task, 'done')"
-          >
+        <div *ngFor="let task of doneTasks" class="board-list board-task-item board-done">
+          <div class="board-task-part-one">
+            <mat-checkbox class="done-task" [checked]="true" (change)="moveBackToPreviousBoard(task)">
+              <span class="task-text">
+                {{ task.text }}
+              </span>
+            </mat-checkbox>
+          </div>
+          <span class="material-symbols-outlined delete-icon" (click)="deleteTask(task, 'done')">
             close_small
           </span>
         </div>
 
         <!--Done Tasks List-->
         <div *ngIf="doneTasks.length === 0" class="board-list">
-          <span>No done tasks yet</span>
+          <span class="empty-done">No done tasks yet</span>
         </div>
       </div>
     </div>
