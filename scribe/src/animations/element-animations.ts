@@ -48,14 +48,32 @@ export const slideUpDown = trigger('slideUpDown', [
   transition(':enter', [
     style({ transform: 'translateY(100%)', opacity: 0 }),
     animate(
-      '900ms cubic-bezier(0.25, 0.8, 0.25, 1)',
+      '800ms cubic-bezier(0.25, 0.8, 0.25, 1)',
       style({ transform: 'translateY(0)', opacity: 1 })
     ),
   ]),
   transition(':leave', [
     animate(
-      '900ms cubic-bezier(0.25, 0.8, 0.25, 1)',
+      '800ms cubic-bezier(0.25, 0.8, 0.25, 1)',
       style({ transform: 'translateY(100%)', opacity: 0 })
     ),
   ]),
+]);
+
+
+/* Animation 4: Task Animation */
+export const taskAnimation = trigger('taskAnimation', [
+  transition(':enter', [
+    style({ opacity: 0, transform: 'translateY(25%)' }),
+    animate(
+      '500ms cubic-bezier(.09,.01,.22,.99)',
+      style({ opacity: 1, transform: 'translateY(0)' })
+    )
+  ]),
+  transition(':leave', [
+    animate(
+      '500ms cubic-bezier(0.25, 0.8, 0.25, 1)',
+      style({ opacity: 0, transform: 'translateX(-50%)' })
+    )
+  ])
 ]);
