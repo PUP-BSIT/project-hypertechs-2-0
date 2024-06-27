@@ -1,7 +1,7 @@
 <div class="scribe-editor-container">
-  <div class="slide-container" [@slideUpDown]>
+  <div class="slide-container">
     <!--Editor header-->
-    <div class="editor-header">
+    <div class="editor-header" [@slideUpDown]>
       <!--Back Button-->
       <button mat-button class="btn-back" (click)="goBack()">
         <mat-icon>arrow_back</mat-icon>
@@ -43,7 +43,7 @@
     </div>
   
     <!--Note Title-->
-    <div class="editor-title">
+    <div class="editor-title" [@slideUpDown]>
       <input
         type="text"
         placeholder="Add note title"
@@ -55,7 +55,7 @@
     </div>
   
     <!--Note Timestamp-->
-    <div class="editor-timestamp">
+    <div class="editor-timestamp" [@slideUpDown]>
       <mat-icon>schedule</mat-icon>
   
       <div id="timestamp_content">
@@ -64,7 +64,7 @@
     </div>
   
     <!--Note Tags & Reminders-->
-    <div class="editor-tags-reminders">
+    <div class="editor-tags-reminders" [@slideUpDown]>
       <button mat-button class="btn-tags">
         <mat-icon>new_label</mat-icon>
         Add Tags
@@ -83,6 +83,7 @@
       #editorContent
       (input)="onContentChange($event)"
       [attr.contenteditable]="!readOnly"
+      [@slideUpDown]
     ></div>
   </div>
 
