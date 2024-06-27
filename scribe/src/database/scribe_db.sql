@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 23, 2024 at 05:14 AM
+-- Generation Time: Jun 27, 2024 at 03:02 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -59,11 +59,13 @@ CREATE TABLE `notes` (
 
 CREATE TABLE `tasks` (
   `task_id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `task_description` text NOT NULL,
-  `is_completed` tinyint(1) DEFAULT 0,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `user_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `todo` text DEFAULT NULL,
+  `in_progress` text DEFAULT NULL,
+  `done` text DEFAULT NULL,
+  `last_edited` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -87,7 +89,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `firstname`, `lastname`, `email`, `password`, `is_verified`, `created_at`) VALUES
-(47, 'Emmanuel', 'Martinez', 'emmanuellmartinez013@gmail.com', '$2y$10$rQc7hBfNmd2Y6f4vKxDbyuoazX1zDWwXwwuFyb7rdqcgOlbzp/cU2', 0, '2024-06-15 01:54:45'),
+(47, 'Emmanuel', 'Martinez', 'emmanuellmartinez013@gmail.com', '$2y$10$gQGNfmVbs2KGorc8bFpTGuVivaXkIwYDjcsrbCbIP6zwjgQF5EDRi', 0, '2024-06-15 01:54:45'),
 (48, 'John', 'Wick', 'emminemx@gmail.com', '$2y$10$ZQ5tLu31XrwoxPA2CPp5TutTSE.S6yrnKgObW/qL8s0Ejgie3hIYO', 0, '2024-06-18 10:18:18');
 
 -- --------------------------------------------------------
@@ -109,7 +111,7 @@ CREATE TABLE `verification_codes` (
 --
 
 INSERT INTO `verification_codes` (`code_id`, `user_id`, `verification_code`, `created_at`, `expiration_time`) VALUES
-(2, 47, '835363', '2024-06-15 01:54:50', NULL),
+(2, 47, '678740', '2024-06-24 13:23:22', '2024-06-24 15:24:38'),
 (3, 48, '631104', '2024-06-18 10:18:24', NULL);
 
 --
@@ -165,25 +167,25 @@ ALTER TABLE `folders`
 -- AUTO_INCREMENT for table `notes`
 --
 ALTER TABLE `notes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 
 --
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `verification_codes`
 --
 ALTER TABLE `verification_codes`
-  MODIFY `code_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `code_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- Constraints for dumped tables
@@ -205,7 +207,7 @@ ALTER TABLE `notes`
 -- Constraints for table `tasks`
 --
 ALTER TABLE `tasks`
-  ADD CONSTRAINT `tasks_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `tasks_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
 -- Constraints for table `verification_codes`
