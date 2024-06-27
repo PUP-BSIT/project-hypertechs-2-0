@@ -25,7 +25,7 @@ if (isset($data->user_id) && isset($data->title)) {
     $in_progress = $data->in_progress;
     $done = $data->done;
 
-    $query = "INSERT INTO tasks (user_id, title, description, todo, in_progress, done) VALUES (?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO tasks (user_id, title, description, todo, in_progress, done, last_edited) VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("isssss", $user_id, $title, $description, $todo, $in_progress, $done);
 

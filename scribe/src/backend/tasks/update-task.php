@@ -25,7 +25,7 @@ if (isset($data->task_id)) {
     $in_progress = $data->in_progress;
     $done = $data->done;
 
-    $query = "UPDATE tasks SET title = ?, description = ?, todo = ?, in_progress = ?, done = ? WHERE task_id = ?";
+    $query = "UPDATE tasks SET title = ?, description = ?, todo = ?, in_progress = ?, done = ?, last_edited = CURRENT_TIMESTAMP WHERE task_id = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("sssssi", $title, $description, $todo, $in_progress, $done, $task_id);
 
