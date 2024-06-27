@@ -66,6 +66,7 @@ const routes: Routes = [
       { path: 'editor/:id', component: EditorComponent },
       { path: 'search', component: SearchComponent },
       { path: 'board', component: BoardComponent},
+      { path: 'board/:taskId', component: BoardComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ],
   },
