@@ -45,7 +45,7 @@ export class TaskCardComponent implements OnInit {
       confirmText: 'Delete',
       action: 'delete',
       actionTextColor: '#fff',
-      actionBgColor: '#f44336',
+      actionBgColor: '#cf252e',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
