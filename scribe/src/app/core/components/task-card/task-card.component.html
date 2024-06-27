@@ -27,15 +27,15 @@
 
   <!--Task Status-->
   <div id="task_card_status"  (click)="openTaskBoard()">
-    <div class="task-status">
+    <div id="to_do" class="task-status">
       <mat-icon>app_registration</mat-icon>
       <span>To-do: {{ todoCount }}</span>
     </div>
-    <div class="task-status">
+    <div id="in_progress" class="task-status">
       <mat-icon>rotate_right</mat-icon>
       <span>In Progress: {{ inProgressCount }}</span>
     </div>
-    <div class="task-status">
+    <div id="done" class="task-status">
       <mat-icon>done_all</mat-icon>
       <span>Done: {{ doneCount }}</span>
     </div>

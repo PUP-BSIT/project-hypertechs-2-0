@@ -53,6 +53,21 @@
       font-size: 1rem;
     }
   }
+
+  #to_do span,
+  #to_do .mat-icon {
+    color: var(--to-do);
+  }
+
+  #in_progress span,
+  #in_progress .mat-icon.mat-icon {
+    color: var(--in-progress);
+  }
+
+  #done span,
+  #done .mat-icon {
+    color: var(--done);
+  }
 }
 
 #task_card_progress {

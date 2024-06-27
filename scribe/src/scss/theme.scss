@@ -48,6 +48,10 @@
 
   --progress-base: #d0d0d0;
   --progress-bar-one: #00654e;
+
+  --to-do: #3e3cab;
+  --in-progress: #b47129;
+  --done: #069070;
 }
 
 body.dark-mode {
@@ -100,4 +104,8 @@ body.dark-mode {
 
   --progress-base: #282d2b;
   --progress-bar-one: #00503e;
+
+  --to-do: #5956e5;
+  --in-progress: #cd8537;
+  --done: #01a881;
 }
