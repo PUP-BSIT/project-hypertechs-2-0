@@ -6,33 +6,59 @@
 #task_card {
   display: flex;
   flex-direction: column;
-  gap: 1vh;
+  gap: 2vh;
   padding: 7%;
   border-radius: 15px;
   background-color: var(--note-card);
   cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+#task_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 #task_card_title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+
   h2 {
     font-weight: 500;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 }
 
-#task_card_desc {
-  text-align: justify;
+#task_card_status {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 
-  span {
-    height: 10vh;
+  .task-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    mat-icon {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      font-size: 1.25em;
+    }
+
+    span {
+      font-size: 1rem;
+    }
   }
 }
 
 #task_card_progress {
-  margin-top: 5%;
-
+  margin-bottom: 2%;
   #progress_text {
     display: flex;
-    flex-direction: row;
 
     h4 {
       font-weight: 500;
