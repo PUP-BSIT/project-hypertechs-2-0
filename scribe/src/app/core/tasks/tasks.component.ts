@@ -14,17 +14,26 @@ export class TasksComponent implements OnInit, OnDestroy {
   userTasks: any[] = [];
   private tasksSubscription: Subscription | undefined;
 
-  constructor(private taskService: TaskService, private authService: AuthService) {}
+  constructor(
+    private taskService: TaskService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
-    this.tasksSubscription = this.taskService.getUserTasks().subscribe((tasks) => {
-      this.userTasks = tasks;
-    });
+    this.tasksSubscription = this.taskService
+      .getUserTasks()
+      .subscribe((tasks) => {
+        this.userTasks = tasks;
+      });
   }
 
   ngOnDestroy() {
     if (this.tasksSubscription) {
       this.tasksSubscription.unsubscribe();
     }
+  }
+
+  onTaskDeleted(taskId: number) {
+    this.userTasks = this.userTasks.filter((task) => task.task_id !== taskId);
   }
 }
