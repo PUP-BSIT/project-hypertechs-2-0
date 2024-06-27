@@ -1,5 +1,4 @@
 <div id="task_card">
-
   <!--Task Card Header-->
   <div id="task_header">
     <!--Task Title-->
@@ -18,9 +17,9 @@
           <mat-icon>edit</mat-icon>
           <span>Edit</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="confirmDeleteTask()">
           <mat-icon>delete</mat-icon>
-          <span>Move to trash</span>
+          <span>Delete</span>
         </button>
     </mat-menu>
   </div>
@@ -44,7 +43,7 @@
   <div id="task_card_progress"  (click)="openTaskBoard()">
     <div id="progress_text">
       <h4>
-        Task Progress: <span>{{ progress.toFixed(2) }}%</span>
+        Task Progress: <span>{{ progress.toFixed(1) }}%</span>
       </h4>
     </div>
     <div id="progress_bar" [style.--progress]="progress + '%'"></div>
