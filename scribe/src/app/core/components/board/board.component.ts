@@ -6,6 +6,7 @@ import {
   slideUpDown,
   simpleFade,
   taskAnimation,
+  halfSlide
 } from '../../../../animations/element-animations';
 import { ToolbarService } from '../../../../services/toolbar/toolbar.service';
 import { AuthService } from '../../../../services/auth/auth.service';
@@ -24,7 +25,7 @@ interface Task {
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
-  animations: [slideUpDown, simpleFade, taskAnimation],
+  animations: [slideUpDown, simpleFade, taskAnimation,halfSlide],
 })
 export class BoardComponent implements AfterViewInit, OnDestroy, OnInit {
   isInTrash: boolean = false;
