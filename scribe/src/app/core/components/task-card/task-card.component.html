@@ -1,19 +1,52 @@
 <div id="task_card">
-  <!--Task Title-->
-  <div id="task_card_title">
-    <h2>{{ task.title }}</h2>
+
+  <!--Task Card Header-->
+  <div id="task_header">
+    <!--Task Title-->
+    <div id="task_card_title"  (click)="openTaskBoard()">
+      <h2>{{ task.title }}</h2>
+    </div>
+
+    <!--Task Menu-->
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <!-- If the notes are active, display this -->
+        <button mat-menu-item  (click)="openTaskBoard()">
+          <mat-icon>edit</mat-icon>
+          <span>Edit</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>delete</mat-icon>
+          <span>Move to trash</span>
+        </button>
+    </mat-menu>
   </div>
-  <!--Task Description-->
-  <div id="task_card_desc">
-    <span>{{ task.description }}</span>
+
+  <!--Task Status-->
+  <div id="task_card_status"  (click)="openTaskBoard()">
+    <div class="task-status">
+      <mat-icon>app_registration</mat-icon>
+      <span>To-do: {{ todoCount }}</span>
+    </div>
+    <div class="task-status">
+      <mat-icon>rotate_right</mat-icon>
+      <span>In Progress: {{ inProgressCount }}</span>
+    </div>
+    <div class="task-status">
+      <mat-icon>done_all</mat-icon>
+      <span>Done: {{ doneCount }}</span>
+    </div>
   </div>
   <!--Task Progress-->
-  <div id="task_card_progress">
+  <div id="task_card_progress"  (click)="openTaskBoard()">
     <div id="progress_text">
       <h4>
-        Task Progress: <span>{{ task.progress }}%</span>
+        Task Progress: <span>{{ progress.toFixed(2) }}%</span>
       </h4>
     </div>
-    <div id="progress_bar" [style.--progress]="task.progress + '%'"></div>
+    <div id="progress_bar" [style.--progress]="progress + '%'"></div>
   </div>
 </div>
