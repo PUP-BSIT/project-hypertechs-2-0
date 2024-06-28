@@ -42,6 +42,13 @@ export class SearchComponent implements OnInit{
         this.clearSearch = false;
       }
     });
-  }
 
+    this.userSubscription = this.authService.user$.subscribe((userId) => {
+      if (userId !== null) {
+        console.log("search ID", userId);
+      } else {
+        this.notes = [];
+      }
+    });
+  }
 }
