@@ -16,5 +16,19 @@ export class SearchService {
   private searchTermSubject = new BehaviorSubject<string>('');
   searchTerm$ = this.searchTermSubject.asObservable();
 
+  constructor(private http: HttpClient) { }
+
+  searchNotes(user_id: string, searchTerm: string): Observable<any> {
+    const params = new HttpParams()
+      .set('user_id', user_id)
+      .set('searchTerm', searchTerm);
+
+    return this.http.get<any>(this.apiUrl, { params })
+      .pipe(
+        catchError(error => {
+          throw 'Error in API call:' + error.message;
+        })
+      );
+  }
   
 }
