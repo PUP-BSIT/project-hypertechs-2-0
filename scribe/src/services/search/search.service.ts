@@ -9,5 +9,12 @@ import { catchError } from 'rxjs/operators';
 })
 export class SearchService {
 
+  private apiUrl = 'http://localhost/backend/search.php';
+  private notesSubject = new BehaviorSubject<any[]>([]);
+  notes$ = this.notesSubject.asObservable();
+
+  private searchTermSubject = new BehaviorSubject<string>('');
+  searchTerm$ = this.searchTermSubject.asObservable();
+
   
 }
