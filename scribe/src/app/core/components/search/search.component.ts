@@ -12,6 +12,10 @@ import { AuthService } from '../../../../services/auth/auth.service';
   styleUrl: './search.component.scss',
   animations: [simpleFade, slideInOut]
 })
-export class SearchComponent {
+export class SearchComponent implements OnInit{
+
+  ngOnInit(): void {
+    
+  }
 
 }
