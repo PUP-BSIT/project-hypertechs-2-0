@@ -45,6 +45,8 @@ export class SearchComponent implements OnInit{
 
     this.userSubscription = this.authService.user$.subscribe((userId) => {
       if (userId !== null) {
+        this.loadResults();
+        /**TODO testing */
         console.log("search ID", userId);
       } else {
         this.notes = [];
@@ -55,5 +57,14 @@ export class SearchComponent implements OnInit{
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe();
 
+  }
+
+  loadResults() {
+    this.searchService.notes$.subscribe(
+      (data: any[]) => {
+        this.notes = data;
+        this.isLoading = false;
+      },
+    );
   }
 }
