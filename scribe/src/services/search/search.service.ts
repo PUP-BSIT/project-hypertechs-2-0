@@ -11,9 +11,9 @@ export class SearchService {
 
   private apiUrl = 'http://localhost/backend/search/search.php';
   private notesSubject = new BehaviorSubject<any[]>([]);
-  notes$ = this.notesSubject.asObservable();
-
   private searchTermSubject = new BehaviorSubject<string>('');
+
+  notes$ = this.notesSubject.asObservable();
   searchTerm$ = this.searchTermSubject.asObservable();
 
   constructor(private http: HttpClient) { }
@@ -38,5 +38,4 @@ export class SearchService {
   updateSearchTerm(searchTerm: string) {
     this.searchTermSubject.next(searchTerm);
   }
-  
 }
