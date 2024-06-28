@@ -1,23 +1,30 @@
 <div class="folders-container">
     <div id="folders_heading">
-      <h1>Folders</h1>
+      <h1>Notebook</h1>
     </div>
     <div class="header">
       <div class="filter-field-container">
         <mat-form-field appearance="fill" class="filter-field">
           <mat-select disableRipple [(value)]="selectedFilter">
-            <mat-option *ngFor="let filter of filters" [value]="filter">{{ filter }}</mat-option>
+            <mat-option *ngFor="let filter of filters" 
+              [value]="filter">{{ filter }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
       <div class="view-toggle-container">
-        <button class="view-toggle-button" (click)="toggleView()">
-          {{ isGridView ? 'List View' : 'Grid View' }}
-          <mat-icon>{{ isGridView ? 'view_list' : 'view_module' }}</mat-icon>
-        </button>
-      </div>
+        <mat-button-toggle-group name="viewMode" aria-label="View Mode" 
+          (change)="toggleView($event)" class="button-toggle-group">
+            <mat-button-toggle value="grid" matTooltip="Grid Layout">
+                <mat-icon>view_module</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle value="list" matTooltip="List Layout">
+                <mat-icon>view_list</mat-icon>
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>       
     </div>
-    <div class="folder-grid" [ngClass]="{'grid-view': isGridView, 'list-view': !isGridView}">
+    <div class="folder-grid" [ngClass]="{'grid-view': isGridView,
+      'list-view': !isGridView}">
       <div class="folder" *ngFor="let folder of folders">
         <span class="material-symbols-outlined">folder</span>
         <p class="folder-name">{{ folder.name }}</p>
