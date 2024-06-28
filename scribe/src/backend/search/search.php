@@ -26,5 +26,7 @@
     // Retrieve search term from Angular
     $searchTerm = isset($_REQUEST['searchTerm']) ? $_REQUEST['searchTerm'] : '';
     $userId = isset($_GET['user_id']) ? intval($_GET['user_id']) : 0;
+
+    $sql = "SELECT * FROM notes WHERE user_id = ? AND is_deleted = 0 AND (title LIKE ? OR content LIKE ?)";
     
 ?>
