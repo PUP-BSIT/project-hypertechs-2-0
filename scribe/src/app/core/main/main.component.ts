@@ -83,6 +83,8 @@ export class MainComponent implements OnInit {
       cancelText: 'Cancel',
       confirmText: 'Logout',
       action: 'logout',
+      actionTextColor: 'white',
+      actionBgColor: '#cf252e'
     });
 
     dialogRef.afterClosed().subscribe((result) => {

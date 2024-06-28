@@ -13,13 +13,13 @@ function send_mail($recipient, $subject, $message)
         return false; // Return false if email is invalid
     }
 
-    //comment out this for AbstractAPI validation
-    //Validate email using Abstract Email Validation API
+    /* comment out this for AbstractAPI validation
+    Validate email using Abstract Email Validation API
     $validation_result = validate_email($recipient);
     if ($validation_result['status'] === 'error') {
         // Handle invalid email
         return false;
-    }
+    } */
 
     // Email is valid, proceed to send mail
     $mail = new PHPMailer();
@@ -47,7 +47,7 @@ function send_mail($recipient, $subject, $message)
     }
 }
 
-
+/*
 //comment out this for AbstractAPI validation
 //Function to validate email using Abstract Email Validation API
 function validate_email($email)
@@ -86,4 +86,5 @@ function validate_email($email)
     // Email address is valid
     return ['status' => 'success', 'message' => 'Email address is valid'];
 }
+*/
 ?>

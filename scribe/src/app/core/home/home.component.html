@@ -18,7 +18,8 @@
         [matRippleAnimation]="{ enterDuration: 300, exitDuration: 300 }"
         matRippleColor="rgba(61, 156, 119, 0.1)"
         class="template-card"
-        (click)="selectTemplate(template)">
+        (click)="selectTemplate(template)"
+      >
         <span class="material-symbols-outlined">{{ template.icon }}</span>
         <span class="template-title">{{ template.title }}</span>
       </div>
@@ -42,23 +43,18 @@
       <!--Recent Notes Tiles-->
       <div id="recent_notes_tiles">
         <ngx-masonry class="masonry-note-container">
-          <div class="loading" *ngIf="isLoading"></div>
-          <div *ngIf="!isLoading">
-            <div *ngIf="notes.length > 0">
-              <app-note-card
-                *ngFor="let note of notes.slice(0, 4); trackBy: trackByNoteId"
-                [note]="note"
-                (delete)="onNoteDelete($event)">
-              </app-note-card>
-            </div>
-            <div
-              *ngIf="notes.length === 0"
-              class="empty-notes"
-              routerLink="/main/editor">
-              <img src="../../../assets/images/empty-notes.svg" />
-              <p>No notes yet. Click to add one.</p>
-            </div>
+          @if (isLoading) {
+          <div class="loading"></div>
+          } @else { @if (notes.length > 0) { @for (note of notes.slice(0, 4);
+          track trackByNoteId($index, note)) {
+          <app-note-card [note]="note" (delete)="onNoteDelete($event)">
+          </app-note-card>
+          } } @else {
+          <div class="empty-notes" routerLink="/main/editor">
+            <img src="../../../assets/images/empty-notes.svg" />
+            <p>No notes yet. Click to add one.</p>
           </div>
+          } }
         </ngx-masonry>
       </div>
     </div>
@@ -68,7 +64,7 @@
   <aside id="scribe_home_side">
     <!--Heading-->
     <div id="side_heading">
-      <h3><span class="material-symbols-outlined">today</span>Tasks</h3>
+      <h3><span class="material-symbols-outlined">today</span>Recent Tasks</h3>
       <span routerLink="/main/tasks" class="view-all">
         View All
         <span class="material-symbols-outlined">arrow_forward_ios</span>
@@ -77,14 +73,21 @@
 
     <!--Tasks List-->
     <div id="tasks_list">
-      <!--If tasks list is empty, display this:-->
-      <div id="tasks_empty">
-        <img src="../../../assets/images/empty_holder.svg" />
-        <p>No upcoming tasks.<br />Click to add one.</p>
-      </div>
-
+      @if (userTasks.length > 0) {
       <!--If tasks list has at least one content, display this:-->
-      <div id="tasks_content"></div>
+      <div id="tasks_content">
+        @for (task of userTasks.slice(0, 2); track task) {
+        <app-task-card [task]="task" (taskDeleted)="onTaskDeleted($event)">
+        </app-task-card>
+        }
+      </div>
+      } @else {
+      <!--If tasks list is empty, display this:-->
+      <div routerLink="/main/board" id="tasks_empty">
+        <img src="../../../assets/images/empty_holder.svg" />
+        <p id="empty_task_text">No upcoming tasks.<br />Click to add one.</p>
+      </div>
+      }
     </div>
   </aside>
 </div>
