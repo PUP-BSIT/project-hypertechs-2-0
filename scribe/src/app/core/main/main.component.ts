@@ -206,7 +206,6 @@ export class MainComponent implements OnInit {
        /**TODO */
         console.log(value);
       } else {
-        //this.ngOnDestroy();
         return;
       }   
     });
