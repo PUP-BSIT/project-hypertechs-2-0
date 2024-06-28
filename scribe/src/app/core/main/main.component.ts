@@ -144,6 +144,7 @@ export class MainComponent implements OnInit {
   onSearchInput(event: Event) {
     const input = event.target as HTMLInputElement;
     this.showCancelButton = input.value.length > 0;
+    this.searchTerm = input.value;
   }
 
   onCancelSearch() {
@@ -185,9 +186,7 @@ export class MainComponent implements OnInit {
         },
         (error) => {
           console.error('Error fetching notes:', error);
-        }
-      )
-      ;
+      });
   }
 
   ngAfterViewInit(): void {
