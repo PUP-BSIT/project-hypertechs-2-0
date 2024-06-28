@@ -1,9 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { simpleFade, slideInOut } from '../../../../animations/element-animations';
 import { SearchService } from '../../../../services/search/search.service';
-import { EventEmitter, Output, Input } from '@angular/core';
 import { NoteService } from '../../../../services/notes/note.service';
-import { Subscription, switchMap } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../../../../services/auth/auth.service';
 
 @Component({
