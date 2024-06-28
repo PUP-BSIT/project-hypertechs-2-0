@@ -71,4 +71,8 @@ export class SearchComponent implements OnInit{
   onNoteDelete(noteId: number) {
     this.notes = this.notes.filter((note) => note.id !== noteId);
   }
+
+  trackByNoteId(index: number, note: any): number {
+    return note.id;
+  }
 }
