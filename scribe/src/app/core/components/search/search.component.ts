@@ -21,6 +21,13 @@ export class SearchComponent implements OnInit{
   clearSearch : boolean = false;
   private userSubscription!: Subscription;
 
+  constructor(
+    private searchService: SearchService,  
+    private noteService: NoteService, 
+    private cd: ChangeDetectorRef, 
+    private authService: AuthService
+  ) {}
+
   ngOnInit(): void {
     
   }
