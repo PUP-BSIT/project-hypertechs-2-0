@@ -51,4 +51,9 @@ export class SearchComponent implements OnInit{
       }
     });
   }
+
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
+
+  }
 }
