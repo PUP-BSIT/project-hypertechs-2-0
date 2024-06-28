@@ -61,7 +61,7 @@ export class MainComponent implements OnInit {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         if (this.router.url !== '/main/search') {
-          this.previousUrl = '/main/search'; /**TODO */
+          this.previousUrl = 'main'; /**TODO */
         }
       }
     });
