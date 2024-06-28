@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class SearchService {
 
-  private apiUrl = 'http://localhost/backend/search.php';
+  private apiUrl = 'http://localhost/backend/search/search.php';
   private notesSubject = new BehaviorSubject<any[]>([]);
   notes$ = this.notesSubject.asObservable();
 
