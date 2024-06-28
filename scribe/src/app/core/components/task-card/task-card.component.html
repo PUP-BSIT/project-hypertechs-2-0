@@ -1,0 +1,51 @@
+<div id="task_card">
+  <!--Task Card Header-->
+  <div id="task_header">
+    <!--Task Title-->
+    <div id="task_card_title"  (click)="openTaskBoard()">
+      <h2>{{ task.title }}</h2>
+    </div>
+
+    <!--Task Menu-->
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <!-- If the notes are active, display this -->
+        <button mat-menu-item  (click)="openTaskBoard()">
+          <mat-icon>edit</mat-icon>
+          <span>Edit</span>
+        </button>
+        <button mat-menu-item (click)="confirmDeleteTask()">
+          <mat-icon>delete</mat-icon>
+          <span>Delete</span>
+        </button>
+    </mat-menu>
+  </div>
+
+  <!--Task Status-->
+  <div id="task_card_status"  (click)="openTaskBoard()">
+    <div id="to_do" class="task-status">
+      <mat-icon>app_registration</mat-icon>
+      <span>To-Do: {{ todoCount }}</span>
+    </div>
+    <div id="in_progress" class="task-status">
+      <mat-icon>rotate_right</mat-icon>
+      <span>In Progress: {{ inProgressCount }}</span>
+    </div>
+    <div id="done" class="task-status">
+      <mat-icon>done_all</mat-icon>
+      <span>Done: {{ doneCount }}</span>
+    </div>
+  </div>
+  <!--Task Progress-->
+  <div id="task_card_progress"  (click)="openTaskBoard()">
+    <div id="progress_text">
+      <h4>
+        Task Progress: <span>{{ progress.toFixed(1) }}%</span>
+      </h4>
+    </div>
+    <div id="progress_bar" [style.--progress]="progress + '%'"></div>
+  </div>
+</div>

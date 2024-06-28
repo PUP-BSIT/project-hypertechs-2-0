@@ -1,1 +1,41 @@
-<p>trash works!</p>
+<div class="scribe-trash-container" [@simpleFade]>
+  <div id="trash_heading">
+    <h1>Trash</h1>
+  </div>
+
+  <div id="trash_main">
+    <ngx-masonry class="masonry-note-container">
+      @if (isLoading) {
+        <div class="loading"></div>
+      } @else {
+        <!-- If notes are present in trash, this will display -->
+        @if (notes.length > 0) {
+          @for (note of notes; track note.id) {
+            <app-note-card
+              [note]="note"
+              [isInTrash]="true"
+              (restore)="restoreNote(note.id)"
+              (deleteForever)="refreshTrash(note.id)">
+            </app-note-card>
+          }
+        } @else {
+          <!-- If no notes are present in trash, this will display -->
+          <div class="empty-trash">
+            <img src="../../../assets/images/empty-trash.svg" />
+            <p>Your deleted notes will appear here.</p>
+          </div>
+        }
+      }
+    </ngx-masonry>
+  </div>
+
+  <button
+    mat-fab
+    extended
+    class="custom-fab"
+    (click)="confirmEmptyTrash()"
+    [disabled]="notes.length === 0">
+    <mat-icon>delete_sweep</mat-icon>
+    <span>Empty Trash</span>
+  </button>
+</div>

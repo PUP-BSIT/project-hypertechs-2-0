@@ -1,5 +1,6 @@
 <mat-sidenav-container class="sidenav-container">
   <!--Side Navigation Bar-->
+  <!-- default property:: [opened]="(isHandset$ | async) === false" -->
   <mat-sidenav
     #drawer
     class="sidenav"
@@ -7,8 +8,9 @@
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'push' : 'side'"
     [opened]="(isHandset$ | async) === false"
+    [opened]="isOpened"
     [@slideInOut]="isOpened ? 'in' : 'void'"
-  >
+>
     <div class="sidenav-header">
       <div class="core-brand" [routerLink]="['/main/home']">
         <img src="../../../assets/images/quill-pen.png" />
@@ -111,19 +113,19 @@
           >Theme
         </a>
 
-        <!--Settings-->
+        <!--Help-->
         <a
           matRipple
           matRippleColor="rgba(0, 108, 83, 0.12)"
           [matRippleAnimation]="{ enterDuration: 500, exitDuration: 400 }"
-          [routerLink]="['/main/settings']"
+          [routerLink]="['/main/help']"
           routerLinkActive="active-link"
           matTooltip="Open Settings"
           matTooltipPosition="after"
           matTooltipShowDelay="1000"
           matTooltipHideDelay="100"
         >
-          <span class="material-symbols-outlined">settings</span>Settings
+          <span class="material-symbols-outlined">help</span>Help
         </a>
 
         <!--Logout-->
@@ -163,10 +165,25 @@
         }
       </div>
 
-      <!--Search Bar-->
+      <!-- Search Bar -->
       <div id="scribe_search_container">
         <span class="material-symbols-outlined search-icon">search</span>
-        <input type="search" placeholder="Search" id="search_input" />
+        <input 
+          type="search"
+          placeholder="Search"
+          id="search_input" 
+          (focus)="onSearchFocus()"
+          (blur)="onSearchBlur()"
+          (input)="onSearchInput($event)" />
+
+          <!--Shows cancel when search is clicked -->
+          @if (showCancelButton) {
+          <span 
+            class="cancel-text" 
+            (click)="onCancelSearch()">
+            Cancel
+          </span>
+        }
       </div>
 
       <!--User Profile-->

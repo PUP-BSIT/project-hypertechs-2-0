@@ -44,6 +44,15 @@
   --empty-bg: #f4f5f4;
 
   --toolbar: #fbfffe;
+  --active-command: #c9e7dc;
+
+  --progress-base: #d0d0d0;
+  --progress-bar-one: #00654e;
+
+  --to-do-mini: #3e3cab;
+  --to-do: #3e3cab;
+  --in-progress: #b47129;
+  --done: #069070;
 }
 
 body.dark-mode {
@@ -56,7 +65,7 @@ body.dark-mode {
   --accent: #5ab292;
   
   --landing-bg: #050908;
-  --graphics-bg: #141918;
+  --graphics-bg: #121a19;
 
   --toggle-theme-bg: #204e3d;
   --toggle-theme-ball: #a4cbbd;
@@ -75,8 +84,8 @@ body.dark-mode {
 
   --error-message: #ffb4ab;
 
-  --core-bg: #111313;
-  --core-nav: #181a1a;
+  --core-bg: #101212;
+  --core-nav: #151717;
   --core-nav-hover: #7f908c1a;
   --core-nav-active: #006c531e;
 
@@ -89,8 +98,16 @@ body.dark-mode {
   --feat-text: #98d5bf;
 
   --note-card: #181a1a;
-  --empty-bg: #161818;
+  --empty-bg: #131515;
 
   --toolbar: #181a1a;
+  --active-command: #006c5361;
 
+  --progress-base: #282d2b;
+  --progress-bar-one: #00503e;
+
+  --to-do-mini: #6e6cff;
+  --to-do: #5956e5;
+  --in-progress: #cd8537;
+  --done: #03b38a;
 }

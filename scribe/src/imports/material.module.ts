@@ -15,6 +15,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   imports: [
@@ -34,7 +36,9 @@ import { MatCardModule } from '@angular/material/card';
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatMenuModule,
-    MatCardModule
+    MatCardModule,
+    MatSelectModule,
+    MatCheckboxModule
   ]
 })
 export class MaterialModule { }

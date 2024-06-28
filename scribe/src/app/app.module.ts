@@ -36,6 +36,9 @@ import { FoldersComponent } from './core/folders/folders.component';
 import { TrashComponent } from './core/trash/trash.component';
 import { NoteCardComponent } from './core/components/note-card/note-card.component';
 import { EditorComponent } from './core/components/editor/editor.component';
+import { SearchComponent } from './core/components/search/search.component';
+import { TaskCardComponent } from './core/components/task-card/task-card.component';
+import { BoardComponent } from './core/components/board/board.component';
 
 /* Other Modules */
 import { MaterialModule } from '../imports/material.module';
@@ -69,6 +72,9 @@ import { SignupService } from '../services/signup/signup.service';
     NoteCardComponent,
     TypingEffectComponent,
     EditorComponent,
+    SearchComponent,
+    TaskCardComponent,
+    BoardComponent,
   ],
   imports: [
     BrowserModule,

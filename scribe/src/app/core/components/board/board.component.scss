@@ -1,0 +1,330 @@
+* {
+  color: var(--text);
+  transition: background-color 0.75s ease, color 0.75s ease;
+}
+
+.scribe-board-container {
+  margin-top: 2rem;
+}
+
+.slide-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.board-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background-color: var(--core-bg);
+  z-index: 1;
+}
+
+/*  ----- BOARD HEADER STYLING ----- */
+.board-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background-color: var(--core-bg);
+  z-index: 1;
+}
+
+.btn-back,
+.btn-focus,
+.btn-edit,
+.btn-done {
+  font-size: 1rem;
+  color: var(--primary) !important;
+  cursor: pointer;
+
+  .mat-icon {
+    color: var(--primary);
+  }
+}
+
+/*  ----- BOARD TITLE STYLING ----- */
+
+.board-title .title-input {
+  width: 100%;
+  padding: 10px 0 5px 0;
+  font-size: 2.75vw;
+  letter-spacing: -0.025rem;
+}
+
+.title-input {
+  background-color: transparent;
+  font-weight: bold;
+  color: var(--text);
+  caret-color: var(--text);
+  border: none;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.title-input::placeholder {
+  color: var(--text);
+  opacity: 0.6;
+  font-weight: bold;
+}
+
+/*  ----- BOARD DESCRIPTION STYLING ----- */
+
+.board-desc .board-desc-input {
+  font-size: 1.25vw;
+  width: 100%;
+}
+
+.board-desc-input {
+  background-color: transparent;
+  color: var(--text);
+  caret-color: var(--text);
+  border: none;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ----- BOARDS MAIN STYLING ----- */
+
+.board-main {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3vh;
+  gap: 4%;
+
+  h2 {
+    font-weight: 500;
+  }
+
+  .board-header-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+  }
+
+  // Global Board List Styling
+  .board-list {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin-top: 2vh;
+    padding: 1.5rem 0.5rem;
+    height: 7vh;
+    background-color: var(--note-card);
+    border-radius: 7px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+    .material-symbols-outlined {
+      font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 24;
+      user-select: none;
+    }
+
+    .delete-icon {
+      cursor: pointer;
+      visibility: hidden;
+      opacity: 0.5;
+    }
+
+    .full-width-checkbox {
+      width: 100%;
+      color: var(--primary) !important;
+    }
+  }
+
+  .board-list:hover .delete-icon {
+    visibility: visible;
+  }
+
+  // Displayed board task item
+  .board-task-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+
+  .board-task-part-one {
+    display: flex;
+    align-items: center;
+    max-width: 95%;
+  }
+
+  .task-list-display {
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 18vw;
+  }
+
+  // Input for tasks items
+  .board-list .board-task-input {
+    background: none;
+    width: 18vw;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+  }
+
+  .task-edit-input {
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    background: none;
+    width: 18vw;
+  }
+
+  .task-list-display {
+    font-size: 1rem;
+  }
+
+  // Clear All button
+  .board-header .clear-all-btn {
+    color: var(--text);
+    opacity: 0.6;
+    font-weight: 400;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0 2%;
+  }
+}
+
+.board {
+  overflow-y: scroll;
+  height: 68vh;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.board::-webkit-scrollbar {
+  width: 0;
+  display: none;
+}
+
+.board-to-do {
+  border-left: 7px solid var(--to-do);
+}
+
+.board-in-progress {
+  border-left: 7px solid var(--in-progress);
+}
+
+.board-done {
+  border-left: 7px solid var(--done);
+}
+
+/* --- TO-DO-BOARD --- */
+
+#to_do_board {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  h2,
+  mat-icon {
+    color: var(--to-do-mini);
+  }
+
+  #to_do_list {
+    border-left: 7px solid var(--to-do);
+  }
+}
+
+/* --- IN PROGRESS-BOARD --- */
+
+#in_progress_board {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  h2,
+  mat-icon {
+    color: var(--in-progress);
+  }
+
+  #in_progress_list {
+    border-left: 7px solid var(--in-progress);
+  }
+
+  #in_progress_actions {
+    display: flex;
+    
+  }
+
+  .undo-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    visibility: hidden;
+    opacity: 0.5;
+    font-size: 1.1em;
+  }
+
+  .board-list:hover .undo-icon {
+    visibility: visible;
+  }
+
+}
+
+/* --- DONE -BOARD --- */
+#done_board {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  h2,
+  mat-icon {
+    color: var(--done);
+  }
+
+  #done_list {
+    border-left: 7px solid var(--done);
+  }
+
+  .empty-done {
+    padding: 5%;
+    opacity: 0.6;
+    cursor: default;
+    user-select: none;
+  }
+
+  .board-task-part-one {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: start;
+    max-width: 20vw;
+  }
+
+  .delete-icon {
+    cursor: pointer;
+  }
+}
+
+.done-task .task-text {
+  text-decoration: line-through;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 1rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/* Style for the done task checkbox */
+.done-task.mat-checkbox .mat-checkbox-frame {
+  border-color: gray;
+}
+
+.done-task.mat-checkbox .mat-checkbox-background {
+  background-color: gray;
+}
