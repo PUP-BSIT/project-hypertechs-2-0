@@ -66,11 +66,13 @@ export class NoteCardComponent implements OnInit {
 
   hardDeleteNote() {
     const dialogRef = this.dialogService.openDialog({
-      title: 'Permanent Delete',
+      title: 'Delete Permanently',
       content: 'Are you sure you want to delete this note forever?',
-      confirmText: 'Confirm',
+      confirmText: 'Delete',
       cancelText: 'Cancel',
       action: 'confirm',
+      actionTextColor: '#fff',
+      actionBgColor: '#cf252e',
     });
 
     dialogRef.afterClosed().subscribe((result) => {

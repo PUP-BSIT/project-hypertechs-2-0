@@ -1,92 +1,95 @@
-<div class="scribe-editor-container" [@simpleFade]>
-  <!--Editor header-->
-  <div class="editor-header">
-    <!--Back Button-->
-    <button mat-button class="btn-back" (click)="goBack()">
-      <mat-icon>arrow_back</mat-icon>
-      Back
-    </button>
-    <div class="editor-actions">
-      <form #noteForm="ngForm">
-        <!--Focus Mode-->
-        <button mat-button class="btn-focus" (click)="toggleSidenav()">
-          <mat-icon>crop_free</mat-icon> Focus Mode
-        </button>
-    
-        @if (isInTrash) {
-          <!-- Edit button with tooltip if the note is in trash -->
-          <button mat-button 
-          class="btn-edit" 
-          (click)="toggleEditMode()"
-          matTooltip="Note can't be edited while it's in trash."
-          [ngClass]="{'disabled-button': isInTrash}">
-            <mat-icon>edit</mat-icon> Edit
+<div class="scribe-editor-container">
+  <div class="slide-container">
+    <!--Editor header-->
+    <div class="editor-header" [@slideUpDown]>
+      <!--Back Button-->
+      <button mat-button class="btn-back" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Back
+      </button>
+      <div class="editor-actions">
+        <form #noteForm="ngForm">
+          <!--Focus Mode-->
+          <button mat-button class="btn-focus" (click)="toggleSidenav()">
+            <mat-icon>crop_free</mat-icon> Focus Mode
           </button>
-        }
-    
-        @if (!isInTrash && readOnly) {
-          <!-- Edit button without tooltip if the note is not in trash -->
-          <button mat-button class="btn-edit" (click)="toggleEditMode()">
-            <mat-icon>edit</mat-icon> Edit
-          </button>
-        }
-    
-        @if (!isInTrash && !readOnly) {
-          <!-- Done button when not in read-only mode -->
-          <button mat-button class="btn-done" (click)="toggleEditMode()">
-            <mat-icon>check</mat-icon> Done
-          </button>
-        }
-      </form>
+      
+          @if (isInTrash) {
+            <!-- Edit button with tooltip if the note is in trash -->
+            <button mat-button 
+            class="btn-edit" 
+            (click)="toggleEditMode()"
+            matTooltip="Note can't be edited while it's in trash."
+            [ngClass]="{'disabled-button': isInTrash}">
+              <mat-icon>edit</mat-icon> Edit
+            </button>
+          }
+      
+          @if (!isInTrash && readOnly) {
+            <!-- Edit button without tooltip if the note is not in trash -->
+            <button mat-button class="btn-edit" (click)="toggleEditMode()">
+              <mat-icon>edit</mat-icon> Edit
+            </button>
+          }
+      
+          @if (!isInTrash && !readOnly) {
+            <!-- Done button when not in read-only mode -->
+            <button mat-button class="btn-done" (click)="toggleEditMode()">
+              <mat-icon>check</mat-icon> Done
+            </button>
+          }
+        </form>
+      </div>
     </div>
-  </div>
-
-  <!--Note Title-->
-  <div class="editor-title">
-    <input
-      type="text"
-      placeholder="Add note title"
-      class="title-input"
-      [readonly]="readOnly"
-      (keyup)="onTitleChange()"
-      [(ngModel)]="noteTitle"
-    />
-  </div>
-
-  <!--Note Timestamp-->
-  <div class="editor-timestamp">
-    <mat-icon>schedule</mat-icon>
-
-    <div id="timestamp_content">
-      Last edited: {{ lastEdited | date : "short" }}
+  
+    <!--Note Title-->
+    <div class="editor-title" [@slideUpDown]>
+      <input
+        type="text"
+        placeholder="Add note title"
+        class="title-input"
+        [readonly]="readOnly"
+        (keyup)="onTitleChange()"
+        [(ngModel)]="noteTitle"
+      />
     </div>
+  
+    <!--Note Timestamp-->
+    <div class="editor-timestamp" [@slideUpDown]>
+      <mat-icon>schedule</mat-icon>
+  
+      <div id="timestamp_content">
+        Last edited: {{ lastEdited | date : "short" }}
+      </div>
+    </div>
+  
+    <!--Note Tags & Reminders-->
+    <div class="editor-tags-reminders" [@slideUpDown]>
+      <button mat-button class="btn-tags">
+        <mat-icon>new_label</mat-icon>
+        Add Tags
+      </button>
+      <button mat-button class="btn-reminders">
+        <mat-icon>notifications</mat-icon>
+        Add Reminders
+      </button>
+    </div>
+  
+    <!--Note Editor Content-->
+    <div
+      class="editor-content"
+      contenteditable="true"
+      data-placeholder="Write down your notes here..."
+      #editorContent
+      (input)="onContentChange($event)"
+      [attr.contenteditable]="!readOnly"
+      [@halfSlide]
+    ></div>
   </div>
-
-  <!--Note Tags & Reminders-->
-  <div class="editor-tags-reminders">
-    <button mat-button class="btn-tags">
-      <mat-icon>new_label</mat-icon>
-      Add Tags
-    </button>
-    <button mat-button class="btn-reminders">
-      <mat-icon>notifications</mat-icon>
-      Add Reminders
-    </button>
-  </div>
-
-  <!--Note Editor Content-->
-  <div
-    class="editor-content"
-    contenteditable="true"
-    data-placeholder="Write down your notes here..."
-    #editorContent
-    (input)="onContentChange($event)"
-    [attr.contenteditable]="!readOnly"
-  ></div>
 
   <!--Editor Toolbar-->
   @if (!readOnly) {
-  <div class="editor-toolbar">
+  <div class="editor-toolbar" [@slideUpDown]>
     <!-- Font Styles -->
     <div class="toolbar-group">
       <button [class.active]="activeCommands['bold']" (click)="format('bold')">

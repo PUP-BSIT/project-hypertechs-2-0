@@ -71,6 +71,7 @@
   flex-direction: column;
   gap: 0.25rem;
   cursor: pointer;
+  user-select: none;
 
   a {
     text-decoration: none;
@@ -310,7 +311,7 @@
 
 /* Custom Scrollbar for WebKit Browsers */
 .scribe-core-content::-webkit-scrollbar {
-  width: 0.25em; // Width of the scrollbar
+  width: 0; // Width of the scrollbar
   height: auto; // Height of the scrollbar
 }
 

@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NoteService } from '../../../services/notes/note.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { Subscription } from 'rxjs';
+import { ChangeDetectorRef } from '@angular/core';
 import { DialogService } from '../../../services/dialog/dialog.service';
 import { SnackbarService } from '../../../services/snackbar/snackbar.service';
 import { simpleFade, slideInOut } from '../../../animations/element-animations';
@@ -22,7 +23,8 @@ export class TrashComponent implements OnInit, OnDestroy {
     private noteService: NoteService,
     private authService: AuthService,
     private dialogService: DialogService,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -42,14 +44,16 @@ export class TrashComponent implements OnInit, OnDestroy {
         console.log('Deleted notes received from backend:', data);
         this.notes = data;
         this.isLoading = false;
+        this.cdr.detectChanges();  // Manually trigger change detection
       },
       (error) => {
         console.error('Error fetching deleted notes:', error);
         this.isLoading = false;
+        this.cdr.detectChanges();  // Manually trigger change detection
       }
     );
   }
-
+  
   restoreNote(noteId: number) {
     this.noteService.restoreNote(noteId).subscribe(
       () => {
@@ -61,16 +65,18 @@ export class TrashComponent implements OnInit, OnDestroy {
       }
     );
   }
-
+  
   refreshTrash(noteId: number) {
     this.notes = this.notes.filter((note) => note.id !== noteId);
+    this.cdr.detectChanges();  // Manually trigger change detection
   }
-
+  
   hardDeleteNote(noteId: number) {
     this.noteService.hardDeleteNote(noteId).subscribe(
       () => {
         console.log('Note permanently deleted successfully');
         this.notes = this.notes.filter((note) => note.id !== noteId);
+        this.cdr.detectChanges();  // Manually trigger change detection
       },
       (error) => {
         console.error('Error permanently deleting note:', error);
@@ -93,7 +99,7 @@ export class TrashComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+    
   emptyTrash() {
     this.noteService.emptyTrash().subscribe(
       () => {
