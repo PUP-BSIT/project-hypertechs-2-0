@@ -29,7 +29,19 @@ export class SearchComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    
+
+    this.searchService.searchTerm$.subscribe(searchTerm => {
+      this.searchTerm = searchTerm;
+      /**TODO FOR TESTING */
+      console.log("LISTEN TERM: ", this.searchTerm);
+      if (!searchTerm) {
+        this.clearSearch = true;
+        /**TODO FOR TESTING */
+        console.log("EMPTY TERM", this.searchTerm);
+      } else{
+        this.clearSearch = false;
+      }
+    });
   }
 
 }
