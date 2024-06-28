@@ -211,6 +211,9 @@ export class MainComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.searchSubscription.unsubscribe();
+}
 
   private initializeToolbar() {
     this.toolbarService.toolbarVisible$.subscribe((visible) => {
