@@ -14,6 +14,13 @@ import { AuthService } from '../../../../services/auth/auth.service';
 })
 export class SearchComponent implements OnInit{
 
+  searchTerm : any = '';
+  notes: any[] =[];
+  isLoading = true;
+  errorMessage: any;
+  clearSearch : boolean = false;
+  private userSubscription!: Subscription;
+
   ngOnInit(): void {
     
   }
