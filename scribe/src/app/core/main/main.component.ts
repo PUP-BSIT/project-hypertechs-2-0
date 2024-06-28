@@ -13,6 +13,7 @@ import { ToolbarService } from '../../../services/toolbar/toolbar.service';
 import { SidenavService } from '../../../services/sidenav/sidenav.service';
 import { simpleFade, slideInOut } from '../../../animations/element-animations';
 import { SearchService } from '../../../services/search/search.service';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-main',
@@ -53,7 +54,8 @@ export class MainComponent implements OnInit {
     private sidenavService: SidenavService,
     private breakpointObserver: BreakpointObserver,
     private route: ActivatedRoute,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private authService: AuthService
   ) {
     // Listen to route changes to track the previous route
     this.router.events.subscribe((event) => {
@@ -109,7 +111,8 @@ export class MainComponent implements OnInit {
 
   /* Search bar behavior */
   onSearchFocus() {
-    this.router.navigate(['/main/search']);
+    const user_id = this.authService.getUserId();
+    this.router.navigate(['/main/search'], { queryParams: { user_id: user_id } });
     this.showCancelButton = true;
     setTimeout(() => {
       const cancelText = document.querySelector('.cancel-text') as HTMLElement;
