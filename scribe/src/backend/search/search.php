@@ -52,5 +52,7 @@
     } else {
         echo json_encode(["message" => "No notes found"]);
     }
-    
+
+    $stmt->close();
+    $conn->close();
 ?>
