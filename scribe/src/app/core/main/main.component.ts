@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
-import { Router, NavigationEnd } from '@angular/router';
+import { fromEvent, Observable, Subscription } from 'rxjs';
+import { debounceTime, filter, map, shareReplay } from 'rxjs/operators';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 
 /* Services */
 import { ThemeService } from '../../../services/theme/theme.service';
@@ -29,6 +29,11 @@ export class MainComponent implements OnInit {
   email: string | null = null;
   firstname: string | null = null;
   lastname: string | null = null;
+  searchTerm: string = '';
+  userId : string = '';
+  @Input() notes: any[] = [];
+  @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
+  private searchSubscription!: Subscription;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
@@ -45,7 +50,8 @@ export class MainComponent implements OnInit {
     private titleCaseService: TitleCaseService,
     private toolbarService: ToolbarService,
     private sidenavService: SidenavService,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private route: ActivatedRoute
   ) {
     // Listen to route changes to track the previous route
     this.router.events.subscribe((event) => {
@@ -60,6 +66,11 @@ export class MainComponent implements OnInit {
   ngOnInit() {
     this.sidenavService.isOpened$.subscribe((isOpened) => {
       this.isOpened = isOpened; // Update isOpened based on sidenav service
+    });
+
+    this.route.queryParams.subscribe(params => {
+      this.userId = params['user_id'];
+      console.log('User ID:', this.userId);
     });
 
     this.initializeToolbar();
@@ -150,6 +161,32 @@ export class MainComponent implements OnInit {
       }
     }
   }
+
+  ngAfterViewInit(): void {
+    //if(!this.searchInput){ return;}
+    this.searchSubscription = fromEvent<Event>(this.searchInput.nativeElement, 'input')
+    .pipe(
+        map((event: Event) => 
+        (event.target as HTMLInputElement).value),
+        debounceTime(2000),
+        filter((value: string) => value.length > 0), 
+      )
+    .subscribe((value) => {
+      if (value.length>0){
+        this.showCancelButton = true;
+        this.searchTerm = value;
+        //this.searchNotes();
+       /**TODO */
+        console.log(value);
+      } else {
+        //this.clearSearch();
+        //this.ngOnDestroy();
+        return;
+        //this.onCancelSearch();
+      }   
+    });
+  }
+
 
   private initializeToolbar() {
     this.toolbarService.toolbarVisible$.subscribe((visible) => {
