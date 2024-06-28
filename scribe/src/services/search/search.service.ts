@@ -30,5 +30,13 @@ export class SearchService {
         })
       );
   }
+
+  updateSearchResults(results: any[]) {
+    this.notesSubject.next(results);
+  }
+
+  updateSearchTerm(searchTerm: string) {
+    this.searchTermSubject.next(searchTerm);
+  }
   
 }
