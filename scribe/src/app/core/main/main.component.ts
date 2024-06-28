@@ -12,6 +12,7 @@ import { TitleCaseService } from '../../../services/title-case/title-case.servic
 import { ToolbarService } from '../../../services/toolbar/toolbar.service';
 import { SidenavService } from '../../../services/sidenav/sidenav.service';
 import { simpleFade, slideInOut } from '../../../animations/element-animations';
+import { SearchService } from '../../../services/search/search.service';
 
 @Component({
   selector: 'app-main',
@@ -51,7 +52,8 @@ export class MainComponent implements OnInit {
     private toolbarService: ToolbarService,
     private sidenavService: SidenavService,
     private breakpointObserver: BreakpointObserver,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private searchService: SearchService
   ) {
     // Listen to route changes to track the previous route
     this.router.events.subscribe((event) => {
@@ -162,8 +164,33 @@ export class MainComponent implements OnInit {
     }
   }
 
+  searchNotes(): void {
+    /**TODO for testing*/
+    if (this.searchTerm.trim().length === 0) {
+      console.log(this.searchTerm);
+      this.notes = [];
+      this.searchService.updateSearchResults(this.notes);
+      return; // Don't search if the search term is empty
+    }
+
+    this.searchService.searchNotes(this.userId, this.searchTerm)
+      .subscribe(
+        (response) => {
+          this.notes = response;
+          this.searchService.updateSearchResults(response);
+          this.searchService.updateSearchTerm(this.searchTerm);
+          console.log('Search results:', response);
+          console.log('userId',this.userId);
+          console.log('searchTerm',this.searchTerm);
+        },
+        (error) => {
+          console.error('Error fetching notes:', error);
+        }
+      )
+      ;
+  }
+
   ngAfterViewInit(): void {
-    //if(!this.searchInput){ return;}
     this.searchSubscription = fromEvent<Event>(this.searchInput.nativeElement, 'input')
     .pipe(
         map((event: Event) => 
@@ -175,14 +202,12 @@ export class MainComponent implements OnInit {
       if (value.length>0){
         this.showCancelButton = true;
         this.searchTerm = value;
-        //this.searchNotes();
+        this.searchNotes();
        /**TODO */
         console.log(value);
       } else {
-        //this.clearSearch();
         //this.ngOnDestroy();
         return;
-        //this.onCancelSearch();
       }   
     });
   }
