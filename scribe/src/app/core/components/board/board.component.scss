@@ -51,7 +51,7 @@
 .board-title .title-input {
   width: 100%;
   padding: 10px 0 5px 0;
-  font-size: 2.5vw;
+  font-size: 2.75vw;
   letter-spacing: -0.025rem;
 }
 
@@ -230,7 +230,7 @@
 
   h2,
   mat-icon {
-    color: var(--to-do);
+    color: var(--to-do-mini);
   }
 
   #to_do_list {
