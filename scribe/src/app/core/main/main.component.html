@@ -10,7 +10,7 @@
     [opened]="(isHandset$ | async) === false"
     [opened]="isOpened"
     [@slideInOut]="isOpened ? 'in' : 'void'"
->
+  >
     <div class="sidenav-header">
       <div class="core-brand" [routerLink]="['/main/home']">
         <img src="../../../assets/images/quill-pen.png" />
@@ -158,8 +158,8 @@
           type="button"
           aria-label="Toggle sidenav"
           mat-icon-button
-          (click)="drawer.toggle()">
-          
+          (click)="drawer.toggle()"
+        >
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
         }
@@ -168,21 +168,21 @@
       <!-- Search Bar -->
       <div id="scribe_search_container">
         <span class="material-symbols-outlined search-icon">search</span>
-        <input 
+        <input
           type="search"
           placeholder="Search"
-          id="search_input" 
+          id="search_input"
+          #searchInput
+          [(ngModel)]="searchTerm"
+          (keyup.enter)="searchNotes()"
           (focus)="onSearchFocus()"
           (blur)="onSearchBlur()"
-          (input)="onSearchInput($event)" />
+          (input)="onSearchInput($event)"
+        />
 
-          <!--Shows cancel when search is clicked -->
-          @if (showCancelButton) {
-          <span 
-            class="cancel-text" 
-            (click)="onCancelSearch()">
-            Cancel
-          </span>
+        <!--Shows cancel when search is clicked -->
+        @if (showCancelButton) {
+        <span class="cancel-text" (click)="onCancelSearch()"> Cancel </span>
         }
       </div>
 
