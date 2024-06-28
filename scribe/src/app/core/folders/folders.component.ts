@@ -21,7 +21,7 @@ export class FoldersComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  toggleView(): void {
-    this.isGridView = !this.isGridView;
+  toggleView(event: any): void {
+    this.isGridView = event.value === 'grid';
   }
 }
