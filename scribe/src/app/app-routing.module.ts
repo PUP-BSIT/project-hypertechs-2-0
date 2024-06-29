@@ -70,7 +70,10 @@ const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ],
   },
-  { path: '**', component: NotFoundComponent },
+  { path: '**',
+    component: NotFoundComponent, 
+    data: { animationState: 'notFound' },
+  },
 ];
 
 @NgModule({
