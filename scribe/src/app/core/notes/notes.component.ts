@@ -14,6 +14,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   notes: any[] = [];
   isLoading = true;
   private userSubscription!: Subscription;
+  currentSortOption = 'lastEdited';
 
   constructor(
     private noteService: NoteService,
@@ -22,7 +23,6 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.userSubscription = this.authService.user$.subscribe((userId) => {
-      console.log('User ID:', userId);
       if (userId !== null) {
         this.loadNotes();
       } else {
@@ -33,12 +33,10 @@ export class NotesComponent implements OnInit, OnDestroy {
   }
 
   loadNotes() {
-    console.log('Loading notes...');
-    this.noteService.getNotes().subscribe(
+    this.isLoading = true;
+    this.noteService.getNotes(this.currentSortOption).subscribe(
       (data: any[]) => {
-        console.log('Notes received from backend:', data);
         this.notes = data.filter((note) => note.is_deleted == 0);
-        console.log('Filtered notes:', this.notes);
         this.isLoading = false;
       },
       (error) => {
@@ -60,5 +58,24 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   trackByNoteId(index: number, note: any): number {
     return note.id;
+  }
+
+  sortNotes(option: string) {
+    this.currentSortOption = option;
+    this.loadNotes();
+  }
+
+  get currentSortOptionLabel() {
+    switch (this.currentSortOption) {
+      case 'dateCreated':
+        return 'Date Created';
+      case 'titleAsc':
+        return 'Title (A to Z)';
+      case 'titleDesc':
+        return 'Title (Z to A)';
+      case 'lastEdited':
+      default:
+        return 'Last Edited';
+    }
   }
 }
