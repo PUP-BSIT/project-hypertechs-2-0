@@ -12,7 +12,7 @@ import { ToolbarService } from '../../../../services/toolbar/toolbar.service';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { SnackbarService } from '../../../../services/snackbar/snackbar.service';
 import { ActivatedRoute } from '@angular/router';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
 import { Subject, Subscription } from 'rxjs';
 
 interface Task {
@@ -25,7 +25,7 @@ interface Task {
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
-  animations: [slideUpDown, simpleFade, taskAnimation,halfSlide],
+  animations: [slideUpDown, simpleFade, taskAnimation, halfSlide],
 })
 export class BoardComponent implements AfterViewInit, OnDestroy, OnInit {
   isInTrash: boolean = false;
@@ -39,6 +39,22 @@ export class BoardComponent implements AfterViewInit, OnDestroy, OnInit {
 
   private saveSubject: Subject<void> = new Subject<void>();
   private saveSubscription: Subscription | undefined;
+
+  initialState: {
+    title: string;
+    description: string;
+    todoTasks: Task[];
+    inProgressTasks: Task[];
+    doneTasks: Task[];
+  } = {
+    title: '',
+    description: '',
+    todoTasks: [],
+    inProgressTasks: [],
+    doneTasks: [],
+  };
+
+  changesMade: boolean = false;
 
   constructor(
     private toolbarService: ToolbarService,
@@ -59,6 +75,13 @@ export class BoardComponent implements AfterViewInit, OnDestroy, OnInit {
       }
     });
 
+    // Capture initial state
+    this.initialState.title = this.taskTitle;
+    this.initialState.description = this.taskDescription;
+    this.initialState.todoTasks = [...this.todoTasks];
+    this.initialState.inProgressTasks = [...this.inProgressTasks];
+    this.initialState.doneTasks = [...this.doneTasks];
+
     // Debounce save operations
     this.saveSubscription = this.saveSubject
       .pipe(debounceTime(1000))
@@ -77,6 +100,10 @@ export class BoardComponent implements AfterViewInit, OnDestroy, OnInit {
     }
     this.toolbarService.setToolbarVisible(true);
     this.sidenavService.open();
+
+    if (this.changesMade) {
+      this.snackbarService.show('Task updated successfully!', 'Close', 3000);
+    }
   }
 
   private initializeToolbar() {
@@ -187,6 +214,7 @@ export class BoardComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   triggerSave() {
+    this.changesMade = true;
     this.saveSubject.next();
   }
 
