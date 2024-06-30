@@ -1,5 +1,5 @@
 * {
-  transition: background-color 0.75s ease, color 0.75s ease;
+  transition: background-color 0.75s ease, color 0.75s ease !important;
 }
 
 #recovery_container {
@@ -37,23 +37,14 @@ nav {
   gap: 4vw;
 
   .material-symbols-outlined {
-    font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24;
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
     transition: font-variation-settings 0.3s ease;
   }
 }
 
 nav:hover {
-
   .material-symbols-outlined {
-    font-variation-settings:
-    'FILL' 1,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24
+    font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
   }
 }
 
@@ -90,6 +81,7 @@ svg {
 form {
   display: flex;
   flex-direction: column;
+  gap: 1vh;
   margin-top: 4vh;
 }
 
@@ -218,10 +210,10 @@ form {
   display: flex;
   align-items: left;
   flex-direction: column;
-  
+
   .otp-inputs {
     display: flex;
-    gap: 25px;
+    justify-content: space-between;
     margin-bottom: 8px;
   }
 
@@ -229,8 +221,8 @@ form {
     border: none;
     border-radius: 5px;
     padding: 15px;
-    height: 85px;
-    width: 80px; 
+    height: 6vw;
+    width: 6vw;
     background-color: var(--tonal-form);
     color: var(--text);
     font-size: 25px;
@@ -334,8 +326,6 @@ form {
   }
 
   header {
-    flex-direction: column;
-    align-items: flex-start;
     gap: 2vh;
   }
 
@@ -371,7 +361,7 @@ form {
     opacity: 50;
   }
 
-  .recovery-form input[type="text"]::placeholder{
+  .recovery-form input[type="text"]::placeholder {
     margin-top: 1.35vh;
     opacity: 5;
     color: var(--tonal-form-text);
@@ -425,48 +415,48 @@ form {
   #new_password_form {
     .input-group {
       margin-bottom: 3vh;
-       
-    label {
-      margin-bottom: 2vh;
-      margin-left: 0;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--label);
+
+      label {
+        margin-bottom: 2vh;
+        margin-left: 0;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--label);
+      }
+
+      input[type="password"] {
+        padding: 2vh 15vw;
+        height: 8.5vh;
+        font-size: 13px;
+        opacity: 50;
+        margin-bottom: 2vh;
+      }
+
+      input[type="password"]::placeholder {
+        margin-top: 1.35vh;
+        opacity: 5;
+        color: var(--tonal-form-text);
+        font-size: 13px;
+        padding: 0vh;
+      }
+
+      .material-icons {
+        position: absolute;
+        top: 47%;
+        left: 5vw;
+        transform: translateY(-50%);
+        font-size: 20px;
+        pointer-events: none;
+        color: var(--tonal-form-text);
+      }
+
+      .error-message {
+        font-size: 10px;
+        margin-top: 1em;
+        margin-bottom: 0.9em;
+      }
     }
-  
-    input[type="password"] {
-      padding: 2vh 15vw;
-      height: 8.5vh;
-      font-size: 13px;
-      opacity: 50;
-      margin-bottom: 2vh;
-    }
-  
-    input[type="password"]::placeholder {
-      margin-top: 1.35vh;
-      opacity: 5;
-      color: var(--tonal-form-text);
-      font-size: 13px;
-      padding: 0vh;
-    }
-  
-    .material-icons {
-      position: absolute;
-      top: 47%;
-      left: 5vw;
-      transform: translateY(-50%);
-      font-size: 20px;
-      pointer-events: none;
-      color: var(--tonal-form-text);
-    }
-  
-    .error-message {
-      font-size: 10px;
-      margin-top: 1em;
-      margin-bottom: 0.9em;
-    }
-  }
-  
+
     .custom-btn {
       height: 8.5vh;
       font-size: 14px;
@@ -489,8 +479,6 @@ form {
   }
 
   header {
-    flex-direction: column;
-    align-items: flex-start;
     gap: 2vh;
   }
 
@@ -525,7 +513,7 @@ form {
     opacity: 50;
   }
 
-  .recovery-form input[type="text"]::placeholder{
+  .recovery-form input[type="text"]::placeholder {
     margin-top: 1.35vh;
     opacity: 5;
     color: var(--tonal-form-text);
@@ -565,7 +553,7 @@ form {
     gap: 1.5vw;
     margin-bottom: -1px;
   }
-  
+
   #otp_fields .otp-inputs input[type="text"] {
     height: 12vw;
     width: 11.5vw;
@@ -573,51 +561,51 @@ form {
     font-size: 25px;
     text-align: center;
     box-sizing: border-box;
-}
+  }
 
   #new_password_form {
     .input-group {
       margin-bottom: 5vh;
-       
-    label {
-      margin-bottom: 2vh;
-      margin-left: 0vw;
-      font-size: 20px;
-      font-weight: 500;
-      color: var(--label);
+
+      label {
+        margin-bottom: 2vh;
+        margin-left: 0vw;
+        font-size: 20px;
+        font-weight: 500;
+        color: var(--label);
+      }
+
+      input[type="password"] {
+        padding: 2vh 11vw;
+        height: 8.5vh;
+        font-size: 18px;
+        opacity: 50;
+      }
+
+      input[type="password"]::placeholder {
+        margin-top: 1.35vh;
+        opacity: 5;
+        color: var(--tonal-form-text);
+        font-size: 18px;
+        padding: 0vh;
+      }
+
+      .material-icons {
+        margin-top: 2vh;
+        position: absolute;
+        left: 5vw;
+        color: var(--tonal-form-text);
+        pointer-events: none;
+        font-size: 30px;
+      }
+
+      .error-message {
+        font-size: 16px;
+        margin-top: 2em;
+        margin-bottom: -0.2em;
+      }
     }
-  
-    input[type="password"] {
-      padding: 2vh 11vw;
-      height: 8.5vh;
-      font-size: 18px;
-      opacity: 50;
-    }
-  
-    input[type="password"]::placeholder {
-      margin-top: 1.35vh;
-      opacity: 5;
-      color: var(--tonal-form-text);
-      font-size: 18px;
-      padding: 0vh;
-    }
-  
-    .material-icons {
-      margin-top: 2vh;
-      position: absolute;
-      left: 5vw;
-      color: var(--tonal-form-text);
-      pointer-events: none;
-      font-size: 30px;
-    }
-  
-    .error-message {
-      font-size: 16px;
-      margin-top: 2em;
-      margin-bottom: -0.20em;
-    }
-  }
-  
+
     .custom-btn {
       height: 8.5vh;
       font-size: 20px;
