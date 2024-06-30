@@ -14,16 +14,19 @@ import { SignupService } from '../../../services/signup/signup.service';
 import { SnackbarService } from '../../../services/snackbar/snackbar.service';
 import { DialogService } from '../../../services/dialog/dialog.service';
 import { AuthService } from '../../../services/auth/auth.service';
+import { slideLeftRightSteps } from '../../../animations/element-animations';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
+  animations: [slideLeftRightSteps],
 })
 export class SignupComponent implements OnInit {
   signupForm: FormGroup = this.formBuilder.group({});
   errorMessage: string = '';
   isLoading = false;
+  currentStep = 1;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -189,5 +192,17 @@ export class SignupComponent implements OnInit {
         this.router.navigate(['recovery']);
       }
     });
+  }
+
+  next() {
+    if (this.currentStep < 2) {
+      this.currentStep++;
+    }
+  }
+
+  back() {
+    if (this.currentStep > 1) {
+      this.currentStep--;
+    }
   }
 }
