@@ -4,12 +4,14 @@
       <header>
         <app-brand></app-brand>
         <nav>
-          <span 
-          class="material-symbols-outlined"
-          id="mini_theme_toggle"
-          matTooltip="Toggle app theme"
-          matRipple
-          (click)="toggleTheme()">{{ themeIcon }}</span>
+          <span
+            class="material-symbols-outlined"
+            id="mini_theme_toggle"
+            matTooltip="Toggle app theme"
+            matRipple
+            (click)="toggleTheme()"
+            >{{ themeIcon }}</span
+          >
         </nav>
       </header>
     </div>
@@ -259,19 +261,28 @@
                       >Password is required. Kindly fill out the field.</span
                     >
                   </div>
-                  }@if(passwordControl?.getError('maxlength') &&
-                  passwordControl?.touched){
+                  } @if (passwordControl?.errors?.['minlength'] &&
+                  passwordControl?.touched) {
+                  <div class="error-item">
+                    <span class="material-symbols-outlined">error</span>
+                    <span>Password must be at least 8 characters long.</span>
+                  </div>
+                  } @if (passwordControl?.errors?.['maxlength'] &&
+                  passwordControl?.touched) {
                   <div class="error-item">
                     <span class="material-symbols-outlined">error</span>
                     <span
-                      >Password should not be greater than 40 characters.</span
+                      >Password cannot be more than 40 characters long.</span
                     >
                   </div>
-                  } @if(passwordControl?.getError('minlength') &&
-                  passwordControl?.touched){
+                  } @if (passwordControl?.errors?.['passwordComplexity'] &&
+                  passwordControl?.touched) {
                   <div class="error-item">
                     <span class="material-symbols-outlined">error</span>
-                    <span>Password must atleast 8 characters long.</span>
+                    <span>
+                      Password must contain at least one uppercase letter, one
+                      lowercase letter, one number, and one special character.
+                    </span>
                   </div>
                   }
                 </div>
