@@ -15,6 +15,7 @@ import { SnackbarService } from '../../../services/snackbar/snackbar.service';
 import { DialogService } from '../../../services/dialog/dialog.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { slideLeftRightSteps } from '../../../animations/element-animations';
+import { ThemeService } from '../../../services/theme/theme.service';
 
 @Component({
   selector: 'app-signup',
@@ -27,6 +28,7 @@ export class SignupComponent implements OnInit {
   errorMessage: string = '';
   isLoading = false;
   currentStep = 1;
+  themeIcon: string = 'dark_mode';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,6 +38,7 @@ export class SignupComponent implements OnInit {
     private snackbarService: SnackbarService,
     private dialogService: DialogService,
     private authService: AuthService,
+    private themeService: ThemeService,
   ) {}
 
   ngOnInit(): void {
@@ -64,6 +67,18 @@ export class SignupComponent implements OnInit {
         localStorage.removeItem('loggedInUser');
       }
     }
+
+    this.initializeTheme();
+  }
+
+  toggleTheme() {
+    this.themeService.toggleTheme();
+  }
+
+  private initializeTheme() {
+    this.themeService.currentTheme.subscribe((isDark) => {
+      this.themeIcon = isDark ? 'dark_mode' : 'light_mode';
+    });
   }
 
   get lastnameControl() {
