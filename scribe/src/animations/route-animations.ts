@@ -22,7 +22,8 @@ export const RouteTransitionAnimations = trigger('triggerName', [
     recovery => enterOtp,
     enterOtp => recovery,
     enterOtp => enterNewPass,
-    enterNewPass => enterOtp`,
+    enterNewPass => enterOtp,
+    * => notFound`,
     [   
       style({ opacity: 0 }),
       animate('750ms ease-out', style({ opacity: 1 })),

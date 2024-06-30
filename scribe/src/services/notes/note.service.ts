@@ -12,9 +12,9 @@ export class NoteService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   /* Fetch and display all the notes */
-  getNotes(): Observable<any> {
+  getNotes(sortBy: string = 'lastEdited'): Observable<any> {
     const userId = this.authService.getUserId();
-    return this.http.get(`${this.apiUrl}/get-notes.php?user_id=${userId}`);
+    return this.http.get(`${this.apiUrl}/get-notes.php?user_id=${userId}&sort_by=${sortBy}`);
   }
 
   /* Fetch a note by ID for proper edit/update */

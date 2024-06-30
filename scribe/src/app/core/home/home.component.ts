@@ -64,15 +64,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   loadTasks() {
-    this.tasksSubscription = this.taskService.getUserTasks().subscribe(
-      (tasks) => {
-        console.log('Tasks received from backend:', tasks);
-        this.userTasks = tasks.slice(0, 3);
-      },
-      (error) => {
-        console.error('Error fetching tasks:', error);
-      }
-    );
+    this.tasksSubscription = this.taskService
+      .getUserTasks('lastEdited')
+      .subscribe(
+        (tasks) => {
+          console.log('Tasks received from backend:', tasks);
+          this.userTasks = tasks.slice(0, 3);
+        },
+        (error) => {
+          console.error('Error fetching tasks:', error);
+        }
+      );
   }
 
   onNoteDelete(noteId: number) {
