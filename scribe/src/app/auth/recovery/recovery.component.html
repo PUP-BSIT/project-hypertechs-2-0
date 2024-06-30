@@ -3,7 +3,14 @@
     <div id="recovery_header">
       <header>
         <app-brand></app-brand>
-        <nav></nav>
+        <nav>
+          <span 
+          class="material-symbols-outlined"
+          id="mini_theme_toggle"
+          matTooltip="Toggle app theme"
+          matRipple
+          (click)="toggleTheme()">{{ themeIcon }}</span>
+        </nav>
       </header>
     </div>
     <div class="recovery-form">
