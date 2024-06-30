@@ -1,0 +1,614 @@
+* {
+  transition: background-color 0.75s ease, color 0.75s ease !important;
+}
+
+#recovery_container {
+  height: 100vh;
+  display: flex;
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+#recovery_main {
+  flex: 1;
+  padding: 4%;
+}
+
+#recovery_graphics {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--graphics-bg);
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 4vw;
+
+  .material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+    transition: font-variation-settings 0.3s ease;
+  }
+}
+
+nav:hover {
+  .material-symbols-outlined {
+    font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
+  }
+}
+
+#mini_theme_toggle {
+  cursor: pointer;
+  font-size: 2.25vw;
+  border-radius: 100%;
+  padding: 0.5vw;
+  color: var(--primary);
+}
+
+svg {
+  max-width: 80%;
+  height: auto;
+  display: block;
+}
+
+.recovery-form {
+  margin-top: 5vh;
+
+  h1 {
+    font-size: var(--font-title);
+    color: var(--text);
+  }
+
+  h4 {
+    margin-top: 1vh;
+    font-size: var(--font-body);
+    color: var(--text);
+    font-weight: 400;
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+  margin-top: 4vh;
+}
+
+.recovery-form input[type="text"],
+.recovery-form input[type="password"] {
+  border: none;
+  border-radius: 10vw;
+  padding: 1vh 4.5vw;
+  height: 8vh;
+  background-color: var(--tonal-form);
+  color: var(--text);
+  font-size: var(--font-form);
+  width: 100%;
+
+  &:focus {
+    outline: none;
+    border: 2px solid var(--primary);
+  }
+
+  &::placeholder {
+    opacity: 0.6;
+    color: var(--tonal-form-text);
+    font-size: var(--font-form);
+  }
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  label {
+    margin-bottom: 2vh;
+    margin-left: 0vw;
+    font-size: var(--font-body);
+    font-weight: 500;
+    color: var(--label);
+  }
+}
+
+.material-icons {
+  margin-top: 2.25vh;
+  position: absolute;
+  left: 1.5vw;
+  color: var(--tonal-form-text);
+  pointer-events: none;
+  font-size: var(--font-icon);
+}
+
+.custom-btn {
+  height: 8vh;
+  margin-top: -2vh;
+  font-size: var(--font-body);
+  font-weight: 600;
+  transition: transform 0.4s ease-in-out;
+  background-color: var(--main-button) !important;
+  color: #eff4f2 !important;
+}
+
+#recovery_info {
+  text-align: center;
+  margin: 3vh;
+  color: var(--text);
+}
+
+/* Error styles */
+
+/* Red border for input error */
+.recovery-form input[type="text"].error,
+.recovery-form input[type="password"].error {
+  border: 2px solid var(--error-message);
+}
+
+.input-group.error .error-message div {
+  color: var(--error-message);
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  min-height: 1.5em;
+  margin-top: 0.5em;
+  visibility: hidden;
+  font-size: var(--font-error);
+  overflow: hidden;
+
+  &.visible {
+    animation: slideDown 0.5s ease forwards;
+    visibility: visible;
+  }
+
+  .error-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    margin-left: 1vw;
+  }
+
+  .error-item .material-symbols-outlined {
+    font-size: 1.2vw;
+  }
+}
+@keyframes slideDown {
+  0% {
+    height: 0;
+    opacity: 0;
+    transform: translateY(-10px); /* Start slightly above its final position */
+  }
+
+  100% {
+    height: auto;
+    opacity: 1;
+    transform: translateY(0); /* Reach final position */
+  }
+}
+
+.error-message.recovery-btn {
+  display: flex;
+  justify-content: center;
+  margin: 0em;
+  color: var(--error-message);
+  border: 2px solid red;
+}
+
+#otp_fields {
+  display: flex;
+  align-items: left;
+  flex-direction: column;
+
+  .otp-inputs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  input[type="text"] {
+    border: none;
+    border-radius: 5px;
+    padding: 15px;
+    height: 6vw;
+    width: 6vw;
+    background-color: var(--tonal-form);
+    color: var(--text);
+    font-size: 25px;
+    text-align: center;
+    margin-right: 5px;
+    transition: border-color 0.3s ease-in-out;
+
+    &:focus {
+      outline: none;
+      border: 2px solid var(--primary);
+    }
+  }
+}
+
+#new_password_form {
+  display: flex;
+  align-items: left;
+  flex-direction: column;
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-bottom: 3vh;
+
+    label {
+      margin-bottom: 2vh;
+      margin-left: 0vw;
+      font-size: var(--font-body);
+      font-weight: 500;
+      color: var(--label);
+    }
+
+    input[type="password"] {
+      border: none;
+      border-radius: 10vw;
+      padding: 1vh 4.5vw;
+      padding-left: 3.5vw;
+      height: 8vh;
+      background-color: var(--tonal-form);
+      color: var(--text);
+      font-size: var(--font-form);
+      width: 100%;
+
+      &:focus {
+        outline: none;
+        border: 2px solid var(--primary);
+      }
+
+      &::placeholder {
+        opacity: 0.6;
+        color: var(--tonal-form-text);
+        font-size: var(--font-form);
+      }
+    }
+
+    .material-icons {
+      position: absolute;
+      left: 1vw;
+      top: 55%;
+      transform: translateY(-50%);
+      color: var(--tonal-form-text);
+      pointer-events: none;
+      font-size: var(--font-icon);
+    }
+
+    .error-message {
+      margin-top: 5px;
+      font-size: var(--font-error);
+      color: var(--error-message);
+      visibility: visible;
+      position: absolute;
+      bottom: -1.5em;
+    }
+  }
+
+  .custom-btn {
+    height: 8vh;
+    margin-top: 1vh;
+    font-size: var(--font-body);
+    font-weight: 600;
+    transition: transform 0.4s ease-in-out;
+    background-color: var(--main-button) !important;
+    color: #eff4f2 !important;
+  }
+}
+
+/* MEDIA QUERIES */
+@media screen and (max-width: 480px) {
+  #recovery_container {
+    flex-direction: column;
+  }
+
+  #recovery_main {
+    flex: 1;
+    padding: 5vh 10vw;
+  }
+
+  #recovery_graphics {
+    display: none;
+  }
+
+  header {
+    gap: 2vh;
+  }
+
+  nav {
+    gap: 3.5vw;
+  }
+
+  .recovery-form h1 {
+    font-size: var(--font-title);
+    color: var(--text);
+    font-size: 25px;
+  }
+
+  .recovery-form h4 {
+    margin-top: 2vh;
+    color: var(--text);
+    font-weight: 400;
+    font-size: 13px;
+  }
+
+  .input-group label {
+    margin-bottom: 2vh;
+    margin-left: 0vw;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--label);
+  }
+
+  .recovery-form input[type="text"] {
+    padding: 2vh 15vw;
+    height: 8.5vh;
+    font-size: 13px;
+    opacity: 50;
+  }
+
+  .recovery-form input[type="text"]::placeholder {
+    margin-top: 1.35vh;
+    opacity: 5;
+    color: var(--tonal-form-text);
+    font-size: 13px;
+    padding: 0vh;
+    margin-right: vh;
+  }
+
+  .material-icons {
+    margin-top: 2vh;
+    position: absolute;
+    left: 5vw;
+    color: var(--tonal-form-text);
+    pointer-events: none;
+    font-size: 20px;
+  }
+
+  button.custom-btn {
+    margin-top: -0.5vh;
+    height: 8.5vh;
+    font-size: 14px;
+  }
+
+  #recovery_info {
+    margin-top: 2vh;
+    color: var(--text);
+    font-weight: 400;
+    font-size: 13px;
+  }
+
+  .error-message {
+    font-size: 10px;
+    margin-top: 0.3em;
+  }
+
+  #otp_fields .otp-inputs {
+    display: flex;
+    gap: 1.5vw;
+    margin-bottom: -1px;
+  }
+
+  #otp_fields .otp-inputs input[type="text"] {
+    height: 13vw;
+    width: 11vw;
+    padding: 1.5vh;
+    font-size: 18px;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  #new_password_form {
+    .input-group {
+      margin-bottom: 3vh;
+
+      label {
+        margin-bottom: 2vh;
+        margin-left: 0;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--label);
+      }
+
+      input[type="password"] {
+        padding: 2vh 15vw;
+        height: 8.5vh;
+        font-size: 13px;
+        opacity: 50;
+        margin-bottom: 2vh;
+      }
+
+      input[type="password"]::placeholder {
+        margin-top: 1.35vh;
+        opacity: 5;
+        color: var(--tonal-form-text);
+        font-size: 13px;
+        padding: 0vh;
+      }
+
+      .material-icons {
+        position: absolute;
+        top: 47%;
+        left: 5vw;
+        transform: translateY(-50%);
+        font-size: 20px;
+        pointer-events: none;
+        color: var(--tonal-form-text);
+      }
+
+      .error-message {
+        font-size: 10px;
+        margin-top: 1em;
+        margin-bottom: 0.9em;
+      }
+    }
+
+    .custom-btn {
+      height: 8.5vh;
+      font-size: 14px;
+    }
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  #recovery_container {
+    flex-direction: column;
+  }
+
+  #recovery_main {
+    flex: 1;
+    padding: 5vh 10vw;
+  }
+
+  #recovery_graphics {
+    display: none;
+  }
+
+  header {
+    gap: 2vh;
+  }
+
+  nav {
+    gap: 3.5vw;
+  }
+
+  .recovery-form h1 {
+    color: var(--text);
+    font-size: 35px;
+  }
+
+  .recovery-form h4 {
+    margin-top: 2vh;
+    color: var(--text);
+    font-weight: 400;
+    font-size: 22px;
+  }
+
+  .input-group label {
+    margin-bottom: 2vh;
+    margin-left: 0vw;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--label);
+  }
+
+  .recovery-form input[type="text"] {
+    padding: 2vh 11vw;
+    height: 8.5vh;
+    font-size: 18px;
+    opacity: 50;
+  }
+
+  .recovery-form input[type="text"]::placeholder {
+    margin-top: 1.35vh;
+    opacity: 5;
+    color: var(--tonal-form-text);
+    font-size: 18px;
+    padding: 0vh;
+  }
+
+  .material-icons {
+    margin-top: 2vh;
+    position: absolute;
+    left: 5vw;
+    color: var(--tonal-form-text);
+    pointer-events: none;
+    font-size: 30px;
+  }
+
+  button.custom-btn {
+    margin-top: -0.5vh;
+    height: 8.5vh;
+    font-size: 20px;
+  }
+
+  #recovery_info {
+    margin-top: 2vh;
+    color: var(--text);
+    font-weight: 400;
+    font-size: 22px;
+  }
+
+  .error-message {
+    font-size: 15px;
+    margin-top: 0.3em;
+  }
+
+  #otp_fields .otp-inputs {
+    display: flex;
+    gap: 1.5vw;
+    margin-bottom: -1px;
+  }
+
+  #otp_fields .otp-inputs input[type="text"] {
+    height: 12vw;
+    width: 11.5vw;
+    padding: 1.5vh;
+    font-size: 25px;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  #new_password_form {
+    .input-group {
+      margin-bottom: 5vh;
+
+      label {
+        margin-bottom: 2vh;
+        margin-left: 0vw;
+        font-size: 20px;
+        font-weight: 500;
+        color: var(--label);
+      }
+
+      input[type="password"] {
+        padding: 2vh 11vw;
+        height: 8.5vh;
+        font-size: 18px;
+        opacity: 50;
+      }
+
+      input[type="password"]::placeholder {
+        margin-top: 1.35vh;
+        opacity: 5;
+        color: var(--tonal-form-text);
+        font-size: 18px;
+        padding: 0vh;
+      }
+
+      .material-icons {
+        margin-top: 2vh;
+        position: absolute;
+        left: 5vw;
+        color: var(--tonal-form-text);
+        pointer-events: none;
+        font-size: 30px;
+      }
+
+      .error-message {
+        font-size: 16px;
+        margin-top: 2em;
+        margin-bottom: -0.2em;
+      }
+    }
+
+    .custom-btn {
+      height: 8.5vh;
+      font-size: 20px;
+    }
+  }
+}
