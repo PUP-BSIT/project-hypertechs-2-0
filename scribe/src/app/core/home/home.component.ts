@@ -110,11 +110,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   templates = [
     { icon: 'meeting_room', title: 'Meeting' },
-    { icon: 'check_circle_outline', title: 'Tasks List' },
+    { icon: 'school', title: 'Lectures' },
     { icon: 'assignment', title: 'Project Plan' },
     { icon: 'celebration', title: 'Event Plan' },
-    { icon: 'school', title: 'Lectures' },
     { icon: 'today', title: 'Daily Planner' },
+    { icon: 'map', title: 'Travel Itinerary' },
   ];
 
   selectTemplate(template: any) {
@@ -122,8 +122,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       case 'Meeting':
         this.router.navigate(['/main/editor', { template: 'meeting' }]);
         break;
-      case 'Tasks List':
-        this.router.navigate(['/main/editor', { template: 'tasksList' }]);
+      case 'Travel Itinerary':
+        this.router.navigate(['/main/editor', { template: 'travelItinerary' }]);
         break;
       case 'Project Plan':
         this.router.navigate(['/main/editor', { template: 'projectPlan' }]);
