@@ -14,16 +14,21 @@ import { SignupService } from '../../../services/signup/signup.service';
 import { SnackbarService } from '../../../services/snackbar/snackbar.service';
 import { DialogService } from '../../../services/dialog/dialog.service';
 import { AuthService } from '../../../services/auth/auth.service';
+import { slideLeftRightSteps } from '../../../animations/element-animations';
+import { ThemeService } from '../../../services/theme/theme.service';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.scss',
+  styleUrls: ['./signup.component.scss'],
+  animations: [slideLeftRightSteps],
 })
 export class SignupComponent implements OnInit {
   signupForm: FormGroup = this.formBuilder.group({});
   errorMessage: string = '';
   isLoading = false;
+  currentStep = 1;
+  themeIcon: string = 'dark_mode';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,6 +38,7 @@ export class SignupComponent implements OnInit {
     private snackbarService: SnackbarService,
     private dialogService: DialogService,
     private authService: AuthService,
+    private themeService: ThemeService,
   ) {}
 
   ngOnInit(): void {
@@ -41,7 +47,15 @@ export class SignupComponent implements OnInit {
         lastname: ['', Validators.required],
         firstname: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
-        password: ['', Validators.required],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.maxLength(40),
+            this.passwordComplexityValidator(),
+          ],
+        ],
         confirm_password: ['', [Validators.required]],
       },
       { validators: this.matchValidator('password', 'confirm_password') }
@@ -61,6 +75,18 @@ export class SignupComponent implements OnInit {
         localStorage.removeItem('loggedInUser');
       }
     }
+
+    this.initializeTheme();
+  }
+
+  toggleTheme() {
+    this.themeService.toggleTheme();
+  }
+
+  private initializeTheme() {
+    this.themeService.currentTheme.subscribe((isDark) => {
+      this.themeIcon = isDark ? 'dark_mode' : 'light_mode';
+    });
   }
 
   get lastnameControl() {
@@ -83,24 +109,44 @@ export class SignupComponent implements OnInit {
     return this.signupForm.get('confirm_password');
   }
 
-  matchValidator(password: string, confirmPassword: string): Validators {
-    return (abstractControl: AbstractControl) => {
+  passwordComplexityValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const value = control.value;
+      if (!value) {
+        return null;
+      }
+
+      const hasUpperCase = /[A-Z]/.test(value);
+      const hasLowerCase = /[a-z]/.test(value);
+      const hasNumber = /[0-9]/.test(value);
+      const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(value);
+
+      const passwordValid =
+        hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar;
+
+      return !passwordValid
+        ? { passwordComplexity: 'Password does not meet complexity requirements' }
+        : null;
+    };
+  }
+
+  matchValidator(password: string, confirmPassword: string): ValidatorFn {
+    return (abstractControl: AbstractControl): { [key: string]: any } | null => {
       const ctrlPassword = abstractControl.get(password);
       const ctrlConfirmPassword = abstractControl.get(confirmPassword);
 
       if (
-        ctrlConfirmPassword!.errors &&
-        !ctrlConfirmPassword!.errors?.['confirmedValidator']
+        ctrlConfirmPassword?.errors &&
+        !ctrlConfirmPassword.errors['confirmedValidator']
       ) {
         return null;
       }
 
-      if (ctrlPassword!.value !== ctrlConfirmPassword!.value) {
-        const error = { confirmedValidator: 'Passwords do not match.' };
-        ctrlConfirmPassword!.setErrors(error);
-        return error;
+      if (ctrlPassword?.value !== ctrlConfirmPassword?.value) {
+        ctrlConfirmPassword?.setErrors({ confirmedValidator: true });
+        return { confirmedValidator: true };
       } else {
-        ctrlConfirmPassword!.setErrors(null);
+        ctrlConfirmPassword?.setErrors(null);
         return null;
       }
     };
@@ -189,5 +235,17 @@ export class SignupComponent implements OnInit {
         this.router.navigate(['recovery']);
       }
     });
+  }
+
+  next() {
+    if (this.currentStep < 2) {
+      this.currentStep++;
+    }
+  }
+
+  back() {
+    if (this.currentStep > 1) {
+      this.currentStep--;
+    }
   }
 }

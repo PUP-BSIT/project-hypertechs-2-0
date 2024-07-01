@@ -1,3 +1,7 @@
+* {
+  transition: background-color 0.75s ease, color 0.75s ease;
+}
+
 #signup_container {
   height: 100vh;
   display: flex;
@@ -11,7 +15,6 @@
 #signup_main {
   flex: 1;
   padding: 4%;
-  overflow-y: auto;
 }
 
 #signup_graphics {
@@ -20,6 +23,7 @@
   align-items: center;
   justify-content: center;
   background-color: var(--graphics-bg);
+  z-index: 1000;
 }
 
 /* signup HEADER */
@@ -33,6 +37,34 @@ nav {
   display: flex;
   align-items: center;
   gap: 4vw;
+
+  .material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+    transition: font-variation-settings 0.3s ease;
+  }
+}
+
+nav:hover {
+
+  .material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24
+  }
+}
+
+#mini_theme_toggle {
+  cursor: pointer;
+  font-size: 2.25vw;
+  border-radius: 100%;
+  padding: 0.5vw;
+  color: var(--primary);
 }
 
 svg {
@@ -40,7 +72,6 @@ svg {
   height: auto;
   display: block;
 }
-
 
 /* signup MAIN */
 #signup_form {
@@ -73,7 +104,6 @@ form {
   flex-direction: row;
   gap: 2vw;
 }
-
 
 #signup_form input[type="text"],
 #signup_form input[type="password"] {
@@ -132,7 +162,6 @@ form {
 }
 
 .custom-btn {
-  margin-top: 2vh;
   color: #eff4f2 !important; // override m3 theme
   background-color: var(--main-button) !important;
   height: 8vh;
@@ -154,17 +183,18 @@ form {
 #user_agreement {
   margin-top: 2vh;
   text-align: center;
+  display: none;
 }
 
 #goto_login {
   display: flex;
   justify-content: center;
-  margin-top: 4vh;
   color: var(--primary);
   font-size: var(--font-misc);
   text-align: center;
   cursor: pointer;
   text-decoration: none;
+  margin-top: 4vh;
 }
 
 /* Hide scrollbar for WebKit browsers (Chrome, Safari) */
@@ -235,6 +265,71 @@ form {
   }
 }
 
+.current-step {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+.navigation-btn-next {
+  align-self: end;
+  height: 8vh;
+  width: 20%;
+  color: var(--primary) !important;
+  background-color: var(--signup-nav);
+  font-size: var(--font-form);
+  padding: 3.5%;
+
+  span {
+    font-size: 0.9em;
+  }
+
+  .button-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10%;
+  }
+}
+
+.navigation-btn-back {
+  height: 8vh;
+  width: 20%;
+  color: var(--primary) !important;
+  background-color: var(--signup-nav);
+  font-size: var(--font-form);
+  padding: 3.5%;
+
+  span {
+    font-size: 0.9em;
+  }
+
+  .button-content {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: center;
+    gap: 10%;
+  }
+}
+
+.step-container {
+  position: relative;
+  display: flex;
+}
+
+.current-step {
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.signup-btn-group {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+}
+
 //TODO!!
 // /* Media Queries */
 // @media (max-width: 1024px) {
@@ -265,7 +360,7 @@ form {
     font-size: 1.9rem;
     color: var(--text);
   }
-  
+
   #signup_form h4 {
     margin-top: 1vh;
     font-size: 1rem;
@@ -302,7 +397,7 @@ form {
   .input-group.error .error-message div {
     color: var(--error-message);
   }
-  
+
   .error-message {
     display: flex;
     align-items: center;
@@ -312,23 +407,23 @@ form {
     font-size: 1.5vw;
     color: var(--error-message);
     overflow: hidden;
-  
+
     &.visible {
       animation: slideDown 0.5s ease forwards;
       visibility: visible;
     }
-  
+
     .error-item {
       display: flex;
       align-items: center;
       gap: 0.5em;
       margin-left: 1vw;
     }
-  
+
     .error-item .material-symbols-outlined {
       font-size: 1.5vw;
     }
-  
+
     div {
       visibility: visible;
     }
@@ -343,7 +438,7 @@ form {
     font-size: 13px;
   }
 
-  .material-icons.row{
+  .material-icons.row {
     margin-top: 1.75vh;
     position: absolute;
     left: 1.5vw;
@@ -363,18 +458,17 @@ form {
   }
 
   #goto_login {
-    font-size: 0.80rem;
+    font-size: 0.8rem;
   }
 
   #user_agreement {
     margin-top: 2vh;
     text-align: center;
-    font-size: 0.90rem;
+    font-size: 0.9rem;
   }
 }
 
 @media (max-width: 480px) {
-
   .input-group.same-row-one {
     flex-direction: column;
     gap: 2.65vh;
@@ -393,11 +487,11 @@ form {
     flex-direction: row;
     align-items: center;
   }
-  
+
   #signup_graphics {
     display: none;
   }
-  
+
   header {
     flex-direction: column;
     align-items: flex-start;
@@ -415,7 +509,7 @@ form {
 
   #signup_form h4 {
     margin-top: 2vh;
-    font-size: 0.70rem;
+    font-size: 0.7rem;
     color: var(--text);
   }
 
@@ -431,7 +525,6 @@ form {
     padding: 1.5vw 5vh;
     height: 6vh;
     font-size: 0.75rem;
-    
   }
 
   #signup_form input[type="text"]::placeholder,
@@ -448,7 +541,7 @@ form {
   .input-group.error .error-message div {
     color: var(--error-message);
   }
-  
+
   .error-message {
     display: flex;
     align-items: center;
@@ -458,23 +551,23 @@ form {
     font-size: 3vw;
     color: var(--error-message);
     overflow: hidden;
-  
+
     &.visible {
       animation: slideDown 0.5s ease forwards;
       visibility: visible;
     }
-  
+
     .error-item {
       display: flex;
       align-items: center;
       gap: 0.5em;
       margin-left: 1vw;
     }
-  
+
     .error-item .material-symbols-outlined {
       font-size: 3vw;
     }
-  
+
     div {
       visibility: visible;
     }
@@ -488,7 +581,7 @@ form {
     font-size: 0.75rem;
   }
 
-  .material-icons.row{
+  .material-icons.row {
     margin-top: 2.4vh;
     position: absolute;
     left: 1.5vh;
@@ -506,7 +599,7 @@ form {
   }
 
   #goto_login {
-    font-size: 0.70rem;
+    font-size: 0.7rem;
   }
 
   .custom-btn {
