@@ -1,6 +1,6 @@
 <div class="recovery-form">
-  <h1>Enter OTP</h1>
-  <h4>Kindly enter the 6-digit OTP sent to your email.</h4>
+  <h1>One-Time Password</h1>
+  <h4>Kindly enter the 6-digit OTP sent to your email for verification.</h4>
 
   <form id="otp_fields" (ngSubmit)="onSubmit()">
     <div class="otp-inputs">
@@ -52,6 +52,6 @@
       <div *ngIf="otpErrorMessage">{{ otpErrorMessage }}</div>
     </div>
 
-    <button class="custom-btn" mat-flat-button>Verify OTP</button>
+    <button class="custom-btn" mat-flat-button>Submit</button>
   </form>
 </div>

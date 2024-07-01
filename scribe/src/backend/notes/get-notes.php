@@ -16,9 +16,26 @@ if ($conn->connect_error) {
 }
 
 $userId = isset($_GET['user_id']) ? intval($_GET['user_id']) : 0;
+$sortBy = isset($_GET['sort_by']) ? $_GET['sort_by'] : 'lastEdited';
 
 if ($userId > 0) {
-    $sql = "SELECT * FROM notes WHERE user_id = $userId ORDER BY last_edited DESC";
+    switch ($sortBy) {
+        case 'dateCreated':
+            $orderBy = 'last_edited ASC';
+            break;
+        case 'titleAsc':
+            $orderBy = 'title ASC';
+            break;
+        case 'titleDesc':
+            $orderBy = 'title DESC';
+            break;
+        case 'lastEdited':
+        default:
+            $orderBy = 'last_edited DESC';
+            break;
+    }
+
+    $sql = "SELECT * FROM notes WHERE user_id = $userId ORDER BY $orderBy";
     $result = $conn->query($sql);
 
     $notes = [];

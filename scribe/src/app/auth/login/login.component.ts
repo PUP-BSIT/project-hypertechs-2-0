@@ -13,6 +13,7 @@ import { UserService } from '../../../services/user/user.service';
 import { LoginService } from '../../../services/login/login.service';
 import { SnackbarService } from '../../../services/snackbar/snackbar.service';
 import { AuthService } from '../../../services/auth/auth.service';
+import { ThemeService } from '../../../services/theme/theme.service';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,7 @@ import { AuthService } from '../../../services/auth/auth.service';
 export class LoginComponent implements OnInit {
   errorMessage = '';
   isLoading = false;
+  themeIcon: string = 'dark_mode';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,6 +32,7 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private snackbarService: SnackbarService,
     private authService: AuthService,
+    private themeService: ThemeService,
   ) {}
 
   loginForm: FormGroup = this.formBuilder.group({});
@@ -57,6 +60,18 @@ export class LoginComponent implements OnInit {
         localStorage.removeItem('loggedInUser');
       }
     }
+
+    this.initializeTheme();
+  }
+
+  toggleTheme() {
+    this.themeService.toggleTheme();
+  }
+
+  private initializeTheme() {
+    this.themeService.currentTheme.subscribe((isDark) => {
+      this.themeIcon = isDark ? 'dark_mode' : 'light_mode';
+    });
   }
 
   get emailControl() {
