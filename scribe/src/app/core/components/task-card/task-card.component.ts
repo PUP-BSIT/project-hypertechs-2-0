@@ -13,16 +13,17 @@ export class TaskCardComponent implements OnInit {
   @Input() task: any;
   @Output() taskDeleted = new EventEmitter<number>();
 
-  todoCount: number = 0;
-  inProgressCount: number = 0;
-  doneCount: number = 0;
-  progress: number = 0;
+  todoCount= 0;
+  inProgressCount = 0;
+  doneCount = 0;
+  progress = 0;
+  lastEdited = '';
 
   constructor(
     private router: Router,
     private taskService: TaskService,
     private dialogService: DialogService,
-    private snackbarService: SnackbarService,
+    private snackbarService: SnackbarService
   ) {}
 
   ngOnInit() {
@@ -31,6 +32,15 @@ export class TaskCardComponent implements OnInit {
     this.doneCount = JSON.parse(this.task.done).length;
     const totalCount = this.todoCount + this.inProgressCount + this.doneCount;
     this.progress = totalCount === 0 ? 0 : (this.doneCount / totalCount) * 100;
+
+    // Format last edited date
+    this.lastEdited = new Date(this.task.last_edited).toLocaleString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    });
   }
 
   openTaskBoard() {
@@ -59,10 +69,10 @@ export class TaskCardComponent implements OnInit {
     this.taskService.deleteTask(this.task.task_id).subscribe(
       (response) => {
         if (response.success) {
-          this.snackbarService.show("Task deleted successfully!");
+          this.snackbarService.show('Task deleted successfully!');
           this.taskDeleted.emit(this.task.task_id);
         } else {
-          this.snackbarService.show("Failed to delete task. Try again.");
+          this.snackbarService.show('Failed to delete task. Try again.');
         }
       },
       (error) => {

@@ -48,4 +48,11 @@
     </div>
     <div id="progress_bar" [style.--progress]="progress + '%'"></div>
   </div>
+
+  <!--Task Last Edited-->
+<div id="task_last_edited" (click)="openTaskBoard()">
+  <mat-icon>event</mat-icon>
+  <span>{{ lastEdited }}</span>
+</div>
+
 </div>
