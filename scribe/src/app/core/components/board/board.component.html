@@ -1,0 +1,206 @@
+<div class="scribe-board-container">
+  <div class="slide-container" [@slideUpDown]>
+    <!-- Task Board Header -->
+    <div class="board-header">
+      <button mat-button class="btn-back" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Back
+      </button>
+
+      <div class="board-actions">
+        <form #noteForm="ngForm">
+          <button mat-button class="btn-focus" (click)="toggleSidenav()">
+            <mat-icon>crop_free</mat-icon> Focus Mode
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Task Board Title -->
+    <div class="board-title">
+      <input
+        type="text"
+        placeholder="Add task title"
+        class="title-input"
+        maxlength="50"
+        [(ngModel)]="taskTitle"
+        (ngModelChange)="onTitleChange()"
+      />
+    </div>
+
+    <!-- Task Board Description -->
+    <div class="board-desc">
+      <input
+        type="text"
+        placeholder="Add task description here"
+        class="board-desc-input"
+        maxlength="70"
+        [(ngModel)]="taskDescription"
+        (ngModelChange)="onDescriptionChange()"
+      />
+    </div>
+  </div>
+
+  <!-- Task Boards Main -->
+  <div class="board-main" [@halfSlide]>
+    <!-- To-Do Board -->
+    <div id="to_do_board" class="board">
+      <div class="board-header task-board">
+        <div class="board-header-title">
+          <mat-icon>app_registration</mat-icon>
+          <h2>To-Do</h2>
+        </div>
+        <button class="clear-all-btn" (click)="clearAll('todo')">
+          Clear All
+        </button>
+      </div>
+
+      @for (task of todoTasks; track task) {
+      <div class="board-list board-task-item board-to-do" [@taskAnimation]>
+        <div class="board-task-part-one">
+          <mat-checkbox (change)="moveToDone(task, 'todo')"></mat-checkbox>
+          @if (!task.editing) {
+          <div class="task-list-display" (click)="editTask(task, 'todo')">
+            {{ task.text }}
+          </div>
+          } @else {
+          <input
+            class="task-edit-input"
+            [(ngModel)]="task.text"
+            (blur)="saveTask(task)"
+            (keyup.enter)="saveTask(task)"
+          />
+          }
+        </div>
+        <span
+          class="material-symbols-outlined delete-icon"
+          (click)="deleteTask(task, 'todo')"
+        >
+          close_small
+        </span>
+      </div>
+      }
+
+      <!-- To-Do Board Task Input -->
+      <div class="board-list">
+        <mat-checkbox class="full-width-checkbox">
+          <div class="input-container">
+            <input
+              class="board-task-input"
+              type="text"
+              placeholder="Add task here"
+              (keyup.enter)="addTask($event, 'todo')"
+            />
+          </div>
+        </mat-checkbox>
+      </div>
+    </div>
+
+    <!-- In Progress Board -->
+    <div id="in_progress_board" class="board">
+      <div class="board-header">
+        <div class="board-header-title">
+          <mat-icon>rotate_right</mat-icon>
+          <h2>In Progress</h2>
+        </div>
+        <button class="clear-all-btn" (click)="clearAll('inProgress')">
+          Clear All
+        </button>
+      </div>
+
+      @for (task of inProgressTasks; track task) {
+      <div
+        class="board-list board-task-item board-in-progress"
+        [@taskAnimation]
+      >
+        <div class="board-task-part-one">
+          <mat-checkbox
+            (change)="moveToDone(task, 'inProgress')"
+          ></mat-checkbox>
+          @if (!task.editing) {
+          <div class="task-list-display" (click)="editTask(task, 'inProgress')">
+            {{ task.text }}
+          </div>
+          } @else {
+          <input
+            class="task-edit-input"
+            [(ngModel)]="task.text"
+            (blur)="saveTask(task)"
+            (keyup.enter)="saveTask(task)"
+          />
+          }
+        </div>
+
+        <div id="in_progress_actions">
+          <span
+            class="material-symbols-outlined undo-icon"
+            (click)="moveBackToTodo(task)"
+          >
+            undo
+          </span>
+          <span
+            class="material-symbols-outlined delete-icon"
+            (click)="deleteTask(task, 'inProgress')"
+          >
+            close_small
+          </span>
+        </div>
+      </div>
+      }
+
+      <!-- In Progress Board Task Input -->
+      <div class="board-list">
+        <mat-checkbox>
+          <input
+            class="board-task-input"
+            type="text"
+            placeholder="Add task here"
+            (keyup.enter)="addTask($event, 'inProgress')"
+          />
+        </mat-checkbox>
+      </div>
+    </div>
+
+    <!-- Done Board -->
+    <div id="done_board" class="board">
+      <div class="board-header">
+        <div class="board-header-title">
+          <mat-icon>done_all</mat-icon>
+          <h2>Done</h2>
+        </div>
+        <button class="clear-all-btn" (click)="clearAll('done')">
+          Clear All
+        </button>
+      </div>
+
+      @for (task of doneTasks; track task) {
+      <div class="board-list board-task-item board-done" [@taskAnimation]>
+        <div class="board-task-part-one">
+          <mat-checkbox
+            class="done-task"
+            [checked]="true"
+            (change)="moveBackToPreviousBoard(task)"
+          >
+            <span class="task-text">
+              {{ task.text }}
+            </span>
+          </mat-checkbox>
+        </div>
+        <span
+          class="material-symbols-outlined delete-icon"
+          (click)="deleteTask(task, 'done')"
+        >
+          close_small
+        </span>
+      </div>
+      }
+
+      <!-- Done Tasks List -->
+      @if (doneTasks.length === 0) {
+      <div class="board-list">
+        <span class="empty-done">No done tasks yet</span>
+      </div>
+      }
+    </div>
+  </div>
+</div>

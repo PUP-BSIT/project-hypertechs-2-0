@@ -38,7 +38,8 @@ export class NoteCardComponent implements OnInit {
   }
 
   editNote() {
-    this.router.navigate(['/main/editor', this.note.id]);
+    const queryParams = this.isInTrash ? { readonly: true } : {};
+    this.router.navigate(['/main/editor', this.note.id], { queryParams });
   }
 
   deleteNote() {
@@ -46,6 +47,12 @@ export class NoteCardComponent implements OnInit {
       () => {
         console.log('Note deleted successfully');
         this.delete.emit(this.note.id);
+        this.snackbarService.show(
+          'Note moved to trash', 
+          'Go to Trash', 
+          3000, 
+          () => this.router.navigate(['/main/trash'])
+        );
       },
       (error) => {
         console.error('Error deleting note:', error);
@@ -59,15 +66,23 @@ export class NoteCardComponent implements OnInit {
 
   restoreNote() {
     this.restore.emit(this.note.id);
+    this.snackbarService.show(
+      'Note successfully restored!', 
+      'Go to Notes', 
+      3000,
+      () => this.router.navigate(['/main/notes'])
+    );
   }
 
   hardDeleteNote() {
     const dialogRef = this.dialogService.openDialog({
-      title: 'Permanent Delete',
+      title: 'Delete Permanently',
       content: 'Are you sure you want to delete this note forever?',
-      confirmText: 'Confirm',
+      confirmText: 'Delete',
       cancelText: 'Cancel',
       action: 'confirm',
+      actionTextColor: '#fff',
+      actionBgColor: '#cf252e',
     });
 
     dialogRef.afterClosed().subscribe((result) => {

@@ -1,3 +1,8 @@
+* {
+  color: var(--text);
+  transition: background-color 0.75s ease, color 0.75s ease;
+}
+
 .scribe-editor-container {
   margin-top: 2rem;
 }
@@ -16,6 +21,10 @@
   font-size: 1vw;
   color: var(--primary) !important;
   cursor: pointer;
+
+  .mat-icon {
+    color: var(--primary);
+  }
 }
 
 /*  ----- EDITOR TITLE STYLING ----- */
@@ -23,7 +32,7 @@
 .editor-title .title-input {
   width: 100%;
   padding: 10px 0;
-  font-size: 2.5vw;
+  font-size: 2.75vw;
   letter-spacing: -0.025rem;
 }
 
@@ -73,11 +82,15 @@
 .btn-tags,
 .btn-reminders {
   background: var(--feat-template) !important;
-  color: var(--feat-text) !important;
+  color: var(--primary) !important;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
   margin-right: 10px;
+
+  .mat-icon {
+    color: var(--primary);
+  }
 }
 
 /*  ----- EDITOR TOOLBAR STYLING ----- */
@@ -127,7 +140,7 @@
 }
 
 .editor-toolbar button.active {
-  background-color: var(--feat-template);
+  background-color: var(--active-command);
   color: var(--feat-text);
 }
 
@@ -146,6 +159,7 @@
 .editor-content {
   height: auto;
   outline: none;
+  padding-bottom: 15%;
 }
 
 ::ng-deep .editor-content .custom-list {
@@ -180,7 +194,6 @@ input[type="color"]:focus {
   display: flex;
   align-items: center;
   cursor: pointer;
-  /* Add styles as needed */
 }
 
 /* Style for the color display */
@@ -189,5 +202,9 @@ input[type="color"]:focus {
   height: 20px;
   border-radius: 50%;
   margin-right: 10px;
-  /* Add more styles as needed */
+}
+
+.disabled-button {
+  opacity: 0.5;
+  cursor: default !important;
 }

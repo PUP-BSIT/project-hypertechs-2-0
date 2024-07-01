@@ -1,3 +1,7 @@
+* {
+  transition: background-color 0.75s ease, color 0.75s ease;
+}
+
 #login_container {
   height: 100vh;
   display: flex;
@@ -31,6 +35,34 @@ nav {
   display: flex;
   align-items: center;
   gap: 4vw;
+
+  .material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+    transition: font-variation-settings 0.3s ease;
+  }
+}
+
+nav:hover {
+
+  .material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24
+  }
+}
+
+#mini_theme_toggle {
+  cursor: pointer;
+  font-size: 2.25vw;
+  border-radius: 100%;
+  padding: 0.5vw;
+  color: var(--primary);
 }
 
 svg {
@@ -177,6 +209,7 @@ form {
   visibility: hidden;
   font-size: var(--font-error);
   overflow: hidden;
+  font-size: 15px;
 
   &.visible {
     animation: slideDown 0.5s ease forwards;
@@ -208,8 +241,6 @@ form {
   }
 }
 
-
-
 /* ------------------- MEDIA QUERIES ------------------- */
 
 /* Mobile Devices (up to 480px) */
@@ -232,14 +263,12 @@ form {
   }
 
   #login_form h1 {
-    font-size: var(--font-title);
     color: var(--text);
     font-size: 25px;
   }
 
   #login_form h4 {
     margin-top: 2vh;
-    font-size: var(--font-body);
     color: var(--text);
     font-weight: 400;
     font-size: 13px;
@@ -248,7 +277,6 @@ form {
   .input-group label {
     margin-bottom: 2vh;
     margin-left: 0vw;
-    font-size: var(--font-body);
     font-size: 13px;
     font-weight: 500;
     color: var(--label);
@@ -258,7 +286,6 @@ form {
   #login_form input[type="password"] {
     padding: 2vh 15vw;
     height: 8.5vh;
-    font-size: calc(var(--font-form) - 2px);
     font-size: 13px;
     opacity: 50;
   }
@@ -268,7 +295,6 @@ form {
     margin-top: 1.35vh;
     opacity: 5;
     color: var(--tonal-form-text);
-    font-size: var(--font-form);
     font-size: 13px;
     padding: 0vh;
     margin-right: vh;
@@ -280,27 +306,37 @@ form {
     left: 5vw;
     color: var(--tonal-form-text);
     pointer-events: none;
-    font-size: var(--font-icon);
     font-size: 20px;
   }
 
   #forgot_password {
-    font-size: var(--font-misc);
     font-size: 10px;
   }
 
   button.custom-btn {
     height: 8.5vh;
-    font-size: calc(var(--font-body) - 2px);
     font-size: 14px;
   }
 
   #goto_signup {
-    font-size: calc(var(--font-misc) - 2px);
     font-size: 13px;
   }
-}
 
+  .error-message {
+    display: flex;
+    align-items: center;
+    min-height: 1.5em;
+    margin-top: 0.5em;
+    visibility: hidden;
+    font-size: var(--font-error);
+    overflow: hidden;
+    font-size: 10px;
+
+  .error-item .material-symbols-outlined {
+    font-size: 3vw;
+  }  
+ }
+}
 
 /* Tablet Devices (481px to 768px) */
 @media (min-width: 481px) and (max-width: 768px) {
@@ -322,14 +358,12 @@ form {
   }
 
   #login_form h1 {
-    font-size: var(--font-title);
     color: var(--text);
     font-size: 35px;
   }
 
   #login_form h4 {
     margin-top: 2vh;
-    font-size: var(--font-body);
     color: var(--text);
     font-weight: 400;
     font-size: 22px;
@@ -338,7 +372,6 @@ form {
   .input-group label {
     margin-bottom: 2vh;
     margin-left: 0vw;
-    font-size: var(--font-body);
     font-size: 20px;
     font-weight: 500;
     color: var(--label);
@@ -348,7 +381,6 @@ form {
   #login_form input[type="password"] {
     padding: 2vh 11vw;
     height: 8.5vh;
-    font-size: calc(var(--font-form) - 2px);
     font-size: 18px;
     opacity: 50;
   }
@@ -356,7 +388,6 @@ form {
   #login_form input[type="text"]::placeholder,
   #login_form input[type="password"]::placeholder {
     color: var(--tonal-form-text);
-    font-size: var(--font-form);
     font-size: 18px;
     padding: 0vw;
     margin-right: 10vh;
@@ -368,22 +399,34 @@ form {
     left: 5vw;
     color: var(--tonal-form-text);
     pointer-events: none;
-    font-size: var(--font-icon);
     font-size: 30px;
   }
 
   #forgot_password {
-    font-size: calc(var(--font-misc) - 2px);
     font-size: 20px;
   }
 
   button.custom-btn {
     height: 8.5vh;
-    font-size: calc(var(--font-body) - 2px);
     font-size: 20px;
   }
 
   #goto_signup {
     font-size: 20px;
   }
+
+  .error-message {
+    display: flex;
+    align-items: center;
+    min-height: 1.5em;
+    margin-top: 0.5em;
+    visibility: hidden;
+    font-size: var(--font-error);
+    overflow: hidden;
+    font-size: 15px;
+
+  .error-item .material-symbols-outlined {
+    font-size: 3vw;
+  }  
+ }
 }

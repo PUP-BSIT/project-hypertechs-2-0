@@ -18,6 +18,8 @@ import { RecoveryComponent } from './auth/recovery/recovery.component';
 import { EnterOtpComponent } from './auth/recovery/enter-otp/enter-otp.component';
 import { EnterNewPasswordComponent } from './auth/recovery/enter-new-password/enter-new-password.component';
 import { EditorComponent } from './core/components/editor/editor.component';
+import { SearchComponent } from './core/components/search/search.component';
+import { BoardComponent } from './core/components/board/board.component';
 
 const routes: Routes = [
   {
@@ -62,10 +64,16 @@ const routes: Routes = [
       { path: 'trash', component: TrashComponent },
       { path: 'editor', component: EditorComponent },
       { path: 'editor/:id', component: EditorComponent },
+      { path: 'search', component: SearchComponent },
+      { path: 'board', component: BoardComponent},
+      { path: 'board/:taskId', component: BoardComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ],
   },
-  { path: '**', component: NotFoundComponent },
+  { path: '**',
+    component: NotFoundComponent, 
+    data: { animationState: 'notFound' },
+  },
 ];
 
 @NgModule({

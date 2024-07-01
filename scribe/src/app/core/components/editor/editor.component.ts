@@ -1,18 +1,13 @@
-import {
-  Component,
-  ViewChild,
-  ElementRef,
-  AfterViewInit,
-  OnDestroy,
-} from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { NgForm } from '@angular/forms';
 import { interval, Subject, debounceTime } from 'rxjs';
+import { SidenavService } from '../../../../services/sidenav/sidenav.service';
 
 /* Custom Imports */
 import { templates } from '../../../../imports/templates';
-import { slideInOut, simpleFade } from '../../../../animations/element-animations';
+import { slideUpDown, simpleFade, halfSlide } from '../../../../animations/element-animations';
 import { ToolbarService } from '../../../../services/toolbar/toolbar.service';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { NoteService } from '../../../../services/notes/note.service';
@@ -24,7 +19,7 @@ type EditableProperty = 'textColor' | 'backgroundColor';
   selector: 'app-editor',
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss'],
-  animations: [slideInOut, simpleFade],
+  animations: [slideUpDown, simpleFade, halfSlide],
 })
 export class EditorComponent implements AfterViewInit, OnDestroy {
   @ViewChild('editorContent') editorContentRef!: ElementRef;
@@ -34,13 +29,15 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   lastEdited = new Date();
   textColor!: string;
   backgroundColor!: string;
+  noteId: number | null = null;
   noteTitle: string | undefined;
   noteContent: string | undefined;
-  noteId: number | null = null;
   autoSaveInterval: any;
-  contentChanged = new Subject<void>();
   readOnly = false;
-  private snackbarDuration = 3000;
+  isInTrash: boolean = false;
+  initialNoteTitle: string | undefined;
+  initialNoteContent: string | undefined;
+  contentChanged = new Subject<void>();
 
   private readonly COMMANDS = [
     'bold',
@@ -66,12 +63,21 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private snackbarService: SnackbarService,
-    private authService: AuthService
+    private authService: AuthService,
+    private sidenavService: SidenavService
   ) {}
 
   ngAfterViewInit() {
     this.initializeToolbar();
     this.loadNoteOrTemplate();
+
+    // Check for readonly query parameter
+    this.route.queryParams.subscribe((params) => {
+      if (params['readonly']) {
+        this.readOnly = true;
+        this.isInTrash = true; // Set isInTrash to true if readonly is true
+      }
+    });
 
     this.autoSaveInterval = interval(30000).subscribe(() => {
       this.saveNote();
@@ -80,25 +86,34 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     this.contentChanged.pipe(debounceTime(1000)).subscribe(() => {
       this.saveNote();
     });
+
+    // Subscribe to selection change event
+    this.editorContentRef.nativeElement.addEventListener('mouseup', () => {
+      this.updateActiveCommands();
+    });
   }
 
   ngOnDestroy() {
     this.toolbarService.setToolbarVisible(true);
 
+    const hasTitleChanged =
+      this.noteTitle?.trim() !== this.initialNoteTitle?.trim();
+    const hasContentChanged =
+      this.noteContent?.trim() !== this.initialNoteContent?.trim();
+
     if (
-      (this.noteContent && this.noteContent.trim() !== '') ||
-      (this.noteTitle && this.noteTitle.trim() !== '')
+      (hasTitleChanged || hasContentChanged) &&
+      ((this.noteContent && this.noteContent.trim() !== '') ||
+        (this.noteTitle && this.noteTitle.trim() !== ''))
     ) {
-      this.snackbarService.show(
-        'Note saved successfully!',
-        'Close',
-        this.snackbarDuration
-      );
+      this.snackbarService.show('Note saved successfully!', 'Close', 3000);
     }
 
     if (this.autoSaveInterval) {
       this.autoSaveInterval.unsubscribe();
     }
+
+    this.sidenavService.open();
   }
 
   private initializeToolbar() {
@@ -125,6 +140,8 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
           .toPromise();
         this.noteTitle = note.title;
         this.noteContent = note.content;
+        this.initialNoteTitle = note.title;
+        this.initialNoteContent = note.content;
         this.lastEdited = new Date(note.last_edited);
         this.editorContentRef.nativeElement.innerHTML = this.noteContent;
       } catch (error) {
@@ -138,6 +155,8 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     if (selectedTemplate) {
       this.noteTitle = selectedTemplate.title;
       this.noteContent = selectedTemplate.content;
+      this.initialNoteTitle = selectedTemplate.title;
+      this.initialNoteContent = selectedTemplate.content;
       this.editorContentRef.nativeElement.innerHTML = this.noteContent;
     }
   }
@@ -251,7 +270,15 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     this.location.back();
   }
 
+  toggleSidenav() {
+    this.sidenavService.toggle();
+  }
+
   toggleEditMode() {
+    // Only allow toggle if not in read-only mode due to trash
+    if (this.route.snapshot.queryParams['readonly']) {
+      return;
+    }
     this.readOnly = !this.readOnly;
   }
 }

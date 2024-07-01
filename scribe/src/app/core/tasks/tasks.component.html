@@ -1,1 +1,73 @@
-<p>tasks works!</p>
+<div class="scribe-tasks-container" [@simpleFade]>
+  <!--Tasks Heading-->
+  <div id="tasks_heading">
+    <h1>Tasks</h1>
+
+    <!-- Sort Tasks -->
+    <button mat-button [matMenuTriggerFor]="menu" class="custom-sort">
+      <mat-icon>sort</mat-icon>
+      Sort By: {{ getSortOptionLabel() }}
+    </button>
+    <mat-menu #menu="matMenu" xPosition="before">
+      <button
+        mat-menu-item
+        (click)="changeSortOption('lastEdited')"
+        class="custom-sort"
+      >
+      <mat-icon>history</mat-icon>
+        Last Edited
+      </button>
+      <button
+        mat-menu-item
+        (click)="changeSortOption('dateCreated')"
+        class="custom-sort"
+      >
+      <mat-icon>calendar_today</mat-icon>
+        Date Created
+      </button>
+      <button
+        mat-menu-item
+        (click)="changeSortOption('titleAsc')"
+        class="custom-sort"
+      >
+      <mat-icon>arrow_upward</mat-icon>
+        Title (A to Z)
+      </button>
+      <button
+        mat-menu-item
+        (click)="changeSortOption('titleDesc')"
+        class="custom-sort"
+      >
+      <mat-icon>arrow_downward</mat-icon>
+        Title (Z to A)
+      </button>
+    </mat-menu>
+  </div>
+
+  <!--All Tasks Tiles-->
+  <div id="tasks_main">
+    <!-- If tasks are present, this will display -->
+    <div id="all_tasks_tiles">
+      <app-task-card
+        *ngFor="let task of userTasks; trackBy: trackByTaskId"
+        [task]="task"
+        (taskDeleted)="onTaskDeleted($event)"
+      ></app-task-card>
+    </div>
+
+    <!-- If tasks are empty, this will display -->
+    <div
+      class="empty-tasks"
+      *ngIf="userTasks.length === 0"
+      routerLink="/main/board"
+    >
+      <img src="../../../assets/images/empty_holder.svg" />
+      <p>No added tasks yet. Click to add one.</p>
+    </div>
+  </div>
+
+  <button mat-fab extended routerLink="/main/board" class="custom-fab">
+    <mat-icon>add_task</mat-icon>
+    <span>Add Task</span>
+  </button>
+</div>

@@ -16,6 +16,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   imports: [
@@ -37,6 +39,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatMenuModule,
     MatCardModule,
     MatSelectModule,
+    MatCheckboxModule,
+    MatButtonToggleModule
   ]
 })
 export class MaterialModule { }
