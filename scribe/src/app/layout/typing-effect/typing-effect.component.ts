@@ -12,7 +12,7 @@ import {
   styleUrls: ['./typing-effect.component.scss'],
 })
 export class TypingEffectComponent implements OnInit {
-  text: string = 'Capture what truly matters.\nNote-taking, reimagined.';
+  text: string = 'Focus on what truly matters.\nNote-taking, redefined.';
   typedText: string = '';
   typingSpeed: number = 75;
   currentWordIndex: number = 0;
@@ -33,7 +33,7 @@ export class TypingEffectComponent implements OnInit {
     if (this.currentWordIndex < this.words.length) {
       const word = this.words[this.currentWordIndex];
       const wordElement = this.renderer.createElement('span');
-      if (word === 'reimagined.') {
+      if (word === 'redefined.') {
         this.renderer.setStyle(
           wordElement,
           'background',
