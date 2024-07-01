@@ -1,9 +1,18 @@
+* {
+  transition: background-color 0.75s ease, color 0.75s ease;
+}
+
 .scribe-trash-container {
   position: relative;
+  padding-bottom: 5%;
 }
 
 #trash_heading {
   margin-bottom: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--core-bg);
 
   h1 {
     font-size: 3.5vw;
