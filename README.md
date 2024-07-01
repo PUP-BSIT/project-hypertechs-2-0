@@ -1,5 +1,5 @@
 
-![scribe-banner](https://github.com/PUP-BSIT/project-hypertechs-2-0/assets/132433730/2a27fb9d-9f31-4002-9720-0354c6a66e85)
+![scribe-banner-final](https://github.com/PUP-BSIT/project-hypertechs-2-0/assets/132433730/cfac8578-6a83-4c57-9fc9-97aa39384296)
 
 # Scribe
 
