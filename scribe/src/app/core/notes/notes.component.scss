@@ -1,5 +1,10 @@
+* {
+  transition: background-color 0.75s ease, color 0.75s ease;
+}
+
 .scribe-notes-container {
   position: relative;
+  padding-bottom: 5%;
 }
 
 #notes_heading {
@@ -7,6 +12,10 @@
   justify-content: space-between;
   align-items: end;
   margin-bottom: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--core-bg);
 
   h1 {
     font-size: 3.5vw;
@@ -29,6 +38,10 @@
     font-size: 1.1vw;
     color: var(--primary);
   }
+}
+
+#all_notes_tiles {
+  padding: 0 0.2%;
 }
 
 .custom-fab {
