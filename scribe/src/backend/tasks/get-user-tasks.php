@@ -34,9 +34,7 @@ switch ($sort_by) {
         break;
 }
 
-$sql = "SELECT *, DATE_FORMAT(last_edited, '%b %d %h:%i %p') 
-    as formatted_last_edited FROM tasks WHERE user_id = ? ORDER BY $orderBy";
-
+$sql = "SELECT * FROM tasks WHERE user_id = ? ORDER BY $orderBy";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
