@@ -1,72 +1,33 @@
 
-![scribe-banner-final](https://github.com/PUP-BSIT/project-hypertechs-2-0/assets/146575214/16a845b1-7fb7-4be2-b3bd-15d74c69c30e)
+![scribe-banner](https://github.com/PUP-BSIT/project-hypertechs-2-0/assets/132433730/2a27fb9d-9f31-4002-9720-0354c6a66e85)
 
+# Scribe
 
-<h1 align="center">🚀 HyperTechs 2.0 Angular App Project 🚀</h1>
-<p align="center">
-  <em>Welcome to the official repository for our Angular App project, part of the App Development and Emerging Technologies course. We're excited to embark on this journey and build something incredible together!</em>
-</p>
+Say goodbye to scattered thoughts. Designed with simplicity and efficiency in mind, _Scribe_ lets you capture your thoughts, ideas, and important information instantly without all the clutter, helping you stay focused. **Think clearly, write simply.**
 
----
+🔗 [Visit Scribe's official website here.](https://scribenote.tech/)
 
-## 📘 Project Overview
-This repository is dedicated to our upcoming Angular application project for this semester as part of the completion of *App Development and Emerging Technologies* course. We're thrilled to set out on this journey together and create something amazing.
+## ✨ Features
+_Scribe_ comes packed with features to make your note-taking experience seamless and efficient, such as:
 
----
+- **Rich Text Editing**: A custom-built RTF editor to format your notes with bold, italics, lists, and more. <br>
+- **Featured Templates**: Create notes quickly with predefined templates to boost your productivity. <br>
+- **Search Functionality**: Quickly find the note you need with our powerful search tool. <br>
+- **Notebooks**: Compile your notes into a notebook for easy organization. <br>
+- **Task Board**: Organize your tasks visually through a simple yet intuitive task board.
 
-## 📝 Scribe Application
-
-Introducing **Scribe**, your new go-to note-taking app designed for busy students and professionals. Capture ideas, organize your thoughts, and boost your productivity with ease.
-
-🔗 [Visit Scribe](https://scribenote.tech/)
-
----
-
-## 📂 Project Structure
-
-### `/documents`
-- Contains the official project proposal, any necessary documentation for the project, and future documentation additions. This folder is designated for all formal documents that support the project's lifecycle.
-
-### `/scribe`
-This is the core directory for the Scribe application, encompassing all the necessary resources, features, and components of the app:
-
-#### `/assets`
-- Stores static files such as images, videos, and other media that the application uses.
-
-#### `/components`
-- Holds all Angular components, each managing specific parts of the user interface.
-
-#### `/services`
-- Includes services for handling data and business logic, responsible for operations such as data fetching and backend interfacing.
-
-#### `/models`
-- Contains classes and interfaces that define the types and structures of data used across the application.
-
-#### `/views`
-- Might include Angular templates or other HTML files for displaying app content to users.
-
-#### `/config`
-- Stores configuration files for different environments (development, test, production).
-
-#### `/app.module.ts`
-- The root Angular module that declares and ties together different parts of the application.
-
-#### `/main.ts`
-- The main entry point of the application which bootstraps the Angular app.
-
----
 
 ## 🛠️ Getting Started
 To get started with our project, follow these steps:
 
 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/your-project.git
+git clone https://github.com/PUP-BSIT/project-hypertechs-2-0
 ```
 
 2. Install Dependencies
 ```bash
-cd your-project
+cd scribe
 npm install
 ```
 
@@ -78,7 +39,7 @@ ng serve
 Navigate to `http://localhost:4200/` in your browser to view the application.
 
 
-## 📞 Contact
+## 🧑🏻‍💻 Meet the HyperTechs 2.0 Team
 
 | Name                    | GitHub                                             |
 |-------------------------|----------------------------------------------------|
@@ -95,22 +56,22 @@ Follow us on our social media platforms to stay updated with our latest projects
     <a href="https://mail.google.com/mail/u/6/#inbox">
         <img src="https://github.com/PUP-BSIT/project-hypertechs-2-0/assets/146575214/55fe29ba-b489-4ec5-a81f-c4d390a8847b" width="40" height="40">
     </a>
-    <span style="width: 30px;"></span>
+    &nbsp;&nbsp;&nbsp;&nbsp;
     <a href="https://x.com/app_scribe?s=21">
         <img src="https://github.com/PUP-BSIT/project-hypertechs-2-0/assets/146575214/00d160fd-4214-4729-9c28-6834f0d0e11d" width="40" height="40">
     </a>
-    <span style="width: 30px;"></span>
+    &nbsp;&nbsp;&nbsp;&nbsp;
     <a href="https://www.instagram.com/scribe_hypertechs/">
         <img src="https://github.com/PUP-BSIT/project-hypertechs-2-0/assets/146575214/9d34e2d8-a477-4420-aff3-adae9b1bc84a" width="40" height="40">
     </a>
 </p>
 
----
 
-## 🛠 Technologies Used
-We use a variety of modern technologies to build our applications. Here are some of the key tools and technologies we're using:
 
-<p align="center">
+## 📱 Technologies Used
+Here are the variety of modern technologies we used to build _Scribe:_
+
+<p align="left">
   <img src="https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white" alt="Angular">
   <img src="https://img.shields.io/badge/SCSS-CC6699?style=for-the-badge&logo=sass&logoColor=white" alt="SCSS">
   <img src="https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML">
@@ -119,16 +80,4 @@ We use a variety of modern technologies to build our applications. Here are some
   <img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP">
   <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git">
   <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" alt="Postman">
-</p>
-
----
-
-<p align="center">
-  <strong>Made with ❤️ by the HyperTechs 2.0 Team</strong>
-</p>
-<p align="center">
-  <em>We hope you find this project as exciting and inspiring as we do. Happy coding! 🎉🚀</em>
-</p>
-<p align="center">
-  <em>If you have any questions, suggestions, or feedback, feel free to reach out to us. Let's build something amazing together!</em> 🌟
 </p>
