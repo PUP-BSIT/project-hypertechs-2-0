@@ -47,30 +47,46 @@
 
   <div id="trash_main">
     <!-- Progress Spinner -->
-    <div *ngIf="isLoading" class="spinner-container">
+    @if (isLoading) {
+    <div class="spinner-container">
       <mat-spinner [diameter]="50"></mat-spinner>
     </div>
+    }
 
     <!-- Notes Display -->
-    <ngx-masonry class="masonry-note-container" *ngIf="!isLoading">
-      <ng-container *ngIf="notes.length; else noNotes">
-        <app-note-card
-          *ngFor="let note of notes; trackBy: trackByNoteId"
-          [note]="note"
-          [isInTrash]="true"
-          (restore)="restoreNote(note.id)"
-          (deleteForever)="refreshTrash(note.id)"
-        >
-        </app-note-card>
-      </ng-container>
-      <ng-template #noNotes>
-        <div class="empty-trash">
-          <img src="../../../assets/images/empty-trash.svg" />
-          <p>Your deleted notes will appear here.</p>
-        </div>
-      </ng-template>
+    @if (!isLoading) {
+    <ngx-masonry class="masonry-note-container">
+      @if (paginatedNotes.length) { @for (note of paginatedNotes; track note.id)
+      {
+      <app-note-card
+        [note]="note"
+        [isInTrash]="true"
+        (restore)="restoreNote(note.id)"
+        (deleteForever)="refreshTrash(note.id)"
+      >
+      </app-note-card>
+      } } @else {
+      <div class="empty-trash">
+        <img src="../../../assets/images/empty-trash.svg" />
+        <p>Your deleted notes will appear here.</p>
+      </div>
+      }
     </ngx-masonry>
+    }
   </div>
+
+  <!-- Paginator -->
+  @if (notes.length > 10) {
+  <mat-paginator
+    class="custom-paginator"
+    [length]="notes.length"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[10, 25, 50, 100]"
+    [showFirstLastButtons]="showFirstLastButtons"
+    (page)="onPageChange($event)"
+  >
+  </mat-paginator>
+  }
 
   <button
     mat-fab
