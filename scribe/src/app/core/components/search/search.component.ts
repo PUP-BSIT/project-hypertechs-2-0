@@ -63,7 +63,15 @@ export class SearchComponent implements OnInit{
         this.isLoading = false;
       }
     );
+  
+    // Reset search results if search term is empty
+    if (!this.searchTerm.trim()) {
+      this.notes = [];
+      this.userTasks = [];
+      this.clearSearch = true;
+    }
   }
+  
 
   onNoteDelete(noteId: number) {
     this.notes = this.notes.filter((note) => note.id !== noteId);
