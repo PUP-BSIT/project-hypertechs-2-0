@@ -19,6 +19,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   currentSortOption = 'lastEdited';
   pageSize = 25;
   currentPage = 0;
+  showFirstLastButtons = true;
 
   constructor(
     private noteService: NoteService,
