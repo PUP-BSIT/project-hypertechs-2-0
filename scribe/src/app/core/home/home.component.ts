@@ -44,12 +44,14 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.loadTasks(); // Load tasks when user is logged in
       } else {
         this.notes = []; // Clear notes when no user is logged in
+        this.userTasks = []; // Clear tasks when no user is logged in
         this.isLoading = false; // Set loading to false if no user
       }
     });
   }
 
   loadNotes() {
+    this.isLoading = true;
     this.noteService.getNotes().subscribe(
       (data) => {
         console.log('Notes received from backend:', data);
@@ -64,17 +66,18 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   loadTasks() {
-    this.tasksSubscription = this.taskService
-      .getUserTasks('lastEdited')
-      .subscribe(
-        (tasks) => {
-          console.log('Tasks received from backend:', tasks);
-          this.userTasks = tasks.slice(0, 3);
-        },
-        (error) => {
-          console.error('Error fetching tasks:', error);
-        }
-      );
+    this.isLoading = true;
+    this.tasksSubscription = this.taskService.getUserTasks('lastEdited').subscribe(
+      (tasks) => {
+        console.log('Tasks received from backend:', tasks);
+        this.userTasks = tasks.slice(0, 3);
+        this.isLoading = false;
+      },
+      (error) => {
+        console.error('Error fetching tasks:', error);
+        this.isLoading = false;
+      }
+    );
   }
 
   onNoteDelete(noteId: number) {
@@ -86,9 +89,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       (response) => {
         if (response.success) {
           console.log('Task deleted successfully!');
-          this.userTasks = this.userTasks.filter(
-            (task) => task.task_id !== taskId
-          );
+          this.userTasks = this.userTasks.filter((task) => task.task_id !== taskId);
         } else {
           console.error('Failed to delete task. Try again.');
         }
@@ -110,11 +111,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   templates = [
     { icon: 'meeting_room', title: 'Meeting' },
-    { icon: 'check_circle_outline', title: 'Tasks List' },
+    { icon: 'school', title: 'Lectures' },
     { icon: 'assignment', title: 'Project Plan' },
     { icon: 'celebration', title: 'Event Plan' },
-    { icon: 'school', title: 'Lectures' },
     { icon: 'today', title: 'Daily Planner' },
+    { icon: 'map', title: 'Travel Itinerary' },
   ];
 
   selectTemplate(template: any) {
@@ -122,8 +123,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       case 'Meeting':
         this.router.navigate(['/main/editor', { template: 'meeting' }]);
         break;
-      case 'Tasks List':
-        this.router.navigate(['/main/editor', { template: 'tasksList' }]);
+      case 'Travel Itinerary':
+        this.router.navigate(['/main/editor', { template: 'travelItinerary' }]);
         break;
       case 'Project Plan':
         this.router.navigate(['/main/editor', { template: 'projectPlan' }]);

@@ -61,7 +61,7 @@
   font-size: 14px;
   font-weight: 400;
   color: var(--text);
-  opacity: 0.6;
+  opacity: 0.6 !important;
   margin-bottom: 20px;
 
   .mat-icon {
@@ -145,7 +145,7 @@
 }
 
 .editor-toolbar select {
-  background-color: var(--core-nav);
+  background: var(--toolbar);
   color: var(--text);
   border: none;
   outline: none;

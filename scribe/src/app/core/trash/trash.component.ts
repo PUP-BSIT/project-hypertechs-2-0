@@ -38,6 +38,7 @@ export class TrashComponent implements OnInit, OnDestroy {
   }
 
   loadDeletedNotes() {
+    this.isLoading = true;
     this.noteService.getDeletedNotes().subscribe(
       (data: any[]) => {
         console.log('Deleted notes received from backend:', data);
@@ -103,6 +104,7 @@ export class TrashComponent implements OnInit, OnDestroy {
   }
 
   emptyTrash() {
+    this.isLoading = true;
     this.noteService.emptyTrash().subscribe(
       () => {
         console.log('Trash emptied successfully!');
@@ -112,6 +114,7 @@ export class TrashComponent implements OnInit, OnDestroy {
       (error) => {
         console.error('Error emptying trash:', error);
         this.snackbarService.show('Error emptying trash', 'Retry');
+        this.isLoading = false;
       }
     );
   }

@@ -1,5 +1,5 @@
 
-![scribe-banner-final](https://github.com/PUP-BSIT/project-hypertechs-2-0/assets/132433730/cfac8578-6a83-4c57-9fc9-97aa39384296)
+![scribe-banner-final](https://github.com/PUP-BSIT/project-hypertechs-2-0/assets/132433730/38db318b-aac9-495b-a459-579513167e35)
 
 # Scribe
 
@@ -53,20 +53,18 @@ Navigate to `http://localhost:4200/` in your browser to view the application.
 Follow us on our social media platforms to stay updated with our latest projects and activities!
 
 <p align="left">
-    <a href="https://mail.google.com/mail/u/6/#inbox">
-        <img src="https://github.com/PUP-BSIT/project-hypertechs-2-0/assets/146575214/55fe29ba-b489-4ec5-a81f-c4d390a8847b" width="40" height="40">
+    <a href="mailto:scribenote.app@gmail.com">
+        <img src="https://github.com/PUP-BSIT/project-hypertechs-2-0/assets/132433730/865b19e3-c813-473a-aa89-b6dd7cb5e81e" width="40" height="40">
     </a>
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    <a href="https://x.com/app_scribe?s=21">
-        <img src="https://github.com/PUP-BSIT/project-hypertechs-2-0/assets/146575214/00d160fd-4214-4729-9c28-6834f0d0e11d" width="40" height="40">
+    &nbsp;&nbsp;
+    <a href="https://x.com/app_scribe">
+        <img src="https://github.com/PUP-BSIT/project-hypertechs-2-0/assets/132433730/8cba5d54-e0d8-4adb-9878-3d0ef90c7288" width="43" height="43">
     </a>
-    &nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;
     <a href="https://www.instagram.com/scribe_hypertechs/">
         <img src="https://github.com/PUP-BSIT/project-hypertechs-2-0/assets/146575214/9d34e2d8-a477-4420-aff3-adae9b1bc84a" width="40" height="40">
     </a>
 </p>
-
-
 
 ## 📱 Technologies Used
 Here are the variety of modern technologies we used to build _Scribe:_

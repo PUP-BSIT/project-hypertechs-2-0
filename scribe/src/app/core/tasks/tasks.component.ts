@@ -3,6 +3,7 @@ import { TaskService } from '../../../services/tasks/task.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { simpleFade } from '../../../animations/element-animations';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-tasks',
@@ -12,8 +13,12 @@ import { simpleFade } from '../../../animations/element-animations';
 })
 export class TasksComponent implements OnInit, OnDestroy {
   userTasks: any[] = [];
-  private tasksSubscription: Subscription | undefined;
+  paginatedTasks: any[] = [];
   sortOption: string = 'lastEdited';
+  pageSize = 25;
+  currentPage = 0;
+  isLoading = true;
+  private tasksSubscription: Subscription | undefined;
 
   constructor(
     private taskService: TaskService,
@@ -31,6 +36,7 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   loadTasks() {
+    this.isLoading = true;
     if (this.tasksSubscription) {
       this.tasksSubscription.unsubscribe();
     }
@@ -38,7 +44,21 @@ export class TasksComponent implements OnInit, OnDestroy {
       .getUserTasks(this.sortOption)
       .subscribe((tasks) => {
         this.userTasks = tasks;
+        this.paginateTasks();
+        this.isLoading = false;
       });
+  }
+
+  paginateTasks() {
+    const startIndex = this.currentPage * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.paginatedTasks = this.userTasks.slice(startIndex, endIndex);
+  }
+
+  onPageChange(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.currentPage = event.pageIndex;
+    this.paginateTasks();
   }
 
   changeSortOption(option: string) {
@@ -62,6 +82,7 @@ export class TasksComponent implements OnInit, OnDestroy {
 
   onTaskDeleted(taskId: number) {
     this.userTasks = this.userTasks.filter((task) => task.task_id !== taskId);
+    this.paginateTasks();
   }
 
   trackByTaskId(index: number, task: any): number {

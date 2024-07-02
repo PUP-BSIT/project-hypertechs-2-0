@@ -13,20 +13,15 @@
     <!--Featured Templates-->
     <div id="featured_templates">
       @for (template of templates; track template.title) {
-      <div
-        matRipple
-        [matRippleAnimation]="{ enterDuration: 300, exitDuration: 300 }"
-        matRippleColor="rgba(61, 156, 119, 0.1)"
-        class="template-card"
-        (click)="selectTemplate(template)"
-      >
+      <div matRipple [matRippleAnimation]="{ enterDuration: 300, exitDuration: 300 }"
+        matRippleColor="rgba(61, 156, 119, 0.1)" class="template-card" (click)="selectTemplate(template)">
         <span class="material-symbols-outlined">{{ template.icon }}</span>
         <span class="template-title">{{ template.title }}</span>
       </div>
       }
     </div>
 
-    <!--recent Notes-->
+    <!--Recent Notes-->
     <div id="recent_notes">
       <!--Heading-->
       <div id="recent_notes_heading">
@@ -40,23 +35,31 @@
         </span>
       </div>
 
+      <!-- Progress Spinner -->
+      @if (isLoading) {
+      <div class="spinner-container">
+        <mat-spinner [diameter]="50"></mat-spinner>
+      </div>
+      }
+
       <!--Recent Notes Tiles-->
+      @if (!isLoading) {
       <div id="recent_notes_tiles">
         <ngx-masonry class="masonry-note-container">
-          @if (isLoading) {
-          <div class="loading"></div>
-          } @else { @if (notes.length > 0) { @for (note of notes.slice(0, 4);
-          track trackByNoteId($index, note)) {
+          @if (notes.length) {
+          @for (note of notes.slice(0, 4); track trackByNoteId($index, note)) {
           <app-note-card [note]="note" (delete)="onNoteDelete($event)">
           </app-note-card>
-          } } @else {
+          }
+          } @else {
           <div class="empty-notes" routerLink="/main/editor">
             <img src="../../../assets/images/empty-notes.svg" />
             <p>No notes yet. Click to add one.</p>
           </div>
-          } }
+          }
         </ngx-masonry>
       </div>
+      }
     </div>
   </main>
 
@@ -71,9 +74,17 @@
       </span>
     </div>
 
+    <!-- Progress Spinner -->
+    @if (isLoading) {
+    <div class="spinner-container">
+      <mat-spinner [diameter]="50"></mat-spinner>
+    </div>
+    }
+
     <!--Tasks List-->
+    @if (!isLoading) {
     <div id="tasks_list">
-      @if (userTasks.length > 0) {
+      @if (userTasks.length) {
       <!--If tasks list has at least one content, display this:-->
       <div id="tasks_content">
         @for (task of userTasks.slice(0, 2); track task) {
@@ -89,5 +100,6 @@
       </div>
       }
     </div>
+    }
   </aside>
 </div>

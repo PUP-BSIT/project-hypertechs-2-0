@@ -1,3 +1,7 @@
+* {
+  transition: background-color 0.75s ease, color 0.75s ease;
+}
+
 .scribe-notes-container {
   position: relative;
 }
@@ -7,6 +11,10 @@
   justify-content: space-between;
   align-items: end;
   margin-bottom: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--core-bg);
 
   h1 {
     font-size: 3.5vw;
@@ -29,6 +37,10 @@
     font-size: 1.1vw;
     color: var(--primary);
   }
+}
+
+#all_notes_tiles {
+  padding: 0 0.2%;
 }
 
 .custom-fab {
@@ -58,4 +70,20 @@
     width: 25%;
     height: auto;
   }
+}
+
+.custom-paginator {
+  display: flex;
+  justify-content: flex-start;
+  background-color: var(--core-bg);
+  font-size: 1vw;
+  padding: 3% 0; 
+  font-family: "Google Sans Text", sans-serif !important;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
 }

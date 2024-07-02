@@ -55,26 +55,47 @@ export const templates: { [key: string]: Template } = {
         </div>
       `,
   },
-  tasksList: {
-    title: 'Tasks List',
+  travelItinerary: {
+    title: 'Travel Itinerary',
     content: `
-        <div>
-          <h3 style="font-weight: 500; margin-top: 15px;">
-            <span class="material-icons" style="vertical-align: middle; margin-right: 8px; font-size: 1.1em;">check_circle_outline</span>
-            Task
-          </h3>
-          <ul>
+      <div>
+        <h3 style="font-weight: 500; margin-top: 15px;">
+          <span class="material-icons" style="vertical-align: middle; margin-right: 8px; font-size: 1.1em;">flight_takeoff</span>
+          Trip Details
+        </h3>
+        <ul>
             <li style="margin-left: 20px; margin-top: 5px;"></li>
           </ul>
-          <h3 style="font-weight: 500; margin-top: 15px;">
-            <span class="material-icons" style="vertical-align: middle; margin-right: 8px; font-size: 1.1em;">done</span>
-            Completed Tasks
-          </h3>
-          <ul>
+        <h3 style="font-weight: 500; margin-top: 15px;">
+          <span class="material-icons" style="vertical-align: middle; margin-right: 8px; font-size: 1.1em;">directions_car</span>
+          Transportation
+        </h3>
+        <ul>
             <li style="margin-left: 20px; margin-top: 5px;"></li>
           </ul>
-        </div>
-      `,
+        <h3 style="font-weight: 500; margin-top: 15px;">
+          <span class="material-icons" style="vertical-align: middle; margin-right: 8px; font-size: 1.1em;">event</span>
+          Activities
+        </h3>
+        <ul>
+            <li style="margin-left: 20px; margin-top: 5px;"></li>
+          </ul>
+        <h3 style="font-weight: 500; margin-top: 15px;">
+          <span class="material-icons" style="vertical-align: middle; margin-right: 8px; font-size: 1.1em;">playlist_add_check</span>
+          Packing List
+        </h3>
+        <ul>
+            <li style="margin-left: 20px; margin-top: 5px;"></li>
+          </ul>
+        <h3 style="font-weight: 500; margin-top: 15px;">
+          <span class="material-icons" style="vertical-align: middle; margin-right: 8px; font-size: 1.1em;">attach_money</span>
+          Budget
+        </h3>
+        <ul>
+            <li style="margin-left: 20px; margin-top: 5px;"></li>
+          </ul>
+      </div>
+    `,
   },
   projectPlan: {
     title: 'Project Plan',
