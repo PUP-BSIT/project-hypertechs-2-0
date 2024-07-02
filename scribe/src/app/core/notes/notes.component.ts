@@ -15,11 +15,11 @@ export class NotesComponent implements OnInit, OnDestroy {
   notes: any[] = [];
   paginatedNotes: any[] = [];
   isLoading = true;
-  private userSubscription!: Subscription;
   currentSortOption = 'lastEdited';
   pageSize = 25;
   currentPage = 0;
   showFirstLastButtons = true;
+  private userSubscription!: Subscription;
 
   constructor(
     private noteService: NoteService,

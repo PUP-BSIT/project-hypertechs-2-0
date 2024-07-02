@@ -51,13 +51,15 @@
   </div>
 
   <!-- Paginator -->
-  <mat-paginator class="custom-paginator" 
-    [length]="notes.length" 
-    [pageSize]="pageSize"
-    [pageSizeOptions]="[10, 25, 50, 100]" 
-    [showFirstLastButtons]="showFirstLastButtons"
-    (page)="onPageChange($event)">
-  </mat-paginator>
+  @if (notes.length > 10) {
+    <mat-paginator class="custom-paginator" 
+      [length]="notes.length" 
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[10, 25, 50, 100]" 
+      [showFirstLastButtons]="showFirstLastButtons"
+      (page)="onPageChange($event)">
+    </mat-paginator>
+  }
 
   <!--Create new note FAB -->
   <button routerLink="/main/editor" mat-fab extended class="custom-fab">
