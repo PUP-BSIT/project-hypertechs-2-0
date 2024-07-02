@@ -80,3 +80,10 @@
   padding: 3% 0; 
   font-family: "Google Sans Text", sans-serif !important;
 }
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}

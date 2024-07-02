@@ -32,7 +32,7 @@
   <div id="tasks_main">
     @if (isLoading) {
       <div class="loading-spinner">
-        <mat-spinner></mat-spinner>
+        <mat-spinner [diameter]="50"></mat-spinner>
       </div>
     } @else {
       @if (userTasks.length > 0) {
