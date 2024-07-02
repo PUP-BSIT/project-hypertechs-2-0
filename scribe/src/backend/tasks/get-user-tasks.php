@@ -15,9 +15,26 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$user_id = $_GET['user_id'];
+$user_id = isset($_GET['user_id']) ? $_GET['user_id'] : 0;
+$sort_by = isset($_GET['sort_by']) ? $_GET['sort_by'] : 'lastEdited';
 
-$sql = "SELECT * FROM tasks WHERE user_id = ? ORDER BY last_edited DESC";
+switch ($sort_by) {
+    case 'dateCreated':
+        $orderBy = 'last_edited ASC';
+        break;
+    case 'titleAsc':
+        $orderBy = 'title ASC';
+        break;
+    case 'titleDesc':
+        $orderBy = 'title DESC';
+        break;
+    case 'lastEdited':
+    default:
+        $orderBy = 'last_edited DESC';
+        break;
+}
+
+$sql = "SELECT * FROM tasks WHERE user_id = ? ORDER BY $orderBy";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();

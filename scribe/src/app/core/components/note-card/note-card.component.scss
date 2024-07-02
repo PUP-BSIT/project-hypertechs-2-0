@@ -26,7 +26,7 @@
   }
 
   .note-title {
-    font-size: 1.3vw;
+    font-size: 1.4vw;
     font-weight: 500;
     font-family: "Google Sans Text", sans-serif;
     white-space: nowrap;
@@ -46,25 +46,26 @@
   }
 
   .note-footer {
-    padding: 9% 7% 9% 7%;
+    padding: 9% 7% 5% 7%;
     margin-top: auto; /* Pushes footer to the bottom */
 
     #last_edited_info {
       display: flex;
       align-items: center;
       gap: 0.5em;
-      background-color: rgba(170, 170, 170, 0.11);
-      padding: 0.5rem 0.75rem;
-      border-radius: 20px;
+      padding: 0.5rem 0;
       width: fit-content;
+      opacity: 0.6;
 
-      span {
-        font-size: 1vw;
+      .mat-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2vw;
       }
-
+    
       p {
-        font-size: 0.9vw;
-        color: var(--text);
+        font-size: 1vw;
       }
     }
   }

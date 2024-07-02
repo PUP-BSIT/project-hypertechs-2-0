@@ -32,7 +32,7 @@
 .editor-title .title-input {
   width: 100%;
   padding: 10px 0;
-  font-size: 2.5vw;
+  font-size: 2.75vw;
   letter-spacing: -0.025rem;
 }
 
@@ -61,7 +61,7 @@
   font-size: 14px;
   font-weight: 400;
   color: var(--text);
-  opacity: 0.6;
+  opacity: 0.6 !important;
   margin-bottom: 20px;
 
   .mat-icon {

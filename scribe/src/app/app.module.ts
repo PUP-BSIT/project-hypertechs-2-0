@@ -20,6 +20,7 @@ import { RecoveryComponent } from './auth/recovery/recovery.component';
 import { EnterEmailComponent } from './auth/recovery/enter-email/enter-email.component';
 import { EnterOtpComponent } from './auth/recovery/enter-otp/enter-otp.component';
 import { EnterNewPasswordComponent } from './auth/recovery/enter-new-password/enter-new-password.component';
+import { OtpComponent } from './layout/otp/otp.component';
 
 /*Layout Components */
 import { BrandComponent } from './layout/brand/brand.component';
@@ -75,6 +76,7 @@ import { SignupService } from '../services/signup/signup.service';
     SearchComponent,
     TaskCardComponent,
     BoardComponent,
+    OtpComponent,
   ],
   imports: [
     BrowserModule,
