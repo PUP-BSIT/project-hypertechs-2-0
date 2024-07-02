@@ -7,8 +7,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%; /* Make the container take up the full height of its parent */
-  width: 100%; /* Make the container take up the full width of its parent */
+  height: 100%; 
+  width: 100%;
 }
 
 #initial_search_content {
@@ -17,9 +17,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-grow: 1; /* Make the content expand to take up all available space */
-  height: 100%; /* Ensure the content takes up the full height */
-  width: 100%; /* Ensure the content takes up the full width */
+  flex-grow: 1; 
+  height: 100%; 
+  width: 100%; 
   padding-bottom: 5%;
 
   img {
@@ -36,20 +36,3 @@
   grid-template-columns: repeat(auto-fill, minmax(calc(25% - 2%), 1fr));
   gap: 0.75vw;
 }
-
-// .scribe-search-container {
-//   .tiles-container {
-//     display: flex;
-//     justify-content: space-between; /* Adjusts spacing between the tiles */
-//     width: 100%;
-//   }
-
-//   #all_notes_tiles,
-//   #all_tasks_tiles {
-//     flex: 1 1 auto;
-//     flex-grow: 1; /* Allows the tiles to grow and take available space */
-//     flex-basis: 0; /* Ensures both tiles have equal width */
-//     margin: 10px; /* Optional: adds some spacing between the divs */
-//   }
-// }
-
