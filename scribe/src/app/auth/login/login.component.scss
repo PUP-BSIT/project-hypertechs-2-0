@@ -262,6 +262,10 @@ form {
     gap: 2vw;
   }
 
+  #mini_theme_toggle {
+    font-size: 5vw;
+  }
+
   #login_form h1 {
     color: var(--text);
     font-size: 25px;
@@ -301,7 +305,7 @@ form {
   }
 
   .material-icons {
-    margin-top: 2.5vh;
+    margin-top: 2.8vh;
     position: absolute;
     left: 5vw;
     color: var(--tonal-form-text);
@@ -328,7 +332,6 @@ form {
     min-height: 1.5em;
     margin-top: 0.5em;
     visibility: hidden;
-    font-size: var(--font-error);
     overflow: hidden;
     font-size: 10px;
 
@@ -338,7 +341,6 @@ form {
  }
 }
 
-/* Tablet Devices (481px to 768px) */
 @media (min-width: 481px) and (max-width: 768px) {
   #login_container {
     flex-direction: column;
@@ -355,6 +357,10 @@ form {
 
   nav {
     gap: 2vw;
+  }
+
+  #mini_theme_toggle {
+    font-size: 4vw;
   }
 
   #login_form h1 {
@@ -394,7 +400,7 @@ form {
   }
 
   .material-icons {
-    margin-top: 1.75vh;
+    margin-top: 2.5vh;
     position: absolute;
     left: 5vw;
     color: var(--tonal-form-text);
@@ -421,7 +427,6 @@ form {
     min-height: 1.5em;
     margin-top: 0.5em;
     visibility: hidden;
-    font-size: var(--font-error);
     overflow: hidden;
     font-size: 15px;
 
