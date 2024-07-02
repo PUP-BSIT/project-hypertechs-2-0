@@ -3,6 +3,7 @@ import { NoteService } from '../../../services/notes/note.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { simpleFade, slideInOut } from '../../../animations/element-animations';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-notes',
@@ -12,9 +13,12 @@ import { simpleFade, slideInOut } from '../../../animations/element-animations';
 })
 export class NotesComponent implements OnInit, OnDestroy {
   notes: any[] = [];
+  paginatedNotes: any[] = [];
   isLoading = true;
   private userSubscription!: Subscription;
   currentSortOption = 'lastEdited';
+  pageSize = 25;
+  currentPage = 0;
 
   constructor(
     private noteService: NoteService,
@@ -27,6 +31,7 @@ export class NotesComponent implements OnInit, OnDestroy {
         this.loadNotes();
       } else {
         this.notes = [];
+        this.paginatedNotes = [];
         this.isLoading = false;
       }
     });
@@ -37,6 +42,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     this.noteService.getNotes(this.currentSortOption).subscribe(
       (data: any[]) => {
         this.notes = data.filter((note) => note.is_deleted == 0);
+        this.paginateNotes();
         this.isLoading = false;
       },
       (error) => {
@@ -46,8 +52,21 @@ export class NotesComponent implements OnInit, OnDestroy {
     );
   }
 
+  paginateNotes() {
+    const start = this.currentPage * this.pageSize;
+    const end = start + this.pageSize;
+    this.paginatedNotes = this.notes.slice(start, end);
+  }
+
   onNoteDelete(noteId: number) {
     this.notes = this.notes.filter((note) => note.id !== noteId);
+    this.paginateNotes();
+  }
+
+  onPageChange(event: PageEvent) {
+    this.currentPage = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.paginateNotes();
   }
 
   ngOnDestroy() {

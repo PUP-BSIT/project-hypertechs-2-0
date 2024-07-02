@@ -72,3 +72,11 @@
     height: auto;
   }
 }
+
+.custom-paginator {
+  display: flex;
+  justify-content: flex-start;
+  background-color: var(--core-bg);
+  font-size: 1vw;
+  font-family: "Google Sans Text", sans-serif !important;
+}
