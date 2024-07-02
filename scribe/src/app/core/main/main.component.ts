@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
-import { Router, NavigationEnd } from '@angular/router';
+import { fromEvent, Observable, Subscription } from 'rxjs';
+import { debounceTime, filter, map, shareReplay } from 'rxjs/operators';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 
 /* Services */
 import { ThemeService } from '../../../services/theme/theme.service';
@@ -12,6 +12,8 @@ import { TitleCaseService } from '../../../services/title-case/title-case.servic
 import { ToolbarService } from '../../../services/toolbar/toolbar.service';
 import { SidenavService } from '../../../services/sidenav/sidenav.service';
 import { simpleFade, slideInOut } from '../../../animations/element-animations';
+import { SearchService } from '../../../services/search/search.service';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-main',
@@ -29,6 +31,12 @@ export class MainComponent implements OnInit {
   email: string | null = null;
   firstname: string | null = null;
   lastname: string | null = null;
+  searchTerm: string = '';
+  userId : string = '';
+  @Input() notes: any[] = [];
+  @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
+  private searchSubscription!: Subscription;
+  private searchTimeout: any;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
@@ -36,6 +44,7 @@ export class MainComponent implements OnInit {
       map((result) => result.matches),
       shareReplay()
     );
+ 
 
   constructor(
     private themeService: ThemeService,
@@ -45,13 +54,16 @@ export class MainComponent implements OnInit {
     private titleCaseService: TitleCaseService,
     private toolbarService: ToolbarService,
     private sidenavService: SidenavService,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private route: ActivatedRoute,
+    private searchService: SearchService,
+    private authService: AuthService
   ) {
     // Listen to route changes to track the previous route
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         if (this.router.url !== '/main/search') {
-          this.previousUrl = event.url;
+          this.previousUrl = 'main'; /**TODO */
         }
       }
     });
@@ -60,6 +72,11 @@ export class MainComponent implements OnInit {
   ngOnInit() {
     this.sidenavService.isOpened$.subscribe((isOpened) => {
       this.isOpened = isOpened; // Update isOpened based on sidenav service
+    });
+
+    this.route.queryParams.subscribe(params => {
+      this.userId = params['user_id'];
+      console.log('User ID:', this.userId);
     });
 
     this.initializeToolbar();
@@ -96,7 +113,8 @@ export class MainComponent implements OnInit {
 
   /* Search bar behavior */
   onSearchFocus() {
-    this.router.navigate(['/main/search']);
+    const user_id = this.authService.getUserId();
+    this.router.navigate(['/main/search'], { queryParams: { user_id: user_id } });
     this.showCancelButton = true;
     setTimeout(() => {
       const cancelText = document.querySelector('.cancel-text') as HTMLElement;
@@ -129,8 +147,13 @@ export class MainComponent implements OnInit {
   }
 
   onSearchInput(event: Event) {
+    clearTimeout(this.searchTimeout);
     const input = event.target as HTMLInputElement;
+    this.searchTimeout = setTimeout(() => {
+      this.searchNotes();
+    }, 1000);
     this.showCancelButton = input.value.length > 0;
+    this.searchTerm = input.value;
   }
 
   onCancelSearch() {
@@ -150,6 +173,52 @@ export class MainComponent implements OnInit {
       }
     }
   }
+
+  searchNotes(): void {
+    /**TODO for testing*/
+    if (this.searchTerm.trim().length === 0) {
+      console.log(this.searchTerm);
+      this.notes = [];
+      this.searchService.updateSearchResults(this.notes);
+      return; // Don't search if the search term is empty
+    }
+
+    this.searchService.searchNotes(this.userId, this.searchTerm)
+      .subscribe(
+        (response) => {
+          this.notes = response;
+          this.searchService.updateSearchResults(response);
+          this.searchService.updateSearchTerm(this.searchTerm);
+          console.log('Search results:', response);
+          console.log('userId',this.userId);
+          console.log('searchTerm',this.searchTerm);
+        },
+        (error) => {
+          console.error('Error fetching notes:', error);
+      });
+  }
+
+  ngAfterViewInit(): void {
+    this.searchSubscription = fromEvent<Event>(this.searchInput.nativeElement, 'input')
+    .pipe(
+        map((event: Event) => 
+        (event.target as HTMLInputElement).value),
+        debounceTime(1000),
+        filter((value: string) => value.length > 0), 
+      )
+    .subscribe((value) => {
+      if (value.length>0){
+        this.showCancelButton = true;
+        this.searchTerm = value;
+      } else {
+        return;
+      }   
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.searchSubscription.unsubscribe();
+}
 
   private initializeToolbar() {
     this.toolbarService.toolbarVisible$.subscribe((visible) => {
