@@ -157,11 +157,14 @@ export class MainComponent implements OnInit {
   }
 
   onCancelSearch() {
-    const searchInput = document.getElementById(
-      'search_input'
-    ) as HTMLInputElement;
+    const searchInput = 
+      document.getElementById('search_input') as HTMLInputElement;
     if (searchInput) {
       searchInput.value = '';
+      this.searchTerm = '';
+      this.searchService.updateSearchTerm('');
+      this.notes = [];
+      this.searchService.updateSearchResults([]); 
       searchInput.blur();
       this.showCancelButton = false;
       const cancelText = document.querySelector('.cancel-text') as HTMLElement;
@@ -173,6 +176,7 @@ export class MainComponent implements OnInit {
       }
     }
   }
+  
 
   searchNotes(): void {
     /**TODO for testing*/
