@@ -197,7 +197,7 @@ export class MainComponent implements OnInit {
     .pipe(
         map((event: Event) => 
         (event.target as HTMLInputElement).value),
-        debounceTime(2000),
+        debounceTime(1000),
         filter((value: string) => value.length > 0), 
       )
     .subscribe((value) => {
