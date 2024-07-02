@@ -1,58 +1,71 @@
 <?php
-    header('Access-Control-Allow-Origin: *');
-    header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
-    header('Access-Control-Allow-Headers: Content-Type');
-    header('Content-Type: application/json; charset=utf-8');
-    
-    // Database connection credentials
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "scribe_db";
-    
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-    
-    if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-        http_response_code(200);
-        exit();
-    }
-    
-    // Retrieve search term from Angular
-    $searchTerm = isset($_REQUEST['searchTerm']) ? $_REQUEST['searchTerm'] : '';
-    $userId = isset($_GET['user_id']) ? intval($_GET['user_id']) : 0;
+// Allow CORS
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
+header('Content-Type: application/json; charset=utf-8');
 
-    $sql = "SELECT * FROM notes WHERE user_id = ? AND is_deleted = 0 AND (title LIKE ? OR content LIKE ?)";
+// Database connection credentials
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "scribe_db";
 
-    // Prepare statement
-    $stmt = $conn->prepare($sql);
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Bind parameters
-    $searchTerm = "%$searchTerm%";
-    $stmt->bind_param('iss', $userId, $searchTerm, $searchTerm);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-    // Execute statement
-    $stmt->execute();
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
 
-    // Get result
-    $result = $stmt->get_result();
+// Retrieve search term from Angular (sanitize input as needed)
+$searchTerm = isset($_REQUEST['searchTerm']) ? $_REQUEST['searchTerm'] : '';
+$searchTerm = '%' . $searchTerm . '%';  // Prepare for LIKE clause
 
-    // Check if results exist
-    if ($result->num_rows > 0) {
-        $notes = [];
-         while ($row = $result->fetch_assoc()) {
-            $notes[] = $row;
-        }
-        echo json_encode($notes);
-    } else {
-        echo json_encode(["message" => "No notes found"]);
-    }
+$userId = isset($_REQUEST['user_id']) ? intval($_REQUEST['user_id']) : 0;
 
-    $stmt->close();
-    $conn->close();
+// SQL query for notes table
+$notes_sql = "SELECT * FROM notes 
+              WHERE user_id = ? 
+              AND is_deleted = 0 
+              AND (title LIKE ? 
+                   OR content LIKE ?)";
+
+// SQL query for tasks table
+$tasks_sql = "SELECT * FROM tasks 
+              WHERE user_id = ? 
+              AND (title LIKE ? 
+                   OR description LIKE ? 
+                   OR todo LIKE ? 
+                   OR in_progress LIKE ? 
+                   OR done LIKE ?)";
+
+// Prepare and execute the query for notes
+$notes_stmt = $conn->prepare($notes_sql);
+$notes_stmt->bind_param("iss", $userId, $searchTerm, $searchTerm);
+$notes_stmt->execute();
+$notes_result = $notes_stmt->get_result();
+
+// Prepare and execute the query for tasks
+$tasks_stmt = $conn->prepare($tasks_sql);
+$tasks_stmt->bind_param("isssss", $userId, $searchTerm, $searchTerm, $searchTerm, $searchTerm, $searchTerm);
+$tasks_stmt->execute();
+$tasks_result = $tasks_stmt->get_result();
+
+// Combine the results
+$combined_results = array_merge($notes_result->fetch_all(MYSQLI_ASSOC), $tasks_result->fetch_all(MYSQLI_ASSOC));
+
+// Output of combined results as JSON
+echo json_encode($combined_results);
+
+// Close statement and connection
+$notes_stmt->close();
+$tasks_stmt->close();
+$conn->close();
 ?>
