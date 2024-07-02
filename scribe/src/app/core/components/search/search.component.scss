@@ -30,3 +30,26 @@
     font-weight: 400;
   }
 }
+
+#all_tasks_tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(calc(25% - 2%), 1fr));
+  gap: 0.75vw;
+}
+
+// .scribe-search-container {
+//   .tiles-container {
+//     display: flex;
+//     justify-content: space-between; /* Adjusts spacing between the tiles */
+//     width: 100%;
+//   }
+
+//   #all_notes_tiles,
+//   #all_tasks_tiles {
+//     flex: 1 1 auto;
+//     flex-grow: 1; /* Allows the tiles to grow and take available space */
+//     flex-basis: 0; /* Ensures both tiles have equal width */
+//     margin: 10px; /* Optional: adds some spacing between the divs */
+//   }
+// }
+

@@ -174,7 +174,7 @@
           id="search_input"
           #searchInput
           [(ngModel)]="searchTerm"
-          (keyup.enter)="searchNotes()"
+          (keyup)="searchNotes()"
           (focus)="onSearchFocus()"
           (blur)="onSearchBlur()"
           (input)="onSearchInput($event)"

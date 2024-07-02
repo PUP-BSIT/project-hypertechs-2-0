@@ -20,3 +20,8 @@ export interface TempNote {
   content: string;
   lastEdited: string;
 }
+
+export interface SearchResult{
+  id: number;
+  task_id: number;
+}

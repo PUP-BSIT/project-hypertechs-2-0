@@ -19,6 +19,10 @@ export class SearchComponent implements OnInit{
   errorMessage: any;
   clearSearch : boolean = false;
   private userSubscription!: Subscription;
+  userTasks: any[] = [];
+  isTaskpresent: boolean = false;
+  showOnlyNotes = false; 
+  
 
   constructor(
     private searchService: SearchService,  
@@ -61,7 +65,8 @@ export class SearchComponent implements OnInit{
   loadResults() {
     this.searchService.notes$.subscribe(
       (data: any[]) => {
-        this.notes = data;
+        this.notes = data.filter(item => item.hasOwnProperty('id'));
+        this.userTasks = data.filter(item => item.hasOwnProperty('task_id'));
         this.isLoading = false;
       },
     );
@@ -69,6 +74,10 @@ export class SearchComponent implements OnInit{
 
   onNoteDelete(noteId: number) {
     this.notes = this.notes.filter((note) => note.id !== noteId);
+  }
+
+  onTaskDeleted(taskId: number) {
+    this.userTasks = this.userTasks.filter((task) => task.task_id !== taskId);
   }
 
   trackByNoteId(index: number, note: any): number {

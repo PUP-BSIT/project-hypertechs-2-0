@@ -1,28 +1,48 @@
 <div class="scribe-search-container" [@simpleFade]>
-  @if (notes.length===0 && clearSearch) {
+  <!-- <button (click)="showOnlyNotes = !showOnlyNotes">
+    Toggle Show Only Notes
+  </button> -->
+
+  @if (clearSearch) {
   <div id="initial_search_content">
     <img src="../../../../assets/images/search.svg" />
     <h3>Search your notes, tasks, folders, and many more.</h3>
   </div>
+  } @else if (!notes.length && !userTasks.length) {
+  <div id="initial_search_content">
+    <img src="../../../../assets/images/search.svg" />
+    <h3>No {{ searchTerm }} found!</h3>
+  </div>
   }
 
-  <div id="all_notes_tiles">
-    <ngx-masonry class="masonry-note-container">
-      @if (isLoading) {
+  <div id="tiles_container">
+    <div id="all_notes_tiles">
+      @if(isLoading){
       <div class="loading"></div>
-      } @else { @if (!clearSearch && notes.length > 0) { @for (note of notes;
-      track note.id) {
-      <app-note-card
-        [note]="note"
-        [isInTrash]="false"
-        (delete)="onNoteDelete($event)"
-      >
-      </app-note-card>
-      } } @else {
-      <!-- TODO  -->
-      <!-- If notes are empty, this will display -->
-      <!-- <p></p> -->
-      } }
-    </ngx-masonry>
+      } @if (!clearSearch && notes.length > 0){
+      <p>From your notes</p>
+      <ngx-masonry class="masonry-note-container">
+        @for(note of notes; track note.id){
+        <app-note-card
+          [note]="note"
+          [isInTrash]="false"
+          (delete)="onNoteDelete($event)"
+        >
+        </app-note-card>
+        }
+      </ngx-masonry>
+      }
+    </div>
+    @if (userTasks.length > 0){
+    <p>From your tasks</p>
+    <div id="all_tasks_tiles">
+      @for (task of userTasks; track task) {
+      <app-task-card
+        [task]="task"
+        (taskDeleted)="onTaskDeleted($event)"
+      ></app-task-card>
+      }
+    </div>
+    }
   </div>
 </div>
