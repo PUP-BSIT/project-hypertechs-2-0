@@ -4,11 +4,16 @@
   </div>
 
   <div id="trash_main">
-    <ngx-masonry class="masonry-note-container">
-      @if (isLoading) {
-        <div class="loading"></div>
-      } @else {
-        <!-- If notes are present in trash, this will display -->
+    <!-- Progress Spinner -->
+    @if (isLoading) {
+      <div class="spinner-container">
+        <mat-spinner [diameter]="50"></mat-spinner>
+      </div>
+    }
+
+    <!-- Notes Display -->
+    @if (!isLoading) {
+      <ngx-masonry class="masonry-note-container">
         @if (notes.length > 0) {
           @for (note of notes; track note.id) {
             <app-note-card
@@ -25,8 +30,8 @@
             <p>Your deleted notes will appear here.</p>
           </div>
         }
-      }
-    </ngx-masonry>
+      </ngx-masonry>
+    }
   </div>
 
   <button
