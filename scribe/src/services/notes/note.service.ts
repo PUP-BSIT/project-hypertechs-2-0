@@ -14,7 +14,9 @@ export class NoteService {
   /* Fetch and display all the notes */
   getNotes(sortBy: string = 'lastEdited'): Observable<any> {
     const userId = this.authService.getUserId();
-    return this.http.get(`${this.apiUrl}/get-notes.php?user_id=${userId}&sort_by=${sortBy}`);
+    return this.http.get(
+      `${this.apiUrl}/get-notes.php?user_id=${userId}&sort_by=${sortBy}`
+    );
   }
 
   /* Fetch a note by ID for proper edit/update */
@@ -43,10 +45,10 @@ export class NoteService {
   }
 
   /* Fetch the soft-deleted notes */
-  getDeletedNotes(): Observable<any> {
+  getDeletedNotes(sortBy: string = 'lastEdited'): Observable<any> {
     const userId = this.authService.getUserId();
     return this.http.get(
-      `${this.apiUrl}/get-deleted-notes.php?user_id=${userId}`
+      `${this.apiUrl}/get-deleted-notes.php?user_id=${userId}&sort_by=${sortBy}`
     );
   }
 
