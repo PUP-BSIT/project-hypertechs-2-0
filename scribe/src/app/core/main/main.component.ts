@@ -36,6 +36,7 @@ export class MainComponent implements OnInit {
   @Input() notes: any[] = [];
   @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
   private searchSubscription!: Subscription;
+  private searchTimeout: any;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
@@ -43,6 +44,7 @@ export class MainComponent implements OnInit {
       map((result) => result.matches),
       shareReplay()
     );
+ 
 
   constructor(
     private themeService: ThemeService,
@@ -145,7 +147,11 @@ export class MainComponent implements OnInit {
   }
 
   onSearchInput(event: Event) {
+    clearTimeout(this.searchTimeout);
     const input = event.target as HTMLInputElement;
+    this.searchTimeout = setTimeout(() => {
+      this.searchNotes();
+    }, 1000);
     this.showCancelButton = input.value.length > 0;
     this.searchTerm = input.value;
   }
@@ -204,9 +210,6 @@ export class MainComponent implements OnInit {
       if (value.length>0){
         this.showCancelButton = true;
         this.searchTerm = value;
-        this.searchNotes();
-       /**TODO */
-        console.log(value);
       } else {
         return;
       }   
