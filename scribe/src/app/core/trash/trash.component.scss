@@ -8,6 +8,9 @@
 }
 
 #trash_heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
   margin-bottom: 1rem;
   position: sticky;
   top: 0;
@@ -29,6 +32,11 @@
     letter-spacing: -0.025em;
     transition: color 0.75s ease;
     width: 60%;
+  }
+
+  .custom-sort {
+    font-size: 1.1vw;
+    color: var(--primary);
   }
 }
 

@@ -16,6 +16,8 @@ import { simpleFade, slideInOut } from '../../../animations/element-animations';
 export class TrashComponent implements OnInit, OnDestroy {
   notes: any[] = [];
   isLoading = true;
+  currentSortOption = 'lastEdited';
+  currentSortOptionLabel = 'Last Edited';
   private userSubscription!: Subscription;
 
   constructor(
@@ -37,9 +39,9 @@ export class TrashComponent implements OnInit, OnDestroy {
     });
   }
 
-  loadDeletedNotes() {
+  loadDeletedNotes(sortBy: string = 'lastEdited') {
     this.isLoading = true;
-    this.noteService.getDeletedNotes().subscribe(
+    this.noteService.getDeletedNotes(sortBy).subscribe(
       (data: any[]) => {
         console.log('Deleted notes received from backend:', data);
         this.notes = data;
@@ -54,11 +56,31 @@ export class TrashComponent implements OnInit, OnDestroy {
     );
   }
 
+  sortNotes(sortBy: string) {
+    switch (sortBy) {
+      case 'dateCreated':
+        this.currentSortOptionLabel = 'Date Created';
+        break;
+      case 'titleAsc':
+        this.currentSortOptionLabel = 'Title (A to Z)';
+        break;
+      case 'titleDesc':
+        this.currentSortOptionLabel = 'Title (Z to A)';
+        break;
+      case 'lastEdited':
+      default:
+        this.currentSortOptionLabel = 'Last Edited';
+        break;
+    }
+    this.currentSortOption = sortBy;
+    this.loadDeletedNotes(sortBy);
+  }
+
   restoreNote(noteId: number) {
     this.noteService.restoreNote(noteId).subscribe(
       () => {
         console.log('Note restored successfully');
-        this.loadDeletedNotes(); // Reload the deleted notes list
+        this.loadDeletedNotes(this.currentSortOption);
       },
       (error) => {
         console.error('Error restoring note:', error);
@@ -109,7 +131,7 @@ export class TrashComponent implements OnInit, OnDestroy {
       () => {
         console.log('Trash emptied successfully!');
         this.snackbarService.show('Trash emptied successfully');
-        this.loadDeletedNotes();
+        this.loadDeletedNotes(this.currentSortOption);
       },
       (error) => {
         console.error('Error emptying trash:', error);

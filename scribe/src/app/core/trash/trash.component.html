@@ -1,37 +1,75 @@
 <div class="scribe-trash-container" [@simpleFade]>
   <div id="trash_heading">
     <h1>Trash</h1>
+
+    <!-- Sort Notes -->
+    <div class="sort-container">
+      <button mat-button [matMenuTriggerFor]="sortMenu" class="custom-sort">
+        <mat-icon>sort</mat-icon>
+        Sort By: {{ currentSortOptionLabel }}
+      </button>
+      <mat-menu #sortMenu="matMenu" xPosition="before">
+        <button
+          mat-menu-item
+          (click)="sortNotes('lastEdited')"
+          class="custom-sort"
+        >
+          <mat-icon>history</mat-icon>
+          Last Edited
+        </button>
+        <button
+          mat-menu-item
+          (click)="sortNotes('dateCreated')"
+          class="custom-sort"
+        >
+          <mat-icon>calendar_today</mat-icon>
+          Date Created
+        </button>
+        <button
+          mat-menu-item
+          (click)="sortNotes('titleAsc')"
+          class="custom-sort"
+        >
+          <mat-icon>arrow_upward</mat-icon>
+          Title (A to Z)
+        </button>
+        <button
+          mat-menu-item
+          (click)="sortNotes('titleDesc')"
+          class="custom-sort"
+        >
+          <mat-icon>arrow_downward</mat-icon>
+          Title (Z to A)
+        </button>
+      </mat-menu>
+    </div>
   </div>
 
   <div id="trash_main">
     <!-- Progress Spinner -->
-    @if (isLoading) {
-      <div class="spinner-container">
-        <mat-spinner [diameter]="50"></mat-spinner>
-      </div>
-    }
+    <div *ngIf="isLoading" class="spinner-container">
+      <mat-spinner [diameter]="50"></mat-spinner>
+    </div>
 
     <!-- Notes Display -->
-    @if (!isLoading) {
-      <ngx-masonry class="masonry-note-container">
-        @if (notes.length) {
-          @for (note of notes; track note.id) {
-            <app-note-card
-              [note]="note"
-              [isInTrash]="true"
-              (restore)="restoreNote(note.id)"
-              (deleteForever)="refreshTrash(note.id)">
-            </app-note-card>
-          }
-        } @else {
-          <!-- If no notes are present in trash, this will display -->
-          <div class="empty-trash">
-            <img src="../../../assets/images/empty-trash.svg" />
-            <p>Your deleted notes will appear here.</p>
-          </div>
-        }
-      </ngx-masonry>
-    }
+    <ngx-masonry class="masonry-note-container" *ngIf="!isLoading">
+      <ng-container *ngIf="notes.length; else noNotes">
+        <app-note-card
+          *ngFor="let note of notes; trackBy: trackByNoteId"
+          [note]="note"
+          [isInTrash]="true"
+          (restore)="restoreNote(note.id)"
+          (deleteForever)="refreshTrash(note.id)"
+        >
+        </app-note-card>
+      </ng-container>
+      <ng-template #noNotes>
+        <div class="empty-trash">
+          <img src="../../../assets/images/empty-trash.svg" />
+          <p>Your deleted notes will appear here.</p>
+        </div>
+      </ng-template>
+    </ngx-masonry>
   </div>
 
   <button
@@ -39,7 +77,8 @@
     extended
     class="custom-fab"
     (click)="confirmEmptyTrash()"
-    [disabled]="!notes.length">
+    [disabled]="!notes.length"
+  >
     <mat-icon>delete_sweep</mat-icon>
     <span>Empty Trash</span>
   </button>
