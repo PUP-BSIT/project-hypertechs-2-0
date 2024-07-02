@@ -239,6 +239,21 @@
         [(ngModel)]="backgroundColor"
       />
     </div>
+
+    <!-- Images -->
+    <div class="toolbar-group">
+      <button (click)="triggerImageUpload()">
+        <mat-icon>image</mat-icon>
+      </button>
+      <input
+        type="file"
+        #imageInput
+        accept="image/png, image/jpeg"
+        (change)="onImageSelected($event)"
+        style="display: none"
+      />
+    </div>
+
   </div>
   }
 </div>
