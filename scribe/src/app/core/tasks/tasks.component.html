@@ -35,7 +35,7 @@
         <mat-spinner [diameter]="50"></mat-spinner>
       </div>
     } @else {
-      @if (userTasks.length > 0) {
+      @if (userTasks.length) {
         <!-- If tasks are present, this will display -->
         <div id="all_tasks_tiles">
           @for (task of paginatedTasks; track task.task_id) {

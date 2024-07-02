@@ -14,7 +14,7 @@
     <!-- Notes Display -->
     @if (!isLoading) {
       <ngx-masonry class="masonry-note-container">
-        @if (notes.length > 0) {
+        @if (notes.length) {
           @for (note of notes; track note.id) {
             <app-note-card
               [note]="note"
@@ -39,7 +39,7 @@
     extended
     class="custom-fab"
     (click)="confirmEmptyTrash()"
-    [disabled]="notes.length === 0">
+    [disabled]="!notes.length">
     <mat-icon>delete_sweep</mat-icon>
     <span>Empty Trash</span>
   </button>

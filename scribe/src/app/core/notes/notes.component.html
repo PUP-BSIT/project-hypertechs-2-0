@@ -37,7 +37,7 @@
   <!--All Notes Tiles-->
   <div id="all_notes_tiles" *ngIf="!isLoading">
     <ngx-masonry class="masonry-note-container">
-      @if (notes.length > 0) {
+      @if (notes.length) {
         @for (note of paginatedNotes; track note.id) {
           <app-note-card 
             [note]="note" 
