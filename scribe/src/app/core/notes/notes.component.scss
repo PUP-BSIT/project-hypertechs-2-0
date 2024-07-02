@@ -4,7 +4,6 @@
 
 .scribe-notes-container {
   position: relative;
-  padding-bottom: 5%;
 }
 
 #notes_heading {
@@ -78,5 +77,6 @@
   justify-content: flex-start;
   background-color: var(--core-bg);
   font-size: 1vw;
+  padding: 2% 0;
   font-family: "Google Sans Text", sans-serif !important;
 }
