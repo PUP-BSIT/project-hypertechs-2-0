@@ -9,19 +9,35 @@
         Sort By: {{ currentSortOptionLabel }}
       </button>
       <mat-menu #sortMenu="matMenu" xPosition="before">
-        <button mat-menu-item (click)="sortNotes('lastEdited')" class="custom-sort">
+        <button
+          mat-menu-item
+          (click)="sortNotes('lastEdited')"
+          class="custom-sort"
+        >
           <mat-icon>history</mat-icon>
           Last Edited
         </button>
-        <button mat-menu-item (click)="sortNotes('dateCreated')" class="custom-sort">
+        <button
+          mat-menu-item
+          (click)="sortNotes('dateCreated')"
+          class="custom-sort"
+        >
           <mat-icon>calendar_today</mat-icon>
           Date Created
         </button>
-        <button mat-menu-item (click)="sortNotes('titleAsc')" class="custom-sort">
+        <button
+          mat-menu-item
+          (click)="sortNotes('titleAsc')"
+          class="custom-sort"
+        >
           <mat-icon>arrow_upward</mat-icon>
           Title (A to Z)
         </button>
-        <button mat-menu-item (click)="sortNotes('titleDesc')" class="custom-sort">
+        <button
+          mat-menu-item
+          (click)="sortNotes('titleDesc')"
+          class="custom-sort"
+        >
           <mat-icon>arrow_downward</mat-icon>
           Title (Z to A)
         </button>
@@ -30,39 +46,44 @@
   </div>
 
   <!-- Progress Spinner -->
-  <div class="spinner-container" *ngIf="isLoading">
+  @if (isLoading) {
+  <div class="spinner-container">
     <mat-spinner [diameter]="50"></mat-spinner>
   </div>
+  }
 
   <!--All Notes Tiles-->
-  <div id="all_notes_tiles" *ngIf="!isLoading">
+  @if (!isLoading) {
+  <div id="all_notes_tiles">
     <ngx-masonry class="masonry-note-container">
-      @if (notes.length) {
-        @for (note of paginatedNotes; track note.id) {
-          <app-note-card 
-            [note]="note" 
-            [isInTrash]="false" 
-            (delete)="onNoteDelete($event)">
-          </app-note-card>
-        }
-      } @else {
-        <div class="empty-notes" routerLink="/main/editor">
-          <img src="../../../assets/images/empty-notes.svg" />
-          <p>No notes yet. Click to add one.</p>
-        </div>
+      @if (notes.length) { @for (note of paginatedNotes; track note.id) {
+      <app-note-card
+        [note]="note"
+        [isInTrash]="false"
+        (delete)="onNoteDelete($event)"
+      >
+      </app-note-card>
+      } } @else {
+      <div class="empty-notes" routerLink="/main/editor">
+        <img src="../../../assets/images/empty-notes.svg" />
+        <p>No notes yet. Click to add one.</p>
+      </div>
       }
     </ngx-masonry>
   </div>
+  }
 
   <!-- Paginator -->
   @if (notes.length > 10) {
-    <mat-paginator class="custom-paginator" 
-      [length]="notes.length" 
-      [pageSize]="pageSize"
-      [pageSizeOptions]="[10, 25, 50, 100]" 
-      [showFirstLastButtons]="showFirstLastButtons"
-      (page)="onPageChange($event)">
-    </mat-paginator>
+  <mat-paginator
+    class="custom-paginator"
+    [length]="notes.length"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[10, 25, 50, 100]"
+    [showFirstLastButtons]="showFirstLastButtons"
+    (page)="onPageChange($event)"
+  >
+  </mat-paginator>
   }
 
   <!--Create new note FAB -->
