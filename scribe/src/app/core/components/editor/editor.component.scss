@@ -17,6 +17,17 @@
   scrollbar-width: none;
 }
 
+.sticky-container {
+  background-color: var(--core-bg);
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transition: transform 0.3s ease-out;
+  transform: translateY(0);
+
+}
+
 
 /*  ----- EDITOR HEADER STYLING ----- */
 .editor-header {
