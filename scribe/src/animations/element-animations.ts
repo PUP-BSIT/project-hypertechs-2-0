@@ -47,7 +47,7 @@ export const simpleFade = trigger('simpleFade', [
 /* Animation 3: Slide Up-Down */
 export const slideUpDown = trigger('slideUpDown', [
   transition(':enter', [
-    style({ transform: 'translateY(25%)', opacity: 0 }),
+    style({ transform: 'translateY(50%)', opacity: 0 }),
     animate(
       '1000ms cubic-bezier(0.25, 0.8, 0.25, 1)',
       style({ transform: 'translateY(0)', opacity: 1 })
