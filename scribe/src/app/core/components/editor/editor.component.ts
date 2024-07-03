@@ -291,4 +291,12 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  scrollToBottom() {
+    const editorContainer = this.editorContentRef.nativeElement.closest(
+      '.scribe-editor-container'
+    );
+    if (editorContainer) {
+      editorContainer.scrollTop = editorContainer.scrollHeight;
+    }
+  }
 }
