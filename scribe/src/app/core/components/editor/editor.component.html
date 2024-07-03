@@ -23,7 +23,7 @@
             matTooltipShowDelay="500"
             (click)="toggleSidenav()"
           >
-            <mat-icon>crop_free</mat-icon> Focus Mode
+            <mat-icon>zoom_out_map</mat-icon> Focus Mode
           </button>
 
           @if (isInTrash) {
@@ -239,21 +239,6 @@
         [(ngModel)]="backgroundColor"
       />
     </div>
-
-    <!-- Images -->
-    <div class="toolbar-group">
-      <button (click)="triggerImageUpload()">
-        <mat-icon>image</mat-icon>
-      </button>
-      <input
-        type="file"
-        #imageInput
-        accept="image/png, image/jpeg"
-        (change)="onImageSelected($event)"
-        style="display: none"
-      />
-    </div>
-
   </div>
   }
 </div>
