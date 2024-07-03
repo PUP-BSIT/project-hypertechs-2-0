@@ -16,7 +16,7 @@
   }
 
   <div id="tiles_container">
-    <div id="all_notes_tiles">
+    <div id="all_notes_tiles" [@searchFade]>
       @if(isLoading){
       <div class="loading"></div>
       } @if (!clearSearch && notes.length > 0){
@@ -45,7 +45,7 @@
         </span>
         From your tasks
       </h3>
-    <div id="all_tasks_tiles">
+    <div id="all_tasks_tiles" [@searchFade]>
       @for (task of userTasks; track task) {
       <app-task-card
         [task]="task"
