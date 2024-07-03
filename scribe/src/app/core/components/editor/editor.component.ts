@@ -93,7 +93,13 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     this.editorContentRef.nativeElement.addEventListener('mouseup', () => {
       this.updateActiveCommands();
     });
+
+    this.editorContentRef.nativeElement
+      .closest('.scribe-editor-container')
+      .addEventListener('scroll', this.onScroll.bind(this));
   }
+
+
 
   ngOnDestroy() {
     this.toolbarService.setToolbarVisible(true);
