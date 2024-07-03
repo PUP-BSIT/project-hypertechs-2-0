@@ -123,6 +123,13 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  private hideStickyContainer() {
+    const stickyContainer = document.querySelector('.sticky-container');
+    if (stickyContainer) {
+      stickyContainer.classList.add('hide');
+    }
+  }
+
 
   ngOnDestroy() {
     this.toolbarService.setToolbarVisible(true);
