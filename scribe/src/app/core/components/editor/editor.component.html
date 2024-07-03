@@ -246,10 +246,14 @@
 
     <!-- Scroll buttons -->
     <div class="toolbar-group">
-      <button (click)="scrollToTop()">
+      <button (click)="scrollToTop()"
+        matTooltip="Scroll to the top"
+        matTooltipShowDelay="500">
         <mat-icon>arrow_upward</mat-icon>
       </button>
-      <button (click)="scrollToBottom()">
+      <button (click)="scrollToBottom()"
+        matTooltip="Scroll to the bottom"
+        matTooltipShowDelay="500">
         <mat-icon>arrow_downward</mat-icon>
       </button>
     </div>
