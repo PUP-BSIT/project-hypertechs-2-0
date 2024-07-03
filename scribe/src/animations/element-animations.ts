@@ -156,3 +156,11 @@ export const slideLeftRightSteps = trigger('slideLeftRightSteps', [
     ]),
   ]),
 ]);
+
+/* Animation 7: Simple Fade */
+export const searchFade = trigger('searchFade', [
+  transition(':enter', [
+    style({ opacity: 0 }),
+    animate('700ms', style({ opacity: 1 })),
+  ]),
+]);
