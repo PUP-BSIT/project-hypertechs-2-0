@@ -110,21 +110,21 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   templates = [
+    { icon: 'note_add', title: 'Blank Note' },
     { icon: 'meeting_room', title: 'Meeting' },
     { icon: 'school', title: 'Lectures' },
     { icon: 'assignment', title: 'Project Plan' },
     { icon: 'celebration', title: 'Event Plan' },
     { icon: 'today', title: 'Daily Planner' },
-    { icon: 'map', title: 'Travel Itinerary' },
   ];
 
   selectTemplate(template: any) {
     switch (template.title) {
+      case 'Blank Note':
+        this.router.navigate(['/main/editor']);
+        break;
       case 'Meeting':
         this.router.navigate(['/main/editor', { template: 'meeting' }]);
-        break;
-      case 'Travel Itinerary':
-        this.router.navigate(['/main/editor', { template: 'travelItinerary' }]);
         break;
       case 'Project Plan':
         this.router.navigate(['/main/editor', { template: 'projectPlan' }]);
