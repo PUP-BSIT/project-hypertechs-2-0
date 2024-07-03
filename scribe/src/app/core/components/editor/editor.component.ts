@@ -99,7 +99,22 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
       .addEventListener('scroll', this.onScroll.bind(this));
   }
 
+  private onScroll() {
+    const scrollTop = this.editorContentRef.nativeElement.closest(
+      '.scribe-editor-container'
+    ).scrollTop;
 
+    // Determine scrolling direction
+    this.isScrollingUp = scrollTop < this.lastScrollTop;
+    this.lastScrollTop = scrollTop;
+
+    // Update visibility of sticky container based on scrolling direction
+    if (this.isScrollingUp) {
+      this.showStickyContainer();
+    } else {
+      this.hideStickyContainer();
+    }
+  }
 
   ngOnDestroy() {
     this.toolbarService.setToolbarVisible(true);
