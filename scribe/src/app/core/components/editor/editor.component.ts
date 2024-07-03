@@ -38,6 +38,8 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   initialNoteTitle: string | undefined;
   initialNoteContent: string | undefined;
   contentChanged = new Subject<void>();
+  private lastScrollTop = 0;
+  private isScrollingUp = false;
 
   private readonly COMMANDS = [
     'bold',
