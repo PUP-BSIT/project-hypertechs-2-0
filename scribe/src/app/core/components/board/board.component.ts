@@ -55,6 +55,7 @@ export class BoardComponent implements AfterViewInit, OnDestroy, OnInit {
   };
 
   changesMade: boolean = false;
+  private lastDeletedTask: { task: Task, board: string } | null = null;
 
   constructor(
     private toolbarService: ToolbarService,
@@ -149,6 +150,8 @@ export class BoardComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   deleteTask(task: Task, board: string) {
+    this.lastDeletedTask = { task, board };
+
     if (board === 'todo') {
       this.todoTasks = this.todoTasks.filter((t) => t !== task);
     } else if (board === 'inProgress') {
@@ -156,7 +159,28 @@ export class BoardComponent implements AfterViewInit, OnDestroy, OnInit {
     } else if (board === 'done') {
       this.doneTasks = this.doneTasks.filter((t) => t !== task);
     }
+
+    this.snackbarService.show('Task discarded', 'Undo', 5000, () => {
+      this.undoDeleteTask();
+    });
+
     this.triggerSave();
+  }
+
+  undoDeleteTask() {
+    if (this.lastDeletedTask) {
+      const { task, board } = this.lastDeletedTask;
+      if (board === 'todo') {
+        this.todoTasks.push(task);
+      } else if (board === 'inProgress') {
+        this.inProgressTasks.push(task);
+      } else if (board === 'done') {
+        this.doneTasks.push(task);
+      }
+
+      this.lastDeletedTask = null;
+      this.triggerSave();
+    }
   }
 
   moveToInProgress(task: Task) {
