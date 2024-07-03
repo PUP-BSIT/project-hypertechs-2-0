@@ -7,6 +7,14 @@
   margin-top: 2rem;
   overflow-y: scroll;
   max-height: calc(100vh - 1rem);
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 
