@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { simpleFade, slideInOut } from '../../../../animations/element-animations';
+import { simpleFade, searchFade } from '../../../../animations/element-animations';
 import { SearchService } from '../../../../services/search/search.service';
 import { NoteService } from '../../../../services/notes/note.service';
 import { Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ import { AuthService } from '../../../../services/auth/auth.service';
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss',
-  animations: [simpleFade, slideInOut]
+  animations: [simpleFade, searchFade]
 })
 export class SearchComponent implements OnInit{
 
