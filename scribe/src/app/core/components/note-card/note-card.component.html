@@ -10,8 +10,10 @@
       <!-- If the notes are active, display this -->
       @if (!isInTrash) {
         <button mat-menu-item (click)="togglePinNote()">
-          <mat-icon>{{ note.is_pinned ? 'remove_circle_outline' : 'push_pin' }}</mat-icon>
-          <span>{{ note.is_pinned ? 'Unpin Note' : 'Pin Note' }}</span>
+          <mat-icon>{{
+            note.is_pinned ? "remove_circle_outline" : "push_pin"
+          }}</mat-icon>
+          <span>{{ note.is_pinned ? "Unpin Note" : "Pin Note" }}</span>
         </button>
         <button mat-menu-item (click)="editNote()">
           <mat-icon>edit</mat-icon>
