@@ -33,7 +33,8 @@ if (
 $title = mysqli_real_escape_string($conn, $request->title);
 $content = mysqli_real_escape_string($conn, $request->content);
 $lastEdited = mysqli_real_escape_string($conn, $request->lastEdited);
-$user_id = intval($request->user_id); // Ensure that user_id is an integer
+$user_id = intval($request->user_id);
+$isPinned = isset($request->is_pinned) ? intval($request->is_pinned) : 0;
 
 // Convert the lastEdited timestamp to Philippine Standard Time
 $dateTime = new DateTime($lastEdited, new DateTimeZone('UTC'));
