@@ -64,6 +64,7 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   onNoteDelete(noteId: number) {
     this.notes = this.notes.filter((note) => note.id !== noteId);
+    this.pinnedNotes = this.pinnedNotes.filter((note) => note.id !== noteId);
     this.paginateNotes();
   }
 
