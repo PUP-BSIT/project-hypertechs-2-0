@@ -167,7 +167,7 @@ export class SignupComponent implements OnInit {
 
     this.signupService.signupUser(signupData).subscribe({
       next: (response) => {
-        localStorage.setItem('loggedInUser', JSON.stringify(response));
+        //localStorage.setItem('loggedInUser', JSON.stringify(response));
         this.userService.setFirstname(signupData.firstname);
         this.userService.setLastname(signupData.lastname);
         this.userService.setEmail(signupData.email);
@@ -232,7 +232,10 @@ export class SignupComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'ok') {
-        this.router.navigate(['recovery']);
+        const user_id = this.authService.getUserId();
+        this.router.navigate(['otp'], {
+          queryParams: { user_id: user_id },
+        });
       }
     });
   }
