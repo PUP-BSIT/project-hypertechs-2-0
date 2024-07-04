@@ -1,20 +1,5 @@
 <?php
-
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET');
-header('Access-Control-Allow-Headers: Content-Type');
-header('Content-Type: application/json; charset=utf-8');
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "scribe_db";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include '../db_config.php';
 
 $user_id = intval($_GET['user_id']);
 $sort_by = isset($_GET['sort_by']) ? $_GET['sort_by'] : 'lastEdited';
