@@ -41,6 +41,7 @@ if ($userId > 0) {
     $notes = [];
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
+            $row['is_pinned'] = intval($row['is_pinned']);
             $notes[] = $row;
         }
     }
