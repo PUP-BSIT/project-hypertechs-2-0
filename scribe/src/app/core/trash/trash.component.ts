@@ -6,6 +6,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { DialogService } from '../../../services/dialog/dialog.service';
 import { SnackbarService } from '../../../services/snackbar/snackbar.service';
 import { simpleFade, slideInOut } from '../../../animations/element-animations';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-trash',
@@ -15,7 +16,12 @@ import { simpleFade, slideInOut } from '../../../animations/element-animations';
 })
 export class TrashComponent implements OnInit, OnDestroy {
   notes: any[] = [];
+  paginatedNotes: any[] = [];
   isLoading = true;
+  pageSize = 25;
+  currentPage = 0;
+  showFirstLastButtons = true;
+  currentSortOption = 'lastEdited';
   private userSubscription!: Subscription;
 
   constructor(
@@ -32,16 +38,19 @@ export class TrashComponent implements OnInit, OnDestroy {
         this.loadDeletedNotes();
       } else {
         this.notes = [];
+        this.paginatedNotes = [];
         this.isLoading = false;
       }
     });
   }
 
   loadDeletedNotes() {
-    this.noteService.getDeletedNotes().subscribe(
+    this.isLoading = true;
+    this.noteService.getDeletedNotes(this.currentSortOption).subscribe(
       (data: any[]) => {
         console.log('Deleted notes received from backend:', data);
         this.notes = data;
+        this.paginateNotes();
         this.isLoading = false;
         this.cdr.detectChanges();
       },
@@ -51,6 +60,18 @@ export class TrashComponent implements OnInit, OnDestroy {
         this.cdr.detectChanges();
       }
     );
+  }
+
+  paginateNotes() {
+    const start = this.currentPage * this.pageSize;
+    const end = start + this.pageSize;
+    this.paginatedNotes = this.notes.slice(start, end);
+  }
+
+  onPageChange(event: PageEvent) {
+    this.currentPage = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.paginateNotes();
   }
 
   restoreNote(noteId: number) {
@@ -67,6 +88,7 @@ export class TrashComponent implements OnInit, OnDestroy {
 
   refreshTrash(noteId: number) {
     this.notes = this.notes.filter((note) => note.id !== noteId);
+    this.paginateNotes();
     this.cdr.detectChanges(); // Manually trigger change detection
   }
 
@@ -75,6 +97,7 @@ export class TrashComponent implements OnInit, OnDestroy {
       () => {
         console.log('Note permanently deleted successfully');
         this.notes = this.notes.filter((note) => note.id !== noteId);
+        this.paginateNotes();
         this.cdr.detectChanges(); // Manually trigger change detection
       },
       (error) => {
@@ -86,7 +109,7 @@ export class TrashComponent implements OnInit, OnDestroy {
   confirmEmptyTrash() {
     const dialogRef = this.dialogService.openDialog({
       title: 'Empty Trash',
-      content: `Are you sure you want to permanently delete
+      content: `Are you sure you want to permanently delete 
         all your notes in trash?`,
       confirmText: 'Confirm',
       cancelText: 'Cancel',
@@ -103,6 +126,7 @@ export class TrashComponent implements OnInit, OnDestroy {
   }
 
   emptyTrash() {
+    this.isLoading = true;
     this.noteService.emptyTrash().subscribe(
       () => {
         console.log('Trash emptied successfully!');
@@ -112,6 +136,7 @@ export class TrashComponent implements OnInit, OnDestroy {
       (error) => {
         console.error('Error emptying trash:', error);
         this.snackbarService.show('Error emptying trash', 'Retry');
+        this.isLoading = false;
       }
     );
   }
@@ -123,6 +148,25 @@ export class TrashComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.userSubscription) {
       this.userSubscription.unsubscribe();
+    }
+  }
+
+  sortNotes(option: string) {
+    this.currentSortOption = option;
+    this.loadDeletedNotes();
+  }
+
+  get currentSortOptionLabel() {
+    switch (this.currentSortOption) {
+      case 'dateCreated':
+        return 'Date Created';
+      case 'titleAsc':
+        return 'Title (A to Z)';
+      case 'titleDesc':
+        return 'Title (Z to A)';
+      case 'lastEdited':
+      default:
+        return 'Last Edited';
     }
   }
 }

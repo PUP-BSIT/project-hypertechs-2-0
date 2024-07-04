@@ -3,6 +3,7 @@ import { NoteService } from '../../../services/notes/note.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { simpleFade, slideInOut } from '../../../animations/element-animations';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-notes',
@@ -12,9 +13,14 @@ import { simpleFade, slideInOut } from '../../../animations/element-animations';
 })
 export class NotesComponent implements OnInit, OnDestroy {
   notes: any[] = [];
+  paginatedNotes: any[] = [];
   isLoading = true;
-  private userSubscription!: Subscription;
   currentSortOption = 'lastEdited';
+  pageSize = 25;
+  currentPage = 0;
+  showFirstLastButtons = true;
+  private userSubscription!: Subscription;
+  pinnedNotes: any[] = [];
 
   constructor(
     private noteService: NoteService,
@@ -27,16 +33,19 @@ export class NotesComponent implements OnInit, OnDestroy {
         this.loadNotes();
       } else {
         this.notes = [];
+        this.paginatedNotes = [];
         this.isLoading = false;
       }
     });
   }
-
+  
   loadNotes() {
     this.isLoading = true;
     this.noteService.getNotes(this.currentSortOption).subscribe(
       (data: any[]) => {
         this.notes = data.filter((note) => note.is_deleted == 0);
+        this.pinnedNotes = this.notes.filter((note) => note.is_pinned == 1);
+        this.paginateNotes();
         this.isLoading = false;
       },
       (error) => {
@@ -45,9 +54,24 @@ export class NotesComponent implements OnInit, OnDestroy {
       }
     );
   }
+  
+  paginateNotes() {
+    const nonPinnedNotes = this.notes.filter((note) => note.is_pinned == 0);
+    const start = this.currentPage * this.pageSize;
+    const end = start + this.pageSize;
+    this.paginatedNotes = nonPinnedNotes.slice(start, end);
+  }
 
   onNoteDelete(noteId: number) {
     this.notes = this.notes.filter((note) => note.id !== noteId);
+    this.pinnedNotes = this.pinnedNotes.filter((note) => note.id !== noteId);
+    this.paginateNotes();
+  }
+
+  onPageChange(event: PageEvent) {
+    this.currentPage = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.paginateNotes();
   }
 
   ngOnDestroy() {
@@ -77,5 +101,22 @@ export class NotesComponent implements OnInit, OnDestroy {
       default:
         return 'Last Edited';
     }
+  }
+
+  onPinStatusChange(note: any) {
+    // Update the note in the main notes array
+    const noteIndex = this.notes.findIndex((n) => n.id === note.id);
+    if (noteIndex !== -1) {
+      this.notes[noteIndex].is_pinned = note.is_pinned;
+    }
+
+    // Update the pinned and paginated notes
+    if (note.is_pinned) {
+      this.pinnedNotes.push(note);
+    } else {
+      this.pinnedNotes = this.pinnedNotes.filter((n) => n.id !== note.id);
+    }
+
+    this.paginateNotes();
   }
 }

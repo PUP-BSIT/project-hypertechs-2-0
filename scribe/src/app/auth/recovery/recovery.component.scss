@@ -333,6 +333,10 @@ form {
     gap: 3.5vw;
   }
 
+  #mini_theme_toggle {
+    font-size: 5vw;
+  }
+
   .recovery-form h1 {
     font-size: var(--font-title);
     color: var(--text);
@@ -371,7 +375,7 @@ form {
   }
 
   .material-icons {
-    margin-top: 2vh;
+    margin-top: 2.8vh;
     position: absolute;
     left: 5vw;
     color: var(--tonal-form-text);
@@ -380,9 +384,9 @@ form {
   }
 
   button.custom-btn {
-    margin-top: -0.5vh;
-    height: 8.5vh;
-    font-size: 14px;
+    margin-top: -2vh;
+    height: 7vh;
+    font-size: 15px;
   }
 
   #recovery_info {
@@ -393,9 +397,18 @@ form {
   }
 
   .error-message {
+    display: flex;
+    align-items: center;
+    min-height: 1.5em;
+    margin-top: 0.5em;
+    visibility: hidden;
+    overflow: hidden;
     font-size: 10px;
-    margin-top: 0.3em;
-  }
+
+  .error-item .material-symbols-outlined {
+    font-size: 3vw;
+  }  
+ }
 
   #otp_fields .otp-inputs {
     display: flex;
@@ -442,7 +455,7 @@ form {
 
       .material-icons {
         position: absolute;
-        top: 47%;
+        top: 38%;
         left: 5vw;
         transform: translateY(-50%);
         font-size: 20px;
@@ -451,15 +464,16 @@ form {
       }
 
       .error-message {
-        font-size: 10px;
-        margin-top: 1em;
+        font-size: 12px;
+        margin-top: -.8em;
         margin-bottom: 0.9em;
       }
     }
 
     .custom-btn {
-      height: 8.5vh;
-      font-size: 14px;
+      margin-top: -1vh;
+      height: 7vh;
+      font-size: 15px;
     }
   }
 }
@@ -484,6 +498,10 @@ form {
 
   nav {
     gap: 3.5vw;
+  }
+
+  #mini_theme_toggle {
+    font-size: 4vw;
   }
 
   .recovery-form h1 {
@@ -522,7 +540,7 @@ form {
   }
 
   .material-icons {
-    margin-top: 2vh;
+    margin-top: 2.8vh;
     position: absolute;
     left: 5vw;
     color: var(--tonal-form-text);
@@ -544,9 +562,20 @@ form {
   }
 
   .error-message {
+    display: flex;
+    align-items: center;
+    min-height: 1.5em;
+    margin-top: 0.5em;
+    visibility: hidden;
+    font-size: var(--font-error);
+    overflow: hidden;
     font-size: 15px;
-    margin-top: 0.3em;
+
+    .error-item .material-symbols-outlined {
+      font-size: 3vw;
+    }  
   }
+
 
   #otp_fields .otp-inputs {
     display: flex;
@@ -591,7 +620,7 @@ form {
       }
 
       .material-icons {
-        margin-top: 2vh;
+        margin-top: 1.5vh;
         position: absolute;
         left: 5vw;
         color: var(--tonal-form-text);
@@ -600,13 +629,14 @@ form {
       }
 
       .error-message {
-        font-size: 16px;
+        font-size: 18px;
         margin-top: 2em;
         margin-bottom: -0.2em;
       }
     }
 
     .custom-btn {
+      margin-top: -2px;
       height: 8.5vh;
       font-size: 20px;
     }

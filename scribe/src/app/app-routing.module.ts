@@ -11,7 +11,6 @@ import { MainComponent } from './core/main/main.component';
 import { HomeComponent } from './core/home/home.component';
 import { NotesComponent } from './core/notes/notes.component';
 import { TasksComponent } from './core/tasks/tasks.component';
-import { FoldersComponent } from './core/folders/folders.component';
 import { TrashComponent } from './core/trash/trash.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { RecoveryComponent } from './auth/recovery/recovery.component';
@@ -20,6 +19,7 @@ import { EnterNewPasswordComponent } from './auth/recovery/enter-new-password/en
 import { EditorComponent } from './core/components/editor/editor.component';
 import { SearchComponent } from './core/components/search/search.component';
 import { BoardComponent } from './core/components/board/board.component';
+import { NotebooksComponent } from './core/notebooks/notebooks.component';
 
 const routes: Routes = [
   {
@@ -60,7 +60,7 @@ const routes: Routes = [
       { path: 'home', component: HomeComponent },
       { path: 'notes', component: NotesComponent },
       { path: 'tasks', component: TasksComponent },
-      { path: 'folders', component: FoldersComponent },
+      { path: 'notebooks', component: NotebooksComponent },
       { path: 'trash', component: TrashComponent },
       { path: 'editor', component: EditorComponent },
       { path: 'editor/:id', component: EditorComponent },
