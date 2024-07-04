@@ -50,39 +50,46 @@
   <div class="spinner-container">
     <mat-spinner [diameter]="50"></mat-spinner>
   </div>
+  } @if (!isLoading) {
+  <!-- Pinned Notes Section -->
+  @if (pinnedNotes.length) {
+  <div class="pinned-notes-container">
+    <div class="notes-heading-row">
+      <mat-icon>push_pin</mat-icon>
+      <h2>Pinned Notes</h2>
+    </div>
+    <ngx-masonry class="masonry-note-container">
+      @for (note of pinnedNotes; track note.id) {
+      <app-note-card
+        [note]="note"
+        [isInTrash]="false"
+        (delete)="onNoteDelete($event)"
+        (pinStatusChange)="onPinStatusChange($event)"
+      ></app-note-card>
+      }
+    </ngx-masonry>
+  </div>
   }
 
-  @if (!isLoading) {
-    <!-- Pinned Notes Section -->
-    @if (pinnedNotes.length) {
-      <div class="pinned-notes-container">
-        <h2>Pinned Notes</h2>
-        <ngx-masonry class="masonry-note-container">
-          @for (note of pinnedNotes; track note.id) {
-            <app-note-card
-              [note]="note"
-              [isInTrash]="false"
-              (delete)="onNoteDelete($event)"
-              (pinStatusChange)="onPinStatusChange($event)"
-            ></app-note-card>
-          }
-        </ngx-masonry>
-      </div>
-    }
-  
-    <!--All Notes Tiles-->
-    <div id="all_notes_tiles">
-      <ngx-masonry class="masonry-note-container">
-        @for (note of paginatedNotes; track note.id) {
-          <app-note-card
-            [note]="note"
-            [isInTrash]="false"
-            (delete)="onNoteDelete($event)"
-            (pinStatusChange)="onPinStatusChange($event)"
-          ></app-note-card>
-        }
-      </ngx-masonry>
+  <!--All Notes Tiles-->
+  <div id="all_notes_tiles">
+    @if (pinnedNotes.length && paginatedNotes.length) {
+    <div class="notes-heading-row">
+      <mat-icon>notes</mat-icon>
+      <h2>All Notes</h2>
     </div>
+    }
+    <ngx-masonry class="masonry-note-container">
+      @for (note of paginatedNotes; track note.id) {
+      <app-note-card
+        [note]="note"
+        [isInTrash]="false"
+        (delete)="onNoteDelete($event)"
+        (pinStatusChange)="onPinStatusChange($event)"
+      ></app-note-card>
+      }
+    </ngx-masonry>
+  </div>
   }
 
   <!-- Paginator -->
