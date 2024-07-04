@@ -1,30 +1,13 @@
 <?php
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
-header('Content-Type: application/json; charset=utf-8');
+include '../db_config.php';
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "scribe_db";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Get the posted data and note ID
 $postData = file_get_contents("php://input");
-$request = json_decode($postData, true); // Ensure decoding as associative array
+$request = json_decode($postData, true);
 
-// Check if required fields are present and not null
 if (
     !isset($request['id']) || !isset($request['title']) || !isset($request['content']) || !isset($request['lastEdited']) || !isset($request['user_id']) ||
     $request['title'] === null || $request['content'] === null || $request['lastEdited'] === null || $request['user_id'] === null
 ) {
-    // Return an error response
     echo json_encode(["error" => "Invalid or missing data"]);
     exit;
 }
