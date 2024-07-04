@@ -52,25 +52,37 @@
   </div>
   }
 
-  <!--All Notes Tiles-->
   @if (!isLoading) {
-  <div id="all_notes_tiles">
-    <ngx-masonry class="masonry-note-container">
-      @if (notes.length) { @for (note of paginatedNotes; track note.id) {
-      <app-note-card
-        [note]="note"
-        [isInTrash]="false"
-        (delete)="onNoteDelete($event)"
-      >
-      </app-note-card>
-      } } @else {
-      <div class="empty-notes" routerLink="/main/editor">
-        <img src="../../../assets/images/empty-notes.svg" />
-        <p>No notes yet. Click to add one.</p>
+    <!-- Pinned Notes Section -->
+    @if (pinnedNotes.length) {
+      <div class="pinned-notes-container">
+        <h2>Pinned Notes</h2>
+        <ngx-masonry class="masonry-note-container">
+          @for (note of pinnedNotes; track note.id) {
+            <app-note-card
+              [note]="note"
+              [isInTrash]="false"
+              (delete)="onNoteDelete($event)"
+              (pinStatusChange)="onPinStatusChange($event)"
+            ></app-note-card>
+          }
+        </ngx-masonry>
       </div>
-      }
-    </ngx-masonry>
-  </div>
+    }
+  
+    <!--All Notes Tiles-->
+    <div id="all_notes_tiles">
+      <ngx-masonry class="masonry-note-container">
+        @for (note of paginatedNotes; track note.id) {
+          <app-note-card
+            [note]="note"
+            [isInTrash]="false"
+            (delete)="onNoteDelete($event)"
+            (pinStatusChange)="onPinStatusChange($event)"
+          ></app-note-card>
+        }
+      </ngx-masonry>
+    </div>
   }
 
   <!-- Paginator -->
