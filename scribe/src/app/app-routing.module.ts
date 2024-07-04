@@ -20,6 +20,7 @@ import { EditorComponent } from './core/components/editor/editor.component';
 import { SearchComponent } from './core/components/search/search.component';
 import { BoardComponent } from './core/components/board/board.component';
 import { NotebooksComponent } from './core/notebooks/notebooks.component';
+import { OtpComponent } from './layout/otp/otp.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
     path: 'enter-otp',
     component: EnterOtpComponent,
     data: { animationState: 'enterOtp' },
+  },
+  {
+    path: 'otp',
+    component: OtpComponent
   },
   {
     path: 'enter-new-password',
