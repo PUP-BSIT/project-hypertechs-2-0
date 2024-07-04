@@ -16,6 +16,7 @@ export class NoteCardComponent implements OnInit {
   @Output() restore = new EventEmitter<number>();
   @Output() delete = new EventEmitter<number>();
   @Output() deleteForever = new EventEmitter<number>();
+  @Output() pinStatusChange = new EventEmitter<any>();
 
   constructor(
     private router: Router,
@@ -103,5 +104,20 @@ export class NoteCardComponent implements OnInit {
         );
       }
     });
+  }
+
+  togglePinNote() {
+    this.noteService.togglePinNote(this.note.id, !this.note.is_pinned).subscribe(
+      () => {
+        this.note.is_pinned = !this.note.is_pinned;
+        this.snackbarService.show(
+          `Note ${this.note.is_pinned ? 'pinned' : 'unpinned'} successfully`
+        );
+        this.pinStatusChange.emit(this.note);
+      },
+      (error) => {
+        console.error('Error toggling pin status:', error);
+      }
+    );
   }
 }

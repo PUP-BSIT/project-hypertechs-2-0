@@ -2,14 +2,26 @@
   <div class="slide-container" [@slideUpDown]>
     <!-- Task Board Header -->
     <div class="board-header">
-      <button mat-button class="btn-back" (click)="goBack()">
+      <button
+        mat-button
+        class="btn-back"
+        (click)="goBack()"
+        matTooltip="Close the board"
+        matTooltipShowDelay="500"
+      >
         <mat-icon>arrow_back</mat-icon>
         Back
       </button>
 
       <div class="board-actions">
         <form #noteForm="ngForm">
-          <button mat-button class="btn-focus" (click)="toggleSidenav()">
+          <button
+            mat-button
+            class="btn-focus"
+            (click)="toggleSidenav()"
+            matTooltip="Toggle sidenav for better focus"
+            matTooltipShowDelay="500"
+          >
             <mat-icon>crop_free</mat-icon> Focus Mode
           </button>
         </form>

@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { simpleFade, slideInOut } from '../../../../animations/element-animations';
+import { simpleFade, searchFade } from '../../../../animations/element-animations';
 import { SearchService } from '../../../../services/search/search.service';
 import { NoteService } from '../../../../services/notes/note.service';
 import { Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ import { AuthService } from '../../../../services/auth/auth.service';
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss',
-  animations: [simpleFade, slideInOut]
+  animations: [simpleFade, searchFade]
 })
 export class SearchComponent implements OnInit{
 
@@ -32,25 +32,18 @@ export class SearchComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-
     this.searchService.searchTerm$.subscribe(searchTerm => {
       this.searchTerm = searchTerm;
-      /**TODO FOR TESTING */
-      console.log("LISTEN TERM: ", this.searchTerm);
       if (!searchTerm) {
         this.clearSearch = true;
-        /**TODO FOR TESTING */
-        console.log("EMPTY TERM", this.searchTerm);
-      } else{
+      } else {
         this.clearSearch = false;
       }
     });
-
+  
     this.userSubscription = this.authService.user$.subscribe((userId) => {
       if (userId !== null) {
         this.loadResults();
-        /**TODO testing */
-        console.log("search ID", userId);
       } else {
         this.notes = [];
       }
@@ -68,9 +61,17 @@ export class SearchComponent implements OnInit{
         this.notes = data.filter(item => item.hasOwnProperty('id'));
         this.userTasks = data.filter(item => item.hasOwnProperty('task_id'));
         this.isLoading = false;
-      },
+      }
     );
+  
+    // Reset search results if search term is empty
+    if (!this.searchTerm.trim()) {
+      this.notes = [];
+      this.userTasks = [];
+      this.clearSearch = true;
+    }
   }
+  
 
   onNoteDelete(noteId: number) {
     this.notes = this.notes.filter((note) => note.id !== noteId);

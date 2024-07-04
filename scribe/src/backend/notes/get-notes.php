@@ -1,19 +1,5 @@
 <?php
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
-header('Content-Type: application/json; charset=utf-8');
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "scribe_db";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include '../db_config.php';
 
 $userId = isset($_GET['user_id']) ? intval($_GET['user_id']) : 0;
 $sortBy = isset($_GET['sort_by']) ? $_GET['sort_by'] : 'lastEdited';
@@ -41,6 +27,7 @@ if ($userId > 0) {
     $notes = [];
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
+            $row['is_pinned'] = intval($row['is_pinned']);
             $notes[] = $row;
         }
     }

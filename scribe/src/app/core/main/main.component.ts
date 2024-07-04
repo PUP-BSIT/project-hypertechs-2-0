@@ -123,6 +123,7 @@ export class MainComponent implements OnInit {
       }
     }, 0);
   }
+  
 
   onSearchBlur() {
     setTimeout(() => {
@@ -157,11 +158,13 @@ export class MainComponent implements OnInit {
   }
 
   onCancelSearch() {
-    const searchInput = document.getElementById(
-      'search_input'
-    ) as HTMLInputElement;
+    const searchInput = document.getElementById('search_input') as HTMLInputElement;
     if (searchInput) {
       searchInput.value = '';
+      this.searchTerm = '';
+      this.searchService.updateSearchTerm('');
+      this.notes = [];
+      this.searchService.updateSearchResults([]); 
       searchInput.blur();
       this.showCancelButton = false;
       const cancelText = document.querySelector('.cancel-text') as HTMLElement;
@@ -173,30 +176,27 @@ export class MainComponent implements OnInit {
       }
     }
   }
-
+  
   searchNotes(): void {
-    /**TODO for testing*/
     if (this.searchTerm.trim().length === 0) {
-      console.log(this.searchTerm);
       this.notes = [];
       this.searchService.updateSearchResults(this.notes);
+      this.searchService.updateSearchTerm(this.searchTerm);
       return; // Don't search if the search term is empty
     }
-
+  
     this.searchService.searchNotes(this.userId, this.searchTerm)
       .subscribe(
         (response) => {
           this.notes = response;
           this.searchService.updateSearchResults(response);
           this.searchService.updateSearchTerm(this.searchTerm);
-          console.log('Search results:', response);
-          console.log('userId',this.userId);
-          console.log('searchTerm',this.searchTerm);
         },
         (error) => {
           console.error('Error fetching notes:', error);
       });
   }
+  
 
   ngAfterViewInit(): void {
     this.searchSubscription = fromEvent<Event>(this.searchInput.nativeElement, 'input')

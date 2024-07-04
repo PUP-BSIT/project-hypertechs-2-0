@@ -49,6 +49,7 @@ import { NgxMasonryModule } from 'ngx-masonry';
 /* Services */
 import { LoginService } from '../services/login/login.service';
 import { SignupService } from '../services/signup/signup.service';
+import { NotebooksComponent } from './core/notebooks/notebooks.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { SignupService } from '../services/signup/signup.service';
     TaskCardComponent,
     BoardComponent,
     OtpComponent,
+    NotebooksComponent,
   ],
   imports: [
     BrowserModule,

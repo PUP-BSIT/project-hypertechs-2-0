@@ -3,10 +3,11 @@
   transition: background-color 0.75s ease, color 0.75s ease;
 }
 
-#scribe_search_container {
+.scribe-search-container {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
   height: 100%; 
   width: 100%;
 }
@@ -24,6 +25,7 @@
 
   img {
     width: 25%;
+    user-select: none;
   }
 
   h3 {
@@ -31,8 +33,37 @@
   }
 }
 
+#all_notes_tiles {
+  margin-bottom: 2%;
+}
+
 #all_tasks_tiles {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(calc(25% - 2%), 1fr));
   gap: 0.75vw;
+}
+
+#tiles_container {
+  width: 100%;
+  padding-bottom: 3%;
+
+  h3 {
+    display: flex;
+    align-items: center;
+    gap: 1%;
+    font-weight: 600;
+    margin-bottom: 1%;
+    background: -webkit-linear-gradient(
+      45deg,
+      var(--highlight-prime) 15%,
+      var(--highlight-next) 70%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+#search_term {
+  font-weight: 500;
 }

@@ -1,20 +1,5 @@
 <?php
-
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
-header('Content-Type: application/json; charset=utf-8');
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "scribe_db";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include '../db_config.php';
 
 $postData = file_get_contents("php://input");
 $request = json_decode($postData);
@@ -33,7 +18,8 @@ if (
 $title = mysqli_real_escape_string($conn, $request->title);
 $content = mysqli_real_escape_string($conn, $request->content);
 $lastEdited = mysqli_real_escape_string($conn, $request->lastEdited);
-$user_id = intval($request->user_id); // Ensure that user_id is an integer
+$user_id = intval($request->user_id);
+$isPinned = isset($request->is_pinned) ? intval($request->is_pinned) : 0;
 
 // Convert the lastEdited timestamp to Philippine Standard Time
 $dateTime = new DateTime($lastEdited, new DateTimeZone('UTC'));

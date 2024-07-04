@@ -38,6 +38,8 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   initialNoteTitle: string | undefined;
   initialNoteContent: string | undefined;
   contentChanged = new Subject<void>();
+  private lastScrollTop = 0;
+  private isScrollingUp = false;
 
   private readonly COMMANDS = [
     'bold',
@@ -91,6 +93,39 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     this.editorContentRef.nativeElement.addEventListener('mouseup', () => {
       this.updateActiveCommands();
     });
+
+    this.editorContentRef.nativeElement
+      .closest('.scribe-editor-container')
+      .addEventListener('scroll', this.onScroll.bind(this));
+  }
+
+  private onScroll() {
+    const scrollTop = this.editorContentRef.nativeElement.closest(
+      '.scribe-editor-container'
+    ).scrollTop;
+
+    this.isScrollingUp = scrollTop < this.lastScrollTop;
+    this.lastScrollTop = scrollTop;
+
+    if (this.isScrollingUp) {
+      this.showStickyContainer();
+    } else {
+      this.hideStickyContainer();
+    }
+  }
+
+  private showStickyContainer() {
+    const stickyContainer = document.querySelector('.sticky-container');
+    if (stickyContainer) {
+      stickyContainer.classList.remove('hide');
+    }
+  }
+
+  private hideStickyContainer() {
+    const stickyContainer = document.querySelector('.sticky-container');
+    if (stickyContainer) {
+      stickyContainer.classList.add('hide');
+    }
   }
 
   ngOnDestroy() {
@@ -280,5 +315,23 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
       return;
     }
     this.readOnly = !this.readOnly;
+  }
+
+  scrollToTop() {
+    const editorContainer = this.editorContentRef.nativeElement.closest(
+      '.scribe-editor-container'
+    );
+    if (editorContainer) {
+      editorContainer.scrollTop = 0;
+    }
+  }
+
+  scrollToBottom() {
+    const editorContainer = this.editorContentRef.nativeElement.closest(
+      '.scribe-editor-container'
+    );
+    if (editorContainer) {
+      editorContainer.scrollTop = editorContainer.scrollHeight;
+    }
   }
 }
