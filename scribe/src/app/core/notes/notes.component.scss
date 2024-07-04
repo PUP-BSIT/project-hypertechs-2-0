@@ -39,9 +39,35 @@
   }
 }
 
+.pinned-notes-container {
+  h2 {
+    font-weight: 500;
+  }
+
+  margin-bottom: 3%;
+}
+
 #all_notes_tiles {
   height: 100%;
   padding: 0 0.2%;
+
+  h2 {
+    font-weight: 500;
+  }
+}
+
+.notes-heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1%;
+  margin-bottom: 1%;
+
+  .mat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .custom-fab {
