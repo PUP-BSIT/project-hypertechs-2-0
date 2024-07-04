@@ -2,6 +2,7 @@
 
 require_once('config.php');
 include '../db_config.php';
+include '../send_mail/mail.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);
@@ -66,10 +67,10 @@ if (isset($data['lastname']) && isset($data['firstname']) && isset($data['email'
             exit();
         }
 
-        $_SESSION['otp'] = $verification_code; /*TODO for testing*/
-        $_SESSION['email'] = $email; /*TODO for testing*/
-        $_SESSION['firstname'] = $firstname;  /*TODO for testing*/
-        $_SESSION['user_id'] = $user_id;
+        // $_SESSION['otp'] = $verification_code; /*TODO for testing*/
+        // $_SESSION['email'] = $email; /*TODO for testing*/
+        // $_SESSION['firstname'] = $firstname;  /*TODO for testing*/
+        // $_SESSION['user_id'] = $user_id;
 
         http_response_code(200);
         echo json_encode([
@@ -100,3 +101,5 @@ if (isset($data['lastname']) && isset($data['firstname']) && isset($data['email'
 }
 
 $conn->close();
+
+?>
