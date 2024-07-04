@@ -78,4 +78,11 @@ export class NoteService {
       user_id: userId,
     });
   }
+
+  togglePinNote(noteId: number, isPinned: boolean): Observable<any> {
+    return this.http.post(`${this.apiUrl}/toggle-pin-note.php`, {
+      id: noteId,
+      is_pinned: isPinned,
+    });
+  }
 }
