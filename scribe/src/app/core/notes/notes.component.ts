@@ -20,6 +20,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   currentPage = 0;
   showFirstLastButtons = true;
   private userSubscription!: Subscription;
+  pinnedNotes: any[] = [];
 
   constructor(
     private noteService: NoteService,
@@ -37,12 +38,13 @@ export class NotesComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+  
   loadNotes() {
     this.isLoading = true;
     this.noteService.getNotes(this.currentSortOption).subscribe(
       (data: any[]) => {
         this.notes = data.filter((note) => note.is_deleted == 0);
+        this.pinnedNotes = this.notes.filter((note) => note.is_pinned == 1);
         this.paginateNotes();
         this.isLoading = false;
       },
@@ -52,11 +54,12 @@ export class NotesComponent implements OnInit, OnDestroy {
       }
     );
   }
-
+  
   paginateNotes() {
+    const nonPinnedNotes = this.notes.filter((note) => note.is_pinned == 0);
     const start = this.currentPage * this.pageSize;
     const end = start + this.pageSize;
-    this.paginatedNotes = this.notes.slice(start, end);
+    this.paginatedNotes = nonPinnedNotes.slice(start, end);
   }
 
   onNoteDelete(noteId: number) {
@@ -97,5 +100,22 @@ export class NotesComponent implements OnInit, OnDestroy {
       default:
         return 'Last Edited';
     }
+  }
+
+  onPinStatusChange(note: any) {
+    // Update the note in the main notes array
+    const noteIndex = this.notes.findIndex((n) => n.id === note.id);
+    if (noteIndex !== -1) {
+      this.notes[noteIndex].is_pinned = note.is_pinned;
+    }
+
+    // Update the pinned and paginated notes
+    if (note.is_pinned) {
+      this.pinnedNotes.push(note);
+    } else {
+      this.pinnedNotes = this.pinnedNotes.filter((n) => n.id !== note.id);
+    }
+
+    this.paginateNotes();
   }
 }
