@@ -1,18 +1,18 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { OtpverificationService } from '../../../services/otp/otpverification.service';
-import { Router } from '@angular/router';
 import { SnackbarService } from '../../../services/snackbar/snackbar.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { ThemeService } from '../../../services/theme/theme.service';
 import { DialogService } from '../../../services/dialog/dialog.service';
-import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../services/user/user.service';
+import { simpleFade } from '../../../animations/element-animations';
 
 @Component({
   selector: 'app-otp',
   templateUrl: './otp.component.html',
   styleUrls: ['./otp.component.scss'],
+  animations: [simpleFade],
 })
 export class OtpComponent {
   themeIcon: string = 'dark_mode';
@@ -27,17 +27,15 @@ export class OtpComponent {
     private router: Router,
     private snackbarService: SnackbarService,
     private authService: AuthService,
-    private themeService: ThemeService, 
+    private themeService: ThemeService,
     private dialogService: DialogService,
     private route: ActivatedRoute,
     private userService: UserService
-
   ) {}
 
   ngOnInit(): void {
     this.initializeTheme();
-
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       this.userId = params['user_id'];
       console.log('User ID:', this.userId);
     });
@@ -53,11 +51,9 @@ export class OtpComponent {
     });
   }
 
-
   onOtpInput(index: number, event: any) {
     const value = event.target.value;
     if (!/^\d$/.test(value)) {
-      // Clear invalid input
       event.target.value = '';
       return;
     }
@@ -79,9 +75,8 @@ export class OtpComponent {
       return;
     }
 
-
     this.otpService.verifyOtp(otpValue).subscribe(
-      (response) => { 
+      (response) => {
         if (response.status === 'success') {
           localStorage.setItem('loggedInUser', JSON.stringify(response));
           this.handleSuccess(response);
@@ -95,7 +90,7 @@ export class OtpComponent {
     );
   }
 
-  resendOtp():void{
+  resendOtp(): void {
     this.otpService.resendOtp(this.userId).subscribe({
       next: (response) => {
         console.log('Response from server: ', response);
@@ -129,19 +124,15 @@ export class OtpComponent {
   }
 
   private handleSuccess(response: any) {
-    
-    this.router.navigate(['/main']);
+    const dialogRef = this.dialogService.openSuccessDialog(
+      'Sign Up successful!',
+      'Redirecting you to home page...'
+    );
+    setTimeout(() => {
+      dialogRef.close();
+      this.router.navigate(['/main']);
+    }, 3000);
   }
-
-
-  // private handleSuccess(response: any) {
-  //   const user_id = this.authService.getUserId();
-  //   this.router.navigate(['/enter-new-password'], {
-  //     queryParams: { user_id: user_id },
-  //   });
-  //   //TODO testing
-  //   console.log(user_id);
-  // }
 
   private handleError(message: string) {
     this.snackbarService.show(message);
