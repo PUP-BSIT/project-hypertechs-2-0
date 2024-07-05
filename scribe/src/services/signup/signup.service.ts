@@ -5,7 +5,7 @@ import { SignupData } from '../../models/model';
 
 @Injectable()
 export class SignupService {
-  private baseUrl = 'https://preview.scribenote.tech/backend/auth/signup.php';
+  private baseUrl = 'https://scribenote.tech/backend/auth/signup.php';
 
   constructor( private http: HttpClient) { }
   

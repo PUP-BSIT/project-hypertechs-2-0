@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class SearchService {
 
-  private apiUrl = 'https://preview.scribenote.tech/backend/search/search.php';
+  private apiUrl = 'https://scribenote.tech/backend/search/search.php';
   private notesSubject = new BehaviorSubject<any[]>([]);
   private searchTermSubject = new BehaviorSubject<string>('');
 
