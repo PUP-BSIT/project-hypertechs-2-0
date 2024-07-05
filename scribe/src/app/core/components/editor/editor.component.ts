@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { NgForm } from '@angular/forms';
 import { interval, Subject, debounceTime } from 'rxjs';
 import { SidenavService } from '../../../../services/sidenav/sidenav.service';
+import { ThemeService } from '../../../../services/theme/theme.service';
 
 /* Custom Imports */
 import { templates } from '../../../../imports/templates';
@@ -24,7 +25,7 @@ type EditableProperty = 'textColor' | 'backgroundColor';
 export class EditorComponent implements AfterViewInit, OnDestroy {
   @ViewChild('editorContent') editorContentRef!: ElementRef;
   @ViewChild('noteForm') noteForm!: NgForm;
-  @ViewChild('imageInput') imageInputRef!: ElementRef; 
+  @ViewChild('imageInput') imageInputRef!: ElementRef;
 
   activeCommands: { [key: string]: boolean } = {};
   lastEdited = new Date();
@@ -41,6 +42,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   contentChanged = new Subject<void>();
   private lastScrollTop = 0;
   private isScrollingUp = false;
+  selectedThemeColor: string = 'default';
 
   private readonly COMMANDS = [
     'bold',
@@ -59,6 +61,18 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     'backColor',
   ];
 
+  themeColors: { [key: string]: { dark: string; light: string } } = {
+    default: { dark: '#101212', light: '#fbfffe' },
+    red: { dark: '#77172e', light: '#edd6db' },
+    orange: { dark: '#55200f', light: '#efdfda' },
+    green: { dark: '#173125', light: '#d0eade' },
+    sea: { dark: '#0c3836', light: '#d1eae8' },
+    blue: { dark: '#172733', light: '#d8e5ef' },
+    purple: { dark: '#2e2238', light: '#e8def0' },
+    rose: { dark: '#422230', light: '#f5dce7' },
+    brown: { dark: '#39342d', light: '#efe8dd' },
+  };
+
   constructor(
     private toolbarService: ToolbarService,
     private location: Location,
@@ -68,7 +82,8 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     private snackbarService: SnackbarService,
     private authService: AuthService,
     private sidenavService: SidenavService,
-    private renderer: Renderer2,
+    private themeService: ThemeService,
+    private renderer: Renderer2
   ) {}
 
   ngAfterViewInit() {
@@ -99,6 +114,10 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     this.editorContentRef.nativeElement
       .closest('.scribe-editor-container')
       .addEventListener('scroll', this.onScroll.bind(this));
+
+    this.themeService.currentTheme.subscribe((isDarkMode) => {
+      this.applyThemeColor();
+    });
   }
 
   private onScroll() {
@@ -181,6 +200,8 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
         this.initialNoteContent = note.content;
         this.lastEdited = new Date(note.last_edited);
         this.editorContentRef.nativeElement.innerHTML = this.noteContent;
+        this.selectedThemeColor = note.theme_color;
+        this.applyThemeColor();
       } catch (error) {
         console.error('Error fetching note:', error);
       }
@@ -240,6 +261,33 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     this.changeColor(event, 'backColor', 'backgroundColor');
   }
 
+  changeThemeColor(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    this.selectedThemeColor = selectElement.value;
+    this.applyThemeColor();
+    this.contentChanged.next();
+  }
+
+  private applyThemeColor() {
+    const isDarkMode = this.themeService.getCurrentTheme();
+    const color =
+      this.themeColors[this.selectedThemeColor][isDarkMode ? 'dark' : 'light'];
+
+    const scribeEditorContainer = this.editorContentRef.nativeElement.closest(
+      '.scribe-editor-container'
+    );
+    const stickyContainer = document.querySelector('.sticky-container');
+
+    if (scribeEditorContainer) {
+      this.renderer.setStyle(scribeEditorContainer, 'background-color', color);
+      this.contentChanged.next();
+    }
+    if (stickyContainer) {
+      this.renderer.setStyle(stickyContainer, 'background-color', color);
+      this.contentChanged.next();
+    }
+  }
+
   private changeColor(
     event: Event,
     command: string,
@@ -274,6 +322,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
       content: this.noteContent,
       lastEdited: this.lastEdited,
       user_id: this.authService.getUserId(),
+      theme_color: this.selectedThemeColor,
     });
 
     this.lastEdited = new Date();
@@ -284,6 +333,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
       content: this.noteContent || '',
       lastEdited: this.lastEdited.toISOString(),
       user_id: this.authService.getUserId(),
+      theme_color: this.selectedThemeColor,
     };
 
     try {
@@ -319,106 +369,19 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     this.readOnly = !this.readOnly;
   }
 
-  triggerImageUpload() {
-    this.imageInputRef.nativeElement.click();
-  }
-
-  private reattachImageEventListeners() {
-    const imgContainers = this.editorContentRef.nativeElement.querySelectorAll('div[role="imgContainer"]');
-    imgContainers.forEach((imgContainer: HTMLElement) => {
-      const img = imgContainer.querySelector('img');
-      const removeText = imgContainer.querySelector('span');
-      const placeholder = imgContainer.querySelector('br');
-  
-      // Add event listener to show/hide remove text on hover
-      this.renderer.listen(imgContainer, 'mouseenter', () => {
-        img!.style.opacity = '0.8';
-        removeText!.style.opacity = '1';
-      });
-      this.renderer.listen(imgContainer, 'mouseleave', () => {
-        img!.style.opacity = '1';
-        removeText!.style.opacity = '0';
-      });
-  
-      // Add event listener to remove image on clicking the remove text
-      this.renderer.listen(removeText, 'click', () => {
-        imgContainer.remove();
-      });
-    });
-  }
-  
-  onImageSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      const file = input.files[0];
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        const imgContainer = this.renderer.createElement('div');
-        const img = this.renderer.createElement('img');
-        const removeText = this.renderer.createElement('span');
-        const placeholder = this.renderer.createElement('br'); // Placeholder to allow new lines
-  
-        img.src = e.target.result;
-        img.style.maxWidth = '100%';
-        imgContainer.style.position = 'relative';
-        imgContainer.style.display = 'inline-block';
-        imgContainer.style.marginBottom = '10px'; // Ensure space after image
-        imgContainer.setAttribute('role', 'imgContainer'); // Add role attribute
-  
-        removeText.textContent = 'Remove';
-        removeText.style.position = 'absolute';
-        removeText.style.top = '50%';
-        removeText.style.left = '50%';
-        removeText.style.transform = 'translate(-50%, -50%)';
-        removeText.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        removeText.style.color = 'white';
-        removeText.style.padding = '5px';
-        removeText.style.borderRadius = '5px';
-        removeText.style.cursor = 'pointer';
-        removeText.style.opacity = '0';
-        removeText.style.transition = 'opacity 0.3s';
-  
-        // Append the removeText to the imgContainer
-        imgContainer.appendChild(img);
-        imgContainer.appendChild(removeText);
-        imgContainer.appendChild(placeholder); // Add placeholder after image
-  
-        // Add event listener to show/hide remove text on hover
-        this.renderer.listen(imgContainer, 'mouseenter', () => {
-          img.style.opacity = '0.8';
-          removeText.style.opacity = '1';
-        });
-        this.renderer.listen(imgContainer, 'mouseleave', () => {
-          img.style.opacity = '1';
-          removeText.style.opacity = '0';
-        });
-  
-        // Add event listener to remove image on clicking the remove text
-        this.renderer.listen(removeText, 'click', () => {
-          imgContainer.remove();
-          this.onContentChange(new Event('input')); // Trigger content change detection
-        });
-  
-        // Append the imgContainer to the editor
-        this.editorContentRef.nativeElement.appendChild(imgContainer);
-  
-        // Manually trigger content change detection and save
-        this.onContentChange(new Event('input'));
-      };
-      reader.readAsDataURL(file);
-    }
-    // Reset input value to allow re-adding the same image
-    input.value = '';
-  }
-
-
   scrollToTop() {
     const editorContainer = this.editorContentRef.nativeElement.closest(
       '.scribe-editor-container'
     );
     if (editorContainer) {
       editorContainer.scrollTop = 0;
-      this.snackbarService.show('You are at the top of the page.', '', 2000);
+      this.snackbarService.show(
+        'You are at the top of the page.',
+        'Dismiss',
+        2000,
+        undefined,
+        'top'
+      );
     }
   }
 
@@ -428,7 +391,13 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     );
     if (editorContainer) {
       editorContainer.scrollTop = editorContainer.scrollHeight;
-      this.snackbarService.show('You are at the bottom of the page.', '', 2000);
+      this.snackbarService.show(
+        'You are at the bottom of the page.',
+        'Dismiss',
+        2000,
+        undefined,
+        'top'
+      );
     }
   }
 }
