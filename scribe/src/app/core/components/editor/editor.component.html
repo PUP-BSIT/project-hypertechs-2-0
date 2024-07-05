@@ -244,18 +244,20 @@
       />
     </div>
 
-        <!-- Images -->
+    <!-- Theme Colors -->
     <div class="toolbar-group">
-      <button (click)="triggerImageUpload()">
-        <mat-icon>image</mat-icon>
-      </button>
-      <input
-        type="file"
-        #imageInput
-        accept="image/png, image/jpeg"
-        (change)="onImageSelected($event)"
-        style="display: none"
-      />
+      <select id="themeColor" (change)="changeThemeColor($event)">
+        <option value="" selected disabled hidden>Theme</option>
+        <option value="default">Default</option>
+        <option value="red">Red</option>
+        <option value="orange">Orange</option>
+        <option value="green">Green</option>
+        <option value="sea">Sea</option>
+        <option value="blue">Blue</option>
+        <option value="purple">Purple</option>
+        <option value="rose">Rose</option>
+        <option value="brown">Brown</option>
+      </select>
     </div>
 
     <!-- Scroll buttons -->
