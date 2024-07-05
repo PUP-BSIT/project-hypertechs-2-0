@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, OnDestroy, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { NgForm } from '@angular/forms';
@@ -24,6 +24,7 @@ type EditableProperty = 'textColor' | 'backgroundColor';
 export class EditorComponent implements AfterViewInit, OnDestroy {
   @ViewChild('editorContent') editorContentRef!: ElementRef;
   @ViewChild('noteForm') noteForm!: NgForm;
+  @ViewChild('imageInput') imageInputRef!: ElementRef; 
 
   activeCommands: { [key: string]: boolean } = {};
   lastEdited = new Date();
@@ -66,7 +67,8 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     private router: Router,
     private snackbarService: SnackbarService,
     private authService: AuthService,
-    private sidenavService: SidenavService
+    private sidenavService: SidenavService,
+    private renderer: Renderer2,
   ) {}
 
   ngAfterViewInit() {
@@ -316,6 +318,99 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     }
     this.readOnly = !this.readOnly;
   }
+
+  triggerImageUpload() {
+    this.imageInputRef.nativeElement.click();
+  }
+
+  private reattachImageEventListeners() {
+    const imgContainers = this.editorContentRef.nativeElement.querySelectorAll('div[role="imgContainer"]');
+    imgContainers.forEach((imgContainer: HTMLElement) => {
+      const img = imgContainer.querySelector('img');
+      const removeText = imgContainer.querySelector('span');
+      const placeholder = imgContainer.querySelector('br');
+  
+      // Add event listener to show/hide remove text on hover
+      this.renderer.listen(imgContainer, 'mouseenter', () => {
+        img!.style.opacity = '0.8';
+        removeText!.style.opacity = '1';
+      });
+      this.renderer.listen(imgContainer, 'mouseleave', () => {
+        img!.style.opacity = '1';
+        removeText!.style.opacity = '0';
+      });
+  
+      // Add event listener to remove image on clicking the remove text
+      this.renderer.listen(removeText, 'click', () => {
+        imgContainer.remove();
+      });
+    });
+  }
+  
+  onImageSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const imgContainer = this.renderer.createElement('div');
+        const img = this.renderer.createElement('img');
+        const removeText = this.renderer.createElement('span');
+        const placeholder = this.renderer.createElement('br'); // Placeholder to allow new lines
+  
+        img.src = e.target.result;
+        img.style.maxWidth = '100%';
+        imgContainer.style.position = 'relative';
+        imgContainer.style.display = 'inline-block';
+        imgContainer.style.marginBottom = '10px'; // Ensure space after image
+        imgContainer.setAttribute('role', 'imgContainer'); // Add role attribute
+  
+        removeText.textContent = 'Remove';
+        removeText.style.position = 'absolute';
+        removeText.style.top = '50%';
+        removeText.style.left = '50%';
+        removeText.style.transform = 'translate(-50%, -50%)';
+        removeText.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        removeText.style.color = 'white';
+        removeText.style.padding = '5px';
+        removeText.style.borderRadius = '5px';
+        removeText.style.cursor = 'pointer';
+        removeText.style.opacity = '0';
+        removeText.style.transition = 'opacity 0.3s';
+  
+        // Append the removeText to the imgContainer
+        imgContainer.appendChild(img);
+        imgContainer.appendChild(removeText);
+        imgContainer.appendChild(placeholder); // Add placeholder after image
+  
+        // Add event listener to show/hide remove text on hover
+        this.renderer.listen(imgContainer, 'mouseenter', () => {
+          img.style.opacity = '0.8';
+          removeText.style.opacity = '1';
+        });
+        this.renderer.listen(imgContainer, 'mouseleave', () => {
+          img.style.opacity = '1';
+          removeText.style.opacity = '0';
+        });
+  
+        // Add event listener to remove image on clicking the remove text
+        this.renderer.listen(removeText, 'click', () => {
+          imgContainer.remove();
+          this.onContentChange(new Event('input')); // Trigger content change detection
+        });
+  
+        // Append the imgContainer to the editor
+        this.editorContentRef.nativeElement.appendChild(imgContainer);
+  
+        // Manually trigger content change detection and save
+        this.onContentChange(new Event('input'));
+      };
+      reader.readAsDataURL(file);
+    }
+    // Reset input value to allow re-adding the same image
+    input.value = '';
+  }
+
 
   scrollToTop() {
     const editorContainer = this.editorContentRef.nativeElement.closest(
