@@ -1,4 +1,4 @@
-<div id="recovery_container">
+<div id="recovery_container" [@simpleFade]>
   <div id="recovery_main">
     <div id="recovery_header">
       <header>
@@ -64,16 +64,19 @@
             (input)="onOtpInput(6, $event)"
           />
         </div>
-
-        <div>
-          <button (click)="resendOtp()">Resend</button>
-        </div>
-
         <div class="error-message">
           <div *ngIf="otpErrorMessage">{{ otpErrorMessage }}</div>
         </div>
 
         <button class="custom-btn" mat-flat-button>Submit</button>
+        
+        <div>
+          <span 
+            class="resend-otp"
+            (click)="resendOtp()">
+            Didn't receive OTP? Resend code.
+          </span>
+        </div>
       </form>
     </div>
   </div>

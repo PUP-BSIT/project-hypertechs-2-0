@@ -25,7 +25,7 @@
               matTooltipShowDelay="500"
               (click)="toggleSidenav()"
             >
-              <mat-icon>zoom_out_map</mat-icon> Focus Mode
+              <mat-icon>crop_free</mat-icon> Focus Mode
             </button>
 
             @if (isInTrash) {
@@ -242,6 +242,22 @@
         (input)="changeBackgroundColor($event)"
         [(ngModel)]="backgroundColor"
       />
+    </div>
+
+    <!-- Theme Colors -->
+    <div class="toolbar-group">
+      <select id="themeColor" (change)="changeThemeColor($event)">
+        <option value="" selected disabled hidden>Theme</option>
+        <option value="default">Default</option>
+        <option value="red">Red</option>
+        <option value="orange">Orange</option>
+        <option value="green">Green</option>
+        <option value="sea">Sea</option>
+        <option value="blue">Blue</option>
+        <option value="purple">Purple</option>
+        <option value="rose">Rose</option>
+        <option value="brown">Brown</option>
+      </select>
     </div>
 
     <!-- Scroll buttons -->

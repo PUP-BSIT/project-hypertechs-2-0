@@ -237,6 +237,14 @@ form {
   }
 }
 
+.resend-otp {
+  margin-top: 2%;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--primary);
+}
+
 #new_password_form {
   display: flex;
   align-items: left;

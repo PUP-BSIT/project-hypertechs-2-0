@@ -1,25 +1,32 @@
 <div class="material-dialog-container">
-  <!--Dialog title-->
+  <!-- Dialog Title -->
   <h1 mat-dialog-title class="custom-dialog-title">{{ data.title }}</h1>
-
-  <!--Dialog Content-->
+    <!-- Dialog Content -->
   <div mat-dialog-content class="custom-dialog-content dialog-content">
     <p>{{ data.content }}</p>
   </div>
 
-  <!--Dialog Buttons-->
+  <!-- Dialog Buttons -->
+  @if (data.confirmText || data.cancelText) {
   <div mat-dialog-actions class="custom-dialog-buttons">
-    <!--Cancel Button-->
-    <button mat-button (click)="onNoClick()" 
-      class="dialog-cancel" >{{ data.cancelText }}
+    @if (data.cancelText) {
+    <button mat-button (click)="onNoClick()" class="dialog-cancel">
+      {{ data.cancelText }}
     </button>
-    <!--Actions-->
-    <button mat-button (click)="onActionClick(data.action)"
-      class="dialog-action" 
+    } @if (data.confirmText) {
+    <button
+      mat-button
+      (click)="onActionClick(data.action)"
+      class="dialog-action"
       [ngStyle]="{
-        'color': data.actionTextColor,
-        'background-color': data.actionBgColor}" cdkFocusInitial>
-        {{ data.confirmText }}
+        color: data.actionTextColor,
+        'background-color': data.actionBgColor
+      }"
+      cdkFocusInitial
+    >
+      {{ data.confirmText }}
     </button>
+    }
   </div>
+  }
 </div>
