@@ -12,13 +12,14 @@ export class SnackbarService {
     message: string,
     action: string = 'Close',
     duration: number = 5000,
-    actionCallback?: () => void
+    actionCallback?: () => void,
+    verticalPosition: 'top' | 'bottom' = 'bottom',
   ) {
     let snackBarRef: MatSnackBarRef<SimpleSnackBar>;
 
     snackBarRef = this.snackBar.open(message, action, {
       duration: duration,
-      verticalPosition: 'bottom',
+      verticalPosition: verticalPosition,
       horizontalPosition: 'center',
     });
 
