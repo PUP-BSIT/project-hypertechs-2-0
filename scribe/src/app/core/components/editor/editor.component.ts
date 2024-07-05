@@ -1,9 +1,10 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, OnDestroy, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { NgForm } from '@angular/forms';
 import { interval, Subject, debounceTime } from 'rxjs';
 import { SidenavService } from '../../../../services/sidenav/sidenav.service';
+import { ThemeService } from '../../../../services/theme/theme.service';
 
 /* Custom Imports */
 import { templates } from '../../../../imports/templates';
@@ -24,6 +25,7 @@ type EditableProperty = 'textColor' | 'backgroundColor';
 export class EditorComponent implements AfterViewInit, OnDestroy {
   @ViewChild('editorContent') editorContentRef!: ElementRef;
   @ViewChild('noteForm') noteForm!: NgForm;
+  @ViewChild('imageInput') imageInputRef!: ElementRef;
 
   activeCommands: { [key: string]: boolean } = {};
   lastEdited = new Date();
@@ -40,6 +42,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   contentChanged = new Subject<void>();
   private lastScrollTop = 0;
   private isScrollingUp = false;
+  selectedThemeColor: string = 'default';
 
   private readonly COMMANDS = [
     'bold',
@@ -58,6 +61,18 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     'backColor',
   ];
 
+  themeColors: { [key: string]: { dark: string; light: string } } = {
+    default: { dark: '#101212', light: '#fbfffe' },
+    red: { dark: '#77172e', light: '#edd6db' },
+    orange: { dark: '#55200f', light: '#efdfda' },
+    green: { dark: '#173125', light: '#d0eade' },
+    sea: { dark: '#0c3836', light: '#d1eae8' },
+    blue: { dark: '#172733', light: '#d8e5ef' },
+    purple: { dark: '#2e2238', light: '#e8def0' },
+    rose: { dark: '#422230', light: '#f5dce7' },
+    brown: { dark: '#39342d', light: '#efe8dd' },
+  };
+
   constructor(
     private toolbarService: ToolbarService,
     private location: Location,
@@ -66,7 +81,9 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     private router: Router,
     private snackbarService: SnackbarService,
     private authService: AuthService,
-    private sidenavService: SidenavService
+    private sidenavService: SidenavService,
+    private themeService: ThemeService,
+    private renderer: Renderer2
   ) {}
 
   ngAfterViewInit() {
@@ -97,6 +114,10 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     this.editorContentRef.nativeElement
       .closest('.scribe-editor-container')
       .addEventListener('scroll', this.onScroll.bind(this));
+
+    this.themeService.currentTheme.subscribe((isDarkMode) => {
+      this.applyThemeColor();
+    });
   }
 
   private onScroll() {
@@ -179,6 +200,8 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
         this.initialNoteContent = note.content;
         this.lastEdited = new Date(note.last_edited);
         this.editorContentRef.nativeElement.innerHTML = this.noteContent;
+        this.selectedThemeColor = note.theme_color;
+        this.applyThemeColor();
       } catch (error) {
         console.error('Error fetching note:', error);
       }
@@ -238,6 +261,33 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     this.changeColor(event, 'backColor', 'backgroundColor');
   }
 
+  changeThemeColor(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    this.selectedThemeColor = selectElement.value;
+    this.applyThemeColor();
+    this.contentChanged.next();
+  }
+
+  private applyThemeColor() {
+    const isDarkMode = this.themeService.getCurrentTheme();
+    const color =
+      this.themeColors[this.selectedThemeColor][isDarkMode ? 'dark' : 'light'];
+
+    const scribeEditorContainer = this.editorContentRef.nativeElement.closest(
+      '.scribe-editor-container'
+    );
+    const stickyContainer = document.querySelector('.sticky-container');
+
+    if (scribeEditorContainer) {
+      this.renderer.setStyle(scribeEditorContainer, 'background-color', color);
+      this.contentChanged.next();
+    }
+    if (stickyContainer) {
+      this.renderer.setStyle(stickyContainer, 'background-color', color);
+      this.contentChanged.next();
+    }
+  }
+
   private changeColor(
     event: Event,
     command: string,
@@ -272,6 +322,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
       content: this.noteContent,
       lastEdited: this.lastEdited,
       user_id: this.authService.getUserId(),
+      theme_color: this.selectedThemeColor,
     });
 
     this.lastEdited = new Date();
@@ -282,6 +333,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
       content: this.noteContent || '',
       lastEdited: this.lastEdited.toISOString(),
       user_id: this.authService.getUserId(),
+      theme_color: this.selectedThemeColor,
     };
 
     try {
@@ -323,6 +375,13 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     );
     if (editorContainer) {
       editorContainer.scrollTop = 0;
+      this.snackbarService.show(
+        'You are at the top of the page.',
+        'Dismiss',
+        2000,
+        undefined,
+        'top'
+      );
     }
   }
 
@@ -332,6 +391,13 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     );
     if (editorContainer) {
       editorContainer.scrollTop = editorContainer.scrollHeight;
+      this.snackbarService.show(
+        'You are at the bottom of the page.',
+        'Dismiss',
+        2000,
+        undefined,
+        'top'
+      );
     }
   }
 }

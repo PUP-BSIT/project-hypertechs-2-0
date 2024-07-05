@@ -3,6 +3,7 @@
 }
 
 .scribe-notes-container {
+  padding: 0 3rem 2rem 3rem;
   position: relative;
 }
 
@@ -104,7 +105,7 @@
   justify-content: flex-start;
   background-color: var(--core-bg);
   font-size: 1vw;
-  padding: 3% 0; 
+  padding-top: 2%; 
   font-family: "Google Sans Text", sans-serif !important;
 }
 

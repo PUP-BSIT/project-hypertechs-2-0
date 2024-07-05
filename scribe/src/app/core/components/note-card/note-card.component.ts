@@ -13,10 +13,23 @@ import { SnackbarService } from '../../../../services/snackbar/snackbar.service'
 export class NoteCardComponent implements OnInit {
   @Input() note: any;
   @Input() isInTrash: boolean = false;
+  @Input() themeColor: string = 'default';
   @Output() restore = new EventEmitter<number>();
   @Output() delete = new EventEmitter<number>();
   @Output() deleteForever = new EventEmitter<number>();
   @Output() pinStatusChange = new EventEmitter<any>();
+
+  themeColors: { [key: string]: { dark: string, light: string } } = {
+    default: { dark: '#1a1d1d', light: '#eff0ef' },
+    red: { dark: '#77172e', light: '#edd6db' },
+    orange: { dark: '#55200f', light: '#efdfda' },
+    green: { dark: '#173125', light: '#d0eade' },
+    sea: { dark: '#0c3836', light: '#d1eae8' },
+    blue: { dark: '#172733', light: '#d8e5ef' },
+    purple: { dark: '#2e2238', light: '#e8def0' },
+    rose: { dark: '#422230', light: '#f5dce7' },
+    brown: { dark: '#39342d', light: '#efe8dd' },
+  };
 
   constructor(
     private router: Router,
@@ -49,9 +62,9 @@ export class NoteCardComponent implements OnInit {
         console.log('Note deleted successfully');
         this.delete.emit(this.note.id);
         this.snackbarService.show(
-          'Note moved to trash', 
-          'Go to Trash', 
-          3000, 
+          'Note moved to trash',
+          'Go to Trash',
+          3000,
           () => this.router.navigate(['/main/trash'])
         );
       },
@@ -68,8 +81,8 @@ export class NoteCardComponent implements OnInit {
   restoreNote() {
     this.restore.emit(this.note.id);
     this.snackbarService.show(
-      'Note successfully restored!', 
-      'Go to Notes', 
+      'Note successfully restored!',
+      'Go to Notes',
       3000,
       () => this.router.navigate(['/main/notes'])
     );
@@ -119,5 +132,10 @@ export class NoteCardComponent implements OnInit {
         console.error('Error toggling pin status:', error);
       }
     );
+  }
+
+  get noteBackgroundColor(): string {
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    return this.themeColors[this.themeColor][isDarkMode ? 'dark' : 'light'];
   }
 }
