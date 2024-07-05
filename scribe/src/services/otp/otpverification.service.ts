@@ -6,10 +6,16 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class OtpverificationService {
+<<<<<<< HEAD
   private apiUrl = 'http://localhost/backend/otp/otp.php';
   private emailUrl = 'http://localhost/backend/otp/enter-email.php';
   private passUrl = 'http://localhost/backend/auth/reset-pass.php';
   private resendUrl ='http://localhost/backend/otp/resend.php';
+=======
+  private apiUrl = 'https://preview.scribenote.tech/backend/otp/otp.php';
+  private emailUrl = 'https://preview.scribenote.tech/backend/otp/enter-email.php';
+  private passUrl = 'https://preview.scribenote.tech/backend/auth/reset-pass.php';
+>>>>>>> c8242e713334eaa1044d1e5031cb66060ba15107
 
   constructor(private http: HttpClient) { }
 
