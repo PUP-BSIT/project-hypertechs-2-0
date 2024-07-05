@@ -418,6 +418,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     );
     if (editorContainer) {
       editorContainer.scrollTop = 0;
+      this.snackbarService.show('You are at the top of the page.', '', 2000);
     }
   }
 
@@ -427,6 +428,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     );
     if (editorContainer) {
       editorContainer.scrollTop = editorContainer.scrollHeight;
+      this.snackbarService.show('You are at the bottom of the page.', '', 2000);
     }
   }
 }
