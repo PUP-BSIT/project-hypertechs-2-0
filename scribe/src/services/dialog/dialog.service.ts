@@ -14,4 +14,16 @@ export class DialogService {
       disableClose: true,
     });
   }
+
+  openSuccessDialog(title: string, content: string) {
+    return this.dialog.open(DialogComponent, {
+      data: {
+        title: title,
+        content: content,
+        confirmText: '', 
+        cancelText: '',
+      },
+      disableClose: true,
+    });
+  }
 }
