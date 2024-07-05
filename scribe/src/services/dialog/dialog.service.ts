@@ -11,6 +11,7 @@ export class DialogService {
   openDialog(data: any) {
     return this.dialog.open(DialogComponent, {
       data: data,
+      disableClose: true,
     });
   }
 }
