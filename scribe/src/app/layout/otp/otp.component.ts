@@ -126,7 +126,7 @@ export class OtpComponent {
   private handleSuccess(response: any) {
     const dialogRef = this.dialogService.openSuccessDialog(
       'Sign Up successful!',
-      'Redirecting you to home page...'
+      'Welcome to Scribe! Redirecting you to your home page...'
     );
     setTimeout(() => {
       dialogRef.close();
