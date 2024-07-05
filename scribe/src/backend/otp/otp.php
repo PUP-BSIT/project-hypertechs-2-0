@@ -62,7 +62,6 @@ if (isset($data['otp'])) {
             );
             $updateStmt->bind_param("i", $user_id);
             $updateStmt->execute();
-            $updateStmt->fetch();
             $updateStmt->close();
 
             $selectStmt = $conn->prepare(
