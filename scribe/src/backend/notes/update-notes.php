@@ -18,7 +18,8 @@ $title = mysqli_real_escape_string($conn, $request['title']);
 $content = mysqli_real_escape_string($conn, $request['content']);
 $lastEdited = mysqli_real_escape_string($conn, $request['lastEdited']);
 $user_id = intval($request['user_id']);
-$isPinned = isset($request->is_pinned) ? intval($request->is_pinned) : 0;
+$themeColor = mysqli_real_escape_string($conn, $request['theme_color']);
+$isPinned = isset($request['is_pinned']) ? intval($request['is_pinned']) : 0;
 
 // Convert the lastEdited timestamp to Philippine Standard Time
 $dateTime = new DateTime($lastEdited, new DateTimeZone('UTC')); 
@@ -26,7 +27,7 @@ $dateTime->setTimezone(new DateTimeZone('Asia/Manila'));
 $lastEditedFormatted = $dateTime->format('Y-m-d H:i:s');
 
 // Update the note in the database only if it belongs to the user
-$sql = "UPDATE notes SET title='$title', content='$content', last_edited='$lastEditedFormatted' WHERE id='$id' AND user_id=$user_id";
+$sql = "UPDATE notes SET title='$title', content='$content', last_edited='$lastEditedFormatted', theme_color='$themeColor' WHERE id='$id' AND user_id=$user_id";
 
 if ($conn->query($sql) === TRUE) {
     echo json_encode(["message" => "Note updated successfully"]);
