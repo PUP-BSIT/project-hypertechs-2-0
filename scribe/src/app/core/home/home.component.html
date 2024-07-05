@@ -48,7 +48,10 @@
         <ngx-masonry class="masonry-note-container">
           @if (notes.length) {
           @for (note of notes.slice(0, 4); track trackByNoteId($index, note)) {
-          <app-note-card [note]="note" (delete)="onNoteDelete($event)">
+          <app-note-card
+            [note]="note" 
+            (delete)="onNoteDelete($event)"
+            [themeColor]="note.theme_color">
           </app-note-card>
           }
           } @else {

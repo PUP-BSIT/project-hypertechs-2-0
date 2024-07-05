@@ -65,6 +65,7 @@
         [isInTrash]="false"
         (delete)="onNoteDelete($event)"
         (pinStatusChange)="onPinStatusChange($event)"
+        [themeColor]="note.theme_color"
       ></app-note-card>
       }
     </ngx-masonry>
@@ -86,6 +87,7 @@
         [isInTrash]="false"
         (delete)="onNoteDelete($event)"
         (pinStatusChange)="onPinStatusChange($event)"
+        [themeColor]="note.theme_color"
       ></app-note-card>
       }
       @if (!pinnedNotes.length && !paginatedNotes.length) {
