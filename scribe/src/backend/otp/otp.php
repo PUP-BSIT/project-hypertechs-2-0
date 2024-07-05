@@ -54,11 +54,38 @@ if (isset($data['otp'])) {
 
             $_SESSION['user_id'] = $user_id;
 
+
+            $updateStmt = $conn->prepare(
+                "UPDATE users 
+                 SET is_verified = 1 
+                 WHERE user_id = ?"
+            );
+            $updateStmt->bind_param("i", $user_id);
+            $updateStmt->execute();
+            $updateStmt->fetch();
+            $updateStmt->close();
+
+            $selectStmt = $conn->prepare(
+                 "SELECT is_verified, lastname, firstname, email
+                    FROM users 
+                    WHERE user_id = ?"
+            );
+            $selectStmt->bind_param("i", $user_id);
+            $selectStmt->execute();
+            $selectStmt->bind_result($is_verified, $lastname, $firstname, $email);
+            $selectStmt->fetch();
+            $selectStmt->close();
+
             echo json_encode([
                 'status' => 'success', 
                 'otp' => $receivedOtp, 
                 'id'=>$user_id, 
-                'session'=>$_SESSION['user_id']]);/*TODO for testing*/
+                'session'=>$_SESSION['user_id'],
+                'verified'=>$is_verified,
+                'lastname'=>$lastname,
+                'firstname'=>$firstname,
+                'email'=>$email
+                ]);/*TODO for testing*/
         } else{
             echo json_encode([
                 'status' => 'error', 
@@ -68,6 +95,7 @@ if (isset($data['otp'])) {
         echo json_encode([
             'status' => 'error', 
             'message' => 'OTP does not match', 
+            'userid' => $user_id,
             'verification'=>$verificationCode, 
             'receivedOtp' => $receivedOtp]); /*TODO for testing*/
     }

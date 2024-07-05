@@ -65,6 +65,10 @@
           />
         </div>
 
+        <div>
+          <button (click)="resendOtp()">Resend</button>
+        </div>
+
         <div class="error-message">
           <div *ngIf="otpErrorMessage">{{ otpErrorMessage }}</div>
         </div>
