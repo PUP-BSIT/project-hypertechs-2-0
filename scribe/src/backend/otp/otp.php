@@ -1,27 +1,7 @@
 <?php
 session_start();
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
-header('Content-Type: application/json; charset=utf-8');
-
+include '../db_config.php';
 include '../send_mail/mail.php';
-
-$servername = "127.0.0.1:3306";
-$username = "u565642650_scribe_user";
-$password = "Hypertechs2.0_dbpass";
-$dbname = "u565642650_scribe_db";
-
-// $servername = "localhost";
-// $username = "root";
-// $password = "";
-// $dbname = "scribe_db";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);

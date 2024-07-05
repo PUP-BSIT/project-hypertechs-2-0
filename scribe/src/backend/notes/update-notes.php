@@ -1,21 +1,6 @@
 <?php
 include '../db_config.php';
 
-<<<<<<< HEAD
-=======
-$servername = "127.0.0.1";
-$username = "u565642650_scribe_user";
-$password = "Hypertechs2.0_dbpass";
-$dbname = "u565642650_scribe_db";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Get the posted data and note ID
->>>>>>> c8242e713334eaa1044d1e5031cb66060ba15107
 $postData = file_get_contents("php://input");
 $request = json_decode($postData, true);
 

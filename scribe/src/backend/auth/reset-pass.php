@@ -13,26 +13,6 @@ if (isset($data['user_id']) && isset($data['password'])) {
     $user_id = $data['user_id'];
     $new_password = password_hash($data['password'], PASSWORD_DEFAULT);
 
-<<<<<<< HEAD
-=======
-    // $servername = "localhost";
-    // $username = "root";
-    // $password = "";
-    // $dbname = "scribe_db";
-
-    $servername = "127.0.0.1";
-    $username = "u565642650_scribe_user";
-    $password = "Hypertechs2.0_dbpass";
-    $dbname = "u565642650_scribe_db";
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
->>>>>>> c8242e713334eaa1044d1e5031cb66060ba15107
     // Prepare and execute SQL statement
     $stmt = $conn->prepare(
         "UPDATE users 
