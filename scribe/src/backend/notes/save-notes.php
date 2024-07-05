@@ -9,7 +9,6 @@ if (
     !isset($request->title) || !isset($request->content) || !isset($request->lastEdited) || !isset($request->user_id) ||
     $request->title === null || $request->content === null || $request->lastEdited === null || $request->user_id === null
 ) {
-    
     echo json_encode(["error" => "Invalid or missing data"]);
     exit;
 }
@@ -19,6 +18,7 @@ $title = mysqli_real_escape_string($conn, $request->title);
 $content = mysqli_real_escape_string($conn, $request->content);
 $lastEdited = mysqli_real_escape_string($conn, $request->lastEdited);
 $user_id = intval($request->user_id);
+$themeColor = mysqli_real_escape_string($conn, $request->theme_color);
 $isPinned = isset($request->is_pinned) ? intval($request->is_pinned) : 0;
 
 // Convert the lastEdited timestamp to Philippine Standard Time
@@ -26,8 +26,8 @@ $dateTime = new DateTime($lastEdited, new DateTimeZone('UTC'));
 $dateTime->setTimezone(new DateTimeZone('Asia/Manila'));
 $lastEditedFormatted = $dateTime->format('Y-m-d H:i:s');
 
-$sql = "INSERT INTO notes (title, content, last_edited, user_id) 
-    VALUES ('$title', '$content', '$lastEditedFormatted', $user_id)";
+$sql = "INSERT INTO notes (title, content, last_edited, user_id, theme_color) 
+    VALUES ('$title', '$content', '$lastEditedFormatted', $user_id, '$themeColor')";
 
 if ($conn->query($sql) === TRUE) {
     $newNoteId = $conn->insert_id; // Get the ID of the newly created note
