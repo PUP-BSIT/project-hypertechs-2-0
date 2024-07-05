@@ -4,9 +4,11 @@
 }
 
 .scribe-editor-container {
-  margin-top: 2rem;
+  padding: 0 3rem 0 3rem;
   overflow-y: scroll;
-  max-height: calc(100vh - 1rem);
+  max-height: calc(100vh);
+  background-color: var(--core-bg);
+  height: 100vh;
 
   &::-webkit-scrollbar {
     width: 0;
@@ -18,7 +20,7 @@
 }
 
 .sticky-container {
-  background-color: var(--core-bg);
+  padding-top: 2rem;
   position: sticky;
   top: 0;
   left: 0;
@@ -46,11 +48,13 @@
 .btn-edit,
 .btn-done {
   font-size: 1vw;
-  color: var(--primary) !important;
+  color: var(--text) !important;
+  opacity: 0.8;
   cursor: pointer;
+  font-weight: 500;
 
   .mat-icon {
-    color: var(--primary);
+    color: var(--text);
   }
 }
 
