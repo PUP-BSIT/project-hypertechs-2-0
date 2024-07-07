@@ -67,7 +67,7 @@ export class EnterOtpComponent {
 
   private handleSuccess(response: any) {
     const user_id = this.authService.getUserId();
-    this.router.navigate(['/enter-new-password'], { queryParams: { user_id: user_id } });
+    this.router.navigate(['/main']);
     //TODO testing
     console.log(user_id);
   }

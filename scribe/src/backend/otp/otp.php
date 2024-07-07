@@ -1,8 +1,7 @@
 <?php
 session_start();
-
-include '../send_mail/mail.php';
 include '../db_config.php';
+include '../send_mail/mail.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);

@@ -19,6 +19,7 @@ export class OtpComponent {
   otp: string[] = new Array(6).fill('');
   otpErrorMessage: string = '';
   userId: string = '';
+  isLoading = false;
 
   @Output() otpSubmitted: EventEmitter<string> = new EventEmitter<string>();
 
@@ -37,7 +38,7 @@ export class OtpComponent {
     this.initializeTheme();
     this.route.queryParams.subscribe((params) => {
       this.userId = params['user_id'];
-      console.log('User ID:', this.userId);
+      //console.log('User ID:', this.userId);
     });
   }
 
@@ -91,22 +92,24 @@ export class OtpComponent {
   }
 
   resendOtp(): void {
+    this.isLoading = true;
     this.otpService.resendOtp(this.userId).subscribe({
       next: (response) => {
-        console.log('Response from server: ', response);
+        //console.log('Response from server: ', response);
         this.userService.setFirstname(response.firstname);
         this.userService.setLastname(response.lastname);
         this.userService.setEmail(response.email);
-        console.log(response.user_id);
-        this.openSentmailDialog();
+        //console.log(response.user_id);
+        this.openSentmailDialog(response.user_id);
+        this.isLoading = false;
         this.snackbarService.dismiss();
       },
     });
   }
 
-  openSentmailDialog(): void {
+  openSentmailDialog(user_id: string): void {
     const dialogRef = this.dialogService.openDialog({
-      title: 'Email Verification',
+      title: 'OTP Resent',
       content: 'We sent an OTP code to your email to verify your identity.',
       cancelText: 'Cancel',
       confirmText: 'Proceed',
@@ -115,7 +118,7 @@ export class OtpComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'ok') {
-        const user_id = this.authService.getUserId();
+        //const user_id = this.authService.getUserId();
         this.router.navigate(['otp'], {
           queryParams: { user_id: user_id },
         });
