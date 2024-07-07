@@ -52,7 +52,7 @@ const routes: Routes = [
   },
   {
     path: 'otp',
-    component: OtpComponent
+    component: OtpComponent,
   },
   {
     path: 'enter-new-password',

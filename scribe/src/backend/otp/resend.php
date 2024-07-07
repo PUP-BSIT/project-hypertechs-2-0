@@ -55,9 +55,7 @@ if ($stmt->execute()) {
                 'error' => 'Internal server error: ' . $stmt->error
             ]);
         }
-        $stmt->close();   
-    
+        $stmt->close();     
 }
-
 $conn->close();
 ?>

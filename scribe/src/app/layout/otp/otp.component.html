@@ -71,11 +71,15 @@
         <button class="custom-btn" mat-flat-button>Submit</button>
         
         <div>
-          <span 
+          @if(!isLoading){
+            <span 
             class="resend-otp"
             (click)="resendOtp()">
-            Didn't receive OTP? Resend code.
+            Didn't receive OTP? Resend code. 
           </span>
+            } @if (isLoading) {
+            <mat-spinner diameter="30" color="primary"></mat-spinner>
+            }
         </div>
       </form>
     </div>

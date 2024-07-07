@@ -16,6 +16,7 @@ import { SnackbarService } from '../../../services/snackbar/snackbar.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { ThemeService } from '../../../services/theme/theme.service';
 import { OtpverificationService } from '../../../services/otp/otpverification.service';
+import { DialogService } from '../../../services/dialog/dialog.service';
 
 @Component({
   selector: 'app-login',
@@ -37,7 +38,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private themeService: ThemeService,
     private otpService: OtpverificationService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialogService: DialogService
   ) {}
 
   loginForm: FormGroup = this.formBuilder.group({});
@@ -95,7 +97,7 @@ export class LoginComponent implements OnInit {
       password: this.loginForm.value.password,
     };
 
-    console.log('Data sent to service: ', loginData);
+    //console.log('Data sent to service: ', loginData);
 
     this.loginService.loginUser(loginData).subscribe({
       next: (response) => {
@@ -109,11 +111,12 @@ export class LoginComponent implements OnInit {
         }  else {
           this.otpService.resendOtp(response.user_id).subscribe({
             next: (value) => {
-              this.router.navigate(['otp'], {
-              queryParams: { user_id: response.user_id },
-                });
-              console.log('Response from server: ', value);
-              console.log(value.user_id);
+              this.openSentmailDialog(response.user_id);
+              // this.router.navigate(['otp'], {
+              // queryParams: { user_id: response.user_id },
+              //   });
+              // console.log('Response from server: ', value);
+              // console.log(value.user_id);
               this.snackbarService.dismiss();             
             },
           });
@@ -164,5 +167,24 @@ export class LoginComponent implements OnInit {
   private handleNetworkError() {
     this.errorMessage =
       'Network error occurred. Please check your internet connection.';
+  }
+
+  openSentmailDialog(user_id: string): void {
+    const dialogRef = this.dialogService.openDialog({
+      title: 'Account Not Verified',
+      content: 'Your account is not verified yet. Proceed for verification',
+      cancelText: 'Cancel',
+      confirmText: 'Proceed',
+      action: 'ok',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'ok') {
+        //const user_id = this.authService.getUserId();
+        this.router.navigate(['otp'], {
+          queryParams: { user_id: user_id },
+        });
+      }
+    });
   }
 }
