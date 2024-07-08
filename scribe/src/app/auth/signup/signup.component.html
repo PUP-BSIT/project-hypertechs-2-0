@@ -51,32 +51,28 @@
                   />
 
                   <!-- Lastname Error Message -->
-                  <div class="error-message" [ngClass]="{ visible: lastnameControl?.invalid && lastnameControl?.touched }">
-                    @if (lastnameControl?.errors?.['required'] && lastnameControl?.touched) {
+                  <div
+                    class="error-message"
+                    [ngClass]="{
+                      visible:
+                        lastnameControl?.invalid && lastnameControl?.touched
+                    }"
+                  >
+                    @if ( (lastnameControl?.errors?.['required'] ||
+                    lastnameControl?.errors?.['invalidName']) &&
+                    lastnameControl?.touched ) {
                     <div class="error-item">
                       <span class="material-symbols-outlined">error</span>
-                      <span>Last name is required.</span>
+                      <span>Invalid last name format.</span>
                     </div>
-                    }
-                    @if (lastnameControl?.errors?.['whitespace'] && lastnameControl?.touched) {
-                    <div class="error-item">
-                      <span class="material-symbols-outlined">error</span>
-                      <span>Last name cannot be only whitespaces.</span>
-                    </div>
-                    }
-                    @if (lastnameControl?.errors?.['numbersOnly'] && lastnameControl?.touched) {
-                    <div class="error-item">
-                      <span class="material-symbols-outlined">error</span>
-                      <span>Last name cannot be only numbers.</span>
-                    </div>
-                    }
-                    @if(lastnameControl?.getError('minlength') && lastnameControl?.touched){
+                    } @if(lastnameControl?.getError('minlength') &&
+                    lastnameControl?.touched){
                     <div class="error-item">
                       <span class="material-symbols-outlined">error</span>
                       <span>Must be at least 2 characters.</span>
                     </div>
-                    }
-                    @if(lastnameControl?.getError('maxlength') && lastnameControl?.touched){
+                    } @if(lastnameControl?.getError('maxlength') &&
+                    lastnameControl?.touched){
                     <div class="error-item">
                       <span class="material-symbols-outlined">error</span>
                       <span>Should not exceed 40 characters.</span>
@@ -112,39 +108,35 @@
                     }"
                   />
 
-<!-- Firstname Error Message -->
-<div class="error-message" [ngClass]="{ visible: firstnameControl?.invalid && firstnameControl?.touched }">
-  @if (firstnameControl?.errors?.['required'] && firstnameControl?.touched) {
-  <div class="error-item">
-    <span class="material-symbols-outlined">error</span>
-    <span>First name is required.</span>
-  </div>
-  }
-  @if (firstnameControl?.errors?.['whitespace'] && firstnameControl?.touched) {
-  <div class="error-item">
-    <span class="material-symbols-outlined">error</span>
-    <span>First name cannot be only whitespaces.</span>
-  </div>
-  }
-  @if (firstnameControl?.errors?.['numbersOnly'] && firstnameControl?.touched) {
-  <div class="error-item">
-    <span class="material-symbols-outlined">error</span>
-    <span>First name cannot be only numbers.</span>
-  </div>
-  }
-  @if(firstnameControl?.getError('minlength') && firstnameControl?.touched){
-  <div class="error-item">
-    <span class="material-symbols-outlined">error</span>
-    <span>Must be at least 2 characters.</span>
-  </div>
-  }
-  @if(firstnameControl?.getError('maxlength') && firstnameControl?.touched){
-  <div class="error-item">
-    <span class="material-symbols-outlined">error</span>
-    <span>Should not exceed 40 characters.</span>
-  </div>
-  }
-</div>
+                  <!-- Firstname Error Message -->
+                  <div
+                    class="error-message"
+                    [ngClass]="{
+                      visible:
+                        firstnameControl?.invalid && firstnameControl?.touched
+                    }"
+                  >
+                    @if ( (firstnameControl?.errors?.['required'] ||
+                    firstnameControl?.errors?.['invalidName']) &&
+                    firstnameControl?.touched) {
+                    <div class="error-item">
+                      <span class="material-symbols-outlined">error</span>
+                      <span>Invalid first name format.</span>
+                    </div>
+                    } @if(firstnameControl?.getError('minlength') &&
+                    firstnameControl?.touched){
+                    <div class="error-item">
+                      <span class="material-symbols-outlined">error</span>
+                      <span>Must be at least 2 characters.</span>
+                    </div>
+                    } @if(firstnameControl?.getError('maxlength') &&
+                    firstnameControl?.touched){
+                    <div class="error-item">
+                      <span class="material-symbols-outlined">error</span>
+                      <span>Should not exceed 40 characters.</span>
+                    </div>
+                    }
+                  </div>
                 </div>
               </div>
             </div>
@@ -230,7 +222,7 @@
               Already have a Scribe account? Log in.
             </a>
           </div>
-          
+
           } @if (currentStep === 2) {
           <div class="current-step">
             <div
