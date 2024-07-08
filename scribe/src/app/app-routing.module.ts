@@ -41,7 +41,6 @@ const routes: Routes = [
   {
     path: 'recovery',
     component: RecoveryComponent,
-    canActivate: [authGuard],
     data: { animationState: 'recovery' },
   },
   {
