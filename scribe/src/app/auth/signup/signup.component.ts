@@ -45,22 +45,8 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group(
       {
-        lastname: [
-          '', 
-          [
-            Validators.required, 
-            this.noWhitespaceValidator(), 
-            this.noNumbersOnlyValidator()
-          ]
-        ],
-        firstname: [
-          '', 
-          [
-            Validators.required, 
-            this.noWhitespaceValidator(), 
-            this.noNumbersOnlyValidator()
-          ]
-        ],
+        lastname: ['', [Validators.required, this.nameValidator()]],
+        firstname: ['', [Validators.required, this.nameValidator()]],
         email: ['', [Validators.required, Validators.email]],
         password: [
           '',
@@ -124,19 +110,23 @@ export class SignupComponent implements OnInit {
     return this.signupForm.get('confirm_password');
   }
 
-  // Validator to check if the value contains only whitespace
-  noWhitespaceValidator(): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    const isWhitespace = (control.value || '').trim().length === 0;
-    return isWhitespace ? { whitespace: true } : null;
-  };
-}
-
-  // Validator to check if the value contains only numbers
-    noNumbersOnlyValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const isNumbersOnly = /^[0-9]*$/.test(control.value);
-      return isNumbersOnly ? { numbersOnly: true } : null;
+  nameValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const value = control.value;
+  
+      if (!value) {
+        return null;
+      }
+  
+      const isWhitespace = value.trim().length === 0;
+      const isNumbersOnly = /^[0-9]*$/.test(value);
+      const isSpacesAndNumbersOnly = /^[\s0-9]+$/.test(value);
+  
+      if (isWhitespace || isNumbersOnly || isSpacesAndNumbersOnly) {
+        return { invalidName: true };
+      }
+  
+      return null;
     };
   }
 
