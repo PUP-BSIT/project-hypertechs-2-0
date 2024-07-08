@@ -172,7 +172,7 @@ export class LoginComponent implements OnInit {
   openSentmailDialog(user_id: string): void {
     const dialogRef = this.dialogService.openDialog({
       title: 'Account Not Verified',
-      content: 'Your account is not verified yet. Proceed for verification',
+      content: 'Your account is not verified yet. Click Proceed for verification.',
       cancelText: 'Cancel',
       confirmText: 'Proceed',
       action: 'ok',
