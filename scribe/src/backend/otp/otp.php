@@ -73,12 +73,12 @@ if (isset($data['otp'])) {
         } else{
             echo json_encode([
                 'status' => 'error', 
-                'message'=> 'OTP has expired']);
+                'message'=> 'This OTP has expired. Click resend code.']);
         }  
     } else {
         echo json_encode([
             'status' => 'error', 
-            'message' => 'OTP does not match', 
+            'message' => 'The OTP you entered is invalid. Try again.', 
             'userid' => $user_id,
             'verification'=>$verificationCode, 
             'receivedOtp' => $receivedOtp]); /*TODO for testing*/
