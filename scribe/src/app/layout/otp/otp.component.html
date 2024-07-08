@@ -17,8 +17,10 @@
     </div>
     <div class="recovery-form">
       <h1>One-Time Password</h1>
-      <h4>Kindly enter the 6-digit OTP code sent to your email for verification.</h4>
-    
+      <h4>
+        Kindly enter the 6-digit OTP code sent to your email for verification.
+      </h4>
+
       <form id="otp_fields" (ngSubmit)="onSubmit()">
         <div class="otp-inputs">
           <input
@@ -35,6 +37,7 @@
             name="otp2"
             maxlength="1"
             (input)="onOtpInput(2, $event)"
+            #otpInput2
           />
           <input
             type="text"
@@ -42,6 +45,7 @@
             name="otp3"
             maxlength="1"
             (input)="onOtpInput(3, $event)"
+            #otpInput3
           />
           <input
             type="text"
@@ -49,6 +53,7 @@
             name="otp4"
             maxlength="1"
             (input)="onOtpInput(4, $event)"
+            #otpInput4
           />
           <input
             type="text"
@@ -56,6 +61,7 @@
             name="otp5"
             maxlength="1"
             (input)="onOtpInput(5, $event)"
+            #otpInput5
           />
           <input
             type="text"
@@ -63,43 +69,40 @@
             name="otp6"
             maxlength="1"
             (input)="onOtpInput(6, $event)"
+            #otpInput6
           />
         </div>
         <div class="error-message">
           @if (otpErrorMessage) {
-            <div>{{ otpErrorMessage }}</div>
+          <div>{{ otpErrorMessage }}</div>
           }
         </div>
-    
-        <button 
-          class="custom-btn" 
-          mat-flat-button 
-          [disabled]="isLoading || !isOtpValid()" 
+
+        <button
+          class="custom-btn"
+          mat-flat-button
+          [disabled]="isLoading || !isOtpValid()"
           [ngClass]="{
             'button-enabled': !isLoading || isOtpValid(),
             'button-disabled': isLoading || !isOtpValid()
           }"
         >
           @if (!isLoading) {
-            <span>Submit</span>
+          <span>Submit</span>
           } @else {
-            <mat-spinner diameter="30" color="primary"></mat-spinner>
+          <mat-spinner diameter="30" color="primary"></mat-spinner>
           }
         </button>
-    
+
         <div>
           @if (!isLoading) {
-            <span 
-              class="resend-otp"
-              (click)="resendOtp()"
-            >
-              Didn't receive OTP? Resend code. 
-            </span>
+          <span class="resend-otp" (click)="resendOtp()">
+            Didn't receive OTP? Resend code.
+          </span>
           }
         </div>
       </form>
     </div>
-    
   </div>
   <div id="recovery_graphics">
     <svg

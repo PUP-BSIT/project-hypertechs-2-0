@@ -16,6 +16,12 @@ import { simpleFade } from '../../../animations/element-animations';
 })
 export class OtpComponent implements OnInit {
   @ViewChild('otpInput1') otpInput1!: ElementRef;
+  @ViewChild('otpInput2') otpInput2!: ElementRef;
+  @ViewChild('otpInput3') otpInput3!: ElementRef;
+  @ViewChild('otpInput4') otpInput4!: ElementRef;
+  @ViewChild('otpInput5') otpInput5!: ElementRef;
+  @ViewChild('otpInput6') otpInput6!: ElementRef;
+
   themeIcon: string = 'dark_mode';
   otp: string[] = new Array(6).fill('');
   otpErrorMessage: string = '';
@@ -65,7 +71,7 @@ export class OtpComponent implements OnInit {
     this.otp[index - 1] = value;
 
     if (value && index < 6) {
-      const nextInput = event.target.nextElementSibling;
+      const nextInput = event.target.nextElementSibling as HTMLInputElement;
       if (nextInput) {
         nextInput.focus();
       }
@@ -111,6 +117,7 @@ export class OtpComponent implements OnInit {
         this.userService.setLastname(response.lastname);
         this.userService.setEmail(response.email);
         this.openSentmailDialog(response.user_id);
+        this.clearOtpInputs();
         this.isLoading = false;
         this.snackbarService.dismiss();
       },
@@ -119,6 +126,19 @@ export class OtpComponent implements OnInit {
         this.isLoading = false;
       }
     });
+  }
+
+  clearOtpInputs(): void {
+    this.otp.fill('');
+    setTimeout(() => {
+      this.otpInput1.nativeElement.focus();
+      this.otpInput1.nativeElement.value = '';
+      this.otpInput2.nativeElement.value = '';
+      this.otpInput3.nativeElement.value = '';
+      this.otpInput4.nativeElement.value = '';
+      this.otpInput5.nativeElement.value = '';
+      this.otpInput6.nativeElement.value = '';
+    }, 0);
   }
 
   openSentmailDialog(user_id: string): void {
@@ -141,7 +161,7 @@ export class OtpComponent implements OnInit {
 
   private handleSuccess(response: any) {
     const dialogRef = this.dialogService.openSuccessDialog(
-      'Sign Up successful!',
+      'Sign Up Successful!',
       'Welcome to Scribe! Redirecting you to your home page...'
     );
     setTimeout(() => {
