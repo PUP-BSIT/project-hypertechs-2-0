@@ -17,8 +17,8 @@
     </div>
     <div class="recovery-form">
       <h1>One-Time Password</h1>
-      <h4>Kindly enter the 6-digit OTP sent to your email for verification.</h4>
-
+      <h4>Kindly enter the 6-digit OTP code sent to your email for verification.</h4>
+    
       <form id="otp_fields" (ngSubmit)="onSubmit()">
         <div class="otp-inputs">
           <input
@@ -27,6 +27,7 @@
             name="otp1"
             maxlength="1"
             (input)="onOtpInput(1, $event)"
+            #otpInput1
           />
           <input
             type="text"
@@ -65,24 +66,40 @@
           />
         </div>
         <div class="error-message">
-          <div *ngIf="otpErrorMessage">{{ otpErrorMessage }}</div>
+          @if (otpErrorMessage) {
+            <div>{{ otpErrorMessage }}</div>
+          }
         </div>
-
-        <button class="custom-btn" mat-flat-button>Submit</button>
-        
-        <div>
-          @if(!isLoading){
-            <span 
-            class="resend-otp"
-            (click)="resendOtp()">
-            Didn't receive OTP? Resend code. 
-          </span>
-            } @if (isLoading) {
+    
+        <button 
+          class="custom-btn" 
+          mat-flat-button 
+          [disabled]="isLoading || !isOtpValid()" 
+          [ngClass]="{
+            'button-enabled': !isLoading || isOtpValid(),
+            'button-disabled': isLoading || !isOtpValid()
+          }"
+        >
+          @if (!isLoading) {
+            <span>Submit</span>
+          } @else {
             <mat-spinner diameter="30" color="primary"></mat-spinner>
-            }
+          }
+        </button>
+    
+        <div>
+          @if (!isLoading) {
+            <span 
+              class="resend-otp"
+              (click)="resendOtp()"
+            >
+              Didn't receive OTP? Resend code. 
+            </span>
+          }
         </div>
       </form>
     </div>
+    
   </div>
   <div id="recovery_graphics">
     <svg
