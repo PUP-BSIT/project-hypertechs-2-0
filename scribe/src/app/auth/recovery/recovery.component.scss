@@ -81,7 +81,6 @@ svg {
 form {
   display: flex;
   flex-direction: column;
-  gap: 1vh;
   margin-top: 4vh;
 }
 
@@ -133,7 +132,16 @@ form {
 
 .custom-btn {
   height: 8vh;
-  margin-top: -2vh;
+  font-size: var(--font-body);
+  font-weight: 600;
+  transition: transform 0.4s ease-in-out;
+  background-color: var(--main-button) !important;
+  color: #eff4f2 !important;
+}
+
+.new-pass {
+  height: 8vh;
+  margin-top: 1vh;
   font-size: var(--font-body);
   font-weight: 600;
   transition: transform 0.4s ease-in-out;
@@ -204,6 +212,16 @@ form {
   margin: 0em;
   color: var(--error-message);
   border: 2px solid red;
+}
+
+.button-enabled {
+  opacity: 1;
+}
+
+.button-disabled {
+  opacity: 0.3;
+  cursor: not-allowed !important;
+  background-color: var(--main-button-disabled) !important;
 }
 
 #otp_fields {
