@@ -45,29 +45,73 @@
     </div>
   </div>
 
-  <!--All Notes Tiles-->
-  <div id="all_notes_tiles">
+  <!-- Progress Spinner -->
+  @if (isLoading) {
+  <div class="spinner-container">
+    <mat-spinner [diameter]="50"></mat-spinner>
+  </div>
+  } @if (!isLoading) {
+  <!-- Pinned Notes Section -->
+  @if (pinnedNotes.length) {
+  <div class="pinned-notes-container">
+    <div class="notes-heading-row">
+      <mat-icon>push_pin</mat-icon>
+      <h2>Pinned Notes</h2>
+    </div>
     <ngx-masonry class="masonry-note-container">
-      @if (isLoading) {
-      <div class="loading"></div>
-      } @else {
-      <!-- If notes are present, this will display -->
-      @if (notes.length > 0) { @for (note of notes; track note.id) {
+      @for (note of pinnedNotes; track note.id) {
       <app-note-card
         [note]="note"
         [isInTrash]="false"
         (delete)="onNoteDelete($event)"
-      >
-      </app-note-card>
-      } } @else {
-      <!-- If notes are empty, this will display -->
-      <div class="empty-notes" routerLink="/main/editor">
-        <img src="../../../assets/images/empty-notes.svg" />
-        <p>No notes yet. Click to add one.</p>
-      </div>
-      } }
+        (pinStatusChange)="onPinStatusChange($event)"
+        [themeColor]="note.theme_color"
+      ></app-note-card>
+      }
     </ngx-masonry>
   </div>
+  }
+
+  <!--All Notes Tiles-->
+  <div id="all_notes_tiles">
+    @if (pinnedNotes.length && paginatedNotes.length) {
+    <div class="notes-heading-row">
+      <mat-icon>notes</mat-icon>
+      <h2>All Notes</h2>
+    </div>
+    }
+    <ngx-masonry class="masonry-note-container">
+      @for (note of paginatedNotes; track note.id) {
+      <app-note-card
+        [note]="note"
+        [isInTrash]="false"
+        (delete)="onNoteDelete($event)"
+        (pinStatusChange)="onPinStatusChange($event)"
+        [themeColor]="note.theme_color"
+      ></app-note-card>
+      }
+      @if (!pinnedNotes.length && !paginatedNotes.length) {
+        <div class="empty-notes" routerLink="/main/editor">
+          <img src="../../../assets/images/empty-notes.svg" />
+          <p>No notes yet. Click to add one.</p>
+        </div>
+      }
+    </ngx-masonry>
+  </div>
+  }
+
+  <!-- Paginator -->
+  @if (notes.length > 10) {
+  <mat-paginator
+    class="custom-paginator"
+    [length]="notes.length"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[10, 25, 50, 100]"
+    [showFirstLastButtons]="showFirstLastButtons"
+    (page)="onPageChange($event)"
+  >
+  </mat-paginator>
+  }
 
   <!--Create new note FAB -->
   <button routerLink="/main/editor" mat-fab extended class="custom-fab">

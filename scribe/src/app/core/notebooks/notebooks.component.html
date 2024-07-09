@@ -1,0 +1,23 @@
+<div class="notebooks-container">
+    <!--Notebooks Heading-->
+    <div id="notebooks_heading">
+        <h1>Notebooks</h1>
+    </div>
+
+    <!--Notebooks Grid Container-->
+    <div class="notebooks-grid">
+
+        <!--Each Notebook-->
+        @for (notebook of notebooks; track notebook) {
+        <div class="notebook">
+            <span class="material-symbols-outlined">auto_stories</span>
+            <p class="notebook-name">{{ notebook.name }}</p>
+        </div>
+        }
+    </div>
+
+    <!--Add Notebook FAB-->
+    <button mat-fab extended class="new-notebook-button">
+        <mat-icon>add_circle</mat-icon> New Notebook
+    </button>
+</div>

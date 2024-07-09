@@ -237,6 +237,24 @@ form {
   }
 }
 
+.button-enabled {
+  opacity: 1;
+}
+
+.button-disabled {
+  opacity: 0.3;
+  cursor: not-allowed !important;
+  background-color: var(--main-button-disabled) !important;
+}
+
+.resend-otp {
+  margin-top: 2%;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--primary);
+}
+
 #new_password_form {
   display: flex;
   align-items: left;

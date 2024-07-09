@@ -5,10 +5,10 @@
     header('Access-Control-Allow-Headers: Content-Type');
     header('Content-Type: application/json; charset=utf-8'); // Set content type to JSON
 
-    $servername = "localhost";
-    $firstname = "root";
-    $password = "";
-    $dbname = "scribe_db";
+    $servername = "127.0.0.1";
+    $username = "u565642650_scribe_user";
+    $password = "Hypertechs2.0_dbpass";
+    $dbname = "u565642650_scribe_db";
 
     // Create connection
     $conn = new mysqli($servername, $firstname, $password, $dbname);

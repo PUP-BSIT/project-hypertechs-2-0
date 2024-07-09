@@ -181,7 +181,7 @@ form {
 }
 
 #user_agreement {
-  margin-top: 2vh;
+  margin-top: 3vh;
   text-align: center;
   display: none;
 }
@@ -194,7 +194,7 @@ form {
   text-align: center;
   cursor: pointer;
   text-decoration: none;
-  margin-top: 4vh;
+  margin-top: 2vh;
 }
 
 /* Hide scrollbar for WebKit browsers (Chrome, Safari) */
@@ -330,148 +330,21 @@ form {
   justify-content: space-between;
 }
 
-//TODO!!
-// /* Media Queries */
-// @media (max-width: 1024px) {
-//   #signup_container {
-//     flex-direction: column;
-//   }
-
-//   #signup_main {
-//     padding: 5vh 5vw;
-//   }
-
-//   #signup_graphics {
-//     display: none;
-//   }
-// }
-
-@media (max-width: 768px) {
-  .input-group.same-row-one {
-    flex-direction: column;
-    gap: 3vh;
-  }
-
-  #signup_graphics {
-    display: none;
-  }
-
-  #signup_form h1 {
-    font-size: 1.9rem;
-    color: var(--text);
-  }
-
-  #signup_form h4 {
-    margin-top: 1vh;
-    font-size: 1rem;
-    color: var(--text);
-    font-weight: 400;
-  }
-
-  .material-icons.row {
-    left: 5vw;
-  }
-
-  .input-group label {
-    margin-bottom: 2vh;
-    margin-left: 0vw;
-    font-size: 1rem;
-    color: var(--label);
-  }
-
-  #signup_form input[type="text"],
-  #signup_form input[type="password"] {
-    padding: 1.5vh 4vw;
-    height: 6vh;
-    font-size: 0.85rem;
-  }
-
-  #signup_form input[type="text"]::placeholder,
-  #signup_form input[type="password"]::placeholder {
-    margin-top: 1.35vh;
-    opacity: 0.6; /* Corrected opacity */
-    color: var(--tonal-form-text);
-    font-size: 0.85rem;
-  }
-
-  .input-group.error .error-message div {
-    color: var(--error-message);
-  }
-
-  .error-message {
-    display: flex;
-    align-items: center;
-    min-height: 1.5em;
-    margin-top: 0.5em;
-    visibility: hidden;
-    font-size: 1.5vw;
-    color: var(--error-message);
-    overflow: hidden;
-
-    &.visible {
-      animation: slideDown 0.5s ease forwards;
-      visibility: visible;
-    }
-
-    .error-item {
-      display: flex;
-      align-items: center;
-      gap: 0.5em;
-      margin-left: 1vw;
-    }
-
-    .error-item .material-symbols-outlined {
-      font-size: 1.5vw;
-    }
-
-    div {
-      visibility: visible;
-    }
-  }
-
-  .material-icons {
-    margin-top: 1.75vh;
-    position: absolute;
-    left: 1.5vw;
-    color: var(--tonal-form-text);
-    pointer-events: none;
-    font-size: 13px;
-  }
-
-  .material-icons.row {
-    margin-top: 1.75vh;
-    position: absolute;
-    left: 1.5vw;
-    color: var(--tonal-form-text);
-    margin-top: 1.75vh;
-    left: 1.5vw;
-    font-size: 0.75rem;
-  }
-
-  #forgot_password {
-    font-size: calc(var(--font-misc) - 2px);
-  }
-
-  button.custom-btn {
-    height: 6vh;
-    font-size: 1rem;
-  }
-
-  #goto_login {
-    font-size: 0.8rem;
-  }
-
-  #user_agreement {
-    margin-top: 2vh;
-    text-align: center;
-    font-size: 0.9rem;
-  }
-}
-
+/* MEDIA QUERIES */
 @media (max-width: 480px) {
   .input-group.same-row-one {
     flex-direction: column;
     gap: 2.65vh;
+  }
+  
+  nav {
+    gap: 2vw;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  #mini_theme_toggle {
+    font-size: 5vw;
   }
 
   #signup_container {
@@ -480,8 +353,9 @@ form {
 
   #signup_main {
     flex: 1;
-    padding: 5vh 15vw;
+    padding: 5vh 10vw;
   }
+
   .field-content {
     display: flex;
     flex-direction: row;
@@ -492,16 +366,6 @@ form {
     display: none;
   }
 
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2vh;
-  }
-
-  nav {
-    gap: 2vw;
-  }
-
   #signup_form h1 {
     font-size: 1.25rem;
     color: var(--text);
@@ -509,37 +373,35 @@ form {
 
   #signup_form h4 {
     margin-top: 2vh;
-    font-size: 0.7rem;
     color: var(--text);
+    font-weight: 400;
+    font-size: 13px;
   }
 
   .input-group label {
     margin-bottom: 2vh;
     margin-left: 0vw;
-    font-size: 0.75rem;
+    font-size: 13px;
+    font-weight: 500;
     color: var(--label);
   }
 
   #signup_form input[type="text"],
   #signup_form input[type="password"] {
-    padding: 1.5vw 5vh;
-    height: 6vh;
-    font-size: 0.75rem;
+    padding: 2vh 15vw;
+    height: 8.5vh;
+    font-size: 13px;
+    opacity: 50;
   }
 
   #signup_form input[type="text"]::placeholder,
   #signup_form input[type="password"]::placeholder {
     margin-top: 1.35vh;
-    opacity: 10;
+    opacity: 5;
     color: var(--tonal-form-text);
-    font-size: 0.75rem;
-    padding: 0.4vw;
-    padding-right: 2.5vw;
-    margin-right: 10vh;
-  }
-
-  .input-group.error .error-message div {
-    color: var(--error-message);
+    font-size: 13px;
+    padding: 0vh;
+    margin-right: vh;
   }
 
   .error-message {
@@ -548,63 +410,46 @@ form {
     min-height: 1.5em;
     margin-top: 0.5em;
     visibility: hidden;
-    font-size: 3vw;
-    color: var(--error-message);
+    font-size: var(--font-error);
     overflow: hidden;
+    font-size: 10px;
 
-    &.visible {
-      animation: slideDown 0.5s ease forwards;
-      visibility: visible;
-    }
-
-    .error-item {
-      display: flex;
-      align-items: center;
-      gap: 0.5em;
-      margin-left: 1vw;
-    }
-
-    .error-item .material-symbols-outlined {
-      font-size: 3vw;
-    }
-
-    div {
-      visibility: visible;
-    }
-  }
+  .error-item .material-symbols-outlined {
+    font-size: 3vw;
+  }  
+ }
 
   .material-icons {
-    margin-top: 2.4vh;
+    margin-top: 3vh;
     position: absolute;
-    left: 1.5vh;
+    left: 5vw;
     color: var(--tonal-form-text);
-    font-size: 0.75rem;
+    pointer-events: none;
+    font-size: 20px;
   }
 
   .material-icons.row {
-    margin-top: 2.4vh;
+    margin-top: 3vh;
     position: absolute;
-    left: 1.5vh;
+    left: 5vw;
     color: var(--tonal-form-text);
-    font-size: 0.75rem;
+    pointer-events: none;
+    font-size: 20px;
   }
 
   #forgot_password {
     font-size: 0.75rem;
   }
 
-  button.custom-btn {
-    height: 6vh;
-    font-size: 0.75rem;
+  .custom-btn {
+    height: 5vh;
+    width: 17.5vh;
+    font-size: 13.5px;
   }
 
   #goto_login {
-    font-size: 0.7rem;
-  }
-
-  .custom-btn {
-    height: 6vh;
-    font-size: 0.75rem;
+    margin-top: 2px;
+    font-size: 13px;
   }
 
   #user_agreement {
@@ -612,4 +457,175 @@ form {
     text-align: center;
     font-size: 0.65rem;
   }
-}
+
+  .navigation-btn-next,
+    .navigation-btn-back {
+      margin-top: -2vh;
+      height: 4vh;
+      width: 22%;
+      font-size: 0.8rem;
+      padding: 3%;
+      
+      span {
+        font-size: 0.8em;
+      }
+  
+      .button-content {
+        gap: 7%;
+      }
+    }
+  
+    .navigation-btn-next {
+      align-self: end;
+    }
+  
+    .navigation-btn-back {
+      .button-content {
+        flex-direction: row-reverse;
+      }
+    }
+  }
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .input-group.same-row-one {
+    flex-direction: column;
+    gap: 3vh;
+  }
+
+  #signup_main {
+    flex: 1;
+    padding: 9vh 10vw;
+  }
+
+  #signup_graphics {
+    display: none;
+  }
+
+  nav {
+    gap: 2vw;
+  }
+
+  #mini_theme_toggle {
+    font-size: 4vw;
+  }
+
+  #signup_form h1 {
+    color: var(--text);
+    font-size: 35px;
+  }
+
+  #signup_form h4 {
+    margin-top: 2vh;
+    color: var(--text);
+    font-weight: 400;
+    font-size: 22px;
+  }
+
+  .material-icons.row {
+    left: 5vw;
+  }
+
+  .input-group label {
+    margin-bottom: 2vh;
+    margin-left: 0vw;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--label);
+  }
+
+  #signup_form input[type="text"],
+  #signup_form input[type="password"] {
+    padding: 2vh 11vw;
+    height: 8.5vh;
+    font-size: 18px;
+    opacity: 50;
+  }
+
+  #signup_form input[type="text"]::placeholder,
+  #signup_form input[type="password"]::placeholder {
+    color: var(--tonal-form-text);
+    font-size: 18px;
+    padding: 0vw;
+    margin-right: 10vh;
+  }
+
+  .error-message {
+    display: flex;
+    align-items: center;
+    min-height: 1.5em;
+    margin-top: 0.5em;
+    visibility: hidden;
+    overflow: hidden;
+    font-size: 20px;
+
+  .error-item .material-symbols-outlined {
+    font-size: 2.5vw;
+  }  
+ }
+
+  .material-icons {
+    margin-top: 3vh;
+    position: absolute;
+    left: 5vw;
+    color: var(--tonal-form-text);
+    pointer-events: none;
+    font-size: 30px;
+  }
+
+  .material-icons.row {
+    margin-top: 3vh;
+    position: absolute;
+    left: 5vw;
+    color: var(--tonal-form-text);
+    pointer-events: none;
+    font-size: 30px;
+  }
+
+  #forgot_password {
+    font-size: calc(var(--font-misc) - 2px);
+  }
+
+  .custom-btn {
+    height: 7vh;
+    width: 20vh;
+    font-size: 20px;
+  }
+
+  #goto_login {
+    margin-top: 2px;
+    font-size: 20px;
+  }
+
+  #user_agreement {
+    margin-top: 2vh;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+    .navigation-btn-next,
+    .navigation-btn-back {
+      margin-top: -2vh;
+      height: 5vh;
+      width: 20%;
+      font-size: 1.20rem;
+      padding: 3%;
+      
+      span {
+        font-size: 0.8em;
+      }
+  
+      .button-content {
+        gap: 8%;
+      }
+    }
+  
+    .navigation-btn-next {
+      align-self: end;
+    }
+  
+    .navigation-btn-back {
+      .button-content {
+        flex-direction: row-reverse;
+      }
+    }
+  }

@@ -4,6 +4,7 @@
 }
 
 .scribe-home-container {
+  padding: 0 3rem 0 3rem;
   display: flex;
   height: 92%;
   width: 100%;
@@ -218,4 +219,11 @@ h3 {
     width: 80%;
     opacity: 0.5;
   }
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh; /* or another suitable height */
 }

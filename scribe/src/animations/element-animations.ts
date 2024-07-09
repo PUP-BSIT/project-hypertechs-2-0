@@ -47,7 +47,7 @@ export const simpleFade = trigger('simpleFade', [
 /* Animation 3: Slide Up-Down */
 export const slideUpDown = trigger('slideUpDown', [
   transition(':enter', [
-    style({ transform: 'translateY(100%)', opacity: 0 }),
+    style({ transform: 'translateY(50%)', opacity: 0 }),
     animate(
       '1000ms cubic-bezier(0.25, 0.8, 0.25, 1)',
       style({ transform: 'translateY(0)', opacity: 1 })
@@ -64,7 +64,7 @@ export const slideUpDown = trigger('slideUpDown', [
 /* Animation 4: Task Animation */
 export const taskAnimation = trigger('taskAnimation', [
   transition(':enter', [
-    style({ opacity: 0, transform: 'translateY(45%)' }),
+    style({ opacity: 0, transform: 'translateY(50%)' }),
     animate(
       '600ms cubic-bezier(.09,.01,.22,.99)',
       style({ opacity: 1, transform: 'translateY(0)' })
@@ -81,15 +81,15 @@ export const taskAnimation = trigger('taskAnimation', [
 /* Animation 5: half Slide Animation */
 export const halfSlide = trigger('halfSlide', [
   transition(':enter', [
-    style({ transform: 'translateY(20%)', opacity: 0 }),
+    style({ transform: 'translateY(25%)', opacity: 0 }),
     animate(
-      '800ms cubic-bezier(0.25, 0.8, 0.25, 1)',
+      '1000ms cubic-bezier(0.25, 0.8, 0.25, 1)',
       style({ transform: 'translateY(0)', opacity: 1 })
     ),
   ]),
   transition(':leave', [
     animate(
-      '800ms cubic-bezier(0.25, 0.8, 0.25, 1)',
+      '1000ms cubic-bezier(0.25, 0.8, 0.25, 1)',
       style({ transform: 'translateY(100%)', opacity: 0 })
     ),
   ]),
@@ -154,5 +154,13 @@ export const slideLeftRightSteps = trigger('slideLeftRightSteps', [
         { optional: true }
       ),
     ]),
+  ]),
+]);
+
+/* Animation 7: Simple Fade */
+export const searchFade = trigger('searchFade', [
+  transition(':enter', [
+    style({ opacity: 0 }),
+    animate('700ms', style({ opacity: 1 })),
   ]),
 ]);

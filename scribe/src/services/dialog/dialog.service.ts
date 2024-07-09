@@ -11,6 +11,19 @@ export class DialogService {
   openDialog(data: any) {
     return this.dialog.open(DialogComponent, {
       data: data,
+      disableClose: true,
+    });
+  }
+
+  openSuccessDialog(title: string, content: string) {
+    return this.dialog.open(DialogComponent, {
+      data: {
+        title: title,
+        content: content,
+        confirmText: '', 
+        cancelText: '',
+      },
+      disableClose: true,
     });
   }
 }

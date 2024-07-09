@@ -9,6 +9,7 @@ export class OtpverificationService {
   private apiUrl = 'http://localhost/backend/otp/otp.php';
   private emailUrl = 'http://localhost/backend/otp/enter-email.php';
   private passUrl = 'http://localhost/backend/auth/reset-pass.php';
+  private resendUrl ='http://localhost/backend/otp/resend.php';
 
   constructor(private http: HttpClient) { }
 
@@ -28,5 +29,11 @@ export class OtpverificationService {
     return this.http.post(this.passUrl, { user_id, password: password }, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     });
+  }
+
+  resendOtp(user_id: string): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const options = { headers: headers }; 
+    return this.http.post<any>(this.resendUrl, {user_id}, options);
   }
 }

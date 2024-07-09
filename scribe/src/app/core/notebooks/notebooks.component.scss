@@ -1,0 +1,86 @@
+* {
+  transition: background-color 0.75s ease, color 0.75s ease;
+}
+
+.notebooks-container {
+  padding: 0 3rem 0 3rem;
+  position: relative;
+  padding-bottom: 5%;
+}
+
+#notebooks_heading {
+  margin-bottom: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--core-bg);
+
+  h1 {
+    font-size: 3.5vw;
+    font-family: "Google Sans", sans-serif;
+    font-weight: 500;
+    background: -webkit-linear-gradient(
+      45deg,
+      var(--highlight-prime) 15%,
+      var(--highlight-next) 70%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.025em;
+    transition: color 0.75s ease;
+    width: 60%;
+  }
+}
+
+.notebooks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+  gap: 0.75vw;
+  user-select: none;
+}
+
+.notebook {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 18% 5%;
+  border-radius: 10px;
+  text-align: center;
+  background-color: var(--core-nav);
+  cursor: pointer;
+}
+
+.material-symbols-outlined {
+  font-size: 5vw;
+  margin-bottom: 10px;
+  background: -webkit-linear-gradient(
+    45deg,
+    var(--highlight-prime) 15%,
+    var(--highlight-next) 70%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
+}
+
+.notebook-name {
+  font-size: 1.25vw;
+  color: var(--text);
+}
+
+.new-notebook-button {
+  position: fixed;
+  bottom: 4vw;
+  right: 4vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-misc);
+  font-weight: 500;
+  color: rgb(229, 254, 247);
+  background-color: var(--main-button);
+  padding: 1.5%;
+}

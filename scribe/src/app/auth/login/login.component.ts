@@ -7,6 +7,7 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LoginData } from '../../../models/model';
 import { UserService } from '../../../services/user/user.service';
@@ -14,6 +15,8 @@ import { LoginService } from '../../../services/login/login.service';
 import { SnackbarService } from '../../../services/snackbar/snackbar.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { ThemeService } from '../../../services/theme/theme.service';
+import { OtpverificationService } from '../../../services/otp/otpverification.service';
+import { DialogService } from '../../../services/dialog/dialog.service';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +27,7 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   isLoading = false;
   themeIcon: string = 'dark_mode';
+  userId: string= '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,6 +37,9 @@ export class LoginComponent implements OnInit {
     private snackbarService: SnackbarService,
     private authService: AuthService,
     private themeService: ThemeService,
+    private otpService: OtpverificationService,
+    private route: ActivatedRoute,
+    private dialogService: DialogService
   ) {}
 
   loginForm: FormGroup = this.formBuilder.group({});
@@ -45,21 +52,6 @@ export class LoginComponent implements OnInit {
       ],
       password: ['', Validators.required],
     });
-
-    const storedUser = localStorage.getItem('loggedInUser');
-    if (storedUser) {
-      try {
-        const userData = JSON.parse(storedUser);
-        this.userService.setFirstname(userData.firstname);
-        this.userService.setLastname(userData.lastname);
-        this.userService.setEmail(userData.email);
-        this.userService.setUserId(userData.user_id);
-        this.router.navigate(['main']);
-      } catch (error) {
-        console.error('Error parsing stored user data:', error);
-        localStorage.removeItem('loggedInUser');
-      }
-    }
 
     this.initializeTheme();
   }
@@ -105,18 +97,30 @@ export class LoginComponent implements OnInit {
       password: this.loginForm.value.password,
     };
 
-    console.log('Data sent to service: ', loginData);
+    //console.log('Data sent to service: ', loginData);
 
     this.loginService.loginUser(loginData).subscribe({
       next: (response) => {
-        localStorage.setItem('loggedInUser', JSON.stringify(response));
-        this.userService.setFirstname(response.firstname);
-        this.userService.setLastname(response.lastname);
-        this.userService.setEmail(response.email);
-        this.authService.setUserId(response.user_id); // Notify AuthService
-        this.router.navigate(['main']);
-        this.isLoading = false;
-        this.snackbarService.dismiss();
+        if(response.is_verified === 1){
+          localStorage.setItem('loggedInUser', JSON.stringify(response));
+          this.userService.setFirstname(response.firstname);
+          this.userService.setLastname(response.lastname);
+          this.userService.setEmail(response.email);
+          this.authService.setUserId(response.user_id); // Notify AuthService
+          this.router.navigate(['main']);
+        }  else {
+          this.otpService.resendOtp(response.user_id).subscribe({
+            next: (value) => {
+              this.openSentmailDialog(response.user_id);
+              // this.router.navigate(['otp'], {
+              // queryParams: { user_id: response.user_id },
+              //   });
+              // console.log('Response from server: ', value);
+              // console.log(value.user_id);
+              this.snackbarService.dismiss();             
+            },
+          });
+        }
       },
       error: (error: HttpErrorResponse) => {
         this.handleError(error);
@@ -163,5 +167,24 @@ export class LoginComponent implements OnInit {
   private handleNetworkError() {
     this.errorMessage =
       'Network error occurred. Please check your internet connection.';
+  }
+
+  openSentmailDialog(user_id: string): void {
+    const dialogRef = this.dialogService.openDialog({
+      title: 'Account Not Verified',
+      content: 'Your account is not verified yet. Click Proceed for verification.',
+      cancelText: 'Cancel',
+      confirmText: 'Proceed',
+      action: 'ok',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'ok') {
+        //const user_id = this.authService.getUserId();
+        this.router.navigate(['otp'], {
+          queryParams: { user_id: user_id },
+        });
+      }
+    });
   }
 }

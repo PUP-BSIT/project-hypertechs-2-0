@@ -1,22 +1,7 @@
 <?php
 session_start();
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
-header('Content-Type: application/json; charset=utf-8');
-
+include '../db_config.php';
 include '../send_mail/mail.php';
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "scribe_db";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);
@@ -54,20 +39,47 @@ if (isset($data['otp'])) {
 
             $_SESSION['user_id'] = $user_id;
 
+
+            $updateStmt = $conn->prepare(
+                "UPDATE users 
+                 SET is_verified = 1 
+                 WHERE user_id = ?"
+            );
+            $updateStmt->bind_param("i", $user_id);
+            $updateStmt->execute();
+            $updateStmt->close();
+
+            $selectStmt = $conn->prepare(
+                 "SELECT is_verified, lastname, firstname, email
+                    FROM users 
+                    WHERE user_id = ?"
+            );
+            $selectStmt->bind_param("i", $user_id);
+            $selectStmt->execute();
+            $selectStmt->bind_result($is_verified, $lastname, $firstname, $email);
+            $selectStmt->fetch();
+            $selectStmt->close();
+
             echo json_encode([
                 'status' => 'success', 
                 'otp' => $receivedOtp, 
                 'id'=>$user_id, 
-                'session'=>$_SESSION['user_id']]);/*TODO for testing*/
+                'session'=>$_SESSION['user_id'],
+                'verified'=>$is_verified,
+                'lastname'=>$lastname,
+                'firstname'=>$firstname,
+                'email'=>$email
+                ]);/*TODO for testing*/
         } else{
             echo json_encode([
                 'status' => 'error', 
-                'message'=> 'OTP has expired']);
+                'message'=> 'This OTP has expired. Click resend code.']);
         }  
     } else {
         echo json_encode([
             'status' => 'error', 
-            'message' => 'OTP does not match', 
+            'message' => 'The OTP you entered is invalid. Try again.', 
+            'userid' => $user_id,
             'verification'=>$verificationCode, 
             'receivedOtp' => $receivedOtp]); /*TODO for testing*/
     }

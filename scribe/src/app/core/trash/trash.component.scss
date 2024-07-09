@@ -3,11 +3,18 @@
 }
 
 .scribe-trash-container {
+  padding: 0 3rem 2rem 3rem;
   position: relative;
-  padding-bottom: 5%;
+}
+
+#trash_main {
+  height: 100%;
 }
 
 #trash_heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
   margin-bottom: 1rem;
   position: sticky;
   top: 0;
@@ -29,6 +36,11 @@
     letter-spacing: -0.025em;
     transition: color 0.75s ease;
     width: 60%;
+  }
+
+  .custom-sort {
+    font-size: 1.1vw;
+    color: var(--primary);
   }
 }
 
@@ -58,3 +70,21 @@
     height: auto;
   }
 }
+
+.custom-paginator {
+  display: flex;
+  justify-content: flex-start;
+  background-color: var(--core-bg);
+  font-size: 1vw;
+  padding-top: 2%; 
+  font-family: "Google Sans Text", sans-serif !important;
+}
+
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+

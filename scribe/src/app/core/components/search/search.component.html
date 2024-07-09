@@ -1,9 +1,59 @@
-<div id="scribe_search_container" [@simpleFade]>
+<div class="scribe-search-container" [@simpleFade]>
+  <!-- <button (click)="showOnlyNotes = !showOnlyNotes">
+    Toggle Show Only Notes
+  </button> -->
 
-    <!--This section will initially load when user clicks the search bar-->
-    <div id="initial_search_content">
-        <img src="../../../../assets/images/search.svg">
-        <h3>Search your notes, tasks, folders, and many more.</h3>
+  @if (clearSearch) {
+  <div id="initial_search_content">
+    <img src="../../../../assets/images/search.svg" />
+    <h3>Your search results will appear here.</h3>
+  </div>
+  } @else if (!notes.length && !userTasks.length) {
+  <div id="initial_search_content">
+    <img src="../../../../assets/images/search.svg" />
+    <h3>No <span id="search_term">"{{ searchTerm }}"</span> found.</h3>
+  </div>
+  }
+
+  <div id="tiles_container">
+    <div id="all_notes_tiles" [@searchFade]>
+      @if(isLoading){
+      <div class="loading"></div>
+      } @if (!clearSearch && notes.length > 0){
+      <h3>
+        <span class="material-symbols-outlined">
+        note_stack
+        </span>
+        From your notes
+      </h3>
+      <ngx-masonry class="masonry-note-container">
+        @for(note of notes; track note.id){
+        <app-note-card
+          [note]="note"
+          [isInTrash]="false"
+          (delete)="onNoteDelete($event)"
+          [themeColor]="note.theme_color"
+        >
+        </app-note-card>
+        }
+      </ngx-masonry>
+      }
     </div>
-    
+    @if (userTasks.length > 0){
+      <h3>
+        <span class="material-symbols-outlined">
+          task_alt
+        </span>
+        From your tasks
+      </h3>
+    <div id="all_tasks_tiles" [@searchFade]>
+      @for (task of userTasks; track task) {
+      <app-task-card
+        [task]="task"
+        (taskDeleted)="onTaskDeleted($event)"
+      ></app-task-card>
+      }
+    </div>
+    }
+  </div>
 </div>

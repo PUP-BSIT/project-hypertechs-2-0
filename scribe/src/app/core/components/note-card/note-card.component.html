@@ -1,4 +1,5 @@
-<mat-card ngxMasonryItem class="masonry-note">
+<mat-card ngxMasonryItem class="masonry-note"
+  [ngStyle]="{'background-color': noteBackgroundColor}">
   <div class="note-header">
     <mat-card-title class="note-title" (click)="editNote()">
       {{ note.title }}
@@ -9,13 +10,15 @@
     <mat-menu #menu="matMenu">
       <!-- If the notes are active, display this -->
       @if (!isInTrash) {
+        <button mat-menu-item (click)="togglePinNote()">
+          <mat-icon>{{
+            note.is_pinned ? "remove_circle_outline" : "push_pin"
+          }}</mat-icon>
+          <span>{{ note.is_pinned ? "Unpin Note" : "Pin Note" }}</span>
+        </button>
         <button mat-menu-item (click)="editNote()">
           <mat-icon>edit</mat-icon>
           <span>Edit</span>
-        </button>
-        <button mat-menu-item>
-          <mat-icon>share</mat-icon>
-          <span>Share</span>
         </button>
         <button mat-menu-item (click)="deleteNote()">
           <mat-icon>delete</mat-icon>

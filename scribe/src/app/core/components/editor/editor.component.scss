@@ -4,8 +4,37 @@
 }
 
 .scribe-editor-container {
-  margin-top: 2rem;
+  padding: 0 3rem 0 3rem;
+  overflow-y: scroll;
+  max-height: calc(100vh);
+  background-color: var(--core-bg);
+  height: 100vh;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
+
+.sticky-container {
+  padding-top: 2rem;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transition: background-color 0.75s ease, transform 0.5s ease-in-out;
+  transform: translateY(0);
+  padding-bottom: 0.1%;
+
+  &.hide {
+    transform: translateY(-100%);
+    transition: background-color 0.75s ease, transform 0.1s ease-in-out;
+  }
+}
+
 
 /*  ----- EDITOR HEADER STYLING ----- */
 .editor-header {
@@ -19,11 +48,13 @@
 .btn-edit,
 .btn-done {
   font-size: 1vw;
-  color: var(--primary) !important;
+  color: var(--text) !important;
+  opacity: 0.8;
   cursor: pointer;
+  font-weight: 500;
 
   .mat-icon {
-    color: var(--primary);
+    color: var(--text);
   }
 }
 
@@ -77,6 +108,7 @@
 
 .editor-tags-reminders {
   margin-bottom: 20px;
+  display: none;
 }
 
 .btn-tags,
@@ -145,7 +177,7 @@
 }
 
 .editor-toolbar select {
-  background-color: var(--core-nav);
+  background: var(--toolbar);
   color: var(--text);
   border: none;
   outline: none;
@@ -159,7 +191,7 @@
 .editor-content {
   height: auto;
   outline: none;
-  padding-bottom: 15%;
+  padding-bottom: 10%;
 }
 
 ::ng-deep .editor-content .custom-list {
