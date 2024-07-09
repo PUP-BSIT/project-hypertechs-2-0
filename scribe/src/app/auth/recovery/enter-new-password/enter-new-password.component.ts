@@ -4,7 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { SnackbarService } from '../../../../services/snackbar/snackbar.service';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { UserService } from '../../../../services/user/user.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
+import { ThemeService } from '../../../../services/theme/theme.service';
 
 @Component({
   selector: 'app-enter-new-password',
@@ -12,64 +13,109 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['../recovery.component.scss']
 })
 export class EnterNewPasswordComponent implements OnInit {
-  password: string = '';
-  confirmPassword: string = '';
-  user_id : string = '';
-  resetForm : FormGroup = this.fb.group({});
   @Output() passwordSubmitted = new EventEmitter<string>();
-
-  passwordError: boolean = false;
-  confirmPasswordError: boolean = false;
+  user_id: string = '';
+  resetForm: FormGroup = this.fb.group({});
+  themeIcon: string = 'dark_mode';
+  isLoading = false;
 
   constructor(
-    private otpService: OtpverificationService, 
-    private router: Router, 
+    private otpService: OtpverificationService,
+    private router: Router,
     private route: ActivatedRoute,
-    private snackbarService: SnackbarService, 
-    private authService: AuthService, 
+    private snackbarService: SnackbarService,
+    private authService: AuthService,
     private userService: UserService,
-    private fb : FormBuilder,
-  ){}
+    private themeService: ThemeService,
+    private fb: FormBuilder,
+  ) { }
 
   ngOnInit() {
+    this.initializeTheme();
     this.route.queryParams.subscribe(params => {
       this.user_id = params['user_id'];
       console.log('User ID:', this.user_id);
     });
+    this.resetForm = this.fb.group(
+      {
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.maxLength(40),
+            this.passwordComplexityValidator(),
+          ],
+        ],
+        confirm_password: ['', [Validators.required]],
+      },
+      { validators: this.matchValidator('password', 'confirm_password') }
+    );
+  }
+
+  toggleTheme() {
+    this.themeService.toggleTheme();
+  }
+
+  private initializeTheme() {
+    this.themeService.currentTheme.subscribe((isDark) => {
+      this.themeIcon = isDark ? 'dark_mode' : 'light_mode';
+    });
+  }
+
+  passwordComplexityValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const value = control.value;
+      if (!value) {
+        return null;
+      }
+      const hasUpperCase = /[A-Z]/.test(value);
+      const hasLowerCase = /[a-z]/.test(value);
+      const hasNumber = /[0-9]/.test(value);
+      const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(value);
+      const passwordValid = hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar;
+      return !passwordValid ? { passwordComplexity: true } : null;
+    };
+  }
+
+  matchValidator(password: string, confirmPassword: string): ValidatorFn {
+    return (abstractControl: AbstractControl): { [key: string]: any } | null => {
+      const ctrlPassword = abstractControl.get(password);
+      const ctrlConfirmPassword = abstractControl.get(confirmPassword);
+      if (ctrlConfirmPassword?.errors && !ctrlConfirmPassword.errors['confirmedValidator']) {
+        return null;
+      }
+      if (ctrlPassword?.value !== ctrlConfirmPassword?.value) {
+        ctrlConfirmPassword?.setErrors({ confirmedValidator: true });
+        return { confirmedValidator: true };
+      } else {
+        ctrlConfirmPassword?.setErrors(null);
+        return null;
+      }
+    };
   }
 
   onSubmit() {
-    this.passwordError = false;
-    this.confirmPasswordError = false;
+    if (!this.resetForm.valid) return;
+    this.isLoading = true;
 
-    if (this.password.length < 8) {
-      this.passwordError = true;
-      return;
-    }
+    const password = this.resetForm.get('password')?.value;
 
-    if (this.password !== this.confirmPassword) {
-      this.confirmPasswordError = true;
-      return;
-    }
-
-    //TODO
-    //console.log('Password reset successfully');
-    //this.passwordSubmitted.emit(this.password);
-    
-    console.log(this.password);
-    console.log(this.user_id);
-      
-    this.otpService.resetPassword(this.user_id, this.password)
-        .subscribe(response => {
-          if (response.status === 'success') {
-            localStorage.setItem('loggedInUser', JSON.stringify(response));
-            this.userService.setFirstname(response.firstname);
-            this.userService.setLastname(response.lastname);
-            this.userService.setEmail(response.email);
-            this.router.navigate(['main']);
-          } else {
-            this.snackbarService.show(response.message, 'Try again');
-          }
+    this.otpService.resetPassword(this.user_id, password)
+      .subscribe(response => {
+        this.isLoading = false;
+        if (response.status === 'success') {
+          localStorage.setItem('loggedInUser', JSON.stringify(response));
+          this.userService.setFirstname(response.firstname);
+          this.userService.setLastname(response.lastname);
+          this.userService.setEmail(response.email);
+          this.router.navigate(['main']);
+        } else {
+          this.snackbarService.show(response.message, 'Try again');
+        }
+      }, error => {
+        this.isLoading = false;
+        this.snackbarService.show('Failed to reset password', 'Try again');
       });
-    }
+  }
 }

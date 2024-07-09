@@ -5,6 +5,7 @@ import {
   FormBuilder,
   AbstractControl,
   ValidatorFn,
+  ValidationErrors,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -44,8 +45,8 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group(
       {
-        lastname: ['', Validators.required],
-        firstname: ['', Validators.required],
+        lastname: ['', [Validators.required, this.nameValidator()]],
+        firstname: ['', [Validators.required, this.nameValidator()]],
         email: ['', [Validators.required, Validators.email]],
         password: [
           '',
@@ -107,6 +108,26 @@ export class SignupComponent implements OnInit {
 
   get confirmPasswordControl() {
     return this.signupForm.get('confirm_password');
+  }
+
+  nameValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const value = control.value;
+  
+      if (!value) {
+        return null;
+      }
+  
+      const isWhitespace = value.trim().length === 0;
+      const isNumbersOnly = /^[0-9]*$/.test(value);
+      const isSpacesAndNumbersOnly = /^[\s0-9]+$/.test(value);
+  
+      if (isWhitespace || isNumbersOnly || isSpacesAndNumbersOnly) {
+        return { invalidName: true };
+      }
+  
+      return null;
+    };
   }
 
   passwordComplexityValidator(): ValidatorFn {

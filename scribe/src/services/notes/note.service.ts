@@ -7,7 +7,7 @@ import { AuthService } from '../auth/auth.service';
   providedIn: 'root',
 })
 export class NoteService {
-  private apiUrl = 'https://scribenote.tech/backend/notes';
+  private apiUrl = 'http://localhost/backend/notes';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 

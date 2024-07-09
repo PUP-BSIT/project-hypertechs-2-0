@@ -63,6 +63,7 @@
         [isInTrash]="true"
         (restore)="restoreNote(note.id)"
         (deleteForever)="refreshTrash(note.id)"
+        [themeColor]="note.theme_color"
       >
       </app-note-card>
       } } @else {
