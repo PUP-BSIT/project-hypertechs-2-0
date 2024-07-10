@@ -66,6 +66,22 @@ export class NoteCardComponent implements OnInit {
   }
 
   deleteNote() {
+    if (this.note.is_locked) {
+      const dialogRef = this.dialog.open(LockDialogComponent, {
+        data: { title: 'Enter Password', noteId: this.note.id },
+      });
+  
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result && result.password) {
+          this.performDeleteNote();
+        }
+      });
+    } else {
+      this.performDeleteNote();
+    }
+  }
+  
+  private performDeleteNote() {
     this.noteService.deleteNote(this.note.id).subscribe(
       () => {
         console.log('Note deleted successfully');
@@ -79,6 +95,7 @@ export class NoteCardComponent implements OnInit {
       },
       (error) => {
         console.error('Error deleting note:', error);
+        this.snackbarService.show('Error moving note to trash');
       }
     );
   }

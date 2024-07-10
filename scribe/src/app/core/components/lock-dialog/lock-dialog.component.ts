@@ -31,7 +31,6 @@ export class LockDialogComponent {
       const password = this.passwordForm.get('password')?.value;
 
       if (this.data.noteId) {
-        // Check password if noteId is provided (for unlocking)
         this.noteService
           .checkNotePassword(this.data.noteId, password)
           .subscribe(
