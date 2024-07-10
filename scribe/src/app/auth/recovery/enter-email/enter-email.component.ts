@@ -75,7 +75,7 @@ export class EnterEmailComponent implements OnInit {
         this.userService.setUserId(response.user_id);
         this.authService.setUserId(response.user_id);
         //console.log(response.user_id);
-        this.openSentmailDialog();
+        this.openSentmailDialog(response.user_id);
         this.isLoading = false;
         this.snackbarService.dismiss();
       },
@@ -87,7 +87,7 @@ export class EnterEmailComponent implements OnInit {
     });
   }
 
-  openSentmailDialog(): void {
+  openSentmailDialog(user_id: string): void {
     const dialogRef = this.dialogService.openDialog({
       title: 'Email Verification',
       content: 'We sent an OTP code to your email to verify your identity.',
@@ -98,7 +98,9 @@ export class EnterEmailComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'ok') {
-        this.router.navigate(['enter-otp']);
+        this.router.navigate(['enter-otp'], {
+          queryParams: { user_id: user_id },
+        });
       }
     });
   }
