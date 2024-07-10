@@ -155,7 +155,6 @@ export class NoteCardComponent implements OnInit {
 
   lockNote() {
     const dialogRef = this.dialog.open(LockDialogComponent, {
-      width: '250px',
       data: { title: 'Lock Note' },
     });
 
@@ -179,36 +178,21 @@ export class NoteCardComponent implements OnInit {
 
   unlockNote() {
     const dialogRef = this.dialog.open(LockDialogComponent, {
-      width: '250px',
-      data: { title: 'Unlock Note' },
+      data: { title: 'Unlock Note', noteId: this.note.id },
     });
-
+  
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.password) {
-        this.noteService
-          .checkNotePassword(this.note.id, result.password)
-          .subscribe(
-            (isCorrect) => {
-              if (isCorrect) {
-                this.noteService.toggleLockNote(this.note.id, false).subscribe(
-                  () => {
-                    this.note.is_locked = false;
-                    this.snackbarService.show('Note unlocked successfully');
-                  },
-                  (error) => {
-                    console.error('Error unlocking note:', error);
-                    this.snackbarService.show('Error unlocking note');
-                  }
-                );
-              } else {
-                this.snackbarService.show('Incorrect password');
-              }
-            },
-            (error) => {
-              console.error('Error checking password:', error);
-              this.snackbarService.show('Error checking password');
-            }
-          );
+        this.noteService.toggleLockNote(this.note.id, false).subscribe(
+          () => {
+            this.note.is_locked = false;
+            this.snackbarService.show('Note unlocked successfully');
+          },
+          (error) => {
+            console.error('Error unlocking note:', error);
+            this.snackbarService.show('Error unlocking note');
+          }
+        );
       }
     });
   }
@@ -216,27 +200,12 @@ export class NoteCardComponent implements OnInit {
   openNote() {
     if (this.note.is_locked) {
       const dialogRef = this.dialog.open(LockDialogComponent, {
-        width: '250px',
-        data: { title: 'Enter Password' },
+        data: { title: 'Enter Password', noteId: this.note.id },
       });
-
+  
       dialogRef.afterClosed().subscribe((result) => {
         if (result && result.password) {
-          this.noteService
-            .checkNotePassword(this.note.id, result.password)
-            .subscribe(
-              (isCorrect) => {
-                if (isCorrect) {
-                  this.editNote();
-                } else {
-                  this.snackbarService.show('Incorrect password');
-                }
-              },
-              (error) => {
-                console.error('Error checking password:', error);
-                this.snackbarService.show('Error checking password');
-              }
-            );
+          this.editNote();
         }
       });
     } else {
