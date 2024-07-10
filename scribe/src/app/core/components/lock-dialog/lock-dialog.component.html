@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>{{ data.title }}</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <mat-label>Password</mat-label>
+    <input maxlength="6" matInput [(ngModel)]="password" type="password" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button (click)="onConfirmClick()">Confirm</button>
+</div>
