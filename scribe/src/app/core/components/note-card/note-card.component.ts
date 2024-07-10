@@ -4,6 +4,8 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { NoteService } from '../../../../services/notes/note.service';
 import { DialogService } from '../../../../services/dialog/dialog.service';
 import { SnackbarService } from '../../../../services/snackbar/snackbar.service';
+import { MatDialog } from '@angular/material/dialog';
+import { LockDialogComponent } from '../lock-dialog/lock-dialog.component';
 
 @Component({
   selector: 'app-note-card',
@@ -19,7 +21,7 @@ export class NoteCardComponent implements OnInit {
   @Output() deleteForever = new EventEmitter<number>();
   @Output() pinStatusChange = new EventEmitter<any>();
 
-  themeColors: { [key: string]: { dark: string, light: string } } = {
+  themeColors: { [key: string]: { dark: string; light: string } } = {
     default: { dark: '#1a1d1d', light: '#eff0ef' },
     red: { dark: '#77172e', light: '#edd6db' },
     orange: { dark: '#55200f', light: '#efdfda' },
@@ -36,11 +38,13 @@ export class NoteCardComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private noteService: NoteService,
     private dialogService: DialogService,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
     console.log('Note data:', this.note);
+    console.log('Is locked:', this.note.is_locked, typeof this.note.is_locked);
 
     if (this.note.last_edited && typeof this.note.last_edited === 'string') {
       this.note.last_edited = new Date(this.note.last_edited);
@@ -49,6 +53,11 @@ export class NoteCardComponent implements OnInit {
 
   get sanitizedContent(): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(this.note.content);
+  }
+
+  get noteBackgroundColor(): string {
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    return this.themeColors[this.themeColor][isDarkMode ? 'dark' : 'light'];
   }
 
   editNote() {
@@ -120,22 +129,118 @@ export class NoteCardComponent implements OnInit {
   }
 
   togglePinNote() {
-    this.noteService.togglePinNote(this.note.id, !this.note.is_pinned).subscribe(
-      () => {
-        this.note.is_pinned = !this.note.is_pinned;
-        this.snackbarService.show(
-          `Note ${this.note.is_pinned ? 'pinned' : 'unpinned'} successfully`
-        );
-        this.pinStatusChange.emit(this.note);
-      },
-      (error) => {
-        console.error('Error toggling pin status:', error);
-      }
-    );
+    this.noteService
+      .togglePinNote(this.note.id, !this.note.is_pinned)
+      .subscribe(
+        () => {
+          this.note.is_pinned = !this.note.is_pinned;
+          this.snackbarService.show(
+            `Note ${this.note.is_pinned ? 'pinned' : 'unpinned'} successfully`
+          );
+          this.pinStatusChange.emit(this.note);
+        },
+        (error) => {
+          console.error('Error toggling pin status:', error);
+        }
+      );
   }
 
-  get noteBackgroundColor(): string {
-    const isDarkMode = document.body.classList.contains('dark-mode');
-    return this.themeColors[this.themeColor][isDarkMode ? 'dark' : 'light'];
+  toggleLockNote() {
+    if (this.note.is_locked) {
+      this.unlockNote();
+    } else {
+      this.lockNote();
+    }
+  }
+
+  lockNote() {
+    const dialogRef = this.dialog.open(LockDialogComponent, {
+      width: '250px',
+      data: { title: 'Lock Note' },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result && result.password) {
+        this.noteService
+          .toggleLockNote(this.note.id, true, result.password)
+          .subscribe(
+            () => {
+              this.note.is_locked = true;
+              this.snackbarService.show('Note locked successfully');
+            },
+            (error) => {
+              console.error('Error locking note:', error);
+              this.snackbarService.show('Error locking note');
+            }
+          );
+      }
+    });
+  }
+
+  unlockNote() {
+    const dialogRef = this.dialog.open(LockDialogComponent, {
+      width: '250px',
+      data: { title: 'Unlock Note' },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result && result.password) {
+        this.noteService
+          .checkNotePassword(this.note.id, result.password)
+          .subscribe(
+            (isCorrect) => {
+              if (isCorrect) {
+                this.noteService.toggleLockNote(this.note.id, false).subscribe(
+                  () => {
+                    this.note.is_locked = false;
+                    this.snackbarService.show('Note unlocked successfully');
+                  },
+                  (error) => {
+                    console.error('Error unlocking note:', error);
+                    this.snackbarService.show('Error unlocking note');
+                  }
+                );
+              } else {
+                this.snackbarService.show('Incorrect password');
+              }
+            },
+            (error) => {
+              console.error('Error checking password:', error);
+              this.snackbarService.show('Error checking password');
+            }
+          );
+      }
+    });
+  }
+
+  openNote() {
+    if (this.note.is_locked) {
+      const dialogRef = this.dialog.open(LockDialogComponent, {
+        width: '250px',
+        data: { title: 'Enter Password' },
+      });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result && result.password) {
+          this.noteService
+            .checkNotePassword(this.note.id, result.password)
+            .subscribe(
+              (isCorrect) => {
+                if (isCorrect) {
+                  this.editNote();
+                } else {
+                  this.snackbarService.show('Incorrect password');
+                }
+              },
+              (error) => {
+                console.error('Error checking password:', error);
+                this.snackbarService.show('Error checking password');
+              }
+            );
+        }
+      });
+    } else {
+      this.editNote();
+    }
   }
 }
