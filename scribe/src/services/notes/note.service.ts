@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 
 @Injectable({
@@ -84,5 +84,29 @@ export class NoteService {
       id: noteId,
       is_pinned: isPinned,
     });
+  }
+
+  toggleLockNote(
+    noteId: number,
+    isLocked: boolean,
+    password?: string
+  ): Observable<any> {
+    return this.http.post(`${this.apiUrl}/toggle-lock-notes.php`, {
+      id: noteId,
+      is_locked: isLocked,
+      password: password,
+    });
+  }
+
+  checkNotePassword(noteId: number, password: string): Observable<boolean> {
+    return this.http
+      .post<{ success: boolean; isCorrect: boolean }>(
+        `${this.apiUrl}/check-note-password.php`,
+        {
+          id: noteId,
+          password: password,
+        }
+      )
+      .pipe(map((response) => response.isCorrect));
   }
 }
