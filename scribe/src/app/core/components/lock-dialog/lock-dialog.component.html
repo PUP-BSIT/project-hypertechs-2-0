@@ -5,22 +5,21 @@
       <mat-form-field class="custom-mat-form-field" appearance="outline">
         <mat-label>Password</mat-label>
         <input
-          maxlength="6"
+        maxlength="40"
           matInput
           formControlName="password"
           type="password"
-          (input)="onInputChange($event)"
         />
         <mat-icon matPrefix>lock</mat-icon>
-        <mat-hint>Enter a six-digit code.</mat-hint>
-        @if (passwordForm.get('password')?.hasError('pattern')) {
-          <mat-error>
-            Invalid input. Use numbers only.
-          </mat-error>
-        }
+        <mat-hint>Enter your account password</mat-hint>
         @if (passwordForm.get('password')?.hasError('incorrectPassword')) {
           <mat-error>
-            Incorrect password.
+            Incorrect password
+          </mat-error>
+        }
+        @if (passwordForm.get('password')?.hasError('serverError')) {
+          <mat-error>
+            An error occurred. Try again later.
           </mat-error>
         }
       </mat-form-field>
