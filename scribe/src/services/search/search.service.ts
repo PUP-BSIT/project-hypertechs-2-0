@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class SearchService {
 
-  private apiUrl = 'http://localhost/backend/search/search.php';
+  private apiUrl = 'http://localhost/backend/search';
   private notesSubject = new BehaviorSubject<any[]>([]);
   private searchTermSubject = new BehaviorSubject<string>('');
 
@@ -23,7 +23,7 @@ export class SearchService {
       .set('user_id', user_id)
       .set('searchTerm', searchTerm);
 
-    return this.http.get<any>(this.apiUrl, { params })
+    return this.http.get<any>(`${this.apiUrl}/search.php`, { params })
       .pipe(
         catchError(error => {
           throw 'Error in API call:' + error.message;
