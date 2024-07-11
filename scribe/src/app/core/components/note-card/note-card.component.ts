@@ -70,7 +70,7 @@ export class NoteCardComponent implements OnInit {
       const dialogRef = this.dialog.open(LockDialogComponent, {
         data: { title: 'Enter Password', noteId: this.note.id },
       });
-  
+
       dialogRef.afterClosed().subscribe((result) => {
         if (result && result.password) {
           this.performDeleteNote();
@@ -80,7 +80,7 @@ export class NoteCardComponent implements OnInit {
       this.performDeleteNote();
     }
   }
-  
+
   private performDeleteNote() {
     this.noteService.deleteNote(this.note.id).subscribe(
       () => {
@@ -163,53 +163,30 @@ export class NoteCardComponent implements OnInit {
   }
 
   toggleLockNote() {
-    if (this.note.is_locked) {
-      this.unlockNote();
-    } else {
-      this.lockNote();
-    }
-  }
-
-  lockNote() {
     const dialogRef = this.dialog.open(LockDialogComponent, {
-      data: { title: 'Lock Note' },
+      data: { title: this.note.is_locked ? 'Unlock Note' : 'Lock Note' },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.password) {
         this.noteService
-          .toggleLockNote(this.note.id, true, result.password)
+          .toggleLockNote(this.note.id, !this.note.is_locked)
           .subscribe(
             () => {
-              this.note.is_locked = true;
-              this.snackbarService.show('Note locked successfully');
+              this.note.is_locked = !this.note.is_locked;
+              this.snackbarService.show(
+                `Note ${
+                  this.note.is_locked ? 'locked' : 'unlocked'
+                } successfully`
+              );
             },
             (error) => {
-              console.error('Error locking note:', error);
-              this.snackbarService.show('Error locking note');
+              console.error('Error toggling lock status:', error);
+              this.snackbarService.show(
+                `Error ${this.note.is_locked ? 'locking' : 'unlocking'} note`
+              );
             }
           );
-      }
-    });
-  }
-
-  unlockNote() {
-    const dialogRef = this.dialog.open(LockDialogComponent, {
-      data: { title: 'Unlock Note', noteId: this.note.id },
-    });
-  
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result && result.password) {
-        this.noteService.toggleLockNote(this.note.id, false).subscribe(
-          () => {
-            this.note.is_locked = false;
-            this.snackbarService.show('Note unlocked successfully');
-          },
-          (error) => {
-            console.error('Error unlocking note:', error);
-            this.snackbarService.show('Error unlocking note');
-          }
-        );
       }
     });
   }
@@ -217,9 +194,9 @@ export class NoteCardComponent implements OnInit {
   openNote() {
     if (this.note.is_locked) {
       const dialogRef = this.dialog.open(LockDialogComponent, {
-        data: { title: 'Enter Password', noteId: this.note.id },
+        data: { title: 'Enter Password' },
       });
-  
+
       dialogRef.afterClosed().subscribe((result) => {
         if (result && result.password) {
           this.editNote();
