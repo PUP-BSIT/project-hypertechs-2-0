@@ -110,8 +110,6 @@ export class EnterOtpComponent implements OnInit {
   private handleSuccess(response: any) {
     const user_id = this.authService.getUserId();
     this.router.navigate(['/enter-new-password'],{ queryParams: { user_id: user_id } });
-    //TODO testing
-    console.log(user_id);
   }
 
   private handleError(message: string) {

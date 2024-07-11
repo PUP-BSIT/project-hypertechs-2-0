@@ -65,22 +65,16 @@ export class EnterEmailComponent implements OnInit {
 
     const emailData = this.recoveryForm.value.email;
 
-    // TODO for testing
-    console.log('Data sent to service: ', emailData);
-
     this.otpService.sendOtp(emailData).subscribe({
       next: (response) => {
-        console.log('Response from server: ', response);
-        localStorage.setItem('loggedInUser', JSON.stringify(response));
         this.userService.setUserId(response.user_id);
         this.authService.setUserId(response.user_id);
-        //console.log(response.user_id);
         this.openSentmailDialog(response.user_id);
         this.isLoading = false;
         this.snackbarService.dismiss();
       },
       error: (error) => {
-        console.error('Error:', error);
+        //console.error('Error:', error);
         this.errorMessage = 'An error occurred. Please try again.';
         this.isLoading = false;
       },
