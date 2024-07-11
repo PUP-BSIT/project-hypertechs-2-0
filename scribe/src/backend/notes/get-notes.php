@@ -28,6 +28,7 @@ if ($userId > 0) {
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $row['is_pinned'] = intval($row['is_pinned']);
+            $row['is_locked'] = intval($row['is_locked']);
             $notes[] = $row;
         }
     }

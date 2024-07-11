@@ -4,6 +4,8 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { NoteService } from '../../../../services/notes/note.service';
 import { DialogService } from '../../../../services/dialog/dialog.service';
 import { SnackbarService } from '../../../../services/snackbar/snackbar.service';
+import { MatDialog } from '@angular/material/dialog';
+import { LockDialogComponent } from '../lock-dialog/lock-dialog.component';
 
 @Component({
   selector: 'app-note-card',
@@ -19,7 +21,7 @@ export class NoteCardComponent implements OnInit {
   @Output() deleteForever = new EventEmitter<number>();
   @Output() pinStatusChange = new EventEmitter<any>();
 
-  themeColors: { [key: string]: { dark: string, light: string } } = {
+  themeColors: { [key: string]: { dark: string; light: string } } = {
     default: { dark: '#1a1d1d', light: '#eff0ef' },
     red: { dark: '#77172e', light: '#edd6db' },
     orange: { dark: '#55200f', light: '#efdfda' },
@@ -36,11 +38,13 @@ export class NoteCardComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private noteService: NoteService,
     private dialogService: DialogService,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
     console.log('Note data:', this.note);
+    console.log('Is locked:', this.note.is_locked, typeof this.note.is_locked);
 
     if (this.note.last_edited && typeof this.note.last_edited === 'string') {
       this.note.last_edited = new Date(this.note.last_edited);
@@ -51,12 +55,33 @@ export class NoteCardComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustHtml(this.note.content);
   }
 
+  get noteBackgroundColor(): string {
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    return this.themeColors[this.themeColor][isDarkMode ? 'dark' : 'light'];
+  }
+
   editNote() {
     const queryParams = this.isInTrash ? { readonly: true } : {};
     this.router.navigate(['/main/editor', this.note.id], { queryParams });
   }
 
   deleteNote() {
+    if (this.note.is_locked) {
+      const dialogRef = this.dialog.open(LockDialogComponent, {
+        data: { title: 'Enter Password', noteId: this.note.id },
+      });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result && result.password) {
+          this.performDeleteNote();
+        }
+      });
+    } else {
+      this.performDeleteNote();
+    }
+  }
+
+  private performDeleteNote() {
     this.noteService.deleteNote(this.note.id).subscribe(
       () => {
         console.log('Note deleted successfully');
@@ -70,6 +95,7 @@ export class NoteCardComponent implements OnInit {
       },
       (error) => {
         console.error('Error deleting note:', error);
+        this.snackbarService.show('Error moving note to trash');
       }
     );
   }
@@ -120,22 +146,64 @@ export class NoteCardComponent implements OnInit {
   }
 
   togglePinNote() {
-    this.noteService.togglePinNote(this.note.id, !this.note.is_pinned).subscribe(
-      () => {
-        this.note.is_pinned = !this.note.is_pinned;
-        this.snackbarService.show(
-          `Note ${this.note.is_pinned ? 'pinned' : 'unpinned'} successfully`
-        );
-        this.pinStatusChange.emit(this.note);
-      },
-      (error) => {
-        console.error('Error toggling pin status:', error);
-      }
-    );
+    this.noteService
+      .togglePinNote(this.note.id, !this.note.is_pinned)
+      .subscribe(
+        () => {
+          this.note.is_pinned = !this.note.is_pinned;
+          this.snackbarService.show(
+            `Note ${this.note.is_pinned ? 'pinned' : 'unpinned'} successfully`
+          );
+          this.pinStatusChange.emit(this.note);
+        },
+        (error) => {
+          console.error('Error toggling pin status:', error);
+        }
+      );
   }
 
-  get noteBackgroundColor(): string {
-    const isDarkMode = document.body.classList.contains('dark-mode');
-    return this.themeColors[this.themeColor][isDarkMode ? 'dark' : 'light'];
+  toggleLockNote() {
+    const dialogRef = this.dialog.open(LockDialogComponent, {
+      data: { title: this.note.is_locked ? 'Unlock Note' : 'Lock Note' },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result && result.password) {
+        this.noteService
+          .toggleLockNote(this.note.id, !this.note.is_locked)
+          .subscribe(
+            () => {
+              this.note.is_locked = !this.note.is_locked;
+              this.snackbarService.show(
+                `Note ${
+                  this.note.is_locked ? 'locked' : 'unlocked'
+                } successfully`
+              );
+            },
+            (error) => {
+              console.error('Error toggling lock status:', error);
+              this.snackbarService.show(
+                `Error ${this.note.is_locked ? 'locking' : 'unlocking'} note`
+              );
+            }
+          );
+      }
+    });
+  }
+
+  openNote() {
+    if (this.note.is_locked) {
+      const dialogRef = this.dialog.open(LockDialogComponent, {
+        data: { title: 'Enter Password' },
+      });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result && result.password) {
+          this.editNote();
+        }
+      });
+    } else {
+      this.editNote();
+    }
   }
 }
