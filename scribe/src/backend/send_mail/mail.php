@@ -5,8 +5,9 @@ use PHPMailer\PHPMailer\Exception;
 require 'PHPMailer-master/src/Exception.php';
 require 'PHPMailer-master/src/PHPMailer.php';
 require 'PHPMailer-master/src/SMTP.php';
+require '../send_mail/email-template.php';
 
-function send_mail($recipient, $subject, $message)
+function send_mail($recipient, $subject, $verification_code, $firstname, $lastname)
 {
     // Validate email format
     if (!filter_var($recipient, FILTER_VALIDATE_EMAIL)) {
@@ -36,7 +37,7 @@ function send_mail($recipient, $subject, $message)
     $mail->AddAddress($recipient, "recipient-name");
     $mail->SetFrom("scribe.hypertechs2.0.team@gmail.com", "Scribe");
     $mail->Subject = $subject;
-    $content = $message;
+    $content = getEmailTemplate($verification_code, $firstname, $lastname);
 
     $mail->MsgHTML($content); 
     if(!$mail->Send()) {
