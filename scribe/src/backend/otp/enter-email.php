@@ -24,7 +24,7 @@
 
         // Check if the email exists in the users table
         $checkStmt = $conn->prepare(
-            "SELECT user_id 
+            "SELECT user_id, firstname, lastname 
             FROM users 
             WHERE email = ?"
         );
@@ -44,17 +44,16 @@
         }
 
         // Fetch the user_id
-        $checkStmt->bind_result($user_id);
+        $checkStmt->bind_result($user_id, $firstname, $lastname);
         $checkStmt->fetch();
         $checkStmt->close();
 
         // Generate verification code
         $verification_code = random_int(100000, 999999);
-        $message = "Your verification code is: $verification_code";
-        $expiration_time = date("Y-m-d H:i:s", strtotime('+80 seconds'));
+        $expiration_time = date("Y-m-d H:i:s", strtotime('+120 seconds'));
 
         // Send verification code to the email
-        if (!send_mail($email, "Verification Code", $message)) {
+        if (!send_mail($email, "Verify Your Account", $verification_code, $firstname, $lastname)) {
             http_response_code(500);
             echo json_encode(['error' => "Failed to send verification code."]);
             $conn->close();
