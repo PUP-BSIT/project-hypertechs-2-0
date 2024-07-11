@@ -72,7 +72,7 @@ function getEmailTemplate($verification_code, $firstname, $lastname) {
                 <p class='name'>Hello, $firstname $lastname!</p>
                 <p>Thank you for signing up with Scribe. Please use the following verification code to proceed:</p>
                 <div class='code'>$verification_code</div>
-                <p>This code will expire in 80 seconds. If you didn't request this verification, please ignore this email.</p>
+                <p>This code will expire in 2 minutes. If you didn't request this verification, please ignore this email.</p>
             </div>
             <div class='footer'>
                 <p>&copy; 2024 HyperTechs. All Rights Reserved.</p>
