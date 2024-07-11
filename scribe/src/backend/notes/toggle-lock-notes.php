@@ -5,11 +5,11 @@ $data = json_decode(file_get_contents("php://input"));
 
 $noteId = $data->id;
 $isLocked = $data->is_locked;
-$password = isset($data->password) ? password_hash($data->password, PASSWORD_DEFAULT) : null;
+$userId = $data->userId;
 
-$sql = "UPDATE notes SET is_locked = ?, password = ? WHERE id = ?";
+$sql = "UPDATE notes SET is_locked = ? WHERE id = ? AND user_id = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("isi", $isLocked, $password, $noteId);
+$stmt->bind_param("iii", $isLocked, $noteId, $userId);
 
 if ($stmt->execute()) {
     echo json_encode(["success" => true]);
