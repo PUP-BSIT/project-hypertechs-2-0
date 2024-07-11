@@ -1,13 +1,20 @@
-
 ![scribe-banner-final](https://github.com/PUP-BSIT/project-hypertechs-2-0/assets/132433730/38db318b-aac9-495b-a459-579513167e35)
 
 # Scribe
 
 Say goodbye to scattered thoughts. Designed with simplicity and efficiency in mind, _Scribe_ lets you capture your thoughts, ideas, and important information instantly without all the clutter, helping you stay focused. **Think clearly, write simply.**
 
-🔗 [Visit Scribe's official website here.](https://scribenote.tech/)
+🔗 [Visit Scribe's official website here.](https://scribenote.tech/)<br>
+
+**Credentials**<br>
+
+- &nbsp;&nbsp;&nbsp;&nbsp;email: scribenote.app@gmail.com<br>
+- &nbsp;&nbsp;&nbsp;&nbsp;password: Sample#123
+
+🔗 [Enter the sample credentials here to preview the app.](https://preview.scribenote.tech/)
 
 ## ✨ Features
+
 _Scribe_ comes packed with features to make your note-taking experience seamless and efficient, such as:
 
 - **Rich Text Editing**: A custom-built RTF editor to format your notes with bold, italics, lists, and more. <br>
@@ -16,40 +23,43 @@ _Scribe_ comes packed with features to make your note-taking experience seamless
 - **Notebooks**: Compile your notes into a notebook for easy organization. <br>
 - **Task Board**: Organize your tasks visually through a simple yet intuitive task board.
 
-
 ## 🛠️ Getting Started
+
 To get started with our project, follow these steps:
 
 1. Clone the Repository
+
 ```bash
 git clone https://github.com/PUP-BSIT/project-hypertechs-2-0
 ```
 
 2. Install Dependencies
+
 ```bash
 cd scribe
 npm install
 ```
 
 3. Run the Application
+
 ```bash
 ng serve
 ```
 
 Navigate to `http://localhost:4200/` in your browser to view the application.
 
-
 ## 🧑🏻‍💻 Meet the HyperTechs 2.0 Team
 
-| Name                    | GitHub                                             |
-|-------------------------|----------------------------------------------------|
-| **Emmanuel Martinez**   | [martinez-emmanuel](https://github.com/martinez-emmanuel) |
-| **Mary Joy Danay**      | [danay-maryjoy](https://github.com/danay-maryjoy)  |
-| **James Nabayra**       | [nabayra-james](https://github.com/nabayra-james)  |
-| **Judy Ann Dupo**       | [dupo-judyann](https://github.com/dupo-judyann)    |
-| **Angel Rose Casabuena**| [casabuena-angelrose](https://github.com/casabuena-angelrose) |
+| Name                     | GitHub                                                        |
+| ------------------------ | ------------------------------------------------------------- |
+| **Emmanuel Martinez**    | [martinez-emmanuel](https://github.com/martinez-emmanuel)     |
+| **Mary Joy Danay**       | [danay-maryjoy](https://github.com/danay-maryjoy)             |
+| **James Nabayra**        | [nabayra-james](https://github.com/nabayra-james)             |
+| **Judy Ann Dupo**        | [dupo-judyann](https://github.com/dupo-judyann)               |
+| **Angel Rose Casabuena** | [casabuena-angelrose](https://github.com/casabuena-angelrose) |
 
 ## 🌐 Connect with Us
+
 Follow us on our social media platforms to stay updated with our latest projects and activities!
 
 <p align="left">
@@ -67,6 +77,7 @@ Follow us on our social media platforms to stay updated with our latest projects
 </p>
 
 ## 📱 Technologies Used
+
 Here are the variety of modern technologies we used to build _Scribe:_
 
 <p align="left">

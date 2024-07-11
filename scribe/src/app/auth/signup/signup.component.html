@@ -50,7 +50,7 @@
                     }"
                   />
 
-                  <!--Lastname Error Message-->
+                  <!-- Lastname Error Message -->
                   <div
                     class="error-message"
                     [ngClass]="{
@@ -58,11 +58,12 @@
                         lastnameControl?.invalid && lastnameControl?.touched
                     }"
                   >
-                    @if (lastnameControl?.errors?.['required'] &&
-                    lastnameControl?.touched) {
+                    @if ( (lastnameControl?.errors?.['required'] ||
+                    lastnameControl?.errors?.['invalidName']) &&
+                    lastnameControl?.touched ) {
                     <div class="error-item">
                       <span class="material-symbols-outlined">error</span>
-                      <span>Last name is required.</span>
+                      <span>Invalid last name format.</span>
                     </div>
                     } @if(lastnameControl?.getError('minlength') &&
                     lastnameControl?.touched){
@@ -70,7 +71,7 @@
                       <span class="material-symbols-outlined">error</span>
                       <span>Must be at least 2 characters.</span>
                     </div>
-                    }@if(lastnameControl?.getError('maxlength') &&
+                    } @if(lastnameControl?.getError('maxlength') &&
                     lastnameControl?.touched){
                     <div class="error-item">
                       <span class="material-symbols-outlined">error</span>
@@ -107,7 +108,7 @@
                     }"
                   />
 
-                  <!--Firstname Error Message-->
+                  <!-- Firstname Error Message -->
                   <div
                     class="error-message"
                     [ngClass]="{
@@ -115,19 +116,20 @@
                         firstnameControl?.invalid && firstnameControl?.touched
                     }"
                   >
-                    @if (firstnameControl?.errors?.['required'] &&
+                    @if ( (firstnameControl?.errors?.['required'] ||
+                    firstnameControl?.errors?.['invalidName']) &&
                     firstnameControl?.touched) {
                     <div class="error-item">
                       <span class="material-symbols-outlined">error</span>
-                      <span>First name is required.</span>
+                      <span>Invalid first name format.</span>
                     </div>
-                    }@if(firstnameControl?.getError('minlength') &&
+                    } @if(firstnameControl?.getError('minlength') &&
                     firstnameControl?.touched){
                     <div class="error-item">
                       <span class="material-symbols-outlined">error</span>
-                      <span>Must be atleast 2 characters.</span>
+                      <span>Must be at least 2 characters.</span>
                     </div>
-                    }@if(firstnameControl?.getError('maxlength') &&
+                    } @if(firstnameControl?.getError('maxlength') &&
                     firstnameControl?.touched){
                     <div class="error-item">
                       <span class="material-symbols-outlined">error</span>
@@ -220,7 +222,7 @@
               Already have a Scribe account? Log in.
             </a>
           </div>
-          
+
           } @if (currentStep === 2) {
           <div class="current-step">
             <div

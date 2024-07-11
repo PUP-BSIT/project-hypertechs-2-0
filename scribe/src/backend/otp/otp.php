@@ -1,8 +1,7 @@
 <?php
 session_start();
-
-include '../send_mail/mail.php';
 include '../db_config.php';
+include '../send_mail/mail.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);
@@ -74,12 +73,12 @@ if (isset($data['otp'])) {
         } else{
             echo json_encode([
                 'status' => 'error', 
-                'message'=> 'OTP has expired']);
+                'message'=> 'This OTP has expired. Click resend code.']);
         }  
     } else {
         echo json_encode([
             'status' => 'error', 
-            'message' => 'OTP does not match', 
+            'message' => 'The OTP you entered is invalid. Try again.', 
             'userid' => $user_id,
             'verification'=>$verificationCode, 
             'receivedOtp' => $receivedOtp]); /*TODO for testing*/

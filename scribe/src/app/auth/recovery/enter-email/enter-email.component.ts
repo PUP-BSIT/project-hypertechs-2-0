@@ -11,6 +11,7 @@ import { DialogService } from '../../../../services/dialog/dialog.service';
 import { SnackbarService } from '../../../../services/snackbar/snackbar.service';
 import { UserService } from '../../../../services/user/user.service';
 import { AuthService } from '../../../../services/auth/auth.service';
+import { ThemeService } from '../../../../services/theme/theme.service';
 
 @Component({
   selector: 'app-enter-email',
@@ -18,9 +19,10 @@ import { AuthService } from '../../../../services/auth/auth.service';
   styleUrls: ['../recovery.component.scss'],
 })
 export class EnterEmailComponent implements OnInit {
-  @Output() emailSubmitted = new EventEmitter<string>(); // Add EventEmitter
+  @Output() emailSubmitted = new EventEmitter<string>();
   errorMessage = '';
   isLoading = false;
+  themeIcon: string = 'dark_mode';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,7 +31,8 @@ export class EnterEmailComponent implements OnInit {
     private dialogService: DialogService,
     private snackbarService: SnackbarService,
     private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
+    private themeService: ThemeService
   ) {}
 
   recoveryForm: FormGroup = this.formBuilder.group({});
@@ -37,6 +40,18 @@ export class EnterEmailComponent implements OnInit {
   ngOnInit(): void {
     this.recoveryForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
+    });
+
+    this.initializeTheme();
+  }
+
+  toggleTheme() {
+    this.themeService.toggleTheme();
+  }
+
+  private initializeTheme() {
+    this.themeService.currentTheme.subscribe((isDark) => {
+      this.themeIcon = isDark ? 'dark_mode' : 'light_mode';
     });
   }
 
@@ -58,16 +73,21 @@ export class EnterEmailComponent implements OnInit {
         console.log('Response from server: ', response);
         localStorage.setItem('loggedInUser', JSON.stringify(response));
         this.userService.setUserId(response.user_id);
-        this.authService.setUserId(response.user_id); 
+        this.authService.setUserId(response.user_id);
         //console.log(response.user_id);
-        this.openSentmailDialog();
+        this.openSentmailDialog(response.user_id);
         this.isLoading = false;
         this.snackbarService.dismiss();
+      },
+      error: (error) => {
+        console.error('Error:', error);
+        this.errorMessage = 'An error occurred. Please try again.';
+        this.isLoading = false;
       },
     });
   }
 
-  openSentmailDialog(): void {
+  openSentmailDialog(user_id: string): void {
     const dialogRef = this.dialogService.openDialog({
       title: 'Email Verification',
       content: 'We sent an OTP code to your email to verify your identity.',
@@ -78,7 +98,9 @@ export class EnterEmailComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'ok') {
-        this.router.navigate(['enter-otp']);
+        this.router.navigate(['enter-otp'], {
+          queryParams: { user_id: user_id },
+        });
       }
     });
   }

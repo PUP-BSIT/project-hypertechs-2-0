@@ -21,6 +21,7 @@ import { SearchComponent } from './core/components/search/search.component';
 import { BoardComponent } from './core/components/board/board.component';
 import { NotebooksComponent } from './core/notebooks/notebooks.component';
 import { OtpComponent } from './layout/otp/otp.component';
+import { EnterEmailComponent } from './auth/recovery/enter-email/enter-email.component';
 
 const routes: Routes = [
   {
@@ -39,22 +40,24 @@ const routes: Routes = [
     data: { animationState: 'signup' },
   },
   {
-    path: 'recovery',
-    component: RecoveryComponent,
+    path: 'enter-email',
+    component: EnterEmailComponent,
     data: { animationState: 'recovery' },
   },
   {
     path: 'enter-otp',
     component: EnterOtpComponent,
+    canActivate: [authGuard],
     data: { animationState: 'enterOtp' },
   },
   {
     path: 'otp',
-    component: OtpComponent
+    component: OtpComponent,
   },
   {
     path: 'enter-new-password',
     component: EnterNewPasswordComponent,
+    canActivate: [authGuard],
     data: { animationState: 'enterNewPass' },
   },
   {

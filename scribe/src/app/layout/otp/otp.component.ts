@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { OtpverificationService } from '../../../services/otp/otpverification.service';
 import { SnackbarService } from '../../../services/snackbar/snackbar.service';
@@ -14,11 +14,19 @@ import { simpleFade } from '../../../animations/element-animations';
   styleUrls: ['./otp.component.scss'],
   animations: [simpleFade],
 })
-export class OtpComponent {
+export class OtpComponent implements OnInit {
+  @ViewChild('otpInput1') otpInput1!: ElementRef;
+  @ViewChild('otpInput2') otpInput2!: ElementRef;
+  @ViewChild('otpInput3') otpInput3!: ElementRef;
+  @ViewChild('otpInput4') otpInput4!: ElementRef;
+  @ViewChild('otpInput5') otpInput5!: ElementRef;
+  @ViewChild('otpInput6') otpInput6!: ElementRef;
+
   themeIcon: string = 'dark_mode';
   otp: string[] = new Array(6).fill('');
   otpErrorMessage: string = '';
   userId: string = '';
+  isLoading = false;
 
   @Output() otpSubmitted: EventEmitter<string> = new EventEmitter<string>();
 
@@ -37,8 +45,10 @@ export class OtpComponent {
     this.initializeTheme();
     this.route.queryParams.subscribe((params) => {
       this.userId = params['user_id'];
-      console.log('User ID:', this.userId);
     });
+    setTimeout(() => {
+      this.otpInput1.nativeElement.focus();
+    }, 0);
   }
 
   toggleTheme() {
@@ -61,17 +71,23 @@ export class OtpComponent {
     this.otp[index - 1] = value;
 
     if (value && index < 6) {
-      const nextInput = event.target.nextElementSibling;
+      const nextInput = event.target.nextElementSibling as HTMLInputElement;
       if (nextInput) {
         nextInput.focus();
       }
     }
   }
 
+  isOtpValid(): boolean {
+    return this.otp.every(digit => digit.length === 1 && /^\d$/.test(digit));
+  }
+
   onSubmit() {
+    this.isLoading = true;
     const otpValue = this.otp.join('');
     if (otpValue.length !== 6 || !/^\d{6}$/.test(otpValue)) {
       this.otpErrorMessage = 'Please enter a valid 6-digit OTP.';
+      this.isLoading = false;
       return;
     }
 
@@ -80,33 +96,54 @@ export class OtpComponent {
         if (response.status === 'success') {
           localStorage.setItem('loggedInUser', JSON.stringify(response));
           this.handleSuccess(response);
+          this.isLoading = false;
         } else {
           this.handleError(response.message || 'Received OTP is incorrect');
+          this.isLoading = false;
         }
       },
       (error) => {
         this.handleError('An error occurred. Please try again.');
+        this.isLoading = false;
       }
     );
   }
 
   resendOtp(): void {
+    this.isLoading = true;
     this.otpService.resendOtp(this.userId).subscribe({
       next: (response) => {
-        console.log('Response from server: ', response);
         this.userService.setFirstname(response.firstname);
         this.userService.setLastname(response.lastname);
         this.userService.setEmail(response.email);
-        console.log(response.user_id);
-        this.openSentmailDialog();
+        this.openSentmailDialog(response.user_id);
+        this.clearOtpInputs();
+        this.isLoading = false;
         this.snackbarService.dismiss();
       },
+      error: () => {
+        this.handleError('An error occurred. Please try again.');
+        this.isLoading = false;
+      }
     });
   }
 
-  openSentmailDialog(): void {
+  clearOtpInputs(): void {
+    this.otp.fill('');
+    setTimeout(() => {
+      this.otpInput1.nativeElement.focus();
+      this.otpInput1.nativeElement.value = '';
+      this.otpInput2.nativeElement.value = '';
+      this.otpInput3.nativeElement.value = '';
+      this.otpInput4.nativeElement.value = '';
+      this.otpInput5.nativeElement.value = '';
+      this.otpInput6.nativeElement.value = '';
+    }, 0);
+  }
+
+  openSentmailDialog(user_id: string): void {
     const dialogRef = this.dialogService.openDialog({
-      title: 'Email Verification',
+      title: 'OTP Resent',
       content: 'We sent an OTP code to your email to verify your identity.',
       cancelText: 'Cancel',
       confirmText: 'Proceed',
@@ -115,7 +152,6 @@ export class OtpComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'ok') {
-        const user_id = this.authService.getUserId();
         this.router.navigate(['otp'], {
           queryParams: { user_id: user_id },
         });
@@ -125,7 +161,7 @@ export class OtpComponent {
 
   private handleSuccess(response: any) {
     const dialogRef = this.dialogService.openSuccessDialog(
-      'Sign Up successful!',
+      'Sign Up Successful!',
       'Welcome to Scribe! Redirecting you to your home page...'
     );
     setTimeout(() => {

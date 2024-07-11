@@ -1,7 +1,7 @@
 <?php
     require_once('../auth/config.php');
-    include '../db_config.php';
     include '../send_mail/mail.php';
+    include '../db_config.php';
 
     if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
         http_response_code(200);
