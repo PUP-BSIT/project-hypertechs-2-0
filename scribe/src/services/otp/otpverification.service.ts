@@ -6,27 +6,25 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class OtpverificationService {
-  private apiUrl = 'http://localhost/backend/otp/otp.php';
-  private emailUrl = 'http://localhost/backend/otp/enter-email.php';
-  private passUrl = 'http://localhost/backend/auth/reset-pass.php';
-  private resendUrl ='http://localhost/backend/otp/resend.php';
+  private apiUrl = 'http://localhost/backend/otp';
+  private passUrl = 'http://localhost/backend/auth';
 
   constructor(private http: HttpClient) { }
 
   verifyOtp(otp: string): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers }; 
-    return this.http.post<any>(this.apiUrl, { otp }, options); 
+    return this.http.post<any>(`${this.apiUrl}/otp.php`, { otp }, options);
   }
 
   sendOtp(email: string): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers }; 
-    return this.http.post<any>(this.emailUrl, { email }, options);
+    return this.http.post<any>(`${this.apiUrl}/enter-email.php`, { email }, options);
   }
 
   resetPassword(user_id: string, password: string): Observable<any> {
-    return this.http.post(this.passUrl, { user_id, password: password }, {
+    return this.http.post(`${this.passUrl}/reset-pass.php`, { user_id, password: password }, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     });
   }
@@ -34,6 +32,6 @@ export class OtpverificationService {
   resendOtp(user_id: string): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers }; 
-    return this.http.post<any>(this.resendUrl, {user_id}, options);
+    return this.http.post<any>(`${this.apiUrl}/resend.php`, {user_id}, options);
   }
 }
