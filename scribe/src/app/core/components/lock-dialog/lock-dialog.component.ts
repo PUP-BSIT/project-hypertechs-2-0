@@ -1,3 +1,4 @@
+// lock-dialog.component.ts
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -18,7 +19,7 @@ export class LockDialogComponent {
     private noteService: NoteService
   ) {
     this.passwordForm = this.formBuilder.group({
-      password: ['', [Validators.required, Validators.pattern(/^\d{6}$/)]],
+      password: ['', [Validators.required]],
     });
   }
 
@@ -30,31 +31,21 @@ export class LockDialogComponent {
     if (this.passwordForm.valid) {
       const password = this.passwordForm.get('password')?.value;
 
-      if (this.data.noteId) {
-        this.noteService
-          .checkNotePassword(this.data.noteId, password)
-          .subscribe(
-            (isCorrect) => {
-              if (isCorrect) {
-                this.dialogRef.close({ password: password });
-              } else {
-                this.passwordForm
-                  .get('password')
-                  ?.setErrors({ incorrectPassword: true });
-              }
-            },
-            (error) => {
-              console.error('Error checking password:', error);
-            }
-          );
-      } else {
-        this.dialogRef.close({ password: password });
-      }
+      this.noteService.checkUserPassword(password).subscribe(
+        (isCorrect) => {
+          if (isCorrect) {
+            this.dialogRef.close({ password: password });
+          } else {
+            this.passwordForm
+              .get('password')
+              ?.setErrors({ incorrectPassword: true });
+          }
+        },
+        (error) => {
+          console.error('Error checking password:', error);
+          this.passwordForm.get('password')?.setErrors({ serverError: true });
+        }
+      );
     }
-  }
-
-  onInputChange(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    input.value = input.value.replace(/[^0-9]/g, '');
   }
 }
