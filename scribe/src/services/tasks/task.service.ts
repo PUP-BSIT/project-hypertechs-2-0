@@ -37,4 +37,8 @@ export class TaskService {
       body: { task_id: taskId },
     });
   }
+
+  pinTask(taskId: number, isPinned: boolean): Observable<any> {
+    return this.http.post(`${this.apiUrl}/pin-task.php`, { task_id: taskId, is_pinned: isPinned });
+  }
 }
