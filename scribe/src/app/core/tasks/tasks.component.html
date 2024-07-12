@@ -62,7 +62,7 @@
     } @else {
       @if (userTasks.length || pinnedTasks.length) {
         <!-- If tasks are present, this will display -->
-        @if (paginatedTasks.length > 0) {
+        @if (paginatedTasks.length && pinnedTasks.length ) {
           <div class="tasks-heading-row">
             <mat-icon>list</mat-icon>
             <h2>All Tasks</h2>
