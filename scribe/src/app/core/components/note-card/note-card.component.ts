@@ -43,9 +43,6 @@ export class NoteCardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log('Note data:', this.note);
-    console.log('Is locked:', this.note.is_locked, typeof this.note.is_locked);
-
     if (this.note.last_edited && typeof this.note.last_edited === 'string') {
       this.note.last_edited = new Date(this.note.last_edited);
     }
@@ -84,7 +81,6 @@ export class NoteCardComponent implements OnInit {
   private performDeleteNote() {
     this.noteService.deleteNote(this.note.id).subscribe(
       () => {
-        console.log('Note deleted successfully');
         this.delete.emit(this.note.id);
         this.snackbarService.show(
           'Note moved to trash',
@@ -129,7 +125,6 @@ export class NoteCardComponent implements OnInit {
       if (result === 'confirm') {
         this.noteService.hardDeleteNote(this.note.id).subscribe(
           () => {
-            console.log('Note permanently deleted successfully');
             this.snackbarService.show('Note permanently deleted');
             this.deleteForever.emit(this.note.id);
           },
