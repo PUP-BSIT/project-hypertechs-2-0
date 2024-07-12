@@ -74,13 +74,28 @@ export class TaskCardComponent implements OnInit {
 
   togglePin() {
     const newPinStatus = !this.task.is_pinned;
-    this.taskService
-      .pinTask(this.task.task_id, newPinStatus)
-      .subscribe((response) => {
+    this.taskService.pinTask(this.task.task_id, newPinStatus).subscribe(
+      (response) => {
         if (response.success) {
           this.task.is_pinned = newPinStatus;
           this.pinStatusChange.emit(this.task);
+
+          const message = newPinStatus
+            ? 'Task pinned successfully'
+            : 'Task unpinned successfully';
+          this.snackbarService.show(message, 'Close', 2000);
+        } else {
+          this.snackbarService.show(
+            'Failed to update pin status. Please try again.'
+          );
         }
-      });
+      },
+      (error) => {
+        console.error('Error updating pin status', error);
+        this.snackbarService.show(
+          'An error occurred while updating pin status.'
+        );
+      }
+    );
   }
 }

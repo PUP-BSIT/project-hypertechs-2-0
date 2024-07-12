@@ -147,7 +147,9 @@ export class NoteCardComponent implements OnInit {
         () => {
           this.note.is_pinned = !this.note.is_pinned;
           this.snackbarService.show(
-            `Note ${this.note.is_pinned ? 'pinned' : 'unpinned'} successfully`
+            `Note ${this.note.is_pinned ? 'pinned' : 'unpinned'} successfully`,
+            'Close',
+            2000
           );
           this.pinStatusChange.emit(this.note);
         },
@@ -172,7 +174,7 @@ export class NoteCardComponent implements OnInit {
               this.snackbarService.show(
                 `Note ${
                   this.note.is_locked ? 'locked' : 'unlocked'
-                } successfully`
+                } successfully`, 'Close', 2000
               );
             },
             (error) => {
