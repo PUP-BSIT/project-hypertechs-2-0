@@ -184,8 +184,6 @@ export class SignupComponent implements OnInit {
       password: this.passwordControl?.value,
     };
 
-    console.log('Data sent to service: ', signupData);
-
     this.signupService.signupUser(signupData).subscribe({
       next: (response) => {
         //localStorage.setItem('loggedInUser', JSON.stringify(response));
