@@ -12,6 +12,7 @@ import { SnackbarService } from '../../../../services/snackbar/snackbar.service'
 export class TaskCardComponent implements OnInit {
   @Input() task: any;
   @Output() taskDeleted = new EventEmitter<number>();
+  @Output() pinStatusChange: EventEmitter<any> = new EventEmitter<any>();
 
   todoCount: number = 0;
   inProgressCount: number = 0;
@@ -22,7 +23,7 @@ export class TaskCardComponent implements OnInit {
     private router: Router,
     private taskService: TaskService,
     private dialogService: DialogService,
-    private snackbarService: SnackbarService,
+    private snackbarService: SnackbarService
   ) {}
 
   ngOnInit() {
@@ -59,15 +60,27 @@ export class TaskCardComponent implements OnInit {
     this.taskService.deleteTask(this.task.task_id).subscribe(
       (response) => {
         if (response.success) {
-          this.snackbarService.show("Task deleted successfully!");
+          this.snackbarService.show('Task deleted successfully!');
           this.taskDeleted.emit(this.task.task_id);
         } else {
-          this.snackbarService.show("Failed to delete task. Try again.");
+          this.snackbarService.show('Failed to delete task. Try again.');
         }
       },
       (error) => {
         console.error('Error deleting task', error);
       }
     );
+  }
+
+  togglePin() {
+    const newPinStatus = !this.task.is_pinned;
+    this.taskService
+      .pinTask(this.task.task_id, newPinStatus)
+      .subscribe((response) => {
+        if (response.success) {
+          this.task.is_pinned = newPinStatus;
+          this.pinStatusChange.emit(this.task);
+        }
+      });
   }
 }
