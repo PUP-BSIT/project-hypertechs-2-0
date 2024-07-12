@@ -76,7 +76,6 @@ export class MainComponent implements OnInit {
 
     this.route.queryParams.subscribe(params => {
       this.userId = params['user_id'];
-      console.log('User ID:', this.userId);
     });
 
     this.initializeToolbar();

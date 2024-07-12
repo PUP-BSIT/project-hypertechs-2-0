@@ -91,7 +91,9 @@ export class BoardComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   ngAfterViewInit() {
-    this.initializeToolbar();
+    setTimeout(() => {
+      this.initializeToolbar();
+    });
   }
 
   ngOnDestroy() {

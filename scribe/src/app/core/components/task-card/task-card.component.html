@@ -12,7 +12,12 @@
     </button>
 
     <mat-menu #menu="matMenu">
-      <!-- If the notes are active, display this -->
+      <button mat-menu-item (click)="togglePin()">
+        <mat-icon>{{
+          task.is_pinned ? 'push_pin' : 'push_pin_outlined'
+        }}</mat-icon>
+        <span>{{ task.is_pinned ? "Unpin Task" : "Pin Task" }}</span>
+      </button>
         <button mat-menu-item  (click)="openTaskBoard()">
           <mat-icon>edit</mat-icon>
           <span>Edit</span>
