@@ -5,7 +5,7 @@ import { SignupData } from '../../models/model';
 
 @Injectable()
 export class SignupService {
-  private baseUrl = 'https://preview.scribenote.tech/backend/auth/signup.php';
+  private signUpUrl = 'https://preview.scribenote.tech/backend/auth';
 
   constructor( private http: HttpClient) { }
   
@@ -13,6 +13,6 @@ export class SignupService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     }
-    return this.http.post(this.baseUrl, signupData, httpOptions);
+    return this.http.post(`${this.signUpUrl}/signup.php`, signupData, httpOptions);
   } 
 }
