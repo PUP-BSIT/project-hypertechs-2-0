@@ -37,8 +37,8 @@
             // Email does not exist in users table
             http_response_code(404);
             echo json_encode([
-                'error' => 'Email does not exist! 
-                    Please enter your registered email account.']);
+                'error' => 'Invalid email! 
+                    Please enter your valid email.']);
             $conn->close();
             exit();
         }
