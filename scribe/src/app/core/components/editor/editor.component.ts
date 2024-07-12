@@ -29,8 +29,8 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
 
   activeCommands: { [key: string]: boolean } = {};
   lastEdited = new Date();
-  textColor!: string;
-  backgroundColor!: string;
+  textColor: string = '00FFFFFF';
+  backgroundColor: string = '00FFFFFF';
   noteId: number | null = null;
   noteTitle: string | undefined;
   noteContent: string | undefined;
