@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NoteService } from '../../../services/notes/note.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { Subscription } from 'rxjs';
-import { ChangeDetectorRef } from '@angular/core';
 import { DialogService } from '../../../services/dialog/dialog.service';
 import { SnackbarService } from '../../../services/snackbar/snackbar.service';
 import { simpleFade, slideInOut } from '../../../animations/element-animations';
@@ -21,6 +20,7 @@ export class TrashComponent implements OnInit, OnDestroy {
   pageSize = 25;
   currentPage = 0;
   showFirstLastButtons = true;
+  isTrashEmpty: boolean = true;
   currentSortOption = 'lastEdited';
   private userSubscription!: Subscription;
 
@@ -29,7 +29,6 @@ export class TrashComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private dialogService: DialogService,
     private snackbarService: SnackbarService,
-    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -50,14 +49,13 @@ export class TrashComponent implements OnInit, OnDestroy {
       (data: any[]) => {
         console.log('Deleted notes received from backend:', data);
         this.notes = data;
+        this.isTrashEmpty = this.notes.length === 0;
         this.paginateNotes();
         this.isLoading = false;
-        this.cdr.detectChanges();
       },
       (error) => {
         console.error('Error fetching deleted notes:', error);
         this.isLoading = false;
-        this.cdr.detectChanges();
       }
     );
   }
@@ -88,17 +86,17 @@ export class TrashComponent implements OnInit, OnDestroy {
 
   refreshTrash(noteId: number) {
     this.notes = this.notes.filter((note) => note.id !== noteId);
+    this.isTrashEmpty = this.notes.length === 0;
     this.paginateNotes();
-    this.cdr.detectChanges(); // Manually trigger change detection
   }
-
+  
   hardDeleteNote(noteId: number) {
     this.noteService.hardDeleteNote(noteId).subscribe(
       () => {
         console.log('Note permanently deleted successfully');
         this.notes = this.notes.filter((note) => note.id !== noteId);
+        this.isTrashEmpty = this.notes.length === 0;
         this.paginateNotes();
-        this.cdr.detectChanges(); // Manually trigger change detection
       },
       (error) => {
         console.error('Error permanently deleting note:', error);
