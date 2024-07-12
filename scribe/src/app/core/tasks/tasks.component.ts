@@ -12,6 +12,7 @@ import { PageEvent } from '@angular/material/paginator';
   animations: [simpleFade],
 })
 export class TasksComponent implements OnInit, OnDestroy {
+  pinnedTasks: any[] = [];
   userTasks: any[] = [];
   paginatedTasks: any[] = [];
   sortOption: string = 'lastEdited';
@@ -42,8 +43,9 @@ export class TasksComponent implements OnInit, OnDestroy {
     }
     this.tasksSubscription = this.taskService
       .getUserTasks(this.sortOption)
-      .subscribe((tasks) => {
-        this.userTasks = tasks;
+      .subscribe((response) => {
+        this.pinnedTasks = response.pinnedTasks;
+        this.userTasks = response.tasks;
         this.paginateTasks();
         this.isLoading = false;
       });
@@ -82,6 +84,18 @@ export class TasksComponent implements OnInit, OnDestroy {
 
   onTaskDeleted(taskId: number) {
     this.userTasks = this.userTasks.filter((task) => task.task_id !== taskId);
+    this.pinnedTasks = this.pinnedTasks.filter((task) => task.task_id !== taskId);
+    this.paginateTasks();
+  }
+
+  onPinStatusChange(task: any) {
+    if (task.is_pinned) {
+      this.pinnedTasks.push(task);
+      this.userTasks = this.userTasks.filter(t => t.task_id !== task.task_id);
+    } else {
+      this.userTasks.push(task);
+      this.pinnedTasks = this.pinnedTasks.filter(t => t.task_id !== task.task_id);
+    }
     this.paginateTasks();
   }
 
