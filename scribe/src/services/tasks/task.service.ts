@@ -25,9 +25,11 @@ export class TaskService {
     return this.http.get(`${this.apiUrl}/get-task.php?task_id=${taskId}`);
   }
 
-  getUserTasks(sortBy: string): Observable<any> {
+  getUserTasks(
+    sortBy: string
+  ): Observable<{ tasks: any[]; pinnedTasks: any[] }> {
     const userId = this.authService.getUserId();
-    return this.http.get(
+    return this.http.get<{ tasks: any[]; pinnedTasks: any[] }>(
       `${this.apiUrl}/get-user-tasks.php?user_id=${userId}&sort_by=${sortBy}`
     );
   }
@@ -39,6 +41,9 @@ export class TaskService {
   }
 
   pinTask(taskId: number, isPinned: boolean): Observable<any> {
-    return this.http.post(`${this.apiUrl}/pin-task.php`, { task_id: taskId, is_pinned: isPinned });
+    return this.http.post(`${this.apiUrl}/pin-task.php`, {
+      task_id: taskId,
+      is_pinned: isPinned,
+    });
   }
 }
