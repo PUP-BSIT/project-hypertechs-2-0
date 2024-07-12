@@ -330,15 +330,6 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
       return;
     }
 
-    console.log('Saving note with data:', {
-      id: this.noteId,
-      title: this.noteTitle,
-      content: this.noteContent,
-      lastEdited: this.lastEdited,
-      user_id: this.authService.getUserId(),
-      theme_color: this.selectedThemeColor,
-    });
-
     this.lastEdited = new Date();
 
     const noteData = {
@@ -355,12 +346,9 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
         const response = await this.noteService
           .updateNote(this.noteId, noteData)
           .toPromise();
-        console.log('Note updated:', response);
       } else {
         const response = await this.noteService.saveNote(noteData).toPromise();
-        console.log('Note saved:', response);
         this.noteId = response.id;
-        console.log('New note ID set:', this.noteId);
       }
       this.hasChanges = false; // Reset hasChanges after saving
     } catch (error) {
