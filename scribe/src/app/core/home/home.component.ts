@@ -70,8 +70,14 @@ export class HomeComponent implements OnInit, OnDestroy {
       .getUserTasks('lastEdited')
       .subscribe(
         (response) => {
-          if (response && Array.isArray(response.tasks)) {
-            this.userTasks = response.tasks.slice(0, 3);
+          if (
+            response &&
+            Array.isArray(response.tasks) &&
+            Array.isArray(response.pinnedTasks)
+          ) {
+            this.userTasks = response.pinnedTasks
+              .concat(response.tasks)
+              .slice(0, 2);
           } else {
             console.error('Unexpected response format:', response);
             this.userTasks = [];
