@@ -100,9 +100,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       (response) => {
         if (response.success) {
           console.log('Task deleted successfully!');
-          this.userTasks = this.userTasks.filter(
-            (task) => task.task_id !== taskId
-          );
+          this.loadTasks();
         } else {
           console.error('Failed to delete task. Try again.');
         }
