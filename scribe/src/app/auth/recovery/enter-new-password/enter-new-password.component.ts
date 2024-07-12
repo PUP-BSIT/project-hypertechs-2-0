@@ -36,7 +36,6 @@ export class EnterNewPasswordComponent implements OnInit {
     this.initializeTheme();
     this.route.queryParams.subscribe(params => {
       this.user_id = params['user_id'];
-      console.log('User ID:', this.user_id);
     });
     this.resetForm = this.fb.group(
       {

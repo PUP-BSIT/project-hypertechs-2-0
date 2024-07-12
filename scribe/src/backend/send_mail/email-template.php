@@ -66,7 +66,7 @@ function getEmailTemplate($verification_code, $firstname, $lastname) {
     <body>
         <div class='container'>
             <div class='header'>
-                <img src="https://scribenote.tech/assets/images/scribe-logo.png">
+                <img src="https://scribenote.tech/assets_email_logo/images/scribe-logo.png">
             </div>
             <div class='content'>
                 <p class='name'>Hello, $firstname $lastname!</p>
