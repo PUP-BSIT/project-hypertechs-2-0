@@ -68,3 +68,33 @@
 #search_term {
   font-weight: 500;
 }
+
+/* Media Queries for Mobile */
+@media (max-width: 480px) {
+  .scribe-search-container {
+    padding: 0 1rem 0 1rem;
+  }
+
+  #initial_search_content img {
+    width: 50%;
+  }
+
+  #all_tasks_tiles {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+  }
+}
+
+/* Media Queries for Tablet */
+@media (min-width: 481px) and (max-width: 768px) {
+  .scribe-search-container {
+    padding: 0 2rem 0 2rem;
+  }
+
+  #initial_search_content img {
+    width: 50%;
+  }
+
+  #all_tasks_tiles {
+    grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
+  }
+}
