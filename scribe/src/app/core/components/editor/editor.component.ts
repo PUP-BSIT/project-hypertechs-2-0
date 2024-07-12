@@ -88,7 +88,9 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   ) {}
 
   ngAfterViewInit() {
-    this.initializeToolbar();
+    setTimeout(() => {
+      this.initializeToolbar();
+    });
     this.loadNoteOrTemplate();
 
     // Check for readonly query parameter
