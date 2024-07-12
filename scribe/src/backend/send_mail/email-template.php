@@ -31,7 +31,7 @@ function getEmailTemplate($verification_code, $firstname, $lastname) {
                 object-fit: contain;
             }
             .content {
-                padding: 20px 50px;
+                padding: 10px 50px;
                 text-align: center;
             }
             .content .name {
@@ -58,7 +58,7 @@ function getEmailTemplate($verification_code, $firstname, $lastname) {
                 background-color: #f4f4f4;
                 color: #777777;
                 text-align: center;
-                padding: 20px 10px;
+                padding: 10px;
                 font-size: 14px;
             }
         </style>

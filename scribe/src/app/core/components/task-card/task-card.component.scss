@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: column;
   gap: 1vh;
-  padding: 5% 7% 7% 7%;
+  padding: 5% 7% 3% 7%;
   border-radius: 10px;
   background-color: var(--note-card);
   cursor: pointer;
@@ -86,7 +86,7 @@
   flex-direction: column;
   justify-content: space-between;
   gap: 1.5vh;
-  margin: 5% 0 3% 0;
+  margin: 5% 0 0 0;
 
   #progress_text {
     display: flex;
@@ -123,5 +123,28 @@
     transform: scaleX(1);
     transform-origin: left;
     transition: transform 0.5s ease-in-out;
+  }
+}
+
+.note-footer {
+
+  #last_edited_info {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.5rem 0;
+    width: fit-content;
+    opacity: 0.6;
+
+    .mat-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2vw;
+    }
+  
+    p {
+      font-size: 1vw;
+    }
   }
 }

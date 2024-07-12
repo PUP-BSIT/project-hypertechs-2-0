@@ -12,6 +12,7 @@ import { SnackbarService } from '../../../../services/snackbar/snackbar.service'
 import { UserService } from '../../../../services/user/user.service';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { ThemeService } from '../../../../services/theme/theme.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-enter-email',
@@ -73,13 +74,56 @@ export class EnterEmailComponent implements OnInit {
         this.isLoading = false;
         this.snackbarService.dismiss();
       },
-      error: (error) => {
-        //console.error('Error:', error);
-        this.errorMessage = 'An error occurred. Please try again.';
+      error: (error: HttpErrorResponse) => {
+        this.handleError(error);
         this.isLoading = false;
       },
     });
   }
+
+  handleError(error: HttpErrorResponse | Error) {
+    if (error instanceof HttpErrorResponse) {
+      this.handleHttpError(error);
+    } else {
+      this.handleNetworkError();
+    }
+    this.snackbarService.show(this.errorMessage);
+  }
+
+  private handleHttpError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      this.errorMessage = 'Invalid email.';
+      return;
+    }
+
+    if (error.error && error.error.error) {
+      this.errorMessage = error.error.error;
+      return;
+    }
+
+    switch (error.status) {
+      case 400:
+        this.errorMessage = 'Bad request. Please check your data.';
+        break;
+      case 401:
+        this.errorMessage = 'You have entered an invalid email.';
+        break;
+      case 404:
+          this.errorMessage = 'You have entered an invalid email.';
+          break;
+      case 500:
+        this.errorMessage = 'Internal server error. Please try again later.';
+        break;
+      default:
+        this.errorMessage = `Error: ${error.status}. Please try again later.`;
+    }
+  }
+
+  private handleNetworkError() {
+    this.errorMessage =
+      'Network error occurred. Please check your internet connection.';
+  }
+
 
   openSentmailDialog(user_id: string): void {
     const dialogRef = this.dialogService.openDialog({

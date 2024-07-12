@@ -239,6 +239,7 @@ input[type="color"]:focus {
 .disabled-button {
   opacity: 0.5;
   cursor: default !important;
+  display: none;
 }
 
 /* Media query for mobile devices (up to 480px) */

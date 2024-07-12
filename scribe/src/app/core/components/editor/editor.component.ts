@@ -29,8 +29,8 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
 
   activeCommands: { [key: string]: boolean } = {};
   lastEdited = new Date();
-  textColor!: string;
-  backgroundColor!: string;
+  textColor: string = '#000000';
+  backgroundColor: string = '#000000';
   noteId: number | null = null;
   noteTitle: string | undefined;
   noteContent: string | undefined;
@@ -88,7 +88,9 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   ) {}
 
   ngAfterViewInit() {
-    this.initializeToolbar();
+    setTimeout(() => {
+      this.initializeToolbar();
+    });
     this.loadNoteOrTemplate();
 
     // Check for readonly query parameter
