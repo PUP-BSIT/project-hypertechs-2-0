@@ -47,7 +47,6 @@ export class TrashComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.noteService.getDeletedNotes(this.currentSortOption).subscribe(
       (data: any[]) => {
-        console.log('Deleted notes received from backend:', data);
         this.notes = data;
         this.isTrashEmpty = this.notes.length === 0;
         this.paginateNotes();
@@ -75,7 +74,6 @@ export class TrashComponent implements OnInit, OnDestroy {
   restoreNote(noteId: number) {
     this.noteService.restoreNote(noteId).subscribe(
       () => {
-        console.log('Note restored successfully');
         this.loadDeletedNotes(); // Reload the deleted notes list
       },
       (error) => {
@@ -93,7 +91,6 @@ export class TrashComponent implements OnInit, OnDestroy {
   hardDeleteNote(noteId: number) {
     this.noteService.hardDeleteNote(noteId).subscribe(
       () => {
-        console.log('Note permanently deleted successfully');
         this.notes = this.notes.filter((note) => note.id !== noteId);
         this.isTrashEmpty = this.notes.length === 0;
         this.paginateNotes();
@@ -127,7 +124,6 @@ export class TrashComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.noteService.emptyTrash().subscribe(
       () => {
-        console.log('Trash emptied successfully!');
         this.snackbarService.show('Trash emptied successfully');
         this.loadDeletedNotes();
       },
