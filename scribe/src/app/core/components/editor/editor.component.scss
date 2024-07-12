@@ -241,3 +241,123 @@ input[type="color"]:focus {
   cursor: default !important;
   display: none;
 }
+
+/* Media query for mobile devices (up to 480px) */
+@media (max-width: 480px) {
+  .scribe-editor-container {
+    padding: 0 2rem 0 2rem;
+    height: 100vh;
+  }
+
+  .editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    .btn-back,
+    .btn-focus,
+    .btn-edit,
+    .btn-done {
+      font-size: 2.5vw;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .editor-title .title-input {
+    padding: 10px 0;
+    font-size: 8vw;
+  }
+
+  .editor-timestamp {
+    font-size: 2.5vw;
+    margin-bottom: 1rem;
+
+    .mat-icon {
+      font-size: 2.5vw;
+      margin-right: 0.2rem;
+    }
+  }
+
+  .editor-toolbar {
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    padding: 0.3rem;
+    bottom: 2vw;
+
+    button,
+    select {
+      font-size: 3vw;
+      padding: 0.2rem;
+    }
+
+    option {
+      font-size: 2vw;
+      padding: 0.2rem;
+    }
+  }
+
+  .editor-content {
+    padding-bottom: 5%;
+    font-size: 3vw;
+  }
+}
+
+/* Media query for tablet devices (481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .scribe-editor-container {
+    padding: 0 2rem 0 2rem;
+    height: 100vh;
+  }
+
+  .editor-header {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+
+    .btn-back,
+    .btn-focus,
+    .btn-edit,
+    .btn-done {
+      font-size: 1.5vw;
+    }
+  }
+
+  .editor-title .title-input {
+    padding: 10px 0;
+    font-size: 4vw;
+  }
+
+  .editor-timestamp {
+    font-size: 1.5vw;
+    margin-bottom: 1.5rem;
+
+    .mat-icon {
+      font-size: 1.5vw;
+      margin-right: 0.2rem;
+    }
+  }
+
+  .editor-toolbar {
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    padding: 0.3rem;
+    bottom: 2vw;
+
+    button,
+    select {
+      font-size: 1.5vw;
+      padding: 0.2rem;
+    }
+
+    option {
+      font-size: 1.5vw;
+      padding: 0.2rem;
+    }
+  }
+
+  .editor-content {
+    padding-bottom: 10%;
+    font-size: 2vw;
+  }
+}

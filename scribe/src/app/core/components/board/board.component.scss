@@ -328,3 +328,188 @@
 .done-task.mat-checkbox .mat-checkbox-background {
   background-color: gray;
 }
+
+/* Media query for mobile devices (up to 480px) */
+@media (max-width: 480px) {
+  .board-title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .board-title .title-input {
+    padding: 5px 0;
+    font-size: 7vw;
+  }
+
+  .clear-all-btn {
+    font-size: 3vw;
+    margin-left: 1rem;
+  }
+
+  .board-desc .board-desc-input {
+    font-size: 4vw;
+  }
+
+  .board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .btn-back,
+    .btn-focus {
+      font-size: 3vw;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .board-main {
+    flex-direction: column;
+    gap: 2vh;
+    margin-top: 2vh;
+
+    h2 {
+      font-size: 4vw;
+    }
+
+    .board-list {
+      height: auto;
+      padding: 1rem 0.5rem;
+      font-size: 3vw;
+    }
+
+    .task-list-display,
+    .board-list .board-task-input,
+    .task-edit-input {
+      font-size: 3.5vw;
+      max-width: 100%;
+      width: 100%;
+    }
+
+    .board-list .board-task-input::placeholder {
+      font-size: 4vw;
+    }
+  }
+
+  .board {
+    height: 100vh;
+  }
+
+  .board-task-part-one {
+    max-width: 100%;
+  }
+
+  .empty-done {
+    padding: 2%;
+    font-size: 3.5vw;
+  }
+
+  #done_board .board-list .board-task-input,
+  #done_board .task-edit-input,
+  #done_board .board-task-part-one {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  #done_board .task-list-display {
+    font-size: 3.5vw;
+    max-width: 100%;
+  }
+}
+
+/* Media query for tablet devices (481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .board-title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .board-title .title-input {
+    padding: 5px 0;
+    font-size: 5vw;
+  }
+
+  .clear-all-btn {
+    font-size: 2.5vw;
+    margin-left: 1rem;
+  }
+
+  .board-desc .board-desc-input {
+    font-size: 3vw;
+  }
+
+  .board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .btn-back,
+    .btn-focus {
+      font-size: 2vw;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .board-main {
+    flex-direction: column;
+    gap: 3vh;
+    margin-top: 2vh;
+
+    h2 {
+      font-size: 3vw;
+    }
+
+    .board-list {
+      height: auto;
+      padding: 1.5rem 0.5rem;
+      font-size: 2.5vw;
+    }
+
+    .task-list-display,
+    .board-list .board-task-input,
+    .task-edit-input {
+      font-size: 2.5vw;
+      max-width: 100%;
+      width: 100%;
+      padding-left: 0.5rem;
+    }
+
+    .board-list .board-task-input::placeholder {
+      font-size: 2.5vw;
+      padding-left: 0.5rem;
+    }
+  }
+
+  .board {
+    height: 60vh;
+  }
+
+  .board-task-part-one {
+    max-width: 100%;
+  }
+
+  .empty-done {
+    padding: 1%;
+    font-size: 2.5vw;
+    height: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  #done_board .board-list .board-task-input,
+  #done_board .task-edit-input,
+  #done_board .board-task-part-one {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  #done_board .task-list-display {
+    font-size: 2.5vw;
+    max-width: 100%;
+    padding-left: 0.5rem;
+  }
+}
