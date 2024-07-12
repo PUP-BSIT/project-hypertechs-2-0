@@ -6,6 +6,7 @@ import { AuthService } from '../../../../services/auth/auth.service';
 import { UserService } from '../../../../services/user/user.service';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { ThemeService } from '../../../../services/theme/theme.service';
+import { DialogService } from '../../../../services/dialog/dialog.service';
 
 @Component({
   selector: 'app-enter-new-password',
@@ -27,6 +28,7 @@ export class EnterNewPasswordComponent implements OnInit {
     private authService: AuthService,
     private userService: UserService,
     private themeService: ThemeService,
+    private dialogService: DialogService,
     private fb: FormBuilder,
   ) { }
 
@@ -109,7 +111,8 @@ export class EnterNewPasswordComponent implements OnInit {
           this.userService.setFirstname(response.firstname);
           this.userService.setLastname(response.lastname);
           this.userService.setEmail(response.email);
-          this.router.navigate(['main']);
+          this.handleSuccess(response);
+          this.isLoading = false;
         } else {
           this.snackbarService.show(response.message, 'Try again');
         }
@@ -117,5 +120,16 @@ export class EnterNewPasswordComponent implements OnInit {
         this.isLoading = false;
         this.snackbarService.show('Failed to reset password', 'Try again');
       });
+  }
+
+  private handleSuccess(response: any) {
+    const dialogRef = this.dialogService.openSuccessDialog(
+      'Reset Password Successful!',
+      'Welcome back to Scribe! Redirecting you to your home page...'
+    );
+    setTimeout(() => {
+      dialogRef.close();
+      this.router.navigate(['/main']);
+    }, 3000);
   }
 }

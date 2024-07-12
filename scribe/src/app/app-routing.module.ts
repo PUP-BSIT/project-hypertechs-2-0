@@ -47,7 +47,6 @@ const routes: Routes = [
   {
     path: 'enter-otp',
     component: EnterOtpComponent,
-    canActivate: [authGuard],
     data: { animationState: 'enterOtp' },
   },
   {
@@ -57,7 +56,6 @@ const routes: Routes = [
   {
     path: 'enter-new-password',
     component: EnterNewPasswordComponent,
-    canActivate: [authGuard],
     data: { animationState: 'enterNewPass' },
   },
   {

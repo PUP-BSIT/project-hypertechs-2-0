@@ -40,6 +40,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   initialNoteTitle: string | undefined;
   initialNoteContent: string | undefined;
   contentChanged = new Subject<void>();
+  hasChanges = false;
   private lastScrollTop = 0;
   private isScrollingUp = false;
   selectedThemeColor: string = 'default';
@@ -202,6 +203,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
         this.editorContentRef.nativeElement.innerHTML = this.noteContent;
         this.selectedThemeColor = note.theme_color;
         this.applyThemeColor();
+        this.hasChanges = false;
       } catch (error) {
         console.error('Error fetching note:', error);
       }
@@ -216,6 +218,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
       this.initialNoteTitle = selectedTemplate.title;
       this.initialNoteContent = selectedTemplate.content;
       this.editorContentRef.nativeElement.innerHTML = this.noteContent;
+      this.hasChanges = false;
     }
   }
 
@@ -234,6 +237,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     if (['insertUnorderedList', 'insertOrderedList'].includes(command)) {
       this.addListClass();
     }
+    this.hasChanges = true;
   }
 
   private addListClass() {
@@ -266,6 +270,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     this.selectedThemeColor = selectElement.value;
     this.applyThemeColor();
     this.contentChanged.next();
+    this.hasChanges = true; 
   }
 
   private applyThemeColor() {
@@ -297,6 +302,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     if (target && target.value) {
       this.format(command, target.value);
       this[property] = target.value;
+      this.hasChanges = true;
     }
   }
 
@@ -308,14 +314,20 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
 
   onContentChange(event: Event) {
     this.noteContent = (event.target as HTMLElement).innerHTML;
+    this.hasChanges = true;
     this.contentChanged.next();
   }
 
   onTitleChange() {
+    this.hasChanges = true;
     this.contentChanged.next();
   }
 
   async saveNote() {
+    if (!this.hasChanges) {
+      return;
+    }
+
     console.log('Saving note with data:', {
       id: this.noteId,
       title: this.noteTitle,
@@ -348,6 +360,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
         this.noteId = response.id;
         console.log('New note ID set:', this.noteId);
       }
+      this.hasChanges = false; // Reset hasChanges after saving
     } catch (error) {
       console.error('Error saving note:', error);
     }

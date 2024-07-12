@@ -28,6 +28,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     $notes = [];
     while ($row = $result->fetch_assoc()) {
+        $row['is_locked'] = intval($row['is_locked']); 
         $notes[] = $row;
     }
     echo json_encode($notes);
