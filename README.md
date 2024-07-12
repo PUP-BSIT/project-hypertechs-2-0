@@ -6,12 +6,10 @@ Say goodbye to scattered thoughts. Designed with simplicity and efficiency in mi
 
 🔗 [Visit Scribe's official website here.](https://scribenote.tech/)<br>
 
-**Credentials**<br>
+## 📃 Sample Credentials<br>
 
-- &nbsp;&nbsp;&nbsp;&nbsp;email: scribenote.app@gmail.com<br>
-- &nbsp;&nbsp;&nbsp;&nbsp;password: Sample#123
-
-🔗 [Enter the sample credentials here to preview the app.](https://preview.scribenote.tech/)
+**Email:** scribenote.app@gmail.com<br>
+**Password:** Sample#123
 
 ## ✨ Features
 
