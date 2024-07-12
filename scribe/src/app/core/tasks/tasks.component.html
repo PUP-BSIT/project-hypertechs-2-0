@@ -1,5 +1,4 @@
 <div class="scribe-tasks-container" [@simpleFade]>
-  <!--Tasks Heading-->
   <div id="tasks_heading">
     <h1>Tasks</h1>
 
@@ -28,6 +27,32 @@
     </mat-menu>
   </div>
 
+  <!-- Progress Spinner -->
+  @if (isLoading) {
+    <div class="loading-spinner">
+      <mat-spinner [diameter]="50"></mat-spinner>
+    </div>
+  }
+
+  <!-- Pinned Tasks Section -->
+  @if (pinnedTasks.length) {
+    <div class="pinned-tasks-container">
+      <div class="tasks-heading-row">
+        <mat-icon>push_pin</mat-icon>
+        <h2>Pinned Tasks</h2>
+      </div>
+      <div id="pinned_tasks_tiles">
+        @for (task of pinnedTasks; track trackByTaskId($index, task)) {
+          <app-task-card
+            [task]="task"
+            (taskDeleted)="onTaskDeleted($event)"
+            (pinStatusChange)="onPinStatusChange($event)"
+          ></app-task-card>
+        }
+      </div>
+    </div>
+  }
+
   <!--All Tasks Tiles-->
   <div id="tasks_main">
     @if (isLoading) {
@@ -35,13 +60,20 @@
         <mat-spinner [diameter]="50"></mat-spinner>
       </div>
     } @else {
-      @if (userTasks.length) {
+      @if (userTasks.length || pinnedTasks.length) {
         <!-- If tasks are present, this will display -->
+        @if (paginatedTasks.length > 0) {
+          <div class="tasks-heading-row">
+            <mat-icon>list</mat-icon>
+            <h2>All Tasks</h2>
+          </div>
+        }
         <div id="all_tasks_tiles">
-          @for (task of paginatedTasks; track task.task_id) {
+          @for (task of paginatedTasks; track trackByTaskId($index, task)) {
             <app-task-card
               [task]="task"
               (taskDeleted)="onTaskDeleted($event)"
+              (pinStatusChange)="onPinStatusChange($event)"
             ></app-task-card>
           }
         </div>
@@ -71,4 +103,5 @@
     <mat-icon>add_task</mat-icon>
     <span>Add Task</span>
   </button>
+
 </div>
