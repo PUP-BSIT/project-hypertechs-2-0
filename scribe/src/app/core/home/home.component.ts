@@ -54,7 +54,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.noteService.getNotes().subscribe(
       (data) => {
-        console.log('Notes received from backend:', data);
         this.notes = data.filter((note: any) => note.is_deleted == 0);
         this.isLoading = false;
       },
@@ -70,9 +69,19 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.tasksSubscription = this.taskService
       .getUserTasks('lastEdited')
       .subscribe(
-        (tasks) => {
-          console.log('Tasks received from backend:', tasks);
-          this.userTasks = tasks.slice(0, 3);
+        (response) => {
+          if (
+            response &&
+            Array.isArray(response.tasks) &&
+            Array.isArray(response.pinnedTasks)
+          ) {
+            this.userTasks = response.pinnedTasks
+              .concat(response.tasks)
+              .slice(0, 2);
+          } else {
+            console.error('Unexpected response format:', response);
+            this.userTasks = [];
+          }
           this.isLoading = false;
         },
         (error) => {
