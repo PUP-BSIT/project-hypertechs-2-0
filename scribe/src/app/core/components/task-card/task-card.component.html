@@ -12,7 +12,12 @@
     </button>
 
     <mat-menu #menu="matMenu">
-      <!-- If the notes are active, display this -->
+      <button mat-menu-item (click)="togglePin()">
+        <mat-icon>{{
+          task.is_pinned ? 'push_pin' : 'push_pin_outlined'
+        }}</mat-icon>
+        <span>{{ task.is_pinned ? "Unpin Task" : "Pin Task" }}</span>
+      </button>
         <button mat-menu-item  (click)="openTaskBoard()">
           <mat-icon>edit</mat-icon>
           <span>Edit</span>
@@ -47,5 +52,12 @@
       </h4>
     </div>
     <div id="progress_bar" [style.--progress]="progress + '%'"></div>
+  </div>
+
+  <div class="note-footer" (click)="openTaskBoard()">
+    <div id="last_edited_info">
+      <mat-icon>history</mat-icon>
+      <p>{{ task.last_edited | date: 'MMM d, h:mm a' }}</p>
+    </div>
   </div>
 </div>

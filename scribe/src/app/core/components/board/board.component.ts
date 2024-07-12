@@ -91,7 +91,9 @@ export class BoardComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   ngAfterViewInit() {
-    this.initializeToolbar();
+    setTimeout(() => {
+      this.initializeToolbar();
+    });
   }
 
   ngOnDestroy() {
@@ -102,7 +104,7 @@ export class BoardComponent implements AfterViewInit, OnDestroy, OnInit {
     this.sidenavService.open();
 
     if (this.changesMade) {
-      this.snackbarService.show('Task updated successfully!', 'Close', 3000);
+      this.snackbarService.show('Task saved successfully!', 'Close', 3000);
     }
   }
 
@@ -232,9 +234,8 @@ export class BoardComponent implements AfterViewInit, OnDestroy, OnInit {
       this.taskService.updateTask(taskData).subscribe(
         (response) => {
           if (response.success) {
-            console.log('Task updated successfully');
           } else {
-            console.log('Failed to update task');
+            this.snackbarService.show('Failed to save task.')
           }
         },
         (error) => {
@@ -246,9 +247,8 @@ export class BoardComponent implements AfterViewInit, OnDestroy, OnInit {
         (response) => {
           if (response.success) {
             this.taskId = response.task_id;
-            console.log('Task saved successfully');
           } else {
-            console.log('Failed to save task');
+            this.snackbarService.show('Failed to save task.')
           }
         },
         (error) => {

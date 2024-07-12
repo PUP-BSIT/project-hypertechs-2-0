@@ -40,6 +40,8 @@ import { EditorComponent } from './core/components/editor/editor.component';
 import { SearchComponent } from './core/components/search/search.component';
 import { TaskCardComponent } from './core/components/task-card/task-card.component';
 import { BoardComponent } from './core/components/board/board.component';
+import { NotebooksComponent } from './core/notebooks/notebooks.component';
+import { LockDialogComponent } from './core/components/lock-dialog/lock-dialog.component';
 
 /* Other Modules */
 import { MaterialModule } from '../imports/material.module';
@@ -49,7 +51,6 @@ import { NgxMasonryModule } from 'ngx-masonry';
 /* Services */
 import { LoginService } from '../services/login/login.service';
 import { SignupService } from '../services/signup/signup.service';
-import { NotebooksComponent } from './core/notebooks/notebooks.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { NotebooksComponent } from './core/notebooks/notebooks.component';
     BoardComponent,
     OtpComponent,
     NotebooksComponent,
+    LockDialogComponent,
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,8 @@ if ($noteId > 0 && $userId > 0) {
 
     if ($result->num_rows > 0) {
         $note = $result->fetch_assoc();
+        $note['is_pinned'] = intval($note['is_pinned']);
+        $note['is_locked'] = intval($note['is_locked']);
         echo json_encode($note);
     } else {
         echo json_encode(["message" => "Note not found"]);

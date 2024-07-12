@@ -56,11 +56,10 @@ if (isset($data['lastname']) && isset($data['firstname']) && isset($data['email'
         $user_id = $stmt->insert_id;
 
         $verification_code = random_int(100000, 999999);
-        $message = "Your verification code is: $verification_code";
-        $expiration_time = date("Y-m-d H:i:s", strtotime('+80 seconds'));
+        $expiration_time = date("Y-m-d H:i:s", strtotime('+120 seconds'));
         $recipient = $email;
-
-        if (!send_mail($recipient, "Verification Code", $message)) {
+        
+        if (!send_mail($recipient, "Verify Your Account", $verification_code, $firstname, $lastname)) {
             http_response_code(500);
             echo json_encode(['error' => "You've undeliverable. Failed to register!"]);
             $conn->close();
@@ -74,7 +73,6 @@ if (isset($data['lastname']) && isset($data['firstname']) && isset($data['email'
 
         http_response_code(200);
         echo json_encode([
-            'message' => 'User registered successfully.',
             'user_id' => $user_id,
             'firstname' => $firstname,
             'lastname' => $lastname,
