@@ -81,6 +81,15 @@ body.dark-mode #not_found_container::before {
   z-index: -1;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Custom Material Form Theming
 
 .mdc-text-field--outlined {

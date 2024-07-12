@@ -11,6 +11,9 @@ import { Router } from '@angular/router';
 import { SnackbarService } from '../../../../services/snackbar/snackbar.service';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { ThemeService } from '../../../../services/theme/theme.service';
+import { DialogService } from '../../../../services/dialog/dialog.service';
+import { UserService } from '../../../../services/user/user.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-enter-otp',
@@ -23,6 +26,7 @@ export class EnterOtpComponent implements OnInit {
   otpErrorMessage: string = '';
   themeIcon: string = 'dark_mode';
   isLoading = false;
+  userId: string = '';
 
   @Output() otpSubmitted: EventEmitter<string> = new EventEmitter<string>();
 
@@ -31,11 +35,17 @@ export class EnterOtpComponent implements OnInit {
     private router: Router,
     private snackbarService: SnackbarService,
     private authService: AuthService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private dialogService: DialogService,
+    private userService: UserService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.initializeTheme();
+    this.route.queryParams.subscribe((params) => {
+      this.userId = params['user_id'];
+    });
     setTimeout(() => {
       this.otpInput1.nativeElement.focus();
     }, 0);
@@ -100,11 +110,45 @@ export class EnterOtpComponent implements OnInit {
   private handleSuccess(response: any) {
     const user_id = this.authService.getUserId();
     this.router.navigate(['/enter-new-password'],{ queryParams: { user_id: user_id } });
-    //TODO testing
-    console.log(user_id);
   }
 
   private handleError(message: string) {
     this.snackbarService.show(message);
+  }
+
+  resendOtp(): void {
+    this.isLoading = true;
+    this.otpService.resendOtp(this.userId).subscribe({
+      next: (response) => {
+        this.userService.setFirstname(response.firstname);
+        this.userService.setLastname(response.lastname);
+        this.userService.setEmail(response.email);
+        this.openSentmailDialog(response.user_id);
+        this.isLoading = false;
+        this.snackbarService.dismiss();
+      },
+      error: () => {
+        this.handleError('An error occurred. Please try again.');
+        this.isLoading = false;
+      }
+    });
+  }
+
+  openSentmailDialog(user_id: string): void {
+    const dialogRef = this.dialogService.openDialog({
+      title: 'OTP Resent',
+      content: 'We sent an OTP code to your email to verify your identity.',
+      cancelText: 'Cancel',
+      confirmText: 'Proceed',
+      action: 'ok',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'ok') {
+        this.router.navigate(['enter-otp'], {
+          queryParams: { user_id: user_id },
+        });
+      }
+    });
   }
 }

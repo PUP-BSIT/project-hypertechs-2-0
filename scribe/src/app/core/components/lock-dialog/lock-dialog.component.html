@@ -1,0 +1,46 @@
+<div class="material-dialog-container">
+  <h1 mat-dialog-title class="custom-dialog-title">{{ data.title }}</h1>
+  <div mat-dialog-content class="custom-dialog-content dialog-content">
+    <form [formGroup]="passwordForm">
+      <mat-form-field class="custom-mat-form-field" appearance="outline">
+        <mat-label>Password</mat-label>
+        <input
+          minlength="8"
+          maxlength="40"
+          matInput
+          formControlName="password"
+          type="password"
+        />
+        <mat-icon matPrefix>lock</mat-icon>
+        <mat-hint>Enter your account password</mat-hint>
+        @if (passwordForm.get('password')?.hasError('incorrectPassword')) {
+          <mat-error>
+            Incorrect password
+          </mat-error>
+        }
+        @if (passwordForm.get('password')?.hasError('serverError')) {
+          <mat-error>
+            An error occurred. Try again later.
+          </mat-error>
+        }
+      </mat-form-field>
+    </form>
+  </div>
+  <div mat-dialog-actions class="custom-dialog-buttons">
+    <button mat-button class="dialog-cancel" (click)="onNoClick()">
+      Cancel
+    </button>
+    <button
+      mat-button
+      class="dialog-action"
+      (click)="onConfirmClick()"
+      [ngClass]="{
+        'button-enabled': passwordForm.valid,
+        'button-disabled': !passwordForm.valid
+      }"
+      [disabled]="!passwordForm.valid"
+    >
+      Confirm
+    </button>
+  </div>
+</div>

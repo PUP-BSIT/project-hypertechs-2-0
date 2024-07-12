@@ -20,7 +20,18 @@ switch ($sort_by) {
         break;
 }
 
-$sql = "SELECT * FROM tasks WHERE user_id = ? ORDER BY $orderBy";
+$sql = "SELECT * FROM tasks WHERE user_id = ? AND is_pinned = 1 ORDER BY $orderBy";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$pinnedTasks = array();
+while ($row = $result->fetch_assoc()) {
+    $pinnedTasks[] = $row;
+}
+
+$sql = "SELECT * FROM tasks WHERE user_id = ? AND is_pinned = 0 ORDER BY $orderBy";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
@@ -31,7 +42,7 @@ while ($row = $result->fetch_assoc()) {
     $tasks[] = $row;
 }
 
-echo json_encode($tasks);
+echo json_encode(['pinnedTasks' => $pinnedTasks, 'tasks' => $tasks]);
 
 $stmt->close();
 $conn->close();

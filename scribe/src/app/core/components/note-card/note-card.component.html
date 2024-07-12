@@ -1,7 +1,7 @@
 <mat-card ngxMasonryItem class="masonry-note"
   [ngStyle]="{'background-color': noteBackgroundColor}">
   <div class="note-header">
-    <mat-card-title class="note-title" (click)="editNote()">
+    <mat-card-title class="note-title" (click)="openNote()">
       {{ note.title }}
     </mat-card-title>
     <button mat-icon-button [matMenuTriggerFor]="menu">
@@ -16,9 +16,13 @@
           }}</mat-icon>
           <span>{{ note.is_pinned ? "Unpin Note" : "Pin Note" }}</span>
         </button>
-        <button mat-menu-item (click)="editNote()">
+        <button mat-menu-item (click)="openNote()">
           <mat-icon>edit</mat-icon>
           <span>Edit</span>
+        </button>
+        <button mat-menu-item (click)="toggleLockNote()">
+          <mat-icon>{{ note.is_locked ? 'lock_open' : 'lock' }}</mat-icon>
+          <span>{{ note.is_locked ? 'Unlock Note' : 'Lock Note' }}</span>
         </button>
         <button mat-menu-item (click)="deleteNote()">
           <mat-icon>delete</mat-icon>
@@ -38,13 +42,17 @@
     </mat-menu>
   </div>
 
-  <mat-card-content class="note-content" (click)="editNote()">
-    <div [innerHTML]="sanitizedContent"></div>
+  <mat-card-content class="note-content" (click)="openNote()">
+    @if (note.is_locked) {
+      <mat-icon>lock</mat-icon>
+    } @else {
+      <div [innerHTML]="sanitizedContent"></div>
+    }
   </mat-card-content>
 
-  <mat-card-footer class="note-footer" (click)="editNote()">
+  <mat-card-footer class="note-footer" (click)="openNote()">
     <div id="last_edited_info">
-      <mat-icon>event</mat-icon>
+      <mat-icon>history</mat-icon>
       <p>{{ note.last_edited | date: 'MMM d, h:mm a' }}</p>
     </div>
   </mat-card-footer>

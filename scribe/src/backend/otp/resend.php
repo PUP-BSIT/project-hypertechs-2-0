@@ -1,7 +1,7 @@
 <?php
 
 include '../db_config.php';
-include '../send_mail/mail.php';  // Include the mail script
+include '../send_mail/mail.php';
 
 // Handle preflight requests for CORS
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
@@ -18,7 +18,7 @@ if (isset($data['user_id'])) {
 
     // Generate verification code
     $verification_code = random_int(100000, 999999);
-    $message = "Your verification code is: $verification_code";
+    $expiration_time = date("Y-m-d H:i:s", strtotime('+120 seconds'));
 
     // Fetch user details
     $stmt = $conn->prepare(
@@ -32,7 +32,7 @@ if (isset($data['user_id'])) {
     $stmt->fetch();
 
     // Send the verification code via email
-    if (send_mail($email, "Verification Code", $message)) {
+    if (send_mail($email, "Verification Code",  $verification_code, $firstname, $lastname)) {
         $expiration_time = date("Y-m-d H:i:s", strtotime('+80 seconds'));
 
         // Update the verification code in the database

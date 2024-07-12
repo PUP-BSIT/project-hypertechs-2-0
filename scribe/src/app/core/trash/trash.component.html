@@ -89,13 +89,11 @@
   </mat-paginator>
   }
 
-  <button
-    mat-fab
-    extended
-    class="custom-fab"
-    (click)="confirmEmptyTrash()"
-    [disabled]="!notes.length"
-  >
+  <button 
+    mat-fab extended 
+    (click)="confirmEmptyTrash()" 
+    class="custom-fab" 
+    [disabled]="isTrashEmpty">
     <mat-icon>delete_sweep</mat-icon>
     <span>Empty Trash</span>
   </button>

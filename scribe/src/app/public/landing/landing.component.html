@@ -1,36 +1,158 @@
 <div id="landing_container">
+  <section id="home">
     <header>
-        <app-brand [@simpleFade]></app-brand>
-        <nav [@simpleFade]>
-            <a href="#">About Us</a>
-            <a href="#">Help</a>
-            <a href="#">FAQ</a>
-            <a href="#">How It Works</a>
-            <app-theme-switch></app-theme-switch>
-        </nav>
+      <app-brand [@simpleFade]></app-brand>
+      <nav [@simpleFade]>
+        <a href="#home">Home</a>
+        <a href="#features">Features</a>
+        <a href="#about">About Us</a>
+        <app-theme-switch></app-theme-switch>
+      </nav>
     </header>
 
     <section id="landing_content">
-        <main id="scribe_hero">
-            <div class="typing-container" [@simpleFade]>
-                <app-typing-effect></app-typing-effect>
-            </div>
+      <main id="scribe_hero">
+        <div class="typing-container" [@simpleFade]>
+          <app-typing-effect></app-typing-effect>
+        </div>
 
-            <p id="scribe_desc" [@simpleFade]>
-                Say goodbye to scattered thoughts.
-                Designed with simplicity and efficiency in mind,
-                Scribe lets you capture your thoughts, ideas, and
-                important information instantly without all the clutter,
-                helping you stay focused. Think clearly, write simply.
-            </p>
-            <div id="landing_buttons" [@simpleFade]>
-                <button mat-raised-button routerLink="/login" 
-                    id="scribe_login"> Log In
-                </button>
-                <button mat-raised-button routerLink="/signup" 
-                    id="scribe_signup"> Sign Up 
-                </button>
-            </div>
-        </main>
+        <p id="scribe_desc" [@simpleFade]>
+          Say goodbye to scattered thoughts. Designed with simplicity and
+          efficiency in mind, Scribe lets you capture your thoughts, ideas, and
+          important information instantly without all the clutter, helping you
+          stay focused. Think clearly, write simply.
+        </p>
+        <div id="landing_buttons" [@simpleFade]>
+          <button mat-raised-button routerLink="/login" id="scribe_login">
+            Log In
+          </button>
+          <button mat-raised-button routerLink="/signup" id="scribe_signup">
+            Sign Up
+          </button>
+        </div>
+      </main>
     </section>
+  </section>
+
+  <section id="features">
+    <div class="feature-box">
+      <div class="feature-item">
+        <div class="feature-icon">
+          <img src="../../../assets/images/create-note.png" />
+          <h2>Rich Text Editor</h2>
+        </div>
+        <div class="feature-content">
+          <p>
+            Our rich text editor allows you to create and format notes with
+            various text styles and options. Easily customize your notes with
+            bold, italics, lists, and more to make them clear and visually
+            appealing.
+          </p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">
+          <img src="../../../assets/images/add-task.png" />
+          <h2>Task Board</h2>
+        </div>
+        <div class="feature-content">
+          <p>
+            Keep track of your tasks and projects with our interactive task
+            board. Organize tasks into different columns, set priorities, and
+            monitor progress to stay productive and on top of your work.
+          </p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">
+          <img src="../../../assets/images/do-search.png" />
+          <h2>Search</h2>
+        </div>
+        <div class="feature-content">
+          <p>
+            Quickly locate specific notes or tasks with our powerful search
+            feature. Simply enter keywords or phrases to instantly find relevant
+            content, saving you time and effort and helping you focused.
+          </p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">
+          <img src="../../../assets/images/lock-notes.png" />
+          <h2>Lock Notes</h2>
+        </div>
+        <div class="feature-content">
+          <p>
+            Protect your sensitive information with our lock notes feature.
+            Secure your notes with a password to ensure that only you can access
+            them, providing you a peace of mind and privacy.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="about">
+    <div class="footer-content">
+      <div class="footer-section about">
+        <h3>About HyperTechs 2.0</h3>
+        <p>
+          We are a team of passionate developers committed to creating intuitive
+          and efficient tools for productivity and organization.
+        </p>
+        <br />
+        <p id="copyright">
+          &copy; 2024 Scribe by HyperTechs 2.0<br/>All rights reserved.
+        </p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a routerLink="/login">Login</a></li>
+          <li><a routerLink="/signup">Sign Up</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact Us</h3>
+        <p>Email: scribenote.app&#64;gmail.com</p>
+        <p>Phone: +63 969 022 7888</p>
+        <p>Address: Taguig, Metro Manila</p>
+      </div>
+      <div class="footer-section social">
+        <h3>Follow Us</h3>
+        <div class="social-icons">
+          <a
+            href="mailto:scribenote.app@gmail.com"
+            class="social-icon"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa fa-envelope"></i
+          ></a>
+          <a
+            href="https://x.com/app_scribe"
+            class="social-icon"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fab fa-twitter"></i
+          ></a>
+          <a
+            href="https://www.instagram.com/scribe_hypertechs/"
+            class="social-icon"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fab fa-instagram"></i
+          ></a>
+          <a
+            href="https://github.com/PUP-BSIT/project-hypertechs-2-0/"
+            class="social-icon"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fab fa-github"></i
+          ></a>
+        </div>
+      </div>
+    </div>
+  </footer>
 </div>
