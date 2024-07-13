@@ -97,8 +97,6 @@ export class LoginComponent implements OnInit {
       password: this.loginForm.value.password,
     };
 
-    //console.log('Data sent to service: ', loginData);
-
     this.loginService.loginUser(loginData).subscribe({
       next: (response) => {
         if(response.is_verified === 1){
@@ -112,11 +110,6 @@ export class LoginComponent implements OnInit {
           this.otpService.resendOtp(response.user_id).subscribe({
             next: (value) => {
               this.openSentmailDialog(response.user_id);
-              // this.router.navigate(['otp'], {
-              // queryParams: { user_id: response.user_id },
-              //   });
-              // console.log('Response from server: ', value);
-              // console.log(value.user_id);
               this.snackbarService.dismiss();             
             },
           });
