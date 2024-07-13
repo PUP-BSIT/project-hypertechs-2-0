@@ -5,7 +5,7 @@ import { LoginData } from '../../models/model';
 
 @Injectable()
 export class LoginService {
-  private apiUrl = 'https://preview.scribenote.tech/backend/auth';
+  private apiUrl = 'https://scribenote.tech/backend/auth';
   constructor(private http: HttpClient) {}
   loginUser(loginData: LoginData): Observable<any> {
     const httpOptions = {

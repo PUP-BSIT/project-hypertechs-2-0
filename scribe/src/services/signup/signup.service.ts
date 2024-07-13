@@ -5,7 +5,7 @@ import { SignupData } from '../../models/model';
 
 @Injectable()
 export class SignupService {
-  private signUpUrl = 'https://preview.scribenote.tech/backend/auth';
+  private signUpUrl = 'https://scribenote.tech/backend/auth';
 
   constructor( private http: HttpClient) { }
   

@@ -7,7 +7,7 @@ import { AuthService } from '../auth/auth.service';
   providedIn: 'root',
 })
 export class TaskService {
-  private apiUrl = 'https://preview.scribenote.tech/backend/tasks';
+  private apiUrl = 'https://scribenote.tech/backend/tasks';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
